@@ -6,7 +6,7 @@
 
 ## 와이어프레임
 
-<img src = "./images/그룹만들기페이지.png" width="200px">
+<img src = "./images/그룹만들기페이지.png" width="200px" alt="그룹만들기페이지">
 <img src = "images/그룹생성페이지.png" width="200px">
 <img src = "images/그룹찾기페이지.png" width="200px">
 <img src = "images/로그인페이지.png" width="200px">
