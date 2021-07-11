@@ -24,5 +24,9 @@
 <img src = "images/회원가입페이지.png" width="200px">
 
 ## 메뉴구성도
+
 <img src = "images/메뉴_구성도.png">
+
+## 서비스 구성도
+![서비스_구성도](images/서비스구성도.png)
 
