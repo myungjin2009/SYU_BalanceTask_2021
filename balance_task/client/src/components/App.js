@@ -6,7 +6,7 @@ import Prac from "./practice";
 function App() {
   return (
     <div className="App">
-      <Prac/>
+      {/* <Prac/> */}
       <Router />
     </div>
   );

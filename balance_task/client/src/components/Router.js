@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Route, Link, BrowserRouter} from 'react-router-dom';
-import Home from '../routes/Home';
+import ProjectTimeline from '../routes/ProjectTimeline';
+import GroupHeader from './GroupHeader';
+import ProjectNotice from './ProjectNotice';
+
+
+
 const Router = () =>{
+  const [isTimeline, setIsTimeline] = useState(true);
   return(
     <BrowserRouter>
-      <Route path="/main">
-        <header>제목</header>
+      <Route path = "/project_timeline">
+        <GroupHeader isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
+        <ProjectTimeline isTimeline={isTimeline}/>
       </Route>
-      <Route exact path="/home" component={Home} />
     </BrowserRouter>
   )
 }
