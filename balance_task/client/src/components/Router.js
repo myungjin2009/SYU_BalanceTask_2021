@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {Route, Link, BrowserRouter} from 'react-router-dom';
 import ProjectTimeline from '../routes/ProjectTimeline';
 import GroupHeader from './GroupHeader';
-import ProjectNotice from './ProjectNotice';
 
 
 

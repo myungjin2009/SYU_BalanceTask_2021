@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+
 
 const getUsers = () =>{
   const users_data = [
     {
       user_name: '장다혜',
-      group_name: '헤이즈와 아이들',
+      group_name: '두유 개발자',
     },
     {
       user_name: '박건형',
-      group_name: '헤이즈와 아이들',
+      group_name: '두유 개발자',
     },
     {
       user_name: '김명진',
-      group_name: '헤이즈와 아이들',
+      group_name: '두유 개발자',
     },
   ];
   return users_data;
@@ -65,6 +65,7 @@ const GroupHeader = ({isTimeline, setIsTimeline}) =>{
         <div ref={timeline} className="blueBtn"><i className="far fa-clock"></i>타임라인</div>
         <div ref={notice} className="grayBtn"><i className="fas fa-exclamation-triangle"></i>공지사항</div>
       </Content>
+      <div className="ToggleButton"><i className="fas fa-plus"></i></div>
     </Container>
   )
 }
@@ -73,6 +74,18 @@ const Container = styled.div`
   border: none;
   width: 100vw;
   text-align:center;
+  position: fixed;
+  &>.ToggleButton{
+    position: fixed;
+    bottom: 5vh;
+    right: 5vw;
+    background: #aaa;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    opacity: 0.5;
+  }
 `;
 
 const Header = styled.header`

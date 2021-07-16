@@ -47,3 +47,6 @@
 ## 서비스 구성도
 ![서비스_구성도](images/서비스구성도.png)
 
+# RestAPI
+로그인페이지 - /API/user => method: post, /API/kakao_user => method: post 
+
