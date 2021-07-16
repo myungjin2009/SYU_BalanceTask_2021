@@ -12,18 +12,41 @@
 - 필요한 경우는 주석 쓰기
 
 # REST API 
-## 로그인페이지
-  /api/user => method: post, 
+## 로그인페이지 - 작성자: 박건형
+  /api/user => method: post
+  ### 설명: 회원정보 비교하기, post로 한 이유는 중요한 정보니까
   /api/kakao_user => method: post 
-  작성자: 박건형
-  
-## 회원가입페이지
-  /api/user_email => method: post,
-  /api/signup => method: post
-  작성자: 박건형
+  ### 설명: 카카오 회원 정보 가져오기, post로 한 이유는 중요한 정보니까
 
-## 아이디 찾기페이지
-  /api/user_email => method: post, 
-  /api/finding_password => method: post, 
-  /api/password_changing => method: post
-  작성자: 박건형
+  
+## 회원가입페이지 - 작성자: 박건형
+  /api/user_email => method: get
+  ### 설명: 이메일을 서버로 보내기, 이메일을 서버로 보내서 서버는 nodemailer를 사용해서
+  ###       그 이메일 사용자에게 인증번호를 보내야하니까
+  /api/signup => method: post
+  ### 설명: 회원정보 데이터베이스에 넣기, 중요한 정보니까 post
+
+
+## 아이디 찾기페이지 - 작성자: 박건형
+  /api/user_email => method: post
+  ### 설명: 이메일을 서버로 보내기, 이메일을 서버로 보내서 서버는 nodemailer를 사용해서
+  ###       그 이메일 사용자에게 인증번호를 보내야하니까
+  /api/check_user => method: post
+  ### 설명: 이메일로 회원 아이디 찾기, 회원 아이디 찾는 거니 회원 이름과 이메일을 서버로 보내야함
+ 
+
+## 비밀번호 찾기페이지 - 작성자: 박건형
+  /api/user_email => method: post
+  ### 설명: 이메일을 서버로 보내기, 이메일을 서버로 보내서 서버는 nodemailer를 사용해서
+  ###       그 이메일 사용자에게 인증번호를 보내야하니까
+  /api/check_user_id => method: post
+  ### 설명: 이메일로 회원 아이디 찾기, 회원 아이디 찾는 거니 회원 이름, 이메일, 아이디를 서버로 보내야함
+  /api/change_password => method: post
+  ### 설명: 바뀐 비밀번호를 서버로 보낸다. 서버에서는 데이터베이스 업데이트 해야함
+
+
+## 프로젝트 현황페이지 - 작성자: 박건형
+  /api/posts => method: get
+  ### 설명: 게시물들 정보 가져오기
+  /api/vote =>method: post
+  ### 설명:  게시물 투표하기
