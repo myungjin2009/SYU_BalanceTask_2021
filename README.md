@@ -48,5 +48,10 @@
 ![서비스_구성도](images/서비스구성도.png)
 
 # RestAPI
-로그인페이지 - /API/user => method: post, /API/kakao_user => method: post 
+로그인페이지 - /api/user => method: post, /api/kakao_user => method: post 
+회원가입페이지 - /api/user_email => method: post, /api/signup => method: post
+아이디 찾기페이지 - /api/user_email => method: post, /api/finding_password => method: post, /api/password_changing => method: post
 
+# 규칙
+-> 1.그 페이지를 만들 때 RESTAPI로 뭘 쓸 건지 
+-> gitlab 자주사용하고 front 
