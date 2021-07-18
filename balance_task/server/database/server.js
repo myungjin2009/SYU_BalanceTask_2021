@@ -107,7 +107,8 @@ const url='mongodb://localhost:27017/groups';
                 required: true,
               }
         });
-        const groupUser=mongoose.model('groupUser',{group_name: {
+        const groupUser=mongoose.model('groupUser',{
+            group_name: {
             type: String,
             required: true,
             unique: true,
@@ -117,36 +118,8 @@ const url='mongodb://localhost:27017/groups';
             required: true,
             unique: true,
           }});
-        const chat=mongoose.model('chat',{chat_date: {
-            type: Date,
-            required: true,
-          },
-          chat_id: {
-            type: String,
-            required: true,
-          },
-          profile: {
-            type: String,
-          },
-          group_name: {
-            type: String,
-            required: true,
-          },
-          chat_content: {
-            type: String,
-            required: true,
-          }});
-        const friends=mongoose.model('friends',{user: {
-            type: String,
-          },
-          friend: {
-            type: String,
-            required: true,
-          },
-          friend_introduce: {
-            type: String,
-          }});
-        const groupBoard=mongoose.model('groupBoard',{ board_number: {
+        const groupBoard=mongoose.model('groupBoard',{ 
+            board_number: {
             type: Number,
             required: true,
             unique: true,
@@ -205,7 +178,7 @@ const url='mongodb://localhost:27017/groups';
             type: Date,
             required: true,
           }});
-          const vote=mongoose.model('vote',{
+        const vote=mongoose.model('vote',{
             board_number: {
                 type: Number,
                 required: true,
@@ -222,6 +195,39 @@ const url='mongodb://localhost:27017/groups';
                 required: true,
               }
           });
+          const chat=mongoose.model('chat',{
+            chat_date: {
+                type: Date,
+                required: true,
+              },
+              chat_id: {
+                type: String,
+                required: true,
+              },
+              profile: {
+                type: String,
+              },
+              group_name: {
+                type: String,
+                required: true,
+                unique: true,
+              },
+              chat_content: {
+                type: String,
+                required: true,
+              }});
+            const friends=mongoose.model('friends',{
+            user: {
+                type: String,
+                unique: true
+              },
+              friend: {
+                type: String,
+                required: true
+              },
+              friend_introduce: {
+                type: String
+              }});
 
             //  let newuser=user({
             //      id:'1234'
