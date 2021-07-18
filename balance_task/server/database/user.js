@@ -1,31 +1,52 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const usersSchema = new Schema({
+const userSchema = new Schema({
   id: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
-  : {
+  password: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
-  thumbnailUrl: {
-    type: String
+  phone: {
+    type: String,
+    required: true,
+    unique: true,
   },
-  category: {
-    type: String
+  evaluation_score: {
+    type: Number,
   },
-  price: {
-    type: Number
-  }
+  agreement: {
+    type: Boolean,
+    required: true,
+  },
+  evaluation_text: {
+    type: String,
+  },
+  clear_group: {
+    type: Number,
+  },
+  user_image: {
+    type: String,
+    required: true,
+  },
+  introduce: {
+    type: String,
+    required: true,
+  },
+  user_category: {
+    type: String,
+  },
 });
+db.createCollection("books");
 
-module.exports = mongoose.model("users", goodsSchema);
+module.exports = mongoose.model("user", userSchema);
