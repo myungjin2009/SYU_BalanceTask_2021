@@ -178,7 +178,8 @@ const url='mongodb://localhost:27017/groups';
             type: Number,
             required: true,
           }});
-        const groupCalendar=mongoose.model('groupCalendar',{process: {
+        const groupCalendar=mongoose.model('groupCalendar',{
+            process: {
             type: Number,
             required: true,
             unique: true,
@@ -204,6 +205,23 @@ const url='mongodb://localhost:27017/groups';
             type: Date,
             required: true,
           }});
+          const vote=mongoose.model('vote',{
+            board_number: {
+                type: Number,
+                required: true,
+                unique: true,
+              },
+              discuss: {
+                type: Number,
+              },
+              user: {
+                type: String,
+              },
+              group: {
+                type: String,
+                required: true,
+              }
+          });
 
             //  let newuser=user({
             //      id:'1234'
