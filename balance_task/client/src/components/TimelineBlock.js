@@ -48,6 +48,14 @@ const Content = styled.div`
     font-size: 12px;
     text-align: end;
   }
+  &>p{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 10px;
+  }
 `; 
 const VotingSpace = styled.div`
   width: 100%;
