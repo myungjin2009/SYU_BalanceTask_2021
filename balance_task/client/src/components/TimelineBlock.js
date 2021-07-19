@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const TimelineBlock = ({user_post}) =>{
-  const {photo_name, photo_url, content, user_name, time, votes} =user_post;
+  const {photo_name, photo_url, content, user_name, date, votes} =user_post;
   return(
     <Container>
       <Image photo_url={photo_url}></Image>
       <Content>
         <p>{content}</p>
-        <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {time}</span>
+        <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {date}</span>
       </Content>
       <VotingSpace>
         <ButtonContainer>
