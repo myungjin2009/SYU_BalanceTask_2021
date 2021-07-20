@@ -239,4 +239,5 @@ const url='mongodb://localhost:27017/groups';
     }catch(e){
         console.log(e);
     }
+    res.send('ok')
 })()
