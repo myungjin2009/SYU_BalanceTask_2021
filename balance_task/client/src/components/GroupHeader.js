@@ -28,7 +28,7 @@ const handleNotice = (setIsTimeline) =>{
   setIsTimeline(false);
 }
 const handleMenu = (isMenu, setIsMenu) =>{
-  if(isMenu == true){
+  if(isMenu === true){
     setIsMenu(false);
   }else{
     setIsMenu(true);
@@ -36,27 +36,38 @@ const handleMenu = (isMenu, setIsMenu) =>{
 }
 
 const handleSearch = (isSearch, setIsSearch) => {
-  if(isSearch == true){
+  if(isSearch === true){
     setIsSearch(false);
   }else{
     setIsSearch(true);
   }
 }
 
-const GroupHeader = ({isTimeline, setIsTimeline}) =>{
+const searchTimeline = (input, setSearch) =>{
+  // console.log(input.current.value);
+  if(input=== null){
+    return;
+  }
+  const {current:{value}} = input;
+  setSearch(value);
+}
+
+const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
   const timeline = useRef(null);
   const notice = useRef(null);
   const slideMenu = useRef(null);
   const menuBtn = useRef(null);
   const input_div = useRef(null);
+  const input = useRef(null);
+
   const [isMenu, setIsMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
-    if(timeline==null ||notice==null || slideMenu == null){
+    if(timeline===null ||notice===null || slideMenu === null){
       return;
     }
-    if(isMenu == false){
+    if(isMenu === false){
       // slideMenu.current.style.display = "none";
       slideMenu.current.style.top = "-15vh";
       menuBtn.current.style.transform = "rotate( 0deg )";
@@ -66,7 +77,7 @@ const GroupHeader = ({isTimeline, setIsTimeline}) =>{
       menuBtn.current.style.transform = "rotate( 90deg )";
     }
 
-    if(isSearch == false){
+    if(isSearch === false){
       input_div.current.style.display = "none";
       
     }else{
@@ -74,7 +85,7 @@ const GroupHeader = ({isTimeline, setIsTimeline}) =>{
       input_div.current.children[0].focus();
     }
 
-    if(isTimeline == true){
+    if(isTimeline === true){
       timeline.current.className = 'blueBtn';
       notice.current.className = 'grayBtn';
     }else{
@@ -103,8 +114,8 @@ const GroupHeader = ({isTimeline, setIsTimeline}) =>{
       </Header>
       <Content>
         <Input ref={input_div}>
-          <input type="text"/>
-          <button>검색</button>
+          <input ref={input} type="text" placeholder="작성자 검색하기"/>
+          <button onClick={()=>searchTimeline(input, setSearch)}>검색</button>
         </Input>
         <div ref={timeline} className="blueBtn" onClick={()=>handleTimeline(setIsTimeline)}><i className="far fa-clock"></i>타임라인</div>
         <div ref={notice} className="grayBtn" onClick={()=>handleNotice(setIsTimeline)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>

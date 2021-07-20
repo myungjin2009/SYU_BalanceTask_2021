@@ -5,7 +5,7 @@ import photo1 from '../images/노답.jpg';
 import photo2 from '../images/멋쟁이들.jpg';
 import photo3 from '../images/별.jpg';
 
-const getUserPosts = (setIsLoading, setPosts) => {
+const getUserPosts = (setIsLoading, setPosts, setOriginPosts) => {
   console.log('아직 데이터 받는 중');
   setTimeout(()=>{
     call_api().then((res)=>{
@@ -19,11 +19,22 @@ const getUserPosts = (setIsLoading, setPosts) => {
           제발!!!!!!!!!!!!!!!!!!! 아아가가가가가각가가각 거의다 왔어!!!!!!!!!!!!!!!!!!!!!! 화이팅`,
           user_name: '박건형',
           date: '2021.07.15 23:00',
-          votes: {
-            negative_votes: 2,
-            positive_votes: 1,
-            invalid_vote: 1
-          }
+          votes_list : [
+            {
+              user_name: '박건형',
+              vote: '찬성'
+            },
+            {
+              user_name: '하동호',
+              vote: '반대'
+            },{
+              user_name: '백정훈',
+              vote: '반대'
+            },{
+              user_name: '김명진',
+              vote: '찬성'
+            }
+          ]
         },
         {
           photo_name : '저희 좀 멋지죠?',
@@ -31,11 +42,22 @@ const getUserPosts = (setIsLoading, setPosts) => {
           content: '멘토님을 만나서 프로젝트 회의했다.',
           user_name: '김명진',
           date: '2021.07.15 13:00',
-          votes: {
-            negative_votes: 0,
-            positive_votes: 4,
-            invalid_vote: 0
-          }
+          votes_list : [
+            {
+              user_name: '박건형',
+              vote: '찬성'
+            },
+            {
+              user_name: '하동호',
+              vote: '반대'
+            },{
+              user_name: '백정훈',
+              vote: '반대'
+            },{
+              user_name: '김명진',
+              vote: '찬성'
+            }
+          ]
         },
         {
           photo_name : '저희 좀 멋지죠?',
@@ -43,15 +65,27 @@ const getUserPosts = (setIsLoading, setPosts) => {
           content: '하동호 열심히 하자!',
           user_name: '박건형',
           date: '2021.07.15 13:00',
-          votes: {
-            negative_votes: 0,
-            positive_votes: 4,
-            invalid_vote: 0
-          }
+          votes_list : [
+            {
+              user_name: '박건형',
+              vote: '찬성'
+            },
+            {
+              user_name: '하동호',
+              vote: '반대'
+            },{
+              user_name: '백정훈',
+              vote: '반대'
+            },{
+              user_name: '김명진',
+              vote: '찬성'
+            }
+          ]
         }
       ]
       setIsLoading(false);
       setPosts(posts);
+      setOriginPosts(posts);
       console.log('데이터 받기 성공!');
     }).catch(err => console.log(err));
   }, 2000)
@@ -69,24 +103,58 @@ const getUserMainPosts = () => {
       content: '다음 주 목요일(7월 22일)에 만날까요?',
       user_name: '박건형',
       date: '2021.07.15 00:01',
-      votes: {
-        negative_votes: 0,
-        positive_votes: 0,
-        invalid_vote: 4
-      }
+      votes_list : [
+        {
+          user_name: '박건형',
+          vote: 0
+        },
+        {
+          user_name: '하동호',
+          vote: '반대'
+        },{
+          user_name: '백정훈',
+          vote: '반대'
+        },{
+          user_name: '김명진',
+          vote: 0
+        }
+      ]
     }
   ]
   return posts_data;
 }
 
-const ProjectTimeline = ({isTimeline}) =>{
+const searchPosts = (search, posts, setPosts, originPosts) =>{
+  if(posts.length !== originPosts.length){
+    console.log(posts.length);
+    const search_list =originPosts.filter((post)=>post.user_name === search);
+    setPosts(search_list);
+    console.log(posts);
+  }else{
+    console.log(posts.length);
+    const search_list =posts.filter((post)=>post.user_name === search);
+    setPosts(search_list);
+  }
+}
+
+const ProjectTimeline = ({isTimeline, user, search}) =>{
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([0]);
+  const [originPosts, setOriginPosts] = useState([]);
 
   useEffect(()=>{
-    getUserPosts(setIsLoading, setPosts);
+    getUserPosts(setIsLoading, setPosts, setOriginPosts);
+    //전체 데이터 저장해둠
   },[]);
   
+  useEffect(()=>{
+    if(search ===''){
+      setPosts(originPosts);
+    }else{
+      searchPosts(search, posts, setPosts, originPosts);
+    }
+  },[search]);
+
   return(
     <>
     {isLoading? 
@@ -96,9 +164,9 @@ const ProjectTimeline = ({isTimeline}) =>{
     </Container>:
     <Container>
       {isTimeline ? posts.map((user_post,i)=>(
-        <TimelineBlock key={i} user_post = {user_post}/>
+        <TimelineBlock key={i} user={user} user_post = {user_post}/>
       )) : getUserMainPosts().map((user_post, i)=>(
-      <TimelineBlock key={i} user_post = {user_post} />
+      <TimelineBlock key={i} user={user} user_post = {user_post} />
       ))}
     </Container>
     }
