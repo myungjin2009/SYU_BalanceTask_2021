@@ -8,6 +8,7 @@ import WorkerCalendar from '../routes/WorkerCalendar';
 import WorkerInvitation from '../routes/WorkerInvitation';
 import GroupHeader from './GroupHeader';
 import Settings from "../routes/Setting";
+import Sigunup from '../routes/Signup';
 
 
 
@@ -28,6 +29,7 @@ const Router = () =>{
       <Route path = "/worker_invitation" component={WorkerInvitation}/>
       <Route path = "/project_termination" component={ProjectTermination}/>
       <Route path = "/setting" component={Settings}/>
+      <Route path = "/signup" component={Sigunup}/>
     </BrowserRouter>
   )
 }
