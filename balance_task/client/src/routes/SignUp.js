@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+
+
 //입력데이터 바뀔 때마다 state 값이 달라지는 함수들
 const changeEmail = (e, setEmail) => {
   const {

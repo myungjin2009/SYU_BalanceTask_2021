@@ -11,7 +11,6 @@ import Settings from "../routes/Setting";
 import Sigunup from '../routes/Signup';
 
 
-
 const Router = () =>{
   const [isTimeline, setIsTimeline] = useState(true);
   const [user, setUser] = useState('박건형');
