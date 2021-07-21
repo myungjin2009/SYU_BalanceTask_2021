@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
+//입력데이터 바뀔 때마다 state 값이 달라지는 함수들
 const changeEmail = (e, setEmail) => {
   const {
     target: { value },
@@ -43,7 +43,7 @@ const changeIsCheck = (e, setIsCheck) => {
   } = e;
   setIsCheck(checked);
 };
-
+//인증번호 보내는 함수
 const handleAuthorize = async (e, setIsClick, auth_input, isClick) => {
   const {
     current: { value },
@@ -77,8 +77,8 @@ const Sigunup = () => {
 
   const form = useRef(null);
   const auth_input = useRef(null);
-
-
+  
+  //최종적으로 입력데이터 보내는 함수
   const handleSubmit = async(e) => {
     
 
