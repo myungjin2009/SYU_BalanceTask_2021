@@ -1,6 +1,7 @@
 import React from "react";
 import Router from "./Router";
 import styled from "styled-components";
+// import Settings from "../routes/Setting"
 
 function Prac() {
   return (
@@ -9,6 +10,7 @@ function Prac() {
         <Container><span>나는</span>멋져</Container>
         <Container><span>너도</span>멋져</Container>
       </Block>
+      {/* <Settings/> */}
       <Router />
     </div>
   );
