@@ -17,7 +17,7 @@ const Router = (props) =>{
   const [isTimeline, setIsTimeline] = useState(true);
   const [user, setUser] = useState('박건형');
   const [search, setSearch] = useState(null);
-  const [isUser, setIsUSer] = useState(false);
+  const [isUser, setIsUSer] = useState(true);
   
   return(
     <BrowserRouter>

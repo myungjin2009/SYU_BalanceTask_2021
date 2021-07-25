@@ -15,7 +15,7 @@ const Login = (props) => {
       </LoginBox>
       <DefaultLoginBox>
         <button type="button">
-          <i class="fas fa-comment"></i>
+          <i className="fas fa-comment"></i>
           <span>카카오 로그인</span>
         </button>
         <Content>
