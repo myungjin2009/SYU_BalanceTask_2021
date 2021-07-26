@@ -12,6 +12,8 @@ import Sigunup from '../routes/Signup';
 import Login from '../routes/Login';
 import NotFound from '../routes/NotFound';
 import MyPage from '../routes/MyPage';
+import GroupSearch from '../routes/GroupSearch';
+import Navigation from './Navigation';
 
 const Router = (props) =>{
   const [isTimeline, setIsTimeline] = useState(true);
@@ -24,7 +26,17 @@ const Router = (props) =>{
         {
           isUser ? 
           <Switch>
-            <Route exact path = '/' component={MyPage}/>
+            <Route exact path = '/'>
+              <MyPage/>
+              <Navigation/>
+            </Route>
+            <Route exact path= "/group_search">
+              <GroupSearch/>
+              <Navigation/>
+            </Route>
+            <Route  exact path = '/worker_list'>
+              <Navigation/>
+            </Route>
             <Route exact path = "/project_timeline">
               <GroupHeader search={search} setSearch={setSearch} isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
               <ProjectTimeline search={search} user={user} isTimeline={isTimeline}/>
