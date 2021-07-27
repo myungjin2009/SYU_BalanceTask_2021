@@ -1,22 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Navigation = () => {
-  return(
+  return (
     <Container>
       <Li>
-        <i class="fas fa-user-friends"></i>
-        <Link to="/worker_list">워커목록</Link></Li>
+        <i className="fas fa-user-friends"></i>
+        <Link to="/worker_list">워커목록</Link>
+      </Li>
       <Li>
-        <i class="fas fa-users"></i>
-        <Link to="/group_search">그룹찾기</Link></Li>
+        <i className="fas fa-users"></i>
+        <Link to="/group_search">그룹찾기</Link>
+      </Li>
       <Li>
-        <i class="far fa-user"></i>
-        <Link to="/">마이페이지</Link></Li>
+        <i className="far fa-user"></i>
+        <Link to="/">마이페이지</Link>
+      </Li>
     </Container>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   position: fixed;
@@ -33,10 +36,10 @@ const Li = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  &>a{
+  & > a {
     color: #555;
   }
-  &>i{
+  & > i {
     color: #555;
   }
 `;

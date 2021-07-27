@@ -2,7 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSearchHeader from '../components/GroupSearchHeader';
+import GroupCard from '../components/GroupCard';
+
 const GroupSearch = () => {
+  const list = [1,2,3,4];
   return(
     <Container>
       <Menu><i className="fas fa-bars"></i></Menu>
@@ -13,7 +16,9 @@ const GroupSearch = () => {
         <Block>스터디</Block>
       </Category>
       <Main>
-        
+        {
+          list.map(()=><GroupCard/>)
+        }
       </Main>
       <Button>
         <Link to="/adding_group"><i className="fas fa-plus"></i></Link>
@@ -48,7 +53,7 @@ const Menu = styled.div`
 
 const Category = styled.div`
   width: 100%;
-  height: 10vh;
+  height: 5.5vh;
   display: flex;
   justify-content: space-around;
 `;
@@ -66,7 +71,13 @@ const Block = styled.div`
 `
 
 const Main = styled.main`
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 68vh;
+  padding: 3vh 0;
+  overflow-y: scroll;
 `;
 
 const Button = styled.div`
