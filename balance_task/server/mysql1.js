@@ -77,13 +77,13 @@ app.use(expressSession({
 var router = express.Router();
 
 
-router.route('/process/adduser').post(function(req, res) {
+router.route('/api/signup').post(function(req, res) {
 	console.log('/process/adduser 호출됨.');
-
-    var paramId = req.body.id || req.query.id;
+    
+    var paramId = req.body.email || req.query.email;
     var paramPassword = req.body.password || req.query.password;
     var paramName = req.body.name || req.query.name;
-    var paramAgreement = req.body.agreement || req.query.agreement;
+    var paramAgreement = req.body.isCheck || req.query.isCheck;
 	
     console.log('요청 파라미터 : ' + paramId + ', ' + paramPassword + ', ' + paramName + ', ' + paramAgreement);
     
