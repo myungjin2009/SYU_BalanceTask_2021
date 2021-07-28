@@ -1,16 +1,47 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+
+const changeId = (e, setId) =>{
+  const {target: {value}} = e;
+  setId(value);
+}
+
+const changePassword = (e, setPassword) =>{
+  const {target: {value}} = e;
+  setPassword(value);
+}
+
 const Login = (props) => {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const postUser = async(e) =>{
+    e.preventDefault();
+    try {
+      axios({
+        method: "POST",
+        url: "/api/user",
+        data:{
+          id, password
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Container>
       <Header>
         <h1>Balance</h1>
         <h1>Task</h1>
       </Header>
-      <LoginBox>
-        <input type="text" placeholder="ID"/>
-        <input type="password" placeholder="PASSWORD" autoComplete="off"/>
+      <LoginBox onSubmit={postUser}>
+        <input type="text" placeholder="ID" onChange={(e)=>changeId(e, setId)}/>
+        <input type="password" placeholder="PASSWORD" onChange={(e)=>changePassword(e, setPassword)} autoComplete="off"/>
         <button type="submit">로그인</button>
       </LoginBox>
       <DefaultLoginBox>

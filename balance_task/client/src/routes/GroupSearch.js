@@ -17,7 +17,7 @@ const GroupSearch = () => {
       </Category>
       <Main>
         {
-          list.map(()=><GroupCard/>)
+          list.map((el, index)=><GroupCard key={index}/>)
         }
       </Main>
       <Button>
@@ -77,7 +77,7 @@ const Main = styled.main`
   width: 100%;
   height: 68vh;
   padding: 3vh 0;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const Button = styled.div`
