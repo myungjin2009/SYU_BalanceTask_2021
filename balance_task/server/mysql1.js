@@ -26,10 +26,18 @@ var expressErrorHandler = require('express-error-handler');
 
 // Session 미들웨어 불러오기
 var expressSession = require('express-session');
- 
+
+//비밀번호
+const bcrypt=require('bcrypt');
+const saltRounds=10;
 
 //===== MySQL 데이터베이스를 사용할 수 있도록 하는 mysql 모듈 불러오기 =====//
 var mysql = require('mysql');
+
+//======패스포드아용===//
+var passport =require('passport');
+var localStrategy=require('passport-local').Strategy;
+//var flash=require('flash');
 
 //===== MySQL 데이터베이스 연결 설정 =====//
 var pool      =    mysql.createPool({
@@ -69,12 +77,57 @@ app.use(expressSession({
 }));
  
 
+//passport 초기화
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash());
 
+
+//passport strategy
+// var localStrategy=require('passport-local').Strategy;
+// passport.use('local-login',new localStrategy({
+//     usernameField:'email',
+//     passwordField:'password',
+//     passReqToCallback:true
+
+// },function(req,email,password,done){
+//     console.log('passport의 로그인이 호출됨:'+email+','+pasword);
+
+//     var database=app.get('database');
+//     database.UserModel.fin
+// }));
+
+
+// app.post('/Signup',
+//     passport.authenticate('local',{
+//         successRedirect:'/',
+//         failureRedirect:'/Signup',
+//         failureFlash:true
+//     }));
+
+// passport.use(new localStrategy(
+//     function(username, password, done){
+//         User.findOnd({username: username},function(err, user){
+//             if(err){return done(err);}
+//             if(!user){
+//                 return done(null,false, req.flash('loginMessage','등록된 계정이 없습니다.'));
+//             }
+//             if(!user.validPassword(password)){
+//                 return done(null,false, req.flash('loginMessage','비밀번호가 다릅니다.'))
+//             }
+
+//             return done(null,user);
+//         })
+//     }
+// ))
+
+//==패스포트==//
 
 //===== 라우팅 함수 등록 =====//
 
 // 라우터 객체 참조
 var router = express.Router();
+
 
 
 router.route('/api/signup').post(function(req, res) {
@@ -84,12 +137,11 @@ router.route('/api/signup').post(function(req, res) {
     var paramPassword = req.body.password || req.query.password;
     var paramName = req.body.name || req.query.name;
     var paramAgreement = req.body.isCheck || req.query.isCheck;
-	
-    console.log('요청 파라미터 : ' + paramId + ', ' + paramPassword + ', ' + paramName + ', ' + paramAgreement);
+
+    const encryptedPassowrd = bcrypt.hashSync(paramPassword, 10);
     
-    // pool 객체가 초기화된 경우, addUser 함수 호출하여 사용자 추가
 	if (pool) {
-		addUser(paramId, paramName, paramPassword,paramAgreement, function(err, addedUser) {
+		addUser(paramId, paramName, encryptedPassowrd ,paramAgreement, function(err, addedUser) {
 			// 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
 			if (err) {
                 console.error('사용자 추가 중 에러 발생 : ' + err.stack);
@@ -125,6 +177,10 @@ router.route('/api/signup').post(function(req, res) {
 		res.write('<h2>데이터베이스 연결 실패</h2>');
 		res.end();
 	}
+    console.log('요청 파라미터 : ' + paramId + ', ' + paramPassword + ', ' + paramName + ', ' + paramAgreement);
+    
+    // pool 객체가 초기화된 경우, addUser 함수 호출하여 사용자 추가
+	
 	
 });
 
@@ -207,3 +263,4 @@ var addUser = function(id, name, password, agreement, callback) {
    http.createServer(app).listen(app.get('port'), function(){
      console.log('서버가 시작되었습니다. 포트 : ' + app.get('port'));
    });
+   
