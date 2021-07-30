@@ -162,7 +162,6 @@ const SlideMenu = styled.div`
   height: 5vh;
   font-size: 1rem;
   line-height: 5vh;
-  transition: transform ease 1s;
   &>li>a{
     color:white;
   }

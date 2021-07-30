@@ -52,6 +52,7 @@ const handleAuthorize = async (e, setIsClick, auth_input, isClick) => {
   } = auth_input;
   if (value === "") {
     alert("이메일을 입력해주세요");
+    auth_input.current.focus();
     return;
   } else if (isClick === true) {
     alert("이미 이메일에 인증번호를 보냈습니다.");
@@ -77,13 +78,11 @@ const Sigunup = () => {
   const [name, setName] = useState("");
   const [isCheck, setIsCheck] = useState(false);
 
-  const form = useRef(null);
   const auth_input = useRef(null);
-  
+  const password_input = useRef(null);
   //최종적으로 입력데이터 보내는 함수
   const handleSubmit = async(e) => {
-    
-
+    const pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{9,15}$/;
     e.preventDefault();
     if (
       email === "" ||
@@ -99,11 +98,17 @@ const Sigunup = () => {
         passwordCheck,
         name,
         isCheck);
-      console.log(password);
-      console.log(passwordCheck);
+      alert('아직 입력 안된 칸이 있습니다. 모두 입력해주세요!');
       return;
-    } else if (password !== passwordCheck){
+    } 
+    
+    if(!pwdCheck.test(password)){
+      alert("비밀번호는 영문, 숫자, 특수문자 합 9-15자리가 되어야합니다.");
+    } 
+    
+    if (password !== passwordCheck){
       alert('비밀번호를 다시 확인해주세요');
+      password_input.current.focus();
       console.log('?');
       return;
     }
@@ -111,7 +116,7 @@ const Sigunup = () => {
       method: 'post',
       url: '/api/signup',
       data: {
-        email, password, name, isCheck //authNumber
+        email, authNumber, password, name, isCheck
       }
     });
     
@@ -122,12 +127,10 @@ const Sigunup = () => {
   return (
     <Container onSubmit={handleSubmit} autoComplete="off">
       <h1>회원가입</h1>
-      {/* <form method="post" action="/process/adduser"> */}
       <KakaoButton type="button">카카오 로그인</KakaoButton>
       <EmailBox>
         <input
           type="email"
-         // name="id"
           ref={auth_input}
           onChange={(e) => changeEmail(e, setEmail)}
           placeholder="이메일"
@@ -151,9 +154,9 @@ const Sigunup = () => {
       )}
       <Input
         type="password"
-        //name="password"
+        ref={password_input}
         onChange={(e) => changePassword(e, setPassword)}
-        placeholder="비밀번호(영문, 숫자, 특수문자 합 9-12자리)"
+        placeholder="비밀번호(영문, 숫자, 특수문자 합 9-15자리)"
         autoComplete="off"
         required
       />
@@ -166,7 +169,6 @@ const Sigunup = () => {
       />
       <Input
         type="text"
-        //name="name"
         onChange={(e) => changeName(e, setName)}
         placeholder="이름(2-15자)"
         required
@@ -185,7 +187,6 @@ const Sigunup = () => {
       <CheckBox>
         <input
           type="checkbox"
-          //name="agreement"
           onChange={(e) => {
             changeIsCheck(e, setIsCheck);
           }}
@@ -194,9 +195,7 @@ const Sigunup = () => {
         <span>이용약관에 동의합니다.</span>
       </CheckBox>
       {isClick ? <button type="submit">회원가입</button> : ""}
-    {/* </form> */}
     </Container>
-    
   );
 };
 
