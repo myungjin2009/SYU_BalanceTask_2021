@@ -122,8 +122,8 @@ const Sigunup = () => {
   return (
     <Container onSubmit={handleSubmit} autoComplete="off">
       <h1>회원가입</h1>
-      {/* <form method="post" action="/process/adduser"> */}
-      <KakaoButton type="button">카카오 로그인</KakaoButton>
+      
+      <KakaoButton type="button" onclick="window.opne('https://www.youtube.com')">카카오 로그인</KakaoButton>
       <EmailBox>
         <input
           type="email"
@@ -194,7 +194,7 @@ const Sigunup = () => {
         <span>이용약관에 동의합니다.</span>
       </CheckBox>
       {isClick ? <button type="submit">회원가입</button> : ""}
-    {/* </form> */}
+    
     </Container>
     
   );

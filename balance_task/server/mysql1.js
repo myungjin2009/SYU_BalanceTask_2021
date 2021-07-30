@@ -37,6 +37,7 @@ var mysql = require('mysql');
 //======패스포드아용===//
 var passport =require('passport');
 var localStrategy=require('passport-local').Strategy;
+var KakaoStrategy=require('passport-kakao').Strategy;
 //var flash=require('flash');
 
 //===== MySQL 데이터베이스 연결 설정 =====//
@@ -75,7 +76,25 @@ app.use(expressSession({
 	resave:true,
 	saveUninitialized:true
 }));
- 
+
+var router = express.Router(); 
+// 카카오 로그인 세션
+passport.use('kakao-login', new KakaoStrategy({ 
+    clientID: '6e9775355a9f75a716cfc8153f2ff2eb', 
+    callbackURL: 'http://localhost:3000/kakao/oauth'
+}, async (accessToken, refreshToken, profile, done) => { 
+    console.log(accessToken); console.log(profile); 
+}));
+
+app.get('/kakao', passport.authenticate('kakao-login'));
+
+app.get('/kakao/callback', passport.authenticate('kakao-login', 
+ { failureRedirect: '/', 
+}), (req, res) => { 
+    res.redirect('/'); 
+});
+
+//module.exports = router;
 
 //passport 초기화
 // app.use(passport.initialize());
@@ -125,8 +144,7 @@ app.use(expressSession({
 
 //===== 라우팅 함수 등록 =====//
 
-// 라우터 객체 참조
-var router = express.Router();
+// 라우터 객체 참조//var router = express.Router();
 
 
 
