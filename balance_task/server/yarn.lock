@@ -473,6 +473,14 @@ error-ex@^1.3.1:
   dependencies:
     is-arrayish "^0.2.1"
 
+errorhandler@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/errorhandler/-/errorhandler-1.5.1.tgz#b9ba5d17cf90744cd1e851357a6e75bf806a9a91"
+  integrity sha512-rcOwbfvP1WTViVoUjcfZicVzjhjTuhSMntHh6mW3IrEiyE6mJyXvsToJUJGlGlw/2xU9P5whlWNGlIDVeCiT4A==
+  dependencies:
+    accepts "~1.3.7"
+    escape-html "~1.0.3"
+
 escalade@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
@@ -492,6 +500,13 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+
+express-error-handler@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/express-error-handler/-/express-error-handler-1.1.0.tgz#ff2edb1fedcfcab1e601c60aab3554982f1f6497"
+  integrity sha1-/y7bH+3PyrHmAcYKqzVUmC8fZJc=
+  dependencies:
+    mout "0.12.0"
 
 express-session@^1.17.2:
   version "1.17.2"
@@ -891,6 +906,11 @@ mongoose@^5.13.3:
     safe-buffer "5.2.1"
     sift "13.5.2"
     sliced "1.0.1"
+
+mout@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/mout/-/mout-0.12.0.tgz#6d5b242ee331f9d04c68e58f77a91a3060e8cacb"
+  integrity sha1-bVskLuMx+dBMaOWPd6kaMGDoyss=
 
 mpath@0.8.3:
   version "0.8.3"
