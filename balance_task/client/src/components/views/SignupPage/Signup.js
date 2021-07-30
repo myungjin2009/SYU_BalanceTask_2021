@@ -116,7 +116,7 @@ const Sigunup = () => {
       method: 'post',
       url: '/api/signup',
       data: {
-        email, password, name, isCheck //authNumber
+        email, authNumber, password, name, isCheck
       }
     });
     
@@ -127,12 +127,10 @@ const Sigunup = () => {
   return (
     <Container onSubmit={handleSubmit} autoComplete="off">
       <h1>회원가입</h1>
-      
-      <KakaoButton type="button" onclick="window.opne('https://www.youtube.com')">카카오 로그인</KakaoButton>
+      <KakaoButton type="button">카카오 로그인</KakaoButton>
       <EmailBox>
         <input
           type="email"
-         // name="id"
           ref={auth_input}
           onChange={(e) => changeEmail(e, setEmail)}
           placeholder="이메일"
@@ -156,7 +154,7 @@ const Sigunup = () => {
       )}
       <Input
         type="password"
-        //name="password"
+        ref={password_input}
         onChange={(e) => changePassword(e, setPassword)}
         placeholder="비밀번호(영문, 숫자, 특수문자 합 9-15자리)"
         autoComplete="off"
@@ -171,7 +169,6 @@ const Sigunup = () => {
       />
       <Input
         type="text"
-        //name="name"
         onChange={(e) => changeName(e, setName)}
         placeholder="이름(2-15자)"
         required
@@ -190,7 +187,6 @@ const Sigunup = () => {
       <CheckBox>
         <input
           type="checkbox"
-          //name="agreement"
           onChange={(e) => {
             changeIsCheck(e, setIsCheck);
           }}
@@ -199,9 +195,7 @@ const Sigunup = () => {
         <span>이용약관에 동의합니다.</span>
       </CheckBox>
       {isClick ? <button type="submit">회원가입</button> : ""}
-    
     </Container>
-    
   );
 };
 
