@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import TimelineBlock from '../components/TimelineBlock';
-import photo1 from '../images/노답.jpg';
-import photo2 from '../images/멋쟁이들.jpg';
-import photo3 from '../images/별.jpg';
+import TimelineBlock from './TimelineBlock';
+import photo1 from '../../../images/노답.jpg';
+import photo2 from '../../../images/멋쟁이들.jpg';
+import photo3 from '../../../images/별.jpg';
 
 const getUserPosts = (setIsLoading, setPosts, setOriginPosts) => {
   console.log('아직 데이터 받는 중');

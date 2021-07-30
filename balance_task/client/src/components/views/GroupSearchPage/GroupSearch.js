@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import GroupSearchHeader from '../components/GroupSearchHeader';
-import GroupCard from '../components/GroupCard';
+import GroupSearchHeader from './GroupSearchHeader';
+import GroupCard from './GroupCard';
 
 const GroupSearch = () => {
   const list = [1,2,3,4];

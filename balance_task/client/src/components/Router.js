@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import {Route, BrowserRouter, Switch} from 'react-router-dom';
+
 import AddingPosts from '../routes/AddingPosts';
 import GroupChat from '../routes/GroupChat';
 import ProjectTermination from '../routes/ProjectTermination';
-import ProjectTimeline from '../routes/ProjectTimeline';
+import ProjectTimeline from './views/ProjectTimelinePage/ProjectTimeline';
 import WorkerCalendar from '../routes/WorkerCalendar';
 import WorkerInvitation from '../routes/WorkerInvitation';
-import GroupHeader from './GroupHeader';
-import Settings from "../routes/Setting";
-import Sigunup from '../routes/Signup';
-import Login from '../routes/Login';
-import NotFound from '../routes/NotFound';
-import MyPage from '../routes/MyPage';
-import GroupSearch from '../routes/GroupSearch';
-import Navigation from './Navigation';
+import GroupHeader from './views/ProjectTimelinePage/GroupHeader';
+import Settings from "./views/SettingPage/Setting";
+import Sigunup from './views/SignupPage/Signup';
+import Login from './views/LoginPage/Login';
+import NotFound from './views/NotFoundPage/NotFound';
+import MyPage from './views/MyPagePage/MyPage';
+import GroupSearch from './views/GroupSearchPage/GroupSearch';
+import Navigation from './views/Navigation/Navigation';
 
 const Router = (props) =>{
   const [isTimeline, setIsTimeline] = useState(true);

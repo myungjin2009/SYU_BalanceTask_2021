@@ -33,6 +33,10 @@ const Login = (props) => {
     }
   }
 
+  const onButtonHandler = () =>{
+    window.location = "https://www.youtube.com/";
+  }
+
   return (
     <Container>
       <Header>
@@ -47,7 +51,7 @@ const Login = (props) => {
       <DefaultLoginBox>
         <button type="button">
           <i className="fas fa-comment"></i>
-          <span>카카오 로그인</span>
+          <span onClick = {onButtonHandler}>카카오 로그인</span>
         </button>
         <Content>
           <Default>
