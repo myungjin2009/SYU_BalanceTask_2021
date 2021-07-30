@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSearchHeader from './GroupSearchHeader';
 import GroupCard from './GroupCard';
+import Navigation from '../Navigation/Navigation';
 
 const GroupSearch = () => {
   const list = [1,2,3,4];
@@ -23,6 +24,7 @@ const GroupSearch = () => {
       <Button>
         <Link to="/adding_group"><i className="fas fa-plus"></i></Link>
       </Button>
+      <Navigation/>
     </Container>
   )
 }

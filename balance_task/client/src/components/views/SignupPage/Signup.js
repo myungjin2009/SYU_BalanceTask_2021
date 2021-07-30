@@ -1,52 +1,34 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
-
+import { authUserEmail, signupUser } from "../../../_actions/user_action";
 
 //입력데이터 바뀔 때마다 state 값이 달라지는 함수들
 const changeEmail = (e, setEmail) => {
-  const {
-    target: { value },
-  } = e;
-  setEmail(value);
+  setEmail(e.target.value);
 };
 
 const changeAuthNumber = (e, setAuthNumber) => {
-  const {
-    target: { value },
-  } = e;
-  setAuthNumber(value);
+  setAuthNumber(e.target.value);
 }
 
 const changePassword = (e, setPassword) => {
-  const {
-    target: { value },
-  } = e;
-  setPassword(value);
+  setPassword(e.target.value);
 };
 
 const changePasswordCheck = (e, setPasswordCheck) => {
-  const {
-    target: { value },
-  } = e;
-  setPasswordCheck(value);
+  setPasswordCheck(e.target.value);
 };
 
 const changeName = (e, setName) => {
-  const {
-    target: { value },
-  } = e;
-  setName(value);
+  setName(e.target.value);
 };
 
 const changeIsCheck = (e, setIsCheck) => {
-  const {
-    target: { checked },
-  } = e;
-  setIsCheck(checked);
+  setIsCheck(e.target.checked);
 };
 //인증번호 보내는 함수
-const handleAuthorize = async (e, setIsClick, auth_input, isClick) => {
+const handleAuthorize = async (dispatch, setIsClick, auth_input, isClick) => {
   const {
     current: { value },
   } = auth_input;
@@ -60,16 +42,11 @@ const handleAuthorize = async (e, setIsClick, auth_input, isClick) => {
   } else {
     setIsClick(true);
     console.log(isClick);
-    try {
-      await fetch("/api/user_email");
-    } catch (error) {
-      console.log(error);
-      alert("error가 뜸");
-    }
+    dispatch(authUserEmail());
   }
 };
 
-const Sigunup = () => {
+const Signup = () => {
   const [isClick, setIsClick] = useState(false);
   const [email, setEmail] = useState("");
   const [authNumber, setAuthNumber] = useState("");
@@ -80,6 +57,9 @@ const Sigunup = () => {
 
   const auth_input = useRef(null);
   const password_input = useRef(null);
+
+  const dispatch = useDispatch();
+
   //최종적으로 입력데이터 보내는 함수
   const handleSubmit = async(e) => {
     const pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{9,15}$/;
@@ -103,6 +83,7 @@ const Sigunup = () => {
     } 
     
     if(!pwdCheck.test(password)){
+      // pwdCheck는 정규 표현식으로 test하는 함수를 지원한다.
       alert("비밀번호는 영문, 숫자, 특수문자 합 9-15자리가 되어야합니다.");
     } 
     
@@ -112,15 +93,11 @@ const Sigunup = () => {
       console.log('?');
       return;
     }
-    axios({
-      method: 'post',
-      url: '/api/signup',
-      data: {
-        email, authNumber, password, name, isCheck
-      }
-    });
-    
 
+    const body = {
+      email, authNumber, password, name, isCheck
+    }
+    dispatch(signupUser(body)).then(response => console.log(response));
   };
 
 
@@ -132,12 +109,13 @@ const Sigunup = () => {
         <input
           type="email"
           ref={auth_input}
+          value={email}
           onChange={(e) => changeEmail(e, setEmail)}
           placeholder="이메일"
         />
         <button
           type="button"
-          onClick={(e) => handleAuthorize(e, setIsClick, auth_input, isClick)}
+          onClick={(e) => handleAuthorize(dispatch, setIsClick, auth_input, isClick)}
         >
           인증
         </button>
@@ -146,6 +124,7 @@ const Sigunup = () => {
         <Input
           type="text"
           required
+          value={authNumber}
           placeholder="인증번호를 입력해주세요 3:00"
           onChange={(e) => changeAuthNumber(e, setAuthNumber)}
         />
@@ -155,6 +134,7 @@ const Sigunup = () => {
       <Input
         type="password"
         ref={password_input}
+        value={password}
         onChange={(e) => changePassword(e, setPassword)}
         placeholder="비밀번호(영문, 숫자, 특수문자 합 9-15자리)"
         autoComplete="off"
@@ -163,12 +143,14 @@ const Sigunup = () => {
       <Input
         type="password"
         required
+        value={passwordCheck}
         onChange={(e) => changePasswordCheck(e, setPasswordCheck)}
         autoComplete="off"
         placeholder="비밀번호 확인"
       />
       <Input
         type="text"
+        value={name}
         onChange={(e) => changeName(e, setName)}
         placeholder="이름(2-15자)"
         required
@@ -187,6 +169,7 @@ const Sigunup = () => {
       <CheckBox>
         <input
           type="checkbox"
+          value={isCheck}
           onChange={(e) => {
             changeIsCheck(e, setIsCheck);
           }}
@@ -256,4 +239,4 @@ const TermsAndConditions = styled.p`
 const CheckBox = styled.div`
   margin: 2vh;
 `;
-export default Sigunup;
+export default Signup;

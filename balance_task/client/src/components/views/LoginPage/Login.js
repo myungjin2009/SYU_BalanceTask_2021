@@ -1,9 +1,8 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-
+import {useDispatch} from 'react-redux';
+import { loginUser } from '../../../_actions/user_action';
 const changeId = (e, setId) =>{
   const {target: {value}} = e;
   setId(value);
@@ -17,20 +16,17 @@ const changePassword = (e, setPassword) =>{
 const Login = (props) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const postUser = async(e) =>{
     e.preventDefault();
-    try {
-      axios({
-        method: "POST",
-        url: "/api/user",
-        data:{
-          id, password
-        }
-      });
-    } catch (error) {
-      console.log(error);
+    const body = {
+      id,password
     }
+    
+    dispatch(loginUser(body))
+    .then(response => console.log(response));
+    
   }
 
   const onButtonHandler = () =>{
@@ -44,7 +40,7 @@ const Login = (props) => {
         <h1>Task</h1>
       </Header>
       <LoginBox onSubmit={postUser}>
-        <input type="text" placeholder="ID" onChange={(e)=>changeId(e, setId)}/>
+        <input type="email" placeholder="Email" onChange={(e)=>changeId(e, setId)}/>
         <input type="password" placeholder="PASSWORD" onChange={(e)=>changePassword(e, setPassword)} autoComplete="off"/>
         <button type="submit">로그인</button>
       </LoginBox>

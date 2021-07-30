@@ -4,6 +4,7 @@ import TimelineBlock from './TimelineBlock';
 import photo1 from '../../../images/노답.jpg';
 import photo2 from '../../../images/멋쟁이들.jpg';
 import photo3 from '../../../images/별.jpg';
+import GroupHeader from './GroupHeader';
 
 const getUserPosts = (setIsLoading, setPosts, setOriginPosts) => {
   console.log('아직 데이터 받는 중');
@@ -137,7 +138,7 @@ const searchPosts = (search, posts, setPosts, originPosts) =>{
   }
 }
 
-const ProjectTimeline = ({isTimeline, user, search}) =>{
+const ProjectTimeline = ({isTimeline, user, search, setIsTimeline, setSearch}) =>{
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([0]);
   const [originPosts, setOriginPosts] = useState([]);
@@ -157,19 +158,20 @@ const ProjectTimeline = ({isTimeline, user, search}) =>{
 
   return(
     <>
-    {isLoading? 
-    <Container>
-        <LoadingBlock></LoadingBlock>
-        <LoadingBlock></LoadingBlock>
-    </Container>:
-    <Container>
-      {isTimeline ? posts.map((user_post,i)=>(
-        <TimelineBlock key={i} user={user} user_post = {user_post}/>
-      )) : getUserMainPosts().map((user_post, i)=>(
-      <TimelineBlock key={i} user={user} user_post = {user_post} />
-      ))}
-    </Container>
-    }
+      <GroupHeader search={search} setSearch={setSearch} isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
+      {isLoading? 
+      <Container>
+          <LoadingBlock></LoadingBlock>
+          <LoadingBlock></LoadingBlock>
+      </Container>:
+      <Container>
+        {isTimeline ? posts.map((user_post,i)=>(
+          <TimelineBlock key={i} user={user} user_post = {user_post}/>
+        )) : getUserMainPosts().map((user_post, i)=>(
+        <TimelineBlock key={i} user={user} user_post = {user_post} />
+        ))}
+      </Container>
+      }
     </>
   )
 }
