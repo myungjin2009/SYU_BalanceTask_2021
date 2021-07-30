@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd .. && cd client && yarn start",
+<<<<<<< HEAD
     "server": "nodemon mysql1.js",
+=======
+    "server": "nodemon server.js",
+>>>>>>> 5c21aa3a127f45cc3a53c98a89ac74c4042cf5fe
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "author": "",
