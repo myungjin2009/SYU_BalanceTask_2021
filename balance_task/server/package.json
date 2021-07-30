@@ -6,30 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd .. && cd client && yarn start",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "server": "nodemon mysql1.js",
-=======
-    "server": "nodemon server.js",
->>>>>>> 5c21aa3a127f45cc3a53c98a89ac74c4042cf5fe
-=======
-    "server": "nodemon server.js",
->>>>>>> 5c21aa3a127f45cc3a53c98a89ac74c4042cf5fe
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "author": "",
   "license": "ISC",
   "keywords": [],
   "dependencies": {
-<<<<<<< HEAD
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "concurrently": "^6.2.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
-=======
-    "concurrently": "^6.2.0",
->>>>>>> 5c21aa3a127f45cc3a53c98a89ac74c4042cf5fe
     "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "errorhandler": "^1.5.1",
