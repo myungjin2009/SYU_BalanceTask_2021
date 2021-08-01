@@ -15,6 +15,7 @@ import NotFound from "./views/NotFoundPage/NotFound";
 import MyPage from "./views/MyPagePage/MyPage";
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import WorkerList from "./views/WorkerListPage/WorkerList";
+import Detail from "./views/GroupSearchPage/Detail";
 
 const Router = (props) => {
   const [isTimeline, setIsTimeline] = useState(true);
@@ -32,6 +33,7 @@ const Router = (props) => {
             path="/group_search"
             component={Auth(GroupSearch, true)}
           />
+          <Route exact path="/group_search/:team" component={Detail}/>
           <Route exact path="/worker_list" component={Auth(WorkerList, true)} />
           <Route
             exact

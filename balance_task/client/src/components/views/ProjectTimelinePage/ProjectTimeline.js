@@ -180,7 +180,7 @@ const blink_effect = keyframes`
   90%{
     opacity: 0.5;
   }
-`
+`;
 
 const Container = styled.div`
   width: 100vw;

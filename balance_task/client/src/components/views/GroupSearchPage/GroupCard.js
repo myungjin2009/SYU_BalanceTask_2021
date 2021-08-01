@@ -1,18 +1,22 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-const GroupCard = () =>{
+const GroupCard = ({title, content, writer, date, image, props, kind}) =>{
+
   return(
-    <Container>
-      <Img>
-        
-      </Img>
+    <Container onClick={()=>{
+      props.history.push('/group_search/'+title, {
+        title, content, writer, date, image, kind
+      });
+    }}>
+      <Img image={image}></Img>
       <Content>
-        <Title>제목:</Title>
-        <p>내용:</p>
+        <Title>팀: {title}</Title>
+        <p>내용: {content}</p>
         <Default>
-          <DefaultContent><span>작성자</span>: 박건형 &nbsp;</DefaultContent>
-          <DefaultContent><span>기간</span>: 2021.02.05 ~ 2021.03.15</DefaultContent>
+          <DefaultContent><span>작성자</span>: {writer} &nbsp;</DefaultContent>
+          <DefaultContent><span>기간</span>: {date}</DefaultContent>
         </Default>
       </Content>
     </Container>
@@ -22,8 +26,8 @@ const GroupCard = () =>{
 const Container = styled.div`
   display: flex;
   align-items: center;
-  min-width: 300px;
-  height: 130px;
+  width: 95%;
+  height: 180px;
   padding: 10px;
   margin: 5px;
   border: 2px solid #aaa;
@@ -32,10 +36,13 @@ const Container = styled.div`
 `;
 
 const Img = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   background: gray;
-  border-radius: 25px;
+  background-image: url(${({image}) => image});
+  background-position: center;
+  background-size: cover;
+  border-radius: 35px;
   margin-right: 20px;
 `;
 
@@ -50,6 +57,11 @@ const Content = styled.div`
   &>p{
     width: 100%;
     padding: 3px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   &>div{
     margin:2px 0;
@@ -66,7 +78,8 @@ const Default = styled.div`
   width: 100%;
 `;
 
-const DefaultContent = styled.span`
+const DefaultContent = styled.div`
+  padding: 3px;
   &>span{
     font-weight: 700;
     font-size: 11px;
@@ -74,4 +87,4 @@ const DefaultContent = styled.span`
   }
 `;
 
-export default GroupCard;
+export default withRouter(GroupCard);
