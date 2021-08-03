@@ -16,12 +16,14 @@ import MyPage from "./views/MyPagePage/MyPage";
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import WorkerList from "./views/WorkerListPage/WorkerList";
 import Detail from "./views/GroupSearchPage/Detail";
+import FindingPW from "./views/FindingPW/FindingPW";
+import Prac from "./practice";
 
 const Router = (props) => {
   const [isTimeline, setIsTimeline] = useState(true);
   const [user, setUser] = useState("박건형");
   const [search, setSearch] = useState(null);
-  const [isUser, setIsUSer] = useState(true);
+  const [isUser, setIsUSer] = useState(false);
 
   return (
     <BrowserRouter>
@@ -57,12 +59,14 @@ const Router = (props) => {
           <Route path="/worker_invitation" component={WorkerInvitation} />
           <Route path="/project_termination" component={ProjectTermination} />
           <Route path="/setting" component={Settings} />
-          <Route exact component={NotFound} />
+          <Route exact component={Auth(NotFound, null)} />
         </Switch>
       ) : (
         <Switch>
           <Route exact path="/" component={Auth(Login, false)} />
           <Route path="/signup" component={Auth(Signup, false)} />
+          <Route path="/finding_password" component={Auth(FindingPW, false)}/>
+          <Route path="/practice" component={Prac}/>
           <Route exact component={Auth(NotFound, null)} />
         </Switch>
       )}

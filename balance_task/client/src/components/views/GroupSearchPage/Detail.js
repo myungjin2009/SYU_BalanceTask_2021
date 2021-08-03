@@ -29,16 +29,17 @@ const Detail = (props)=>{
           <span>제출하기</span>
         </div>
       </Header>
-      <Name><label>작성자: </label>{writer}</Name>
+      <Name><label>작성자: </label><span>{writer}</span></Name>
       <Category>
         <label>카테고리: </label>
-        {kind}
+        <span>{kind}</span>
       </Category>
       <Img image={image} onClick={()=>{
         window.open(image);
       }}></Img>
       <Deadline>
-        <label>기간: </label> {date}
+        <label>기간: </label> 
+        <span>{date}</span>
       </Deadline>
       <Content>
         <label>내용:</label>
@@ -102,6 +103,11 @@ const Name = styled.div`
     margin-right: 3vw;
     font-size: 24px;
   }
+  &>span{
+    padding: 3px;
+    border-radius: 10px;
+    background: white;
+  }
 `;
 
 const Category = styled.div`
@@ -111,6 +117,11 @@ const Category = styled.div`
   &>label{
     margin-right: 3vw;
     font-size: 24px;
+  }
+  &>span{
+    padding: 3px;
+    border-radius: 10px;
+    background: white;
   }
 `;
 const Img = styled.div`
@@ -129,6 +140,11 @@ const Deadline = styled.div`
   &>label{
     margin-right: 3vw;
     font-size: 24px;
+  }
+  &>span{
+    padding: 3px;
+    border-radius: 10px;
+    background: white;
   }
 `;
 const Content = styled.div`

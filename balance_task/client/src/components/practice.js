@@ -1,17 +1,21 @@
-import React from "react";
-import Router from "./Router";
+import React, { useState } from "react";
 import styled from "styled-components";
-// import Settings from "../routes/Setting"
+import Calendar from 'react-calendar';
 
 function Prac() {
+  const [value, onChange] = useState(new Date());
   return (
     <div className="Prac">
       <Block>
-        <Container><span>나는</span>멋져</Container>
-        <Container><span>너도</span>멋져</Container>
+        {/* <Container><span>나는</span>멋져</Container>
+        <Container><span>너도</span>멋져</Container> */}
+        <Calendar
+        onChange={onChange}
+        value={value}
+      />
       </Block>
-      {/* <Settings/> */}
-      <Router />
+
+
     </div>
   );
 }

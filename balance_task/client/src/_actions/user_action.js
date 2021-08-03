@@ -3,7 +3,9 @@ import {
   LOGIN_USER,
   SIGNUP_USER,
   AUTH_USER,
-  AUTH_USER_EMAIL
+  AUTH_USER_EMAIL,
+  FIND_ID,
+  FIND_PASSWORD
 }from './types';
 //로그인 할 때
 export function loginUser(dataToSubmit){

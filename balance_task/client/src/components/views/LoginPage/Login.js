@@ -51,10 +51,11 @@ const Login = (props) => {
         </button>
         <Content>
           <Default>
-            <Link to="/finding_id">아이디를 잊으셨습니까?</Link>
-            <Link to="/finding_pw">비밀번호를 잊으셨습니까?</Link>
+            <Link to="/finding_password">비밀번호를 잊으셨습니까?</Link>
           </Default>
-          <button>회원가입</button>
+          <button>
+            <Link to="/signup">회원가입</Link>
+          </button>
         </Content>
       </DefaultLoginBox>
     </Container>
@@ -150,12 +151,14 @@ const Content = styled.div`
     background: #0288d1;
     width: 40%;
     border:none;
-    color: white;
     padding: 8px;
     margin: 15px;
     box-shadow: 1px 1px 1px gray;
     &:active{
       box-shadow: -1px -1px 1px gray;
+    }
+    &>a{
+      color: white;  
     }
 `;
 
