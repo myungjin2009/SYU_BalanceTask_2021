@@ -12,6 +12,17 @@
 - 필요한 경우는 주석 쓰기
 
 # REST API 
+## < USER >
+
+## 인증 - 작성자: 박건형
+  /api/user/auth => method: get
+  #### 설명: jwt로 하는 경우(id와 secret key가 결합) 로그인 했을 때 client는 jwt를 갖고 있고,
+  ####       데이터 베이스도 jwt를 갖고 있다. 결국 jwt와 secret key만 있으면 해독된 id를 가지고 사용자인지 아닌지 매번 비교하면서
+  ####       웹앱을 사용하는 사람이 우리의 유저인지 아닌지 알 수 있다. 
+  #### 위치: _actions/user_actions.js => hoc/auth.js에서 사용하며 모든 컴포넌트는 auth.js를 지나 인증받는다. 
+
+
+
 ## 로그인페이지 - 작성자: 박건형
   /api/user => method: post
   #### 설명: 회원정보 비교하기, post로 한 이유는 중요한 정보니까
@@ -48,9 +59,23 @@
   #### 설명: 바뀐 비밀번호를 서버로 보낸다. 서버에서는 데이터베이스 업데이트 해야함
 
 
+## < GROUP >
+
+## 그룹 찾기 페이지 - 작성자: 박건형
+  /api/group/search => method: get
+  #### 설명: 그룹 찾기 카드들 가져오기
+
+
+## 그룹 찾기 페이지(Detail) - 작성자: 박건형
+  /api/group/participation => method: post
+  #### 설명: 해당 그룹에 참여 요청하기
+  #### 위치: views/GroupSearchPage/Detail.js
+
 
 ## 프로젝트 현황페이지 - 작성자: 박건형
-  /api/posts => method: get
+  /api/group/posts => method: get
   #### 설명: 게시물들 정보 가져오기
-  /api/vote =>method: post
+  /api/group/vote =>method: post
   #### 설명:  게시물 투표하기
+  #### 위치: views/GroupSearchPage/GroupSearch.js
+

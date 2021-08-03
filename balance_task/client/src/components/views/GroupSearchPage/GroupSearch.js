@@ -10,8 +10,7 @@ import img2 from '../../../images/멋쟁이들.jpg';
 import img3 from '../../../images/별.jpg';
 
 const GroupSearch = (props) => {
-  console.log(props);
-  const {loading, data, error} = useAxios({url: 'api/group/search'});
+  const {loading, data, error, refetch} = useAxios({url: '/api/group/search'});
   //entireList는 data를 조작하기 위한 useState의 변수이다.
   const [entireList, setEntireList] = useState([]);
   const [search, setSearch] = useState('');
@@ -20,7 +19,14 @@ const GroupSearch = (props) => {
   const list = [
     {
       "title": "멋쟁이",
-      "content": "안녕",
+      "content": `열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.`,
       "writer": "박건형",
       "date": "2021-08-01 ~ 2021-09-01",
       "image": img1,
@@ -28,7 +34,10 @@ const GroupSearch = (props) => {
     },
     {
       "title": "두유개발자",
-      "content": "열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.",
+      "content": `열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
+      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.`,
       "writer": "거녕",
       "date": "2021-08-01 ~ 2021-09-01",
       "image": img2,
@@ -103,7 +112,7 @@ const GroupSearch = (props) => {
             }
             {
               entireList.length % 3 === 0 && entireList.length !==0 && 
-              <button style={{marginTop: "5vh", padding: "10px", borderRadius: "10px", border: "1px solid #aaa"}}>더 보기</button>
+              <button onClick={refetch} style={{marginTop: "5vh", padding: "10px", borderRadius: "10px", border: "1px solid #aaa"}}>더 보기</button>
             }
           </Main>
         }

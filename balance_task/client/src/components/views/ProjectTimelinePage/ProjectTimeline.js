@@ -7,7 +7,6 @@ import photo3 from '../../../images/별.jpg';
 import GroupHeader from './GroupHeader';
 
 const getUserPosts = (setIsLoading, setPosts, setOriginPosts) => {
-  console.log('아직 데이터 받는 중');
   setTimeout(()=>{
     call_api().then((res)=>{
       const posts = [
@@ -92,7 +91,7 @@ const getUserPosts = (setIsLoading, setPosts, setOriginPosts) => {
   }, 2000)
 }
 const call_api = async() =>{
-  const data = await fetch('/api/posts');
+  const data = await fetch('/api/group/posts');
   // const body = await data.json();
   return data;
 }

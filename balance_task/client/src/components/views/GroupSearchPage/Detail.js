@@ -1,33 +1,42 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
   const {location:{state:{content, writer, date, image, kind}}} = props;
+  const userData = useSelector(state => state.user.userData);
+
+  const postHandler = async() =>{
+    try {
+      const body = await axios.post('/api/group/participation',userData);
+      const payload = body.data;
+      console.log(payload);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return(
     <Conatainer>
       <Header>
-        <i className="fas fa-chevron-left"></i>
+        <i className="fas fa-chevron-left" onClick={()=>props.history.goBack()}></i>
         <span>{team}</span>
+        <div onClick={postHandler}>
+          <i className="fas fa-file-import"></i>
+          <span>제출하기</span>
+        </div>
       </Header>
       <Name><label>작성자: </label>{writer}</Name>
       <Category>
         <label>카테고리: </label>
         {kind}
-        {/* <select>
-          <option>
-            학교 조별 과제
-          </option>
-          <option>
-            팀 프로젝트
-          </option>
-          <option>
-            스터디
-          </option>
-        </select> */}
       </Category>
-      <Img image={image}>
-      </Img>
+      <Img image={image} onClick={()=>{
+        window.open(image);
+      }}></Img>
       <Deadline>
         <label>기간: </label> {date}
       </Deadline>
@@ -35,9 +44,6 @@ const Detail = (props)=>{
         <label>내용:</label>
         <p>{content}</p>
       </Content>
-      <button>
-        그룹 참여 요청
-      </button>
     </Conatainer>
   )
 }
@@ -49,12 +55,14 @@ const Conatainer = styled.div`
   width: 100vw;
   height: 100vh;
   padding: 0 10px;
+  background: #eee;
   &>div{
     width: 90%;
   }
 `;
 
 const Header = styled.header`
+  background: white;
   width: 100vw;
   text-align:center;
   border-bottom: 0.5px solid #aaa;
@@ -62,12 +70,27 @@ const Header = styled.header`
   &>span{
     font-size: 30px;
     line-height: 60px;
+    font-weight: 700;
   }
-  &>i{
+  &>i:first-child{
     position: absolute;
     font-size: 30px;
     top: 15px;
     left: 10px;
+  }
+  &>div{
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 20px;
+    top: 15px;
+    right: 20px;
+    &:active{
+      color:royalblue;
+    }
+    &>span{
+      font-size: 15px;
+    }
   }
 `;
 const Name = styled.div`
@@ -91,13 +114,14 @@ const Category = styled.div`
   }
 `;
 const Img = styled.div`
+  width: 100%;
+  height: 100%;
   margin: 1vh 0;
   background-image: url(${({image})=>image});
   background-position: center;
   background-size: cover;
-  width: 100%;
-  height: 100%;
   border: 5px solid #aaa;
+  border-radius: 10px;
 `;
 const Deadline = styled.div`
   display: flex;
@@ -108,17 +132,22 @@ const Deadline = styled.div`
   }
 `;
 const Content = styled.div`
-  margin: 5vh 0;
+  margin: 1vh 0;
   &>label{
     font-size: 24px;
   }
   &>p{
-    padding: 3px;
-    border: 1px solid black;
-    min-height: 100px;
+    padding: 15px;
+    border: 1px solid #aaa;
+    height: 200px;
+    font-size: 1rem;
+    line-height: 200%;
     border-radius: 10px;
-    box-shadow: 0px -1px 1px black;
+    box-shadow: 0px -1px 1px #aaa;
+    color: #022;
+    overflow-y: auto;
+    background: white;
   }
 `;
 
-export default Detail;
+export default withRouter(Detail);

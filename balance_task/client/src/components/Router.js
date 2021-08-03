@@ -33,7 +33,7 @@ const Router = (props) => {
             path="/group_search"
             component={Auth(GroupSearch, true)}
           />
-          <Route exact path="/group_search/:team" component={Detail}/>
+          <Route exact path="/group_search/:team" component={Auth(Detail,true)}/>
           <Route exact path="/worker_list" component={Auth(WorkerList, true)} />
           <Route
             exact
