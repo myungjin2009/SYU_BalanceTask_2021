@@ -58,7 +58,15 @@ const handleAuthorize = async (
     //5분으로 세팅
     setMinutes(5);
     console.log(isClick);
-    dispatch(authUserEmail());
+    dispatch(authUserEmail()).then((response)=>{
+      if(response.payload.success === false){
+        console.log(response.payload.success);
+        alert('오류!');
+        return;
+      }
+      console.log(response.payload.success);
+
+    });
   }
 };
 
@@ -119,7 +127,13 @@ const Signup = (props) => {
       name,
       isCheck,
     };
-    dispatch(signupUser(body)).then((response) => console.log(response));
+    dispatch(signupUser(body)).then((response) => {
+      if(response.payload.success===true){
+        props.history.push('/');
+      }else{
+        alert('오류!');
+      }
+    });
   };
 
   return (
