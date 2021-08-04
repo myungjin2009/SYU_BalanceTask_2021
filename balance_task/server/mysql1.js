@@ -31,9 +31,9 @@ const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const cookie = require('cookie');
 
+//const YOUR_SECRET_KEY = process.env.SECRET_KEY;
 
-// let jwt = require("jsonwebtoken");
-// let secretObj = require("balance_task/server/config/jwt.js");
+
 
 
 
@@ -169,7 +169,7 @@ router.route('/api/signup').post(function(req, res) {
 	
 });
 
-app.post("/api/login", (req, res) => {
+app.post("/api/user/login", (req, res) => {
   let isUser = false;
   const { id, password } = req.body;
   // console.log("name :", userId);
@@ -178,16 +178,23 @@ app.post("/api/login", (req, res) => {
   var cookies = cookie.parse(req.headers.cookie);
   console.log(cookies.user);
   const encryptedPassowrd = bcrypt.hashSync(password, 10);
+  // bcrypt.compare(plainPassword, this.password, function(err, isMatch){
+  //   if(err) return cb(err)
+  //   cb(null, isMatch)
+  // })
   const sql = "SELECT id, password FROM user";
-  connection.query(sql, (err, rows, fields) => {
+  pool.query(sql, (err, rows, fields) => {
     if (err) {
       console.log(err);
     } else {
       console.log(rows);
       rows.forEach((info) => {
-        if (info.id === id && info.password === encryptedPassowrd) {
+        var same = bcrypt.compareSync(password, info.password)
+        if (info.id === id && same) {
           isUser = true;
+          console.log("true");
         } else {
+          console.log("false");
           return;
         }
       });
@@ -195,15 +202,17 @@ app.post("/api/login", (req, res) => {
         const YOUR_SECRET_KEY = process.env.SECRET_KEY;
         const accessToken = jwt.sign(
           {
-            userId,
+            id,
           },
           YOUR_SECRET_KEY,
           {
             expiresIn: "1h",
           }
         );
+        console.log(accessToken);
         res.cookie("user", accessToken);
         res.status(201).json({
+          success:true,
           result: "ok",
           accessToken,
         });

@@ -112,24 +112,6 @@ const Signup = (props) => {
       return;
     }
 
-<<<<<<< HEAD
-  const onButtonHandler = () =>{
-    axios({
-      method: 'get',
-      url: '/api/kakao',
-      data: {
-        
-      }
-    });
-    window.location = "http://localhost:5000/kakao";
-  }
-
-  return (
-    <Container onSubmit={handleSubmit} autoComplete="off">
-      <h1>회원가입</h1>
-      <KakaoButton type="button"  onClick = {onButtonHandler}>카카오 로그인</KakaoButton>
-      <EmailBox>
-=======
     const body = {
       email,
       authNumber,
@@ -152,7 +134,6 @@ const Signup = (props) => {
           handleAuthorize(e, dispatch, setIsClick, auth_input, isClick, setMinutes)
         }
       >
->>>>>>> 95e7dbcdc13d2ce331b4accc4a99a03f2db52004
         <input
           type="email"
           ref={auth_input}
