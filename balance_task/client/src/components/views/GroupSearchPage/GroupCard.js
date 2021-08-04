@@ -1,55 +1,80 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-const GroupCard = () =>{
+const GroupCard = ({title, content, writer, date, image, props, kind}) =>{
+
   return(
-    <Container>
-      <Img>
-        
-      </Img>
-      <Content>
-        <Title>제목:</Title>
-        <p>내용:</p>
-        <Default>
-          <DefaultContent><span>작성자</span>: 박건형 &nbsp;</DefaultContent>
-          <DefaultContent><span>기간</span>: 2021.02.05 ~ 2021.03.15</DefaultContent>
-        </Default>
-      </Content>
+    <Container onClick={()=>{
+      props.history.push('/group_search/'+title, {
+        title, content, writer, date, image, kind
+      });
+    }}>
+      <Main>
+        <Img image={image}></Img>
+        <Content>
+          <Title>팀: <span>{title}</span></Title>
+          <div>
+            <div>내용: </div>
+            <p>{content}</p>
+          </div>
+        </Content>
+      </Main>
+      <Default>
+        <DefaultContent><span>작성자</span>: {writer} &nbsp;</DefaultContent>
+        <DefaultContent><span>기간</span>: {date}</DefaultContent>
+      </Default>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
-  min-width: 300px;
-  height: 130px;
+  flex-direction: column;
+  width: 95%;
+  max-height: 300px;
   padding: 10px;
   margin: 5px;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   border-radius: 10px;
   background: #eee;
 `;
 
+const Main = styled.div`
+    display: flex;
+    align-items: center;
+    gap:15px;
+`;
+
 const Img = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   background: gray;
-  border-radius: 25px;
-  margin-right: 20px;
+  background-image: url(${({image}) => image});
+  background-position: center;
+  background-size: cover;
+  border-radius: 35px;
+  border: 2px solid #cfd8dc;
 `;
 
 const Content = styled.div`
-  background: white;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 250px;
   padding: 10px;
-  &>p{
+  &>div>p{
     width: 100%;
     padding: 3px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    background: white;
+    padding: 0 10px;
+    border-radius: 10px;
   }
   &>div{
     margin:2px 0;
@@ -59,6 +84,11 @@ const Content = styled.div`
 const Title = styled.div`
   width: 100%;
   padding: 3px;
+  &>span{
+    background: white;
+    padding: 0 10px;
+    border-radius: 10px;
+  }
 `;
 
 const Default = styled.div`
@@ -67,6 +97,8 @@ const Default = styled.div`
 `;
 
 const DefaultContent = styled.span`
+  padding: 3px;
+  color: #263238;
   &>span{
     font-weight: 700;
     font-size: 11px;
@@ -74,4 +106,4 @@ const DefaultContent = styled.span`
   }
 `;
 
-export default GroupCard;
+export default withRouter(GroupCard);

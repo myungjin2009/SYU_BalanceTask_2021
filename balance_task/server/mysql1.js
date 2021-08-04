@@ -1,14 +1,3 @@
-/**
- * MySQL 데이터베이스 사용하기
- *
- * 웹브라우저에서 아래 주소의 페이지를 열고 웹페이지에서 요청
- * (먼저 사용자 추가 후 로그인해야 함)
- *    http://localhost:3000/public/login2.html
- *    http://localhost:3000/public/adduser2.html
- *
- * @date 2016-11-10
- * @author Mike
- */
 
 // Express 기본 모듈 불러오기
 var express = require("express"),
@@ -35,11 +24,26 @@ const saltRounds = 10;
 var mysql = require("mysql");
 
 //======패스포드아용===//
+<<<<<<< HEAD
 var passport = require("passport");
 var flash = require("connect-flash");
 var localStrategy = require("passport-local").Strategy;
 var KakaoStrategy = require("passport-kakao").Strategy;
 //var flash=require('flash');
+=======
+var passport =require('passport');
+var localStrategy=require('passport-local').Strategy;
+var KakaoStrategy=require('passport-kakao').Strategy;
+const jwt = require('jsonwebtoken');
+require("dotenv").config();
+const cookie = require('cookie');
+
+//const YOUR_SECRET_KEY = process.env.SECRET_KEY;
+
+
+
+
+>>>>>>> 22e642b8415732715978e77728ecdb1b7e32deec
 
 //===== MySQL 데이터베이스 연결 설정 =====//
 var pool = mysql.createPool({
@@ -70,6 +74,7 @@ app.use("/public", static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // 세션 설정
+<<<<<<< HEAD
 app.use(
   expressSession({
     secret: "my key",
@@ -147,6 +152,49 @@ app.get(
 //         })
 //     }
 // ))
+=======
+app.use(expressSession({
+	secret:'my key',
+	resave:true,
+	saveUninitialized:true
+}));
+
+var router = express.Router(); 
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser((id, done) => {
+    const sql = "select * from users where id =?";
+    const post = [id];
+    conn.query(sql, post, (err, results, fields) => {
+      const user = results[0];
+      done(err, user);
+    });
+  });
+// 카카오 로그인 세션
+
+
+
+passport.use(
+    "kakao-login",
+    new KakaoStrategy({
+        clientID : '6e9775355a9f75a716cfc8153f2ff2eb', 
+        callbackURL : 'http://localhost:3000/kakao/oauth'}, 
+        (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+    }));
+
+router.get("/kakao", passport.authenticate("kakao-login"));
+router.get(
+  "/kakao/callback",
+  passport.authenticate("kakao-login", {
+    successRedirect: "/",
+    failureRedirect: "/api/auth/fail"
+  })
+);
+>>>>>>> 22e642b8415732715978e77728ecdb1b7e32deec
 
 //==패스포트==//
 
@@ -162,6 +210,7 @@ router.route("/api/signup").post(function (req, res) {
   var paramName = req.body.name || req.query.name;
   var paramAgreement = req.body.isCheck || req.query.isCheck;
 
+<<<<<<< HEAD
   const encryptedPassowrd = bcrypt.hashSync(paramPassword, 10);
 
   if (pool) {
@@ -218,6 +267,111 @@ router.route("/api/signup").post(function (req, res) {
   );
 
   // pool 객체가 초기화된 경우, addUser 함수 호출하여 사용자 추가
+=======
+router.route('/api/signup').post(function(req, res) {
+	console.log('/process/adduser 호출됨.');
+    
+    var paramId = req.body.email || req.query.email;
+    var paramPassword = req.body.password || req.query.password;
+    var paramName = req.body.name || req.query.name;
+    var paramAgreement = req.body.isCheck || req.query.isCheck;
+
+    const encryptedPassowrd = bcrypt.hashSync(paramPassword, 10);
+    
+	if (pool) {
+		addUser(paramId, paramName, encryptedPassowrd ,paramAgreement, function(err, addedUser) {
+			// 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
+			if (err) {
+                console.error('사용자 추가 중 에러 발생 : ' + err.stack);
+                
+                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>사용자 추가 중 에러 발생</h2>');
+                res.write('<p>' + err.stack + '</p>');
+				res.end();
+                
+                return;
+            }
+			
+            // 결과 객체 있으면 성공 응답 전송
+			if (addedUser) {
+				console.dir(addedUser);
+
+				
+	        	
+	        	var insertId = addUser.insertId;
+	        	console.log('추가한 레코드의 아이디 : ' + insertId);
+	        	
+				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>사용자 추가 성공</h2>');
+				res.end();
+			} else {
+				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>사용자 추가  실패</h2>');
+				res.end();
+			}
+		});
+	} else {  // 데이터베이스 객체가 초기화되지 않은 경우 실패 응답 전송
+		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+		res.write('<h2>데이터베이스 연결 실패</h2>');
+		res.end();
+	}
+    console.log('요청 파라미터 : ' + paramId + ', ' + paramPassword + ', ' + paramName + ', ' + paramAgreement);
+	
+});
+
+app.post("/api/user/login", (req, res) => {
+  let isUser = false;
+  const { id, password } = req.body;
+  // console.log("name :", userId);
+  // console.log("name :", userPassword);
+  // console.log(req.headers.cookie);
+  var cookies = cookie.parse(req.headers.cookie);
+  console.log(cookies.user);
+  const encryptedPassowrd = bcrypt.hashSync(password, 10);
+  // bcrypt.compare(plainPassword, this.password, function(err, isMatch){
+  //   if(err) return cb(err)
+  //   cb(null, isMatch)
+  // })
+  const sql = "SELECT id, password FROM user";
+  pool.query(sql, (err, rows, fields) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(rows);
+      rows.forEach((info) => {
+        var same = bcrypt.compareSync(password, info.password)
+        if (info.id === id && same) {
+          isUser = true;
+          console.log("true");
+        } else {
+          console.log("false");
+          return;
+        }
+      });
+      if (isUser) {
+        const YOUR_SECRET_KEY = process.env.SECRET_KEY;
+        const accessToken = jwt.sign(
+          {
+            id,
+          },
+          YOUR_SECRET_KEY,
+          {
+            expiresIn: "1h",
+          }
+        );
+        console.log(accessToken);
+        res.cookie("user", accessToken);
+        res.status(201).json({
+          success:true,
+          result: "ok",
+          accessToken,
+        });
+      } else {
+        res.status(400).json({ error: 'invalid user' });
+      }
+    }
+  });
+>>>>>>> 22e642b8415732715978e77728ecdb1b7e32deec
 });
 
 // 라우터 객체 등록
@@ -250,6 +404,18 @@ var addUser = function (id, name, password, agreement, callback) {
         conn.release(); // 반드시 해제해야 함
         console.log("실행 대상 SQL : " + exec.sql);
 
+<<<<<<< HEAD
+=======
+
+//함수들 ======================================================================================//
+
+
+var addUser = function(id, name, password, agreement, callback) {
+	console.log('addUser 호출됨 : ' + id + ', ' + password + ', ' + name + ', ');
+	
+	// 커넥션 풀에서 연결 객체를 가져옴
+	pool.getConnection(function(err, conn) {
+>>>>>>> 22e642b8415732715978e77728ecdb1b7e32deec
         if (err) {
           console.log("SQL 실행 시 에러 발생함.");
           console.dir(err);

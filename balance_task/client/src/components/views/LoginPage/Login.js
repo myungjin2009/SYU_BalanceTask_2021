@@ -1,9 +1,8 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-
+import {useDispatch} from 'react-redux';
+import { loginUser } from '../../../_actions/user_action';
 const changeId = (e, setId) =>{
   const {target: {value}} = e;
   setId(value);
@@ -17,24 +16,25 @@ const changePassword = (e, setPassword) =>{
 const Login = (props) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const postUser = async(e) =>{
     e.preventDefault();
-    try {
-      axios({
-        method: "POST",
-        url: "/api/user",
-        data:{
-          id, password
-        }
-      });
-    } catch (error) {
-      console.log(error);
+    if(id===''||password===''){
+      alert('아이디 비밀번호 모두 입력해주시기바랍니다!');
+      return;
     }
+    const body = {
+      id,password
+    }
+    
+    dispatch(loginUser(body))
+    .then(response => console.log(response));
+    
   }
 
   const onButtonHandler = () =>{
-    window.location = "https://www.youtube.com/";
+    window.location = "http://localhost:5000/kakao";
   }
 
   return (
@@ -44,7 +44,7 @@ const Login = (props) => {
         <h1>Task</h1>
       </Header>
       <LoginBox onSubmit={postUser}>
-        <input type="text" placeholder="ID" onChange={(e)=>changeId(e, setId)}/>
+        <input type="email" placeholder="Email" onChange={(e)=>changeId(e, setId)}/>
         <input type="password" placeholder="PASSWORD" onChange={(e)=>changePassword(e, setPassword)} autoComplete="off"/>
         <button type="submit">로그인</button>
       </LoginBox>
@@ -55,10 +55,11 @@ const Login = (props) => {
         </button>
         <Content>
           <Default>
-            <Link to="/finding_id">아이디를 잊으셨습니까?</Link>
-            <Link to="/finding_pw">비밀번호를 잊으셨습니까?</Link>
+            <Link to="/finding_password">비밀번호를 잊으셨습니까?</Link>
           </Default>
-          <button>회원가입</button>
+          <button>
+            <Link to="/signup">회원가입</Link>
+          </button>
         </Content>
       </DefaultLoginBox>
     </Container>
@@ -154,12 +155,14 @@ const Content = styled.div`
     background: #0288d1;
     width: 40%;
     border:none;
-    color: white;
     padding: 8px;
     margin: 15px;
     box-shadow: 1px 1px 1px gray;
     &:active{
       box-shadow: -1px -1px 1px gray;
+    }
+    &>a{
+      color: white;  
     }
 `;
 
