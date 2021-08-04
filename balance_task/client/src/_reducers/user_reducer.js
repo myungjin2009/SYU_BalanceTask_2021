@@ -2,7 +2,8 @@ import {
   LOGIN_USER,
   SIGNUP_USER,
   AUTH_USER,
-  AUTH_USER_EMAIL
+  AUTH_USER_EMAIL,
+  FIND_PASSWORD
 }from '../_actions/types';
 
 export default function(state = {}, action){
@@ -15,6 +16,8 @@ export default function(state = {}, action){
       return {...state, userData: action.payload}
     case AUTH_USER_EMAIL:
       return {...state, emailAuth: action.payload}
+    case FIND_PASSWORD:
+      return {...state, findingPasswordSuccess: action.payload}
     default:
       return state;
   }

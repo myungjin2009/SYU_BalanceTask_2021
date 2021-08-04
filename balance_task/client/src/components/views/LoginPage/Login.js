@@ -32,13 +32,15 @@ const Login = (props) => {
     .then(response => {
       if(response.payload.success===true){
         props.history.push('/my_page');
+      }else{
+        alert('오류!');
       }
     });
     
   }
 
   const onButtonHandler = () =>{
-    window.location = "https://www.youtube.com/";
+    window.location = "http://localhost:5000/kakao";
   }
 
   return (

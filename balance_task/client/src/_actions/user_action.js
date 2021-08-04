@@ -8,7 +8,7 @@ import {
 }from './types';
 //로그인 할 때
 export function loginUser(dataToSubmit){
-  const request = axios.post("/api/user", dataToSubmit)
+  const request = axios.post("/api/user/login", dataToSubmit)
   .then(response => response.data).catch(err => console.log(err));
   return{
     type: LOGIN_USER,
@@ -24,9 +24,20 @@ export function signupUser(dataToSubmit){
     payload: request
   }
 }
+//비밀번호 찾을 때
+export function findPassword(dataToSubmit){
+  const request = axios.post("/api/user/check_id",dataToSubmit)
+  .then(response => response.data).catch(err => console.log(err));
+
+  return{
+    type: FIND_PASSWORD,
+    payload: request
+  }
+}
+
 //이메일 인증할 때
-export function authUserEmail(){
-  const request = axios.get("/api/user_email")
+export function authUserEmail(dataToSubmit){
+  const request = axios.post("/api/user_email", dataToSubmit)
   .then(response => response.data).catch(err => console.log(err));
   return{
     type: AUTH_USER_EMAIL,

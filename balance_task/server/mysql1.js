@@ -1,14 +1,3 @@
-/**
- * MySQL 데이터베이스 사용하기
- *
- * 웹브라우저에서 아래 주소의 페이지를 열고 웹페이지에서 요청
- * (먼저 사용자 추가 후 로그인해야 함)
- *    http://localhost:3000/public/login2.html
- *    http://localhost:3000/public/adduser2.html
- *
- * @date 2016-11-10
- * @author Mike
- */
 
 // Express 기본 모듈 불러오기
 var express = require('express')
@@ -38,7 +27,15 @@ var mysql = require('mysql');
 var passport =require('passport');
 var localStrategy=require('passport-local').Strategy;
 var KakaoStrategy=require('passport-kakao').Strategy;
-//var flash=require('flash');
+const jwt = require('jsonwebtoken');
+require("dotenv").config();
+const cookie = require('cookie');
+
+//const YOUR_SECRET_KEY = process.env.SECRET_KEY;
+
+
+
+
 
 //===== MySQL 데이터베이스 연결 설정 =====//
 var pool      =    mysql.createPool({
@@ -78,67 +75,40 @@ app.use(expressSession({
 }));
 
 var router = express.Router(); 
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser((id, done) => {
+    const sql = "select * from users where id =?";
+    const post = [id];
+    conn.query(sql, post, (err, results, fields) => {
+      const user = results[0];
+      done(err, user);
+    });
+  });
 // 카카오 로그인 세션
-passport.use('kakao-login', new KakaoStrategy({ 
-    clientID: '6e9775355a9f75a716cfc8153f2ff2eb', 
-    callbackURL: 'http://localhost:3000/kakao/oauth'
-}, async (accessToken, refreshToken, profile, done) => { 
-    console.log(accessToken); console.log(profile); 
-}));
-
-app.get('/kakao', passport.authenticate('kakao-login'));
-
-app.get('/kakao/callback', passport.authenticate('kakao-login', 
- { failureRedirect: '/', 
-}), (req, res) => { 
-    res.redirect('/'); 
-});
-
-//module.exports = router;
-
-//passport 초기화
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(flash());
 
 
-//passport strategy
-// var localStrategy=require('passport-local').Strategy;
-// passport.use('local-login',new localStrategy({
-//     usernameField:'email',
-//     passwordField:'password',
-//     passReqToCallback:true
 
-// },function(req,email,password,done){
-//     console.log('passport의 로그인이 호출됨:'+email+','+pasword);
+passport.use(
+    "kakao-login",
+    new KakaoStrategy({
+        clientID : '6e9775355a9f75a716cfc8153f2ff2eb', 
+        callbackURL : 'http://localhost:3000/kakao/oauth'}, 
+        (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+    }));
 
-//     var database=app.get('database');
-//     database.UserModel.fin
-// }));
-
-
-// app.post('/Signup',
-//     passport.authenticate('local',{
-//         successRedirect:'/',
-//         failureRedirect:'/Signup',
-//         failureFlash:true
-//     }));
-
-// passport.use(new localStrategy(
-//     function(username, password, done){
-//         User.findOnd({username: username},function(err, user){
-//             if(err){return done(err);}
-//             if(!user){
-//                 return done(null,false, req.flash('loginMessage','등록된 계정이 없습니다.'));
-//             }
-//             if(!user.validPassword(password)){
-//                 return done(null,false, req.flash('loginMessage','비밀번호가 다릅니다.'))
-//             }
-
-//             return done(null,user);
-//         })
-//     }
-// ))
+router.get("/kakao", passport.authenticate("kakao-login"));
+router.get(
+  "/kakao/callback",
+  passport.authenticate("kakao-login", {
+    successRedirect: "/",
+    failureRedirect: "/api/auth/fail"
+  })
+);
 
 //==패스포트==//
 
@@ -196,15 +166,69 @@ router.route('/api/signup').post(function(req, res) {
 		res.end();
 	}
     console.log('요청 파라미터 : ' + paramId + ', ' + paramPassword + ', ' + paramName + ', ' + paramAgreement);
-    
-    // pool 객체가 초기화된 경우, addUser 함수 호출하여 사용자 추가
-	
 	
 });
 
+app.post("/api/user/login", (req, res) => {
+  let isUser = false;
+  const { id, password } = req.body;
+  // console.log("name :", userId);
+  // console.log("name :", userPassword);
+  // console.log(req.headers.cookie);
+  var cookies = cookie.parse(req.headers.cookie);
+  console.log(cookies.user);
+  const encryptedPassowrd = bcrypt.hashSync(password, 10);
+  // bcrypt.compare(plainPassword, this.password, function(err, isMatch){
+  //   if(err) return cb(err)
+  //   cb(null, isMatch)
+  // })
+  const sql = "SELECT id, password FROM user";
+  pool.query(sql, (err, rows, fields) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(rows);
+      rows.forEach((info) => {
+        var same = bcrypt.compareSync(password, info.password)
+        if (info.id === id && same) {
+          isUser = true;
+          console.log("true");
+        } else {
+          console.log("false");
+          return;
+        }
+      });
+      if (isUser) {
+        const YOUR_SECRET_KEY = process.env.SECRET_KEY;
+        const accessToken = jwt.sign(
+          {
+            id,
+          },
+          YOUR_SECRET_KEY,
+          {
+            expiresIn: "1h",
+          }
+        );
+        console.log(accessToken);
+        res.cookie("user", accessToken);
+        res.status(201).json({
+          success:true,
+          result: "ok",
+          accessToken,
+        });
+      } else {
+        res.status(400).json({ error: 'invalid user' });
+      }
+    }
+  });
+});
 
 // 라우터 객체 등록
 app.use('/', router);
+
+
+//함수들 ======================================================================================//
+
 
 var addUser = function(id, name, password, agreement, callback) {
 	console.log('addUser 호출됨 : ' + id + ', ' + password + ', ' + name + ', ');
