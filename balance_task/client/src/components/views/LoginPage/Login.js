@@ -20,6 +20,10 @@ const Login = (props) => {
 
   const postUser = async(e) =>{
     e.preventDefault();
+    if(id===''||password===''){
+      alert('아이디 비밀번호 모두 입력해주시기바랍니다!');
+      return;
+    }
     const body = {
       id,password
     }
