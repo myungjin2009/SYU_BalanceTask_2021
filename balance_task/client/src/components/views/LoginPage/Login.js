@@ -40,7 +40,7 @@ const Login = (props) => {
   }
 
   const onButtonHandler = () =>{
-    window.location = "https://www.youtube.com/";
+    window.location = "http://localhost:5000/kakao";
   }
 
   return (
