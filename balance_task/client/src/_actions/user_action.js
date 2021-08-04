@@ -8,7 +8,7 @@ import {
 }from './types';
 //로그인 할 때
 export function loginUser(dataToSubmit){
-  const request = axios.post("/api/user", dataToSubmit)
+  const request = axios.post("/api/user/login", dataToSubmit)
   .then(response => response.data).catch(err => console.log(err));
   return{
     type: LOGIN_USER,

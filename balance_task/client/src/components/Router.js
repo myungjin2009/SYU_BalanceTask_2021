@@ -17,7 +17,7 @@ import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import WorkerList from "./views/WorkerListPage/WorkerList";
 import Detail from "./views/GroupSearchPage/Detail";
 import FindingPW from "./views/FindingPW/FindingPW";
-import Prac from "./practice";
+// import Prac from "./practice";
 
 const Router = (props) => {
   const [isTimeline, setIsTimeline] = useState(true);
