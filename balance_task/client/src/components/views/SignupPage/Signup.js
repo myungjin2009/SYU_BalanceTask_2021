@@ -123,11 +123,21 @@ const Sigunup = () => {
 
   };
 
+  const onButtonHandler = () =>{
+    axios({
+      method: 'get',
+      url: '/api/kakao',
+      data: {
+        
+      }
+    });
+    window.location = "http://localhost:5000/kakao";
+  }
 
   return (
     <Container onSubmit={handleSubmit} autoComplete="off">
       <h1>회원가입</h1>
-      <KakaoButton type="button">카카오 로그인</KakaoButton>
+      <KakaoButton type="button"  onClick = {onButtonHandler}>카카오 로그인</KakaoButton>
       <EmailBox>
         <input
           type="email"
