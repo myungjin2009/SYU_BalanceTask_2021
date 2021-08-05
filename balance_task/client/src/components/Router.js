@@ -8,7 +8,7 @@ import ProjectTermination from "../routes/ProjectTermination";
 import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
 import WorkerCalendar from "../routes/WorkerCalendar";
 import WorkerInvitation from "../routes/WorkerInvitation";
-import Settings from "./views/SettingPage/Setting";
+import Settings_MAIN from "./views/SettingPage/Settings_MAIN";
 import Signup from "./views/SignupPage/Signup";
 import Login from "./views/LoginPage/Login";
 import NotFound from "./views/NotFoundPage/NotFound";
@@ -61,7 +61,7 @@ const Router = (props) => {
         <Route path="/worker_calendar" component={WorkerCalendar} />
         <Route path="/worker_invitation" component={WorkerInvitation} />
         <Route path="/project_termination" component={ProjectTermination} />
-        <Route path="/setting" component={Settings} />
+        <Route path="/settings_main" component={Settings_MAIN} />
         <Route exact component={Auth(NotFound, null)} />
       </Switch>
     </BrowserRouter>
