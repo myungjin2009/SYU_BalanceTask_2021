@@ -34,7 +34,7 @@ const changeIsCheck = (e, setIsCheck) => {
 
 
 //인증번호 보내는 함수
-const handleAuthorize = async (
+const handleAuthorize = (
   e,
   dispatch,
   setIsClick,
@@ -57,8 +57,18 @@ const handleAuthorize = async (
     setIsClick(true);
     //5분으로 세팅
     setMinutes(5);
-    console.log(isClick);
-    dispatch(authUserEmail());
+    const body={
+      value
+    }
+    dispatch(authUserEmail(body)).then((response)=>{
+      if(response.payload.success === false){
+        console.log(response.payload.success);
+        alert('오류!');
+        return;
+      }
+      console.log(response.payload.success);
+
+    });
   }
 };
 
@@ -70,8 +80,10 @@ const Signup = (props) => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [name, setName] = useState("");
   const [isCheck, setIsCheck] = useState(false);
+
   const auth_input = useRef(null);
   const password_input = useRef(null);
+  
   const dispatch = useDispatch();
   const {minutes, seconds, setMinutes} = useTimer({mm:0, ss:0});
 
@@ -119,7 +131,13 @@ const Signup = (props) => {
       name,
       isCheck,
     };
-    dispatch(signupUser(body)).then((response) => console.log(response));
+    dispatch(signupUser(body)).then((response) => {
+      if(response.payload.success===true){
+        props.history.push('/');
+      }else{
+        alert('오류!');
+      }
+    });
   };
 
   return (

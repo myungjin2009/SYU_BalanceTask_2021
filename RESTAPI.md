@@ -32,30 +32,20 @@
   
   
 ## 회원가입페이지 - 작성자: 박건형
-  /api/user_email => method: get
+  /api/user_email => method: post
   #### 설명: 이메일을 서버로 보내기, 이메일을 서버로 보내서 서버는 nodemailer를 사용해서
   ####       그 이메일 사용자에게 인증번호를 보내야하니까
   /api/signup => method: post
   #### 설명: 회원정보 데이터베이스에 넣기, 중요한 정보니까 post
-
-
-
-## 아이디 찾기페이지 - 작성자: 박건형
-  /api/user_email => method: post
-  #### 설명: 이메일을 서버로 보내기, 이메일을 서버로 보내서 서버는 nodemailer를 사용해서
-  ####       그 이메일 사용자에게 인증번호를 보내야하니까
-  /api/check_user => method: post
-  #### 설명: 이메일로 회원 아이디 찾기, 회원 아이디 찾는 거니 회원 이름과 이메일을 서버로 보내야함
- 
- 
+  
 
 ## 비밀번호 찾기페이지 - 작성자: 박건형
   /api/user_email => method: post
   #### 설명: 이메일을 서버로 보내기, 이메일을 서버로 보내서 서버는 nodemailer를 사용해서
   ####       그 이메일 사용자에게 인증번호를 보내야하니까
-  /api/check_user_id => method: post
+  /api/user/check_id => method: post
   #### 설명: 이메일로 회원 아이디 찾기, 회원 아이디 찾는 거니 회원 이름, 이메일, 아이디를 서버로 보내야함
-  /api/change_password => method: post
+  /api/user/change_password => method: post
   #### 설명: 바뀐 비밀번호를 서버로 보낸다. 서버에서는 데이터베이스 업데이트 해야함
 
 
