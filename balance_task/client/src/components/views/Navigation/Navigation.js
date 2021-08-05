@@ -12,7 +12,7 @@ const Navigation = (props) => {
       workerList_link.current.style.color = 'royalblue';
     }else if(pathname==='/group_search'){
       groupSearch_link.current.style.color = 'royalblue';
-    }else if(pathname==='/'){
+    }else if(pathname==='/my_page'){
       myPage_link.current.style.color = 'royalblue';
     }
   },[]);
