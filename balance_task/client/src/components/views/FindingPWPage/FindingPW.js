@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Header/Header";
-import { findPassword, authUserEmail, changePassword} from "../../../_actions/user_action";
+import {
+  findPassword,
+  authUserEmail,
+  changePassword,
+} from "../../../_actions/user_action";
 import useTimer from "../../../hook/useTimer";
 
 const changeEmail = (e, setEmail) => {
@@ -50,9 +54,9 @@ const handleAuthorize = (e, dispatch, auth_input, setMinutes) => {
       value,
     };
     dispatch(authUserEmail(body)).then((response) => {
-      if(response.payload.success === false){
+      if (response.payload.success === false) {
         console.log(response.payload.success);
-        alert('오류!');
+        alert("오류!");
         return;
       }
       console.log(response);
@@ -107,21 +111,22 @@ function FindingPW(props) {
   //비밀번호 바꾸기 함수
   const changePasswordHandler = (e) => {
     e.preventDefault();
-    if(password==='' || passwordCheck===''){
-      alert('비밀번호와 비밀번호확인 모두 입력해주세요');
+    if (password === "" || passwordCheck === "") {
+      alert("비밀번호와 비밀번호확인 모두 입력해주세요");
       return;
     }
-    if(password !== passwordCheck){
-      alert('비밀번호를 다시 확인 해주세요');
+    if (password !== passwordCheck) {
+      alert("비밀번호를 다시 확인 해주세요");
       return;
     }
     const body = {
-      email, name, password,
-    }
-    dispatch(changePassword(body))
-    .then(response => {
-      if(response.payload.success === true){
-        props.history.push('/');
+      email,
+      name,
+      password,
+    };
+    dispatch(changePassword(body)).then((response) => {
+      if (response.payload.success === true) {
+        props.history.push("/");
       }
     });
   };
@@ -173,8 +178,22 @@ function FindingPW(props) {
       </InputBox>
       <IdBox ref={idBox} onSubmit={changePasswordHandler}>
         <header>비밀번호를 바꿔보세요.</header>
-        <input type="password" placeholder="비밀번호" value={password} onChange={(e)=>chnagePasswordHandler(e, setPassword)} autoComplete="none" />
-        <input type="password" placeholder="비밀번호확인" value={passwordCheck} onChange={(e)=>{chnagePasswordCheckHandler(e, setPasswordCheck)}} autoComplete="none" />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => chnagePasswordHandler(e, setPassword)}
+          autoComplete="none"
+        />
+        <input
+          type="password"
+          placeholder="비밀번호확인"
+          value={passwordCheck}
+          onChange={(e) => {
+            chnagePasswordCheckHandler(e, setPasswordCheck);
+          }}
+          autoComplete="none"
+        />
         <button type="submit">제출하기</button>
       </IdBox>
     </Container>
