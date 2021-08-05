@@ -1,12 +1,12 @@
-import { RECEIVE_POSTS } from "./types";
+import { RECEIVE_GROUPS_CARD } from "./types";
 import axios from "axios";
 
-export function receivePosts(){
-  const request = axios.get('/api/group/posts')
+export function receiveGroupSearchCard(){
+  const request = axios.get('/api/group/search_card')
   .then(response => response.data).catch(err => console.log(err));
   
   return {
-    type: RECEIVE_POSTS,
+    type: RECEIVE_GROUPS_CARD,
     payload: request
   }
 }

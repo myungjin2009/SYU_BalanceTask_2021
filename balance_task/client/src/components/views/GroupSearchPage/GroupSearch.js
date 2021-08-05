@@ -1,70 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import GroupSearchHeader from './GroupSearchHeader';
 import GroupCard from './GroupCard';
 import Navigation from '../Navigation/Navigation';
-import useAxios from '../../../hook/useAxios';
-import img1 from '../../../images/노답.jpg';
-import img2 from '../../../images/멋쟁이들.jpg';
-import img3 from '../../../images/별.jpg';
+import { receiveGroupSearchCard } from '../../../_actions/group_action';
+import {useDispatch, useSelector} from 'react-redux'; 
 
 const GroupSearch = (props) => {
-  const {loading, data, error, refetch} = useAxios({url: '/api/group/search'});
   //entireList는 data를 조작하기 위한 useState의 변수이다.
   const [entireList, setEntireList] = useState([]);
   const [search, setSearch] = useState('');
-  console.log(loading, data, error);
-  // list는 내가 임의로 만든거 나중엔 list가 사라지고 data 변수 쓸 것
-  const list = [
-    {
-      "title": "멋쟁이",
-      "content": `열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.`,
-      "writer": "박건형",
-      "date": "2021-08-01 ~ 2021-09-01",
-      "image": img1,
-      "kind": '학교 조별 과제'
-    },
-    {
-      "title": "두유개발자",
-      "content": `열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-      열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.`,
-      "writer": "거녕",
-      "date": "2021-08-01 ~ 2021-09-01",
-      "image": img2,
-      "kind": '팀 프로젝트'
-    },
-    {
-      "title": "키다리아저씨",
-      "content": "재단에서 프로젝트 할 사람 모집",
-      "writer": "키다리",
-      "date": "2021-07-09 ~ 2021-08-03",
-      "image": img3,
-      "kind": '팀 프로젝트'
-    }
-  ];
+  const [isLoading, setIsLoading] = useState(true);
+  const button_ref = useRef(null);
+
+  const dispatch = useDispatch();
+  //0. 먼저 리덕스로부터 데이터를 받는다. 하지만 처음엔 없다.
+  //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
+  //6. 버튼을 눌러서 추가된 데이터도 함께 store로부터 데이터를 받는다. 
+  const groups_list = useSelector(state => state.group.groups_list);
+  setEntireList(groups_list);
 
   useEffect(()=>{
-    if(!loading){
-      //백엔드 쪽에서 데이터 줄 때는 data로 바꿀 것 list ㄴㄴ
-      setEntireList(list);
+
+    const chooseLoading = () =>{
+      if(!isLoading){
+        setIsLoading(true);
+      }
     }
-  },[loading]);
+    //1. 데이터 가져오고 redux의 store에 저장됨
+    //5. 데이터를 다시 가져오고 redux의 store에 저장됨
+    if(isLoading){
+      dispatch(receiveGroupSearchCard())
+      .then(response =>{
+        // 백엔드 애들이 주석 풀어주기
+        // if(response.payload.success){
+        //   //받은 데이터 세팅 지역 스테이트에 세팅
+        //   //setEntireList(...entireList, ...response.payload.groups_list); 안씀
+        //   // 2.로딩 해제하고 다시 리렌더링 된다.
+          setIsLoading(false);
+        // }
+      });
+    }
+    //4. 현재 isLoading은 false이기에 데이터를 더는 안가져온다. 다만 ref로 등록된 버튼을 누르면 다시 isLoading이 true가 된다.
+    //버튼을 누를 때마다 데이터 가져옴
+    // if(button_ref === null){
+    //   return;
+    // }
+    button_ref.current.addEventListener("click",chooseLoading);
+    return ()=>{
+      button_ref.current.removeEventListener("click", chooseLoading);
+    }
+  },[isLoading]);
 
   useEffect(()=>{
     const newArray = entireList.filter((el)=>el.title===search);
     if(newArray.length===0){
       if(search===''){
-        setEntireList(list);
+        setEntireList(groups_list);
       }
       return;
     }
@@ -73,16 +66,16 @@ const GroupSearch = (props) => {
 
   const onClickHandler = (kind) =>{
     if(kind==='스터디'){
-      const newArray = list.filter(el => el.kind===kind);
+      const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
     }else if(kind==='학교 조별 과제'){
-      const newArray = list.filter(el => el.kind===kind);
+      const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
     }else if(kind==='팀 프로젝트'){
-      const newArray = list.filter(el => el.kind===kind);
+      const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
     }else{
-      setEntireList(list);
+      setEntireList(groups_list);
     }
   }
 
@@ -96,7 +89,7 @@ const GroupSearch = (props) => {
         <Block onClick={() => onClickHandler('스터디')}>스터디</Block>
       </Category>
         {
-          loading ? 
+          isLoading ? 
           <Main>
             <LoadingBlock></LoadingBlock>
             <LoadingBlock></LoadingBlock>
@@ -112,7 +105,7 @@ const GroupSearch = (props) => {
             }
             {
               entireList.length % 3 === 0 && entireList.length !==0 && 
-              <button onClick={refetch} style={{marginTop: "5vh", padding: "10px", borderRadius: "10px", border: "1px solid #aaa"}}>더 보기</button>
+              <button ref={button_ref} style={{marginTop: "5vh", padding: "10px", borderRadius: "10px", border: "1px solid #aaa"}}>더 보기</button>
             }
           </Main>
         }

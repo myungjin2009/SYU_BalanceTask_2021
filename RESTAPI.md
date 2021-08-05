@@ -52,7 +52,7 @@
 ## < GROUP >
 
 ## 그룹 찾기 페이지 - 작성자: 박건형
-  /api/group/search => method: get
+  /api/group/search_card => method: get
   #### 설명: 그룹 찾기 카드들 가져오기
 
 

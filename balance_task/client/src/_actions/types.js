@@ -9,4 +9,4 @@ export const CHANGE_PASSWORD = 'change_password';
 
 //group에서의 액션 타입
 // export const JOIN_GROUP = "join_group";
-export const RECEIVE_POSTS = "receive_posts";
+export const RECEIVE_GROUPS_CARD = "receive_groups_card";
