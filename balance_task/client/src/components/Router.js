@@ -31,7 +31,7 @@ const Router = (props) => {
         <Route exact path="/" component={Auth(Login, false)} />
         <Route path="/signup" component={Auth(Signup, false)} />
         <Route path="/finding_password" component={Auth(FindingPW, false)}/>
-        <Route path="/practice" component={Prac}/>
+        {/* <Route path="/practice" component={Prac}/> */}
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
         <Route
           exact
