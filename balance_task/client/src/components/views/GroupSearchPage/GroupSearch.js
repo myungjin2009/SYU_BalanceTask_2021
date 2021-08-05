@@ -13,56 +13,64 @@ const GroupSearch = (props) => {
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const button_ref = useRef(null);
-
+  
   const dispatch = useDispatch();
   //0. 먼저 리덕스로부터 데이터를 받는다. 하지만 처음엔 없다.
   //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
-  //6. 버튼을 눌러서 추가된 데이터도 함께 store로부터 데이터를 받는다. 
+  //6. 또 다시 리덕스로부터 데이터를 받는다. 이번에도 데이터가 있다.
   const groups_list = useSelector(state => state.group.groups_list);
-  setEntireList(groups_list);
-
+  
   useEffect(()=>{
+    if(isLoading){
+      //1. 데이터 가져오고 redux의 store에 저장됨
+      //7. 새로운 데이터를 다시 가져오고 redux의 store에 저장됨 그리고 다시 3번과정으로 돌아감. 이과정은 이벤트 발동시 반복됨
+      dispatch(receiveGroupSearchCard(groups_list))
+      .then(response =>{
+      //   // 백엔드 애들이 주석 풀어주기
+      // if(response.payload.success){
+      //   // 2.로딩 해제하고 다시 리렌더링 된다.
+          setIsLoading(false);
+      // }
+      });
+      
 
+    }else{
+      const newArray = entireList.filter((el)=>el.title===search);
+      if(newArray.length===0){
+        if(search===''){
+          //4. 현재 isLoading은 false이기에 서버로부터 데이터를 더는 안가져온다. 
+          // entireList에는 데이터가 없는 상태이므로 리덕스 안에 있는 데이터를 entireList에 넣는다.
+          setEntireList(groups_list);
+        }
+        return;
+      }else{
+        //검색할 때만 사용된다.
+        setEntireList(newArray);
+      }
+      
+    }
+    //5.  ref로 등록된 버튼을 누르면 다시 isLoading이 true가 된다.
+    //버튼을 누를 때마다 데이터 가져옴
+    if(button_ref.current === null){
+      return;
+    }
     const chooseLoading = () =>{
       if(!isLoading){
         setIsLoading(true);
       }
     }
-    //1. 데이터 가져오고 redux의 store에 저장됨
-    //5. 데이터를 다시 가져오고 redux의 store에 저장됨
-    if(isLoading){
-      dispatch(receiveGroupSearchCard())
-      .then(response =>{
-        // 백엔드 애들이 주석 풀어주기
-        // if(response.payload.success){
-        //   //받은 데이터 세팅 지역 스테이트에 세팅
-        //   //setEntireList(...entireList, ...response.payload.groups_list); 안씀
-        //   // 2.로딩 해제하고 다시 리렌더링 된다.
-          setIsLoading(false);
-        // }
-      });
-    }
-    //4. 현재 isLoading은 false이기에 데이터를 더는 안가져온다. 다만 ref로 등록된 버튼을 누르면 다시 isLoading이 true가 된다.
-    //버튼을 누를 때마다 데이터 가져옴
-    // if(button_ref === null){
-    //   return;
-    // }
     button_ref.current.addEventListener("click",chooseLoading);
     return ()=>{
+      if(button_ref.current === null){
+        return;
+      }
       button_ref.current.removeEventListener("click", chooseLoading);
     }
-  },[isLoading]);
+  },[isLoading, search]);
 
-  useEffect(()=>{
-    const newArray = entireList.filter((el)=>el.title===search);
-    if(newArray.length===0){
-      if(search===''){
-        setEntireList(groups_list);
-      }
-      return;
-    }
-    setEntireList(newArray);
-  },[search]);
+  // useEffect(()=>{
+    
+  // },[search]);
 
   const onClickHandler = (kind) =>{
     if(kind==='스터디'){

@@ -44,7 +44,10 @@ export default function(state=initialState,action){
   switch (action.type) {
     case RECEIVE_GROUPS_CARD:
       const {groups_list} = state;
-      const new_array = {...groups_list, ...action.payload};
+      if(action.payload ===undefined){
+        return state;
+      }
+      const new_array = [...groups_list, ...action.payload.data];
       return {...state, groups_list: new_array};
     default:
       return state;

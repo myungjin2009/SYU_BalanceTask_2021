@@ -52,8 +52,8 @@
 ## < GROUP >
 
 ## 그룹 찾기 페이지 - 작성자: 박건형
-  /api/group/search_card => method: get
-  #### 설명: 그룹 찾기 카드들 가져오기
+  /api/group/search_card => method: post
+  #### 설명: 현재의 그룹 카드의 마지막 번호를 서버에 보내고 서버에서 가공한(몇 개의) 그룹 찾기 카드들 가져오기
 
 
 ## 그룹 찾기 페이지(Detail) - 작성자: 박건형
