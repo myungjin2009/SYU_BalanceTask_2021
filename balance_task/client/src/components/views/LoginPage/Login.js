@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import {useDispatch} from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
@@ -29,7 +29,13 @@ const Login = (props) => {
     }
     
     dispatch(loginUser(body))
-    .then(response => console.log(response));
+    .then(response => {
+      if(response.payload.success===true){
+        props.history.push('/my_page');
+      }else{
+        alert('오류!');
+      }
+    });
     
   }
 
@@ -175,4 +181,4 @@ const Default = styled.div`
   }
 `;
 
-export default Login;
+export default withRouter(Login);
