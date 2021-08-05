@@ -4,7 +4,8 @@ import {
   SIGNUP_USER,
   AUTH_USER,
   AUTH_USER_EMAIL,
-  FIND_PASSWORD
+  FIND_PASSWORD,
+  CHANGE_PASSWORD
 }from './types';
 //로그인 할 때
 export function loginUser(dataToSubmit){
@@ -31,6 +32,17 @@ export function findPassword(dataToSubmit){
 
   return{
     type: FIND_PASSWORD,
+    payload: request
+  }
+}
+//비밀번호 변경할 때
+
+export function changePassword(dataToSubmit){
+  const request = axios.post('/api/user/changing_password', dataToSubmit)
+  .then(response =>response.data).catch(err => console.log(err));
+
+  return{
+    type: CHANGE_PASSWORD,
     payload: request
   }
 }

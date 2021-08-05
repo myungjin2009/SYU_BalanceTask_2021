@@ -28,7 +28,7 @@ const Navigation = (props) => {
       </Li>
       <Li>
         <i ref={myPage_link} className="far fa-user"></i>
-        <Link to="/">마이페이지</Link>
+        <Link to="/my_page">마이페이지</Link>
       </Li>
     </Container>
   );
