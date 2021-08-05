@@ -53,7 +53,12 @@ https://fonts.google.com/
 4. _actions폴더에 새로운 기능의 action을 만든다. <br/>
 또는 이미 그 기능 관련해서 ㅁㅁ_actions.js라고 만들어졌으면 그 파일 안에 액션크리에이터와 액션을 만든다. types.js 해당 타입을 import하는 거 잊지말기
 5. 다 만들었으면 _reducers폴더에서 새로운 리듀서 파일을 만든다. <br/>
-또는 이미 그 기능 관련해서 ㅁㅁ_reducer.js가 있다면 그 파일에서 switch문 안에 어떻게 액션을 처리할 건지 정한다.
+또는 이미 그 기능 관련해서 ㅁㅁ_reducer.js가 있다면 그 파일에서 switch문 안에 어떻게 액션을 처리할 건지 정한다.<br/>
+새로운 기능의 reducer를 만드는 거라면 ㅇㅇ_reducer.js를 만들고 _reducer폴더의 index.js를 수정해주자<br/>
+그냥 index.js에 import해서 만든 리듀서 불러와서 밑에 처럼 리듀서들을 합치면 된다.<br/>
+const rootReducer = combineReducers({
+  user, oo
+});
 6. 액션, 액션크리에이터와 리듀서 모두 다 끝냈다면 이제 이 redux를 어디서 사용할건지 페이지를 찾는다.
 7. 그 페이지에서 dispatch함수를 사용한다. dispatch는 당연히 액션크리에이터함수를 품고 있어야한다.
 8. 만약, rest api로 처리하는 부분이 액션크리에이터에 들어가 있다면 액션크리에이터를 처리하고 그 후에 어떻게 할건지 dispatch함수 뒤에 then을 사용해서 response를 받으면된다.
