@@ -24,6 +24,7 @@ export function signupUser(dataToSubmit) {
     .post("/api/signup", dataToSubmit)
     .then((response) => response.data)
     .catch((err) => console.log(err));
+    
   return {
     type: SIGNUP_USER,
     payload: request,

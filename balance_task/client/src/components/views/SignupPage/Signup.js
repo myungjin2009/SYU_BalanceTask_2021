@@ -132,10 +132,12 @@ const Signup = (props) => {
       isCheck,
     };
     dispatch(signupUser(body)).then((response) => {
+      console.log(response);
       if(response.payload.success===true){
         props.history.push('/');
       }else{
         alert('오류!');
+        console.log(response);
       }
     });
   };
