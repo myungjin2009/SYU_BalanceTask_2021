@@ -8,7 +8,6 @@ import ProjectTermination from "../routes/ProjectTermination";
 import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
 import WorkerCalendar from "../routes/WorkerCalendar";
 import WorkerInvitation from "../routes/WorkerInvitation";
-import Settings_MAIN from "./views/SettingPage/Settings_MAIN";
 import Signup from "./views/SignupPage/Signup";
 import Login from "./views/LoginPage/Login";
 import NotFound from "./views/NotFoundPage/NotFound";
@@ -18,6 +17,12 @@ import WorkerList from "./views/WorkerListPage/WorkerList";
 import Detail from "./views/GroupSearchPage/Detail";
 import FindingPW from "./views/FindingPWPage/FindingPW";
 import Prac from "./practice";
+
+import Settings from "./views/SettingPage/Settings";
+import AppInfo from "./views/SettingPage/AppInfo";
+import Contact from "./views/SettingPage/Contact";
+import EditAccount from "./views/SettingPage/EditAccount";
+import Withdraw from "./views/SettingPage/Withdraw";
 
 const Router = (props) => {
   const [isTimeline, setIsTimeline] = useState(true);
@@ -61,7 +66,12 @@ const Router = (props) => {
         <Route path="/worker_calendar" component={WorkerCalendar} />
         <Route path="/worker_invitation" component={WorkerInvitation} />
         <Route path="/project_termination" component={ProjectTermination} />
-        <Route path="/settings_main" component={Settings_MAIN} />
+
+        <Route path="/settings" component={Settings} />
+        <Route path="/settings/AppInfo" component={AppInfo} />
+        <Route path="/settings/Contact" component={Contact} />
+        <Route path="/settings/EditAccount" component={EditAccount} />
+        <Route Path="/settings/Withdraw" component={Withdraw} />
         <Route exact component={Auth(NotFound, null)} />
       </Switch>
     </BrowserRouter>
