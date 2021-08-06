@@ -94,26 +94,26 @@ http.createServer(app).listen(app.get("port"), function () {
   console.log("서버가 시작되었습니다. 포트 : " + app.get("port"));
 });
 
-//토큰 받기
-app.get("/api/users/auth", auth, (req, res) => {
-  res.status(200).json({
-    _id: req.user._id,
-    isAdmin: req.user.role === 0 ? false : true,
-    isAuth: true,
-    email: req.user.email,
-    name: req.user.name,
-    lastname: req.user.lastname,
-    role: req.user.role,
-    image: req.user.image,
-  });
-});
+// //토큰 받기
+// app.get("/api/users/auth", auth, (req, res) => {
+//   res.status(200).json({
+//     _id: req.user._id,
+//     isAdmin: req.user.role === 0 ? false : true,
+//     isAuth: true,
+//     email: req.user.email,
+//     name: req.user.name,
+//     lastname: req.user.lastname,
+//     role: req.user.role,
+//     image: req.user.image,
+//   });
+// });
 
-//로그아웃 토큰 지우기
-app.get("/api/users/logout", auth, (req, res) => {
-  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
-    if (err) return res.json({ success: false, err });
-    return res.status(200).send({
-      success: true,
-    });
-  });
-});
+// //로그아웃 토큰 지우기
+// app.get("/api/users/logout", auth, (req, res) => {
+//   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+//     if (err) return res.json({ success: false, err });
+//     return res.status(200).send({
+//       success: true,
+//     });
+//   });
+// });
