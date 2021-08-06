@@ -63,7 +63,7 @@ const Login = (props) => {
           <Default>
             <Link to="/finding_password">비밀번호를 잊으셨습니까?</Link>
           </Default>
-          <button>
+          <button onClick={() => {props.history.push('/signup');}}>
             <Link to="/signup">회원가입</Link>
           </button>
         </Content>

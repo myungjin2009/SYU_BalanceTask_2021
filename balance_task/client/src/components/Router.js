@@ -67,11 +67,12 @@ const Router = (props) => {
         <Route path="/worker_invitation" component={WorkerInvitation} />
         <Route path="/project_termination" component={ProjectTermination} />
 
-        <Route path="/settings" component={Settings} />
+        <Route exact path="/settings" component={Settings} />
         <Route path="/settings/AppInfo" component={AppInfo} />
         <Route path="/settings/Contact" component={Contact} />
         <Route path="/settings/EditAccount" component={EditAccount} />
         <Route Path="/settings/Withdraw" component={Withdraw} />
+
         <Route exact component={Auth(NotFound, null)} />
       </Switch>
     </BrowserRouter>

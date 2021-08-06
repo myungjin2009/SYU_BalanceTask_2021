@@ -13,7 +13,6 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     //this.state={};
-    console.log(props.history);
   }
 
   render() {
@@ -21,11 +20,14 @@ class Settings extends React.Component {
       <Container>
         <Header title={title}></Header>
         <InputBox>
-          //왜 안되지
-          <button onClick={(props) => {props.history.push('/settings/EditAccount')}}>회원정보 수정</button>
-          <button>앱 정보</button>
-          <button>문의하기</button>
-          <button>회원탈퇴</button>
+          <button onClick={() => {
+            this.props.history.push('/settings/EditAccount')}}>회원정보 수정</button>
+          <button onClick={() => {
+            this.props.history.push('/settings/AppInfo')}}>앱 정보</button>
+          <button onClick={() => {
+            this.props.history.push('/settings/Contact')}}>문의하기</button>
+          <button onClick={() => {
+            this.props.history.push('/settings/Withdraw')}}>회원탈퇴</button>
         </InputBox>
 
       </Container>
