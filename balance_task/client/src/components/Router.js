@@ -62,16 +62,17 @@ const Router = (props) => {
           path="/project_timeline/adding_posts"
           component={AddingPosts}
         />
+
+        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/settings/AppInfo" component={AppInfo} />
+        <Route exact path="/settings/Contact" component={Contact} />
+        <Route exact path="/settings/EditAccount" component={EditAccount} />
+        <Route exact Path="/settings/Withdraw" component={Withdraw} />
+        
         <Route path="/group_chat" component={GroupChat} />
         <Route path="/worker_calendar" component={WorkerCalendar} />
         <Route path="/worker_invitation" component={WorkerInvitation} />
         <Route path="/project_termination" component={ProjectTermination} />
-
-        <Route exact path="/settings" component={Settings} />
-        <Route path="/settings/AppInfo" component={AppInfo} />
-        <Route path="/settings/Contact" component={Contact} />
-        <Route path="/settings/EditAccount" component={EditAccount} />
-        <Route Path="/settings/Withdraw" component={Withdraw} />
 
         <Route exact component={Auth(NotFound, null)} />
       </Switch>

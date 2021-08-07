@@ -52,13 +52,13 @@ const InputBox = styled.div`
 
 
   & > input {
-    width: 55%;
+    width: 65%;
     margin-top: 5vh;
     padding: 5px;
     outline: none;
     font-size: 16px;
     border: 1px solid gray;
-    border: none;
+    border: 2px solid rgb(255,0,0);
   }
 
   & > h3 {
@@ -67,7 +67,7 @@ const InputBox = styled.div`
 
   & > button {
     background: rgb(168,1,1);
-    width: 40%;
+    width: 50%;
     border: none;
     color: white;
     padding: 11px;
