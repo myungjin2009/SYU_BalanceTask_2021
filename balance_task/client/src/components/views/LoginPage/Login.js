@@ -17,7 +17,7 @@ const Login = (props) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-
+  console.log(props);
   const postUser = async(e) =>{
     e.preventDefault();
     if(id===''||password===''){
@@ -63,8 +63,8 @@ const Login = (props) => {
           <Default>
             <Link to="/finding_password">비밀번호를 잊으셨습니까?</Link>
           </Default>
-          <button onClick={() => {props.history.push('/signup');}}>
-            <Link to="/signup">회원가입</Link>
+          <button onClick={()=> props.history.push("/signup")}>
+            회원가입
           </button>
         </Content>
       </DefaultLoginBox>
@@ -167,9 +167,7 @@ const Content = styled.div`
     &:active{
       box-shadow: -1px -1px 1px gray;
     }
-    &>a{
-      color: white;  
-    }
+    color: white;  
 `;
 
 const Default = styled.div`

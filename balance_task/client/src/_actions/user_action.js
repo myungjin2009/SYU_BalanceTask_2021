@@ -20,6 +20,7 @@ export function loginUser(dataToSubmit){
 export function signupUser(dataToSubmit){
   const request = axios.post("/api/signup", dataToSubmit)
   .then(response => response.data).catch(err => console.log(err));
+  console.log(request);
   return{
     type: SIGNUP_USER,
     payload: request
