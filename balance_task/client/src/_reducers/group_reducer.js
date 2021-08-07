@@ -1,4 +1,4 @@
-import { RECEIVE_GROUPS_CARD } from "../_actions/types";
+import { RECEIVE_GROUPS_CARD , LOADING, JOIN_GROUP} from "../_actions/types";
 import img1 from '../images/노답.jpg';
 import img2 from '../images/멋쟁이들.jpg';
 import img3 from '../images/별.jpg';
@@ -37,7 +37,8 @@ const initialState={
     "date": "2021-07-09 ~ 2021-08-03",
     "image": img3,
     "kind": '팀 프로젝트'
-  }]
+  }],
+  isLoading:true
 }
 
 export default function(state=initialState,action){
@@ -49,6 +50,13 @@ export default function(state=initialState,action){
       }
       const new_array = [...groups_list, ...action.payload.data];
       return {...state, groups_list: new_array};
+
+    case LOADING:
+      return {...state, isLoading: action.isLoading};
+    
+    case JOIN_GROUP:
+      return {...state, joinSuccess: action.payload};
+
     default:
       return state;
   }

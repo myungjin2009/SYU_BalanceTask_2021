@@ -1,22 +1,20 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { joinGroup } from '../../../_actions/group_action';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
   const {location:{state:{content, writer, date, image, kind}}} = props;
   const userData = useSelector(state => state.user.userData);
-
-  const postHandler = async() =>{
-    try {
-      const body = await axios.post('/api/group/participation',userData);
-      const payload = body.data;
-      console.log(payload);
-    } catch (error) {
-      console.log(error);
-    }
+  const dispatch = useDispatch();
+  
+  const postHandler = () =>{
+    dispatch(joinGroup(userData)).then(response=>{
+      if(response.payload.success){
+        props.history.goBack();
+      }
+    })
   }
 
   return(
