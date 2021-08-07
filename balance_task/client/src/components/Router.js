@@ -67,12 +67,12 @@ const Router = (props) => {
         <Route exact path="/settings/AppInfo" component={AppInfo} />
         <Route exact path="/settings/Contact" component={Contact} />
         <Route exact path="/settings/EditAccount" component={EditAccount} />
-        <Route exact Path="/settings/Withdraw" component={Withdraw} />
+        <Route exact path="/settings/Withdraw" component={Withdraw} />
         
-        <Route path="/group_chat" component={GroupChat} />
+        {/* <Route path="/group_chat" component={GroupChat} />
         <Route path="/worker_calendar" component={WorkerCalendar} />
         <Route path="/worker_invitation" component={WorkerInvitation} />
-        <Route path="/project_termination" component={ProjectTermination} />
+        <Route path="/project_termination" component={ProjectTermination} /> */}
 
         <Route exact component={Auth(NotFound, null)} />
       </Switch>
