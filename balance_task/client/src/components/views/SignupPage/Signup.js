@@ -136,6 +136,7 @@ const Signup = (props) => {
         props.history.push('/');
       }else{
         alert('오류!');
+        console.log(response);
       }
     });
   };
