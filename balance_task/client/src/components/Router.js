@@ -25,10 +25,7 @@ import EditAccount from "./views/SettingPage/EditAccount";
 import Withdraw from "./views/SettingPage/Withdraw";
 
 const Router = (props) => {
-  const [isTimeline, setIsTimeline] = useState(true);
   const [user, setUser] = useState("박건형");
-  const [search, setSearch] = useState(null);
-  // const [isUser, setIsUSer] = useState(false);
 
   return (
     <BrowserRouter>
@@ -50,11 +47,7 @@ const Router = (props) => {
           path="/project_timeline"
           render={() => (
             <ProjectTimeline
-              search={search}
               user={user}
-              isTimeline={isTimeline}
-              setSearch={setSearch}
-              setIsTimeline={setIsTimeline}
             />
           )}
         />
