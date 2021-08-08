@@ -75,6 +75,7 @@ const initialState = {
           vote: "찬성",
         },
       ],
+      kind: "timeline"
     },
     {
       photo_name: "저희 좀 멋지죠?",
@@ -100,6 +101,7 @@ const initialState = {
           vote: "찬성",
         },
       ],
+      kind: "timeline"
     },
     {
       photo_name: "저희 좀 멋지죠?",
@@ -125,6 +127,7 @@ const initialState = {
           vote: "찬성",
         },
       ],
+      kind: "timeline"
     },
   ],
   noticeList:[
@@ -149,7 +152,8 @@ const initialState = {
           user_name: '김명진',
           vote: 0
         }
-      ]
+      ],
+      kind: "notice"
     }
   ]
   ,
@@ -177,11 +181,31 @@ export default function (state = initialState, action) {
       if (action.payload === undefined) {
         return state;
       }
+      //서버랑 연결되면 사용
       // const new_array = [...timelineList, ...action.payload.timelineList];
       // return { ...state, timelineList: new_array };
 
     case RECEIVE_NOTICE:
-      return {...state, noticeList: action.payload.noticeList};  
+      const { noticeList } = state;
+      if (action.payload === undefined) {
+        return state;
+      }
+      //서버랑 연결되면 사용
+      // const new_array = [...noticeList, ...action.payload.noticeList];
+      // return {...state, noticeList: new_array};  
+
+    case VOTE_FOR_POSTS:
+      return state;
+      // const {payload : {kind, index, vote_list}} = action;
+      // if(kind === "timeline"){
+      //   let new_array = state.timelineList;
+      //   new_array[index].votes_list = vote_list;
+      //   return {...state, timelineList: new_array}
+      // }else if(kind === "notice"){
+      //   let new_array = state.noticeList;
+      //   new_array[index].votes_list = vote_list;
+      //   return {...state, noticeList: new_array}
+      // }
     default:
       return state;
   }

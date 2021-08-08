@@ -82,7 +82,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             timeline.map((user_post,i)=>(
-              <TimelineBlock key={i} user={user} user_post = {user_post}/>
+              <TimelineBlock key={i} index={i} user={user} user_post = {user_post}/>
               ))
           }
         </Container> 

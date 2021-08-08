@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { voteForPosts, receiveTimeline, receiveNotice } from '../../../_actions/group_action';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-const handleVote = (votes, setVotes, user, e) => {
+const handleVote = (dispatch, votes, index, user, e, kind) => {
   if(votes === null) return;
   const button_text = e.target.textContent;
   if(button_text==="찬성") {
@@ -16,7 +18,18 @@ const handleVote = (votes, setVotes, user, e) => {
         return {...el};
       }
     });
-    setVotes(current_vote);
+    let body = {
+      id: index,
+      current_vote,
+      kind
+    }
+    dispatch(voteForPosts(body)).then(res =>{
+      if(kind === "timeline"){
+        dispatch(receiveTimeline([]));
+      }else if(kind =="notice"){
+        dispatch(receiveNotice([]));
+      }
+    });
   }else if(button_text==="반대"){
     const current_vote = votes.map((el)=>{
       if(el.user_name===user && el.vote === '찬성'){
@@ -29,26 +42,27 @@ const handleVote = (votes, setVotes, user, e) => {
         return {...el};
       }
     });
-    setVotes(current_vote);
+    let body = {
+      id: index,
+      current_vote,
+      kind
+    }
+    dispatch(voteForPosts(body)).then(res =>{
+      if(kind === "timeline"){
+        dispatch(receiveTimeline([]));
+      }else if(kind =="notice"){
+        dispatch(receiveNotice([]));
+      }
+    });
   }
   // api 호출
 }
 
-const TimelineBlock = ({user_post, user}) =>{
-  const {photo_name, photo_url, content, user_name, date, votes_list} = user_post;
-  const [isUseable, setIsUseable] = useState(false);
-  const [votes, setVotes] = useState([]);
-  // useEffect에서 votes_list, isUseable는 되게 중요하다. 처음에 votes_list는 undefined로 시작한다. 그래서 처음에는 매핑하지 않고 넘어가고 useEffect에서도 넘어간다.
-  // 그리고 아직 isUseable의 값이 바뀌지 않았으니 아무것도 출력하지 않고, 마운트가 다 되면, useEffect에서 votes_list의 값이 바뀌어 있으니 if문에 들어가서
-  //isUseable를 true로 해준다. 근데 이건 바로 적용되는 게 아니니 중첩된 if 문은 통과한다.
-  useEffect(()=>{
-    if(votes_list !== undefined){
-      setIsUseable(true);
-      if(isUseable){
-        setVotes(votes_list);
-      }
-    }
-  },[votes_list, isUseable]);
+const TimelineBlock = ({index, user_post, user}) =>{
+  const {photo_name, photo_url, content, user_name, date, votes_list, kind} = user_post;
+
+  const dispatch = useDispatch();
+  
   return(
     <Container>
       <Image photo_url={photo_url}></Image>
@@ -58,17 +72,16 @@ const TimelineBlock = ({user_post, user}) =>{
       </Content>
       <VotingSpace>
         <ButtonContainer>
-          <button onClick={(e)=>handleVote(votes, setVotes, user, e)}>찬성</button>
-          <button onClick={(e)=>handleVote(votes, setVotes, user, e)}>반대</button>  
+          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind)}>찬성</button>
+          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind)}>반대</button>  
         </ButtonContainer>
         <Bar>
-          {isUseable ? 
-             votes.map((el, i)=>{
-            if(el.vote === '찬성') return(<PositiveBlock key={i}></PositiveBlock>)
-            else if(el.vote === '반대') return(<NegativeBlock key={i}></NegativeBlock>)
-            else return(<WhiteBlock key={i}></WhiteBlock>)
-          }):
-          ''
+          {
+            votes_list.map((el, i)=>{
+              if(el.vote === '찬성') return(<PositiveBlock key={i}></PositiveBlock>)
+              else if(el.vote === '반대') return(<NegativeBlock key={i}></NegativeBlock>)
+              else return(<WhiteBlock key={i}></WhiteBlock>)
+            })
           }
         </Bar>
       </VotingSpace>
