@@ -55,7 +55,7 @@ export function voteForPosts(dataToSubmit){
   .then(response => response.data).catch(err => console.log(err));
   return {
     type: VOTE_FOR_POSTS,
-    payload: request
+    payload: {request, dataToSubmit}
   }
 }
 

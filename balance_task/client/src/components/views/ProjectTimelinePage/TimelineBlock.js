@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React,{useState} from 'react';
 import { voteForPosts, receiveTimeline, receiveNotice } from '../../../_actions/group_action';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
-const handleVote = (dispatch, votes, index, user, e, kind) => {
+const handleVote = (dispatch, votes, index, user, e, kind, setVote, isTimeline) => {
   if(votes === null) return;
   const button_text = e.target.textContent;
   if(button_text==="찬성") {
@@ -23,13 +24,12 @@ const handleVote = (dispatch, votes, index, user, e, kind) => {
       current_vote,
       kind
     }
-    dispatch(voteForPosts(body)).then(res =>{
-      if(kind === "timeline"){
-        dispatch(receiveTimeline([]));
-      }else if(kind =="notice"){
-        dispatch(receiveNotice([]));
-      }
-    });
+    dispatch(voteForPosts(body));
+    if(isTimeline){
+      setVote(current_vote);
+    }else{
+      setVote(current_vote);
+    }
   }else if(button_text==="반대"){
     const current_vote = votes.map((el)=>{
       if(el.user_name===user && el.vote === '찬성'){
@@ -47,33 +47,41 @@ const handleVote = (dispatch, votes, index, user, e, kind) => {
       current_vote,
       kind
     }
-    dispatch(voteForPosts(body)).then(res =>{
-      if(kind === "timeline"){
-        dispatch(receiveTimeline([]));
-      }else if(kind =="notice"){
-        dispatch(receiveNotice([]));
-      }
-    });
+    dispatch(voteForPosts(body));
+    if(isTimeline){
+      setVote(current_vote);
+    }else{
+      setVote(current_vote);
+    }
   }
   // api 호출
 }
 
-const TimelineBlock = ({index, user_post, user}) =>{
-  const {photo_name, photo_url, content, user_name, date, votes_list, kind} = user_post;
+const TimelineBlock = (props) =>{
+  const {index, isTimeline, user_post ,user} = props;
+  const {photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage} = user_post;
+  //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
+  const [vote, setVote] = useState(votes_list);
 
   const dispatch = useDispatch();
   
   return(
     <Container>
-      <Image photo_url={photo_url}></Image>
+      <Image photo_url={photo_url} onClick = {()=>{
+      if(isTimeline){
+        props.history.push('/project_timeline/timeline/'+index, user_post);
+      }else{
+        props.history.push('/project_timeline/notice/'+index, user_post);
+      }
+    }}></Image>
       <Content>
         <p>{content}</p>
         <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {date}</span>
       </Content>
       <VotingSpace>
         <ButtonContainer>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind)}>찬성</button>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind)}>반대</button>  
+          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>찬성</button>
+          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>반대</button>  
         </ButtonContainer>
         <Bar>
           {
@@ -88,7 +96,7 @@ const TimelineBlock = ({index, user_post, user}) =>{
     </Container>
   )
 }
-export default TimelineBlock;
+
 
 const Container = styled.div`
   width: 100%;
@@ -100,7 +108,6 @@ const Image = styled.div`
   background-image: url('${({photo_url})=>photo_url}');
   background-size:cover;
   background-position:center;
-}
 `;
 const Content = styled.div`
   width: 100%;
@@ -157,14 +164,15 @@ const PositiveBlock = styled.div`
   width: 100%;
   height: 100%;
   background: royalblue;
-`
+`;
 const NegativeBlock = styled.div`
   width: 100%;
   height: 100%;
   background: #ef5350;
-`
+`;
 const WhiteBlock = styled.div`
   width: 100%;
   height: 100%;
   background: white;
-`
+`;
+export default withRouter(TimelineBlock);

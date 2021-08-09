@@ -64,7 +64,7 @@ const initialState = {
         },
         {
           user_name: "하동호",
-          vote: "반대",
+          vote: "찬성",
         },
         {
           user_name: "백정훈",
@@ -75,7 +75,8 @@ const initialState = {
           vote: "찬성",
         },
       ],
-      kind: "timeline"
+      kind: "timeline",
+      profileImage: img2
     },
     {
       photo_name: "저희 좀 멋지죠?",
@@ -86,7 +87,7 @@ const initialState = {
       votes_list: [
         {
           user_name: "박건형",
-          vote: "찬성",
+          vote: 0,
         },
         {
           user_name: "하동호",
@@ -101,7 +102,8 @@ const initialState = {
           vote: "찬성",
         },
       ],
-      kind: "timeline"
+      kind: "timeline",
+      profileImage: img2
     },
     {
       photo_name: "저희 좀 멋지죠?",
@@ -127,7 +129,8 @@ const initialState = {
           vote: "찬성",
         },
       ],
-      kind: "timeline"
+      kind: "timeline",
+      profileImage: img2
     },
   ],
   noticeList:[
@@ -153,7 +156,9 @@ const initialState = {
           vote: 0
         }
       ],
-      kind: "notice"
+      kind: "notice",
+      profileImage: img2
+
     }
   ]
   ,
@@ -195,17 +200,16 @@ export default function (state = initialState, action) {
       // return {...state, noticeList: new_array};  
 
     case VOTE_FOR_POSTS:
-      return state;
-      // const {payload : {kind, index, vote_list}} = action;
-      // if(kind === "timeline"){
-      //   let new_array = state.timelineList;
-      //   new_array[index].votes_list = vote_list;
-      //   return {...state, timelineList: new_array}
-      // }else if(kind === "notice"){
-      //   let new_array = state.noticeList;
-      //   new_array[index].votes_list = vote_list;
-      //   return {...state, noticeList: new_array}
-      // }
+      const {payload : {dataToSubmit:{kind, id, current_vote}}} = action;
+      if(kind === "timeline"){
+        let new_array = state.timelineList;
+        new_array[id].votes_list = current_vote;
+        return {...state, timelineList: new_array}
+      }else if(kind === "notice"){
+        let new_array = state.noticeList;
+        new_array[id].votes_list = current_vote;
+        return {...state, noticeList: new_array}
+      }
     default:
       return state;
   }
