@@ -43,7 +43,7 @@ const ProjectTimeline = ({user}) =>{
   const [notice, setNotice] = useState(entireNotice);
   const [search, setSearch] = useState(null);
   const [isTimeline, setIsTimeline] = useState(true);
-  
+
   useEffect(()=>{
     if(isTimeline){
       if(isLoading){
@@ -66,7 +66,7 @@ const ProjectTimeline = ({user}) =>{
         }
       }
     }
-  },[search, isLoading]);
+  },[search, isLoading, isTimeline]);
 
   return(
     <>
@@ -82,7 +82,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             timeline.map((user_post,i)=>(
-              <TimelineBlock key={i} user={user} user_post = {user_post}/>
+              <TimelineBlock key={i} isTimeline={isTimeline} index={i} user={user} user_post = {user_post}/>
               ))
           }
         </Container> 
@@ -96,7 +96,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             notice.map((user_post, i)=>(
-              <TimelineBlock key={i} user={user} user_post = {user_post} />
+              <TimelineBlock key={i} index={i} user={user} user_post = {user_post} />
             ))
           }
         </Container>   

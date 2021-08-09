@@ -6,6 +6,7 @@ import AddingPosts from "../routes/AddingPosts";
 import GroupChat from "../routes/GroupChat";
 import ProjectTermination from "../routes/ProjectTermination";
 import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
+import ProjectTimelineDetail from "./views/ProjectTimelinePage/Detail";
 import WorkerCalendar from "../routes/WorkerCalendar";
 import WorkerInvitation from "../routes/WorkerInvitation";
 import Signup from "./views/SignupPage/Signup";
@@ -51,6 +52,8 @@ const Router = (props) => {
             />
           )}
         />
+        <Route exact path="/project_timeline/timeline/:index" component={ProjectTimelineDetail}/>
+        <Route exact path="/project_timeline/notice/:index" component={ProjectTimelineDetail}/>
         <Route
           path="/project_timeline/adding_posts"
           component={AddingPosts}

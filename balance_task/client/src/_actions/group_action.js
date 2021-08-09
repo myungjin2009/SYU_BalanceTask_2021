@@ -49,4 +49,13 @@ export function receiveNotice(indexToSubmit){
     payload: request
   }
 }
+// notice, timeline 모든 게시물 투표하기
+export function voteForPosts(dataToSubmit){
+  const request = axios.post('/api/group/vote', dataToSubmit) //서버에서 이사람의 정보를 수정해주면된다.
+  .then(response => response.data).catch(err => console.log(err));
+  return {
+    type: VOTE_FOR_POSTS,
+    payload: {request, dataToSubmit}
+  }
+}
 
