@@ -52,6 +52,26 @@ router.route("/api/user/login").post(function (req, res) {
         );
         console.log(accessToken);
         res.cookie("user", accessToken);
+        if (sql.pool) {
+          user.savetoken(accessToken,req.body.id, function(err, savetoken) {
+            // 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
+              if (err) {
+                        console.error('사용자 추가 중 에러 발생 : ' + err.stack);
+        
+                        return;
+                }
+    
+              if (user.savetoken) {
+                console.dir(user.savetoken);
+                console.log("success");
+              
+              } else {
+                console.log("fail");
+              }
+            });
+          } else {  // 데이터베이스 객체가 초기화되지 않은 경우 실패 응답 전송
+            console.log("데이터베이스 객체가 초기화되지 않은 경우 실패 응답 전송");
+          }
         res.status(201).json({
           success: true,
           result: "ok",
