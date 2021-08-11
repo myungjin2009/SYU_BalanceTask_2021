@@ -102,7 +102,7 @@ const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
       <SlideMenuContainer ref={slideMenu}>
         <SlideMenu>
           <li><Link to="/group_chat">채팅방</Link></li>
-          <li><Link to="/worker_calendar">워커 캘린더</Link></li>
+          <li><Link to="/group_calendar">워커 캘린더</Link></li>
           <li><Link to="/worker_invitation">워커 초대</Link></li>
           <li><Link to="/project_termination">프로젝트 종료</Link></li>
         </SlideMenu>
