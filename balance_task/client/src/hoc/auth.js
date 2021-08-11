@@ -16,7 +16,8 @@ export default function(SpecificComponent, option, adminRoute = null){
   function AuthenticationCheck(props){
     const dispatch = useDispatch();
     useEffect(()=>{
-      dispatch(auth()).then(response => console.log(response));
+      dispatch(auth());
+      // .then(response => console.log(response));
 
     },[]);
     return(

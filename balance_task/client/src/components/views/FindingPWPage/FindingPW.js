@@ -38,14 +38,14 @@ const chnagePasswordCheckHandler = (e, setPasswordCheck) => {
   setPasswordCheck(e.target.value);
 };
 
-const handleAuthorize = (e, dispatch, auth_input, setMinutes) => {
+const handleAuthorize = (e, dispatch, email_input, setMinutes) => {
   e.preventDefault();
   const {
     current: { value },
-  } = auth_input;
+  } = email_input;
   if (value === "") {
     alert("이메일을 입력해주세요");
-    auth_input.current.focus();
+    email_input.current.focus();
     return;
   } else {
     //5분으로 세팅
@@ -66,7 +66,6 @@ const handleAuthorize = (e, dispatch, auth_input, setMinutes) => {
 
 function FindingPW(props) {
   //InputBox에 대한 것
-  console.log(props);
   const [isClick, setIsClick] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -77,11 +76,13 @@ function FindingPW(props) {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const auth_input = useRef(null);
+  
   const dispatch = useDispatch();
   const title = "비밀번호 찾기";
-
+  //idbox는 유저가 양식을 보냈을 때 아래 창에 뜨는 비밀번호 변경 블럭이다.
   const idBox = useRef(null);
+  const email_input = useRef(null);
+  const name_input = useRef(null);
   //비밀번호 찾기 함수
   const findPasswordHandler = (e) => {
     e.preventDefault();
@@ -103,6 +104,8 @@ function FindingPW(props) {
       if (response.payload.success) {
         //만약 인증번호와 이름, 이메일이 맞다면
         setIsClick(true);
+        email_input.current.disabled = true;
+        name_input.current.disabled = true;
       } else {
         alert("맞지 않습니다.");
       }
@@ -111,8 +114,19 @@ function FindingPW(props) {
   //비밀번호 바꾸기 함수
   const changePasswordHandler = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     if (password === "" || passwordCheck === "") {
       alert("비밀번호와 비밀번호확인 모두 입력해주세요");
+=======
+    const pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{9,15}$/;
+    if (!pwdCheck.test(password)) {
+      // pwdCheck는 정규 표현식으로 test하는 함수를 지원한다.
+      alert("비밀번호는 영문, 숫자, 특수문자 합 9-15자리가 되어야합니다.");
+    }
+
+    if(password==='' || passwordCheck===''){
+      alert('비밀번호와 비밀번호확인 모두 입력해주세요');
+>>>>>>> master
       return;
     }
     if (password !== passwordCheck) {
@@ -145,10 +159,11 @@ function FindingPW(props) {
       <InputBox>
         <form
           onSubmit={(e) => {
-            handleAuthorize(e, dispatch, auth_input, setMinutes);
+            handleAuthorize(e, dispatch, email_input, setMinutes);
           }}
         >
           <input
+            ref={name_input}
             type="text"
             value={name}
             onChange={(e) => changeName(e, setName)}
@@ -156,7 +171,7 @@ function FindingPW(props) {
             required
           />
           <input
-            ref={auth_input}
+            ref={email_input}
             type="email"
             value={email}
             onChange={(e) => changeEmail(e, setEmail)}
@@ -165,6 +180,9 @@ function FindingPW(props) {
           />
           <button rype="button">인증번호 받기</button>
         </form>
+        {
+          minutes=== 0&&seconds===0 ? '': <div style={{padding: "10px"}}>{minutes}:{seconds} 남았습니다!😊</div>
+        }
         <form onSubmit={findPasswordHandler}>
           <input
             type="text"
@@ -176,6 +194,7 @@ function FindingPW(props) {
           <button type="submit">확인</button>
         </form>
       </InputBox>
+<<<<<<< HEAD
       <IdBox ref={idBox} onSubmit={changePasswordHandler}>
         <header>비밀번호를 바꿔보세요.</header>
         <input
@@ -194,8 +213,17 @@ function FindingPW(props) {
           }}
           autoComplete="none"
         />
+=======
+      <Box ref={idBox} onSubmit={changePasswordHandler}>
+        <header>
+          <span>비밀번호를 바꿔보세요.</span><br/>
+          <span>비밀번호는 영문, 숫자, 특수문자 합 9-15자리입니다.</span>
+        </header>
+        <input type="password" placeholder="비밀번호" value={password} onChange={(e)=>chnagePasswordHandler(e, setPassword)} autoComplete="none" />
+        <input type="password" placeholder="비밀번호확인" value={passwordCheck} onChange={(e)=>{chnagePasswordCheckHandler(e, setPasswordCheck)}} autoComplete="none" />
+>>>>>>> master
         <button type="submit">제출하기</button>
-      </IdBox>
+      </Box>
     </Container>
   );
 }
@@ -247,7 +275,7 @@ const InputBox = styled.div`
   }
 `;
 
-const IdBox = styled.form`
+const Box = styled.form`
   display: none;
   flex-direction: column;
   align-items: center;

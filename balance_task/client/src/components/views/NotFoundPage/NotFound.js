@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {withRouter} from "react-router";
 
 const NotFound = (props) =>{
   return(
@@ -33,4 +34,4 @@ const Header = styled.h1`
   text-align: center;
 `;
 
-export default NotFound;
+export default withRouter(NotFound);
