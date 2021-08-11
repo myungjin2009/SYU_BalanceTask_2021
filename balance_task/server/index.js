@@ -223,18 +223,18 @@ app.get("/api/user/auth", auth, (req, res) => {
   console.log("success");
   console.log(req.token);
   console.log(req.id);
-  JSON.parse({
-    id: req.id,
-    token:req.token
-  })
+  // JSON.parse({
+  //   id: req.id,
+  //   token:req.token
+  // })
   // JSON.stringify({
   //   id: req.id,
   //   token:req.token
   // });
-  // res.status(500).json({
-  //   //유저정보 제공
+  res.status(500).json({
+    //유저정보 제공
 
-  //   //name: req.user.name,
-  //   id: req.id, //id 정보 클라이언트에 제공
-  // });
+    token:req.token,
+    id: req.id //id 정보 클라이언트에 제공
+  });
 });
