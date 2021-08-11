@@ -119,8 +119,13 @@ function FindingPW(props) {
       alert("비밀번호는 영문, 숫자, 특수문자 합 9-15자리가 되어야합니다.");
     }
 
+<<<<<<< HEAD
     if (password === "" || passwordCheck === "") {
       alert("비밀번호와 비밀번호확인 모두 입력해주세요");
+=======
+    if(password==='' || passwordCheck===''){
+      alert('비밀번호와 비밀번호확인 모두 입력해주세요');
+>>>>>>> a2b64ffeb1670f6534385b4886e7034905efe140
       return;
     }
     if (password !== passwordCheck) {
@@ -194,6 +199,7 @@ function FindingPW(props) {
       </InputBox>
       <Box ref={idBox} onSubmit={changePasswordHandler}>
         <header>
+<<<<<<< HEAD
           <span>비밀번호를 바꿔보세요.</span>
           <br />
           <span>비밀번호는 영문, 숫자, 특수문자 합 9-15자리입니다.</span>
@@ -214,6 +220,13 @@ function FindingPW(props) {
           }}
           autoComplete="none"
         />
+=======
+          <span>비밀번호를 바꿔보세요.</span><br/>
+          <span>비밀번호는 영문, 숫자, 특수문자 합 9-15자리입니다.</span>
+        </header>
+        <input type="password" placeholder="비밀번호" value={password} onChange={(e)=>chnagePasswordHandler(e, setPassword)} autoComplete="none" />
+        <input type="password" placeholder="비밀번호확인" value={passwordCheck} onChange={(e)=>{chnagePasswordCheckHandler(e, setPasswordCheck)}} autoComplete="none" />
+>>>>>>> a2b64ffeb1670f6534385b4886e7034905efe140
         <button type="submit">제출하기</button>
       </Box>
     </Container>

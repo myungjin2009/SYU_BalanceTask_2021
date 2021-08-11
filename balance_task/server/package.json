@@ -35,6 +35,13 @@
     "passport": "^0.4.1",
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
+<<<<<<< HEAD
+=======
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.1",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
+>>>>>>> a2b64ffeb1670f6534385b4886e7034905efe140
     "socket.io": "^4.1.3",
     "socket.io-client": "^4.1.3"
   },
