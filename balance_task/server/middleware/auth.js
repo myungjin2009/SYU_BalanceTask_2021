@@ -110,7 +110,7 @@
 
 // module.exports = { auth };
 
-const User  = require("../models/User");
+const User = require("../models/User");
 const sql = require("../database/db_connect");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -120,7 +120,7 @@ let auth = (req, res, next) => {
   //인증 처리를 할 코드를 넣어야 한다
 
   // 클라이언트 쿠키에서 토큰을 가져온다.
-  
+
   let token = req.cookies.user;
   const sql1 = "SELECT id,jwt FROM user";
   sql.pool.query(sql1, (err, rows, fields) => {
@@ -137,8 +137,8 @@ let auth = (req, res, next) => {
           //req.user = user;
           next();
           console.log("json true");
-          return res.json({ isAuth: true, error: false });
-          
+          //return res.json({ isAuth: true, error: false });
+
           // User.findbytoken(token, (err, user) => {
           //   if (err) throw err; console.log("true err");
           //   if (!err) return res.json({ isAuth: true, error: false });
@@ -146,15 +146,14 @@ let auth = (req, res, next) => {
           //   req.user = user;
           //   next();
           // });
-          
         } else {
           console.log("err");
-          
+
           return;
         }
       });
     }
-  })
+  });
 
   //  토큰을 복호화 한후 유저를 찾는다.
   // User.findByToken(token, (err, user) => {
