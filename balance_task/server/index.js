@@ -212,12 +212,15 @@ app.on("close", function () {
 //   console.log("서버가 시작되었습니다. 포트 : " + app.get("port"));
 // });
 
-// //토큰 받기
-// const { auth } = require("./middleware/auth");
-// app.get("/api/users/auth", auth, (req, res) => {
-//   //미들웨어 통과해서 여기오면 AUTH가 TRUE
-//   res.status(200).json({
-//     //유저정보 제공
-//     _id: req.user._id, //id 정보 클라이언트에 제공
-//   });
-// });
+//토큰 받기
+//const { auth } = require("./middleware/auth");
+app.get("/api/user/auth", auth, (req, res) => {
+  //미들웨어 통과해서 여기오면 AUTH가 TRUE
+  console.log("success");
+  res.status(500).json({
+    //유저정보 제공
+     
+     //name: req.user.name,
+    id: req.id //id 정보 클라이언트에 제공
+  });
+});

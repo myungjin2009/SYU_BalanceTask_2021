@@ -1,15 +1,31 @@
 // //쿠키의 토큰과 데베 유저의 토큰이 같은지 비교
+var express = require("express");
+var router = express.Router();
+const sql = require("../database/db_connect");
+const jwt = require("jsonwebtoken");
 
-const { JsonWebTokenError } = require("jsonwebtoken");
+var findbytoken=function (token,cb) {
+    
 
-//   var user = this;
-//   const secretToken='mySuperSecretKey';
-//   jwt.verify(token, "secretToken", function (err, decoded) {
-//     user.findOne({ _id: decoded, token: token }, function (err, user) {
-//       if (err) return cb(err);
-//       cb(null, user);
-//     });
-//   });
+  var user = this;
+  const secretToken='mySuperSecretKey';
+  jwt.verify(token, "secretToken", function (err, decoded) {
+    // user.findOne({ _id: decoded, token: token }, function (err, user) {
+    //   if (err) return cb(err);
+    //   cb(null, user);
+    const sql1 = "SELECT * FROM user";
+    sql.pool.query(sql1, (err, rows, fields) => {
+        if (err) {
+          console.log(err);
+          return cb(err);
+        } else {
+            cb(null, user);
+        }
+      })
+
+    });
+}
+  //});
 
 // userSchema.statics.findByToken = function (token, cb) {
 //   var user = this;
@@ -25,3 +41,6 @@ const { JsonWebTokenError } = require("jsonwebtoken");
 //     });
 //   });
 // };
+
+//module.exports = User;
+module.exports.findbytoken = findbytoken;
