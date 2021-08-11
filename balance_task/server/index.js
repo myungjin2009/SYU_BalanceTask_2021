@@ -44,12 +44,8 @@ var login = require("./router/login");
 
 var logout = require("./router/logout");
 
-<<<<<<< HEAD
-var { auth } = require("./middleware/auth");
-=======
 var {auth}=require("./middleware/auth");
 //const { isObject } = require("util");
->>>>>>> aed6595f88344339378ba2e7718dd8fdf43b9418
 // 익스프레스 객체 생성
 
 

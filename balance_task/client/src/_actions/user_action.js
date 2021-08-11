@@ -19,21 +19,11 @@ export function loginUser(dataToSubmit) {
   };
 }
 //회원가입 할 때
-<<<<<<< HEAD
-export function signupUser(dataToSubmit) {
-  const request = axios
-    .post("/api/signup", dataToSubmit)
-    .then((response) => response.data)
-    .catch((err) => console.log(err));
-    
-  return {
-=======
 export function signupUser(dataToSubmit){
   const request = axios.post("/api/signup", dataToSubmit)
   .then(response => response.data).catch(err => console.log(err));
   console.log(request);
   return{
->>>>>>> master
     type: SIGNUP_USER,
     payload: request,
   };
