@@ -1,6 +1,6 @@
 // //쿠키의 토큰과 데베 유저의 토큰이 같은지 비교
 
-const { JsonWebTokenError } = require("jsonwebtoken");
+// const { JsonWebTokenError } = require("jsonwebtoken");
 
 //   var user = this;
 //   const secretToken='mySuperSecretKey';
