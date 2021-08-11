@@ -118,9 +118,7 @@ const cookie = require("cookie");
 //동호
 let auth = (req, res, next) => {
   //인증 처리를 할 코드를 넣어야 한다
-
   // 클라이언트 쿠키에서 토큰을 가져온다.
-
   let token = req.cookies.user;
   const sql1 = "SELECT id,jwt FROM user";
   sql.pool.query(sql1, (err, rows, fields) => {
