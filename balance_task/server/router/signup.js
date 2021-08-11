@@ -29,21 +29,20 @@ router.route('/api/signup').post(function(req, res) {
             }
 			
             // 결과 객체 있으면 성공 응답 전송
-			if (user.addedUser) {
-				console.dir(user.addedUser);
-
+			if (user.adduser) {
+				console.dir(user.addUser);
 				
-	        	
-	        	var insertId = user.addUser.insertId;
-	        	console.log('추가한 레코드의 아이디 : ' + insertId);
-	        	
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>사용자 추가 성공</h2>');
-				res.end();
+				res.status(200).json({
+					
+					success:true
+				});
+				
 			} else {
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>사용자 추가  실패</h2>');
-				res.end();
+				res.status(200).json({
+					
+					success:false
+					   });
+				
 			}
 		});
 	} else {  // 데이터베이스 객체가 초기화되지 않은 경우 실패 응답 전송

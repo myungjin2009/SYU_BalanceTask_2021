@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd .. && cd client && yarn start",
-    "server": "nodemon mysql1.js",
+    "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "author": "",
@@ -26,12 +26,23 @@
     "express": "^4.17.1",
     "express-error-handler": "^1.1.0",
     "express-session": "^1.17.2",
+    "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.13.3",
     "mysql": "^2.18.1",
+    "node": "^16.5.0",
     "passport": "^0.4.1",
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
-    "socket.io": "^4.1.3"
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.1",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "^4.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }

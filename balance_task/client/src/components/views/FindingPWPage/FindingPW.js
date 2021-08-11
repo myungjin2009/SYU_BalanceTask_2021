@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Header/Header";
-import { findPassword, authUserEmail, changePassword} from "../../../_actions/user_action";
+import {
+  findPassword,
+  authUserEmail,
+  changePassword,
+} from "../../../_actions/user_action";
 import useTimer from "../../../hook/useTimer";
 
 const changeEmail = (e, setEmail) => {
@@ -50,9 +54,9 @@ const handleAuthorize = (e, dispatch, email_input, setMinutes) => {
       value,
     };
     dispatch(authUserEmail(body)).then((response) => {
-      if(response.payload.success === false){
+      if (response.payload.success === false) {
         console.log(response.payload.success);
-        alert('오류!');
+        alert("오류!");
         return;
       }
       console.log(response);
@@ -72,7 +76,6 @@ function FindingPW(props) {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  
   const dispatch = useDispatch();
   const title = "비밀번호 찾기";
   //idbox는 유저가 양식을 보냈을 때 아래 창에 뜨는 비밀번호 변경 블럭이다.
@@ -116,21 +119,22 @@ function FindingPW(props) {
       alert("비밀번호는 영문, 숫자, 특수문자 합 9-15자리가 되어야합니다.");
     }
 
-    if(password==='' || passwordCheck===''){
-      alert('비밀번호와 비밀번호확인 모두 입력해주세요');
+    if (password === "" || passwordCheck === "") {
+      alert("비밀번호와 비밀번호확인 모두 입력해주세요");
       return;
     }
-    if(password !== passwordCheck){
-      alert('비밀번호를 다시 확인 해주세요');
+    if (password !== passwordCheck) {
+      alert("비밀번호를 다시 확인 해주세요");
       return;
     }
     const body = {
-      email, name, password,
-    }
-    dispatch(changePassword(body))
-    .then(response => {
-      if(response.payload.success === true){
-        props.history.push('/');
+      email,
+      name,
+      password,
+    };
+    dispatch(changePassword(body)).then((response) => {
+      if (response.payload.success === true) {
+        props.history.push("/");
       }
     });
   };
@@ -170,9 +174,13 @@ function FindingPW(props) {
           />
           <button rype="button">인증번호 받기</button>
         </form>
-        {
-          minutes=== 0&&seconds===0 ? '': <div style={{padding: "10px"}}>{minutes}:{seconds} 남았습니다!😊</div>
-        }
+        {minutes === 0 && seconds === 0 ? (
+          ""
+        ) : (
+          <div style={{ padding: "10px" }}>
+            {minutes}:{seconds} 남았습니다!😊
+          </div>
+        )}
         <form onSubmit={findPasswordHandler}>
           <input
             type="text"
@@ -186,11 +194,26 @@ function FindingPW(props) {
       </InputBox>
       <Box ref={idBox} onSubmit={changePasswordHandler}>
         <header>
-          <span>비밀번호를 바꿔보세요.</span><br/>
+          <span>비밀번호를 바꿔보세요.</span>
+          <br />
           <span>비밀번호는 영문, 숫자, 특수문자 합 9-15자리입니다.</span>
         </header>
-        <input type="password" placeholder="비밀번호" value={password} onChange={(e)=>chnagePasswordHandler(e, setPassword)} autoComplete="none" />
-        <input type="password" placeholder="비밀번호확인" value={passwordCheck} onChange={(e)=>{chnagePasswordCheckHandler(e, setPasswordCheck)}} autoComplete="none" />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => chnagePasswordHandler(e, setPassword)}
+          autoComplete="none"
+        />
+        <input
+          type="password"
+          placeholder="비밀번호확인"
+          value={passwordCheck}
+          onChange={(e) => {
+            chnagePasswordCheckHandler(e, setPasswordCheck);
+          }}
+          autoComplete="none"
+        />
         <button type="submit">제출하기</button>
       </Box>
     </Container>

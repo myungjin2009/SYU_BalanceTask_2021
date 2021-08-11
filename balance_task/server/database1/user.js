@@ -45,25 +45,23 @@ const userSchema = new Schema({
   },
   user_category: {
     type: String,
-  }
-
-  
+  },
 });
 
-let user=mongoose.model("user",userSchema)
- user.create({
+let user = mongoose.model("user", userSchema);
+user.create({
   id: "bjh9807",
   name: "백정훈",
   password: "1234",
   phone: "010-1234-5678",
   evaluation_score: 97,
   agreement: true,
-  evaluation_text:"굿임",
+  evaluation_text: "굿임",
   clear_group: 5,
-  user_image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs0iXMmW2tJE-aDI2loDJxn_a3hIjWHR4VwA&usqp=CAU",
+  user_image:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs0iXMmW2tJE-aDI2loDJxn_a3hIjWHR4VwA&usqp=CAU",
   introduce: "백엔드요",
-  user_category: "it"
-})
-
+  user_category: "it",
+});
 
 module.exports = mongoose.model("user", userSchema);
