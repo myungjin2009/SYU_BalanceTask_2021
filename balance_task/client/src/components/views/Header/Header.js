@@ -11,6 +11,8 @@ function Header(props) {
   )
 }
 const Title = styled.header`
+  position: fixed;
+  top:0;
   background: white;
   width: 100vw;
   text-align:center;

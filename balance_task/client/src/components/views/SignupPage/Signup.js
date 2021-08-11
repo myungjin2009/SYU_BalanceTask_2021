@@ -171,7 +171,7 @@ const Signup = (props) => {
             required
             value={authNumber}
             onChange={(e) => changeAuthNumber(e, setAuthNumber)}
-            placeholder="5분 안에 인증 번호를 보내주세요!"
+            placeholder={minutes===0&&seconds===0 ? '시간 초과하셨어요😢' : minutes+":"+seconds+"남았습니다!🤷‍♀️"}
           />
         ) : (
           <p>이메일 인증 버튼을 눌러야 회원가입 버튼이 생깁니다!</p>
