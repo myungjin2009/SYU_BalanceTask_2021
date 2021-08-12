@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import styled from 'styled-components';
 import ModalWindow from './ModalWindow'
 import BottomBar from './BottomBar'
-
+import Header from '../Header/Header'
 const GroupCalendar = () => {
   const [dayData, setDayData] = useState([]);
   const [modalData, setModalData] = useState('');
@@ -52,12 +52,12 @@ const GroupCalendar = () => {
 
   return (
     <Container>
+      <Header title="달력"/>
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin]}
         headerToolbar={{
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          left: 'dayGridMonth,timeGridWeek,timeGridDay, prev,next today',
+          right: 'title'
         }}
         
         dateClick={handleDateClick}
@@ -76,6 +76,17 @@ const GroupCalendar = () => {
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  &>.fc {
+    margin-top: 60px;
+    &>.fc-toolbar {
+      display: flex;
+      flex-direction: column;
+      &>.fc-toolbar-chunk{
+        margin: 10px;
+
+      }
+    }
+  }
 `;
 
 export default GroupCalendar;

@@ -17,8 +17,18 @@ export default function(SpecificComponent, option, adminRoute = null){
     const dispatch = useDispatch();
     useEffect(()=>{
       dispatch(auth())
-      .then(response => console.log(response));
-
+      .then(response => {
+        if(!response.payload.isAuth){
+          if(option){
+            props.history.push('/login');
+          }
+        }else{
+          if(option === false){
+            props.history.push('/');
+          }
+        }
+      });
+      
     },[]);
     return(
       <SpecificComponent/>

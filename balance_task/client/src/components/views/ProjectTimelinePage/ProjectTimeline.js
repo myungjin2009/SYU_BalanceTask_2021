@@ -70,7 +70,7 @@ const ProjectTimeline = ({user}) =>{
 
   return(
     <>
-      <GroupHeader search={search} setSearch={setSearch} isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
+      <GroupHeader setSearch={setSearch} isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
       {
         isTimeline ? 
         <Container>
