@@ -172,7 +172,7 @@ export default function (state = initialState, action) {
       if (action.payload === undefined) {
         return state;
       }
-      const new_array = [...groups_list, ...action.payload.data];
+      const new_array = [...groups_list, ...action.payload.array];
       return { ...state, groups_list: new_array };
 
     case LOADING:

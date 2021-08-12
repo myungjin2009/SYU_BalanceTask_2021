@@ -230,6 +230,7 @@ const Container = styled.div`
 `;
 
 const InputBox = styled.div`
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
