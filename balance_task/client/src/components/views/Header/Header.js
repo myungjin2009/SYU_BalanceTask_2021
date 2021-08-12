@@ -11,11 +11,14 @@ function Header(props) {
   )
 }
 const Title = styled.header`
+  position: fixed;
+  top:0;
   background: white;
   width: 100vw;
   text-align:center;
   border-bottom: 0.5px solid #aaa;
   box-shadow: 0 2px 4px #aaa;
+  z-index: 1000;
   &>span{
     font-size: 30px;
     line-height: 60px;

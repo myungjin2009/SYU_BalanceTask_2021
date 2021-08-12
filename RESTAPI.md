@@ -63,8 +63,10 @@
 
 
 ## 프로젝트 현황페이지 - 작성자: 박건형
-  /api/group/posts => method: get
-  #### 설명: 게시물들 정보 가져오기
+  /api/group/timeline => method: get
+  #### 설명: timeline 정보 가져오기
+  /api/group/notice => method: get
+  #### 설명: notice 정보 가져오기
   /api/group/vote =>method: post
   #### 설명:  게시물 투표하기
   #### 위치: views/GroupSearchPage/GroupSearch.js

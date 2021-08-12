@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import HidingMenu from '../HidingMenu/HidingMenu';
 
 
 const getUsers = () =>{
@@ -52,7 +53,7 @@ const searchTimeline = (input, setSearch) =>{
   setSearch(value);
 }
 
-const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
+const GroupHeader = ({isTimeline, setIsTimeline, setSearch}) =>{
   const timeline = useRef(null);
   const notice = useRef(null);
   const slideMenu = useRef(null);
@@ -64,18 +65,18 @@ const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
   const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
-    if(timeline===null ||notice===null || slideMenu === null){
+    if(timeline===null ||notice===null){
       return;
     }
-    if(isMenu === false){
-      // slideMenu.current.style.display = "none";
-      slideMenu.current.style.top = "-15vh";
-      menuBtn.current.style.transform = "rotate( 0deg )";
-    }else{
-      // slideMenu.current.style.display = "block";
-      slideMenu.current.style.top = "0";
-      menuBtn.current.style.transform = "rotate( 90deg )";
-    }
+    // if(isMenu === false){
+    //   // slideMenu.current.style.display = "none";
+    //   slideMenu.current.style.top = "-15vh";
+    //   menuBtn.current.style.transform = "rotate( 0deg )";
+    // }else{
+    //   // slideMenu.current.style.display = "block";
+    //   slideMenu.current.style.top = "0";
+    //   menuBtn.current.style.transform = "rotate( 90deg )";
+    // }
 
     if(isSearch === false){
       input_div.current.style.display = "none";
@@ -93,20 +94,21 @@ const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
       timeline.current.className = 'grayBtn';
       
     }
-  }, [isTimeline, isMenu, isSearch]);
+  }, [isTimeline, isSearch]);
 
   const users_data = getUsers();
   const group_name = users_data[0].group_name;
   return(
     <Container>
-      <SlideMenuContainer ref={slideMenu}>
+      {/* <SlideMenuContainer ref={slideMenu}>
         <SlideMenu>
           <li><Link to="/group_chat">채팅방</Link></li>
-          <li><Link to="/worker_calendar">워커 캘린더</Link></li>
+          <li><Link to="/group_calendar">워커 캘린더</Link></li>
           <li><Link to="/worker_invitation">워커 초대</Link></li>
           <li><Link to="/project_termination">프로젝트 종료</Link></li>
         </SlideMenu>
-      </SlideMenuContainer>
+      </SlideMenuContainer> */}
+      <HidingMenu menuBtn={menuBtn} isMenu={isMenu}/>
       <Header>
         <div className="menu" ref={menuBtn} onClick = {()=>handleMenu(isMenu, setIsMenu)}><i className="fas fa-bars"></i></div>
         <p>{group_name}</p>
