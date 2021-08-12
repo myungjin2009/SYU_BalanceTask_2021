@@ -10,19 +10,8 @@ import {Route} from "react-router-dom";
 import {withRouter} from "react-router";
 
 import Settings from "../SettingPage/Settings";
-//리뷰
-//명진 내가 MyPageOfGunHyung.js 만들었으니 그거 참고해서 해봐
-//이 코드들의 문제는 html 태그의 혼동이 핵심인 것 같아(name태그, info태그)
-//styled-component는 SCSS문법이잖아? 그럼 무조건 const 변수 형식으로 만들어줘야해
-//예를 들자면 44번 코드 보면 이러한 태그를 쓰려면, const profile_IMG = styled.div``; 형식으로 만들어줘야해
-//이렇게 안만들고 그냥 어떤 스타일 컴포넌트의 자식으로서 스타일컴포넌트로 쓰면 인식을 못해 
-//그래서 내가 새로만든 js파일 보면 스타일컴포넌트 먹이려던 태그들 모두 className을 붙여줬어!
 
-//지금 주로 class형 컴포넌트를 쓰는 데 이건 너 취향이니까 상관 없지만, 나중에 material ui 같은거 활용할 때
-//적용을 못할 수도 있어. 물론 class형 컴포넌트 사용하면 튼튼한 느낌이 있긴 하다만.. 
-//아 그리고 class형 컴포넌트는 redux 적용할 때 props안에 redux의 store 데이터를 녹이는 방면, 
-// 함수형 컴포넌트는 props에 녹이는 게 아니라 필요할 때마다 redux로부터 데이터를 빼낼 수 있어
-//지금 내가 다 함수형 컴포넌트를 사용해서 redux 사용할 때는 불편할 수 있으니 바꾸면 좋을 것 같아! 
+
 const ProfileName = "김둘리";
 const FinishedPJ = 3;                   //아직 REDUX 적용 안함
 const ContinuingPJ = 1;
@@ -41,29 +30,30 @@ class MyPage extends React.Component {
       <Container>
         <Header>
           
-          <profile_IMG>
+          <div className="profile_IMG">
             <img className="Profile" alt="Profile" src={profile_default} />
-          </profile_IMG>
+          </div>
 
-          <profile_DETAIL>
-            <name>{ProfileName}<br/></name>
-            <info>진행중 : {ContinuingPJ}개<br/></info>
-            <info>진행완료 : {FinishedPJ}개</info>
-          </profile_DETAIL>
+          
+          <div className="profile_DETAIL">
+            <div className="name">{ProfileName}<br/></div>
+            <div className="info">진행중 : {ContinuingPJ}개<br/></div>
+            <div className="info">진행완료 : {FinishedPJ}개</div>
+          </div>
 
-          <profile_REPUTATION>
-          </profile_REPUTATION>
+          <div className="profile_REPUTATION"></div>
 
-          <settings_ICON>
+
+          <div className="settings_ICON">
             <img className="Settings_icon" alt="Settings_icon" src={settings_icon} 
             onClick={()=>{this.props.history.push('/settings')}}/>
-          </settings_ICON>
-
+          </div>
+          
         </Header>
 
         <Introduce>
-          <titleee>프로필 소개</titleee><br/>
-          <input type="text" value={ProfileMessage}></input>
+          <div className="titleee">프로필 소개</div><br/>
+          <input type="text" placeholder={ProfileMessage}></input>
           <img className="Edit_icon" alt="Edit_icon" src={edit_icon} />
         </Introduce>
 
@@ -87,7 +77,7 @@ const Header = styled.div`
   width: 100%;
   height: 17vh;
 
-  & > profile_IMG {
+  & > .profile_IMG {
     width: 30%;
     & > img {
       
@@ -99,17 +89,17 @@ const Header = styled.div`
     }
   }
 
-  & > profile_DETAIL {
+  & > .profile_DETAIL {
     width: 30%;
-    & > name {
+    & > .name {
       font-size: 4vh;
     }
-    & > info {
+    & > .info {
       font-size: 2vh;
     }
   }
 
-  & > profile_REPUTATION {
+  & > .profile_REPUTATION {
     width: 30%;
     font-size: 4vh;
     
@@ -123,7 +113,7 @@ const Header = styled.div`
     }
   }
 
-  & > settings_ICON {
+  & > .settings_ICON {
     width: 10%;
     & > img {
       background-color: transparent;
@@ -136,7 +126,7 @@ const Header = styled.div`
   }
 `;
 
-const Introduce = styled.div`
+const Introduce = styled.form`
   width: 100%;
   height: 13vh;
   margin-top: 2vh;
