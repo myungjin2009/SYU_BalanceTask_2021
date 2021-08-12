@@ -11,7 +11,7 @@ const GroupCalendar = () => {
   const [dayData, setDayData] = useState([]);
   const [modalData, setModalData] = useState('');
   const [isClick, setIsClick] = useState(false);
-  const [isWeekends, setIsWeekends] = useState(true);
+  const [isWeekends, setIsWeekends] = useState(false);
   const handleDateClick = (arg) =>{
     let title = prompt('언제 일 하실 건가요?');
     console.log(arg);
@@ -62,7 +62,7 @@ const GroupCalendar = () => {
         
         dateClick={handleDateClick}
         initialView="dayGridMonth"
-        weekends={isWeekends}
+        weekends={!isWeekends}
         events={dayData}
         eventContent={renderEventContent}
         eventClick={clickEvent}
@@ -83,7 +83,6 @@ const Container = styled.div`
       flex-direction: column;
       &>.fc-toolbar-chunk{
         margin: 10px;
-
       }
     }
   }

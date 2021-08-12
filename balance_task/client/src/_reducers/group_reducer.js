@@ -181,7 +181,7 @@ export default function (state = initialState, action) {
     case JOIN_GROUP:
       return { ...state, joinSuccess: action.payload };
 
-    case RECEIVE_TIMELINE:
+    case RECEIVE_TIMELINE:{
       const { timelineList } = state;
       if (action.payload === undefined) {
         return state;
@@ -189,7 +189,7 @@ export default function (state = initialState, action) {
       //서버랑 연결되면 사용
       // const new_array = [...timelineList, ...action.payload.timelineList];
       // return { ...state, timelineList: new_array };
-
+    }
     case RECEIVE_NOTICE:
       const { noticeList } = state;
       if (action.payload === undefined) {
