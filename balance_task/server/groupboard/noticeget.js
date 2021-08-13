@@ -4,21 +4,21 @@ require("dotenv").config();
 const cookie = require("cookie");
 const { info } = require("console");
 
-let boardget = (req, res, next) => {
-  console.log("boardget 함수 호출됨");
+let noticeget = (req, res, next) => {
+  console.log("noticeget 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
   
-    const sql1 = "SELECT * FROM groupboard g, vote v,user u where g.board_number=v.board_number AND v.user=u.id AND g.info_groupname=v.group ";
+    const sql1 = "SELECT * FROM groupboard g, vote v,user u where g.board_number=v.board_number AND v.user=u.id";
     sql.pool.query(sql1, (err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
         console.log(rows);
-        console.log("boardget come");
+        console.log("noticeget come");
         var array=[];
         var array2=[];
         rows.forEach((info) => {
-          if(info.notice===0){
+          if(info.notice===1){
           req.board_number = info.board_number;
           req.title = info.title;
           req.image =info.image;
@@ -27,7 +27,7 @@ let boardget = (req, res, next) => {
           req.info_user =info.info_user;
           req.info_groupname=info.info_groupname;
           req.date =info.date;
-          req.notice =info.notice;
+          req.notice ="notice";
 
           //vote
 
@@ -52,11 +52,32 @@ let boardget = (req, res, next) => {
 
           //console.log(array2);
 
-          if(info.notice===0){
-            req.notice ="timeline";
-          }else {
-            req.notice="notice";
-          }
+        //   if(info.notice===1){
+        //     req.notice ="timeline";
+        //   }else {
+        //     req.notice="noatice";
+        //   }
+          // var sql2="SELECT * FROM `vote`";
+          // sql.pool.query(sql2,(err,rows,fields)=>{
+          //   if (err) {
+          //     console.log(err);
+          //   } else {
+          //     console.log(rows);
+          //     console.log("vote come");
+          //     //var array2=[];
+          //     rows.forEach((info) => {
+          //       req.board_number = info.board_number;
+          //       req.discuss = info.discuss;
+          //       req.user =info.user;
+          //       req.group =info.group;
+          //       //vote
+          //       array2.push({
+          //         user_name:req.user,
+          //         vote:req.discuss
+          //       });
+          //     })
+          //   }               
+          // });
 
           array.push({
             photo_name:req.title,
@@ -88,9 +109,10 @@ let boardget = (req, res, next) => {
               // ]
             });
             req.array=array;
-          }else{
+        }else{
             return;
-          }
+        }
+            
         })
       next();
       }
@@ -183,6 +205,6 @@ let boardget = (req, res, next) => {
 //   });
 // };
 
-module.exports= {boardget};
+module.exports= {noticeget};
 // module.exports.authuser = authUser;
 // module.exports.savetoken = savetoken;

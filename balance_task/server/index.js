@@ -48,6 +48,7 @@ var logout = require("./router/logout");
 var {group_search} = require("./group/groupfunction");
 
 var {boardget}=require("./groupboard/boardget");
+var {noticeget}=require("./groupboard/noticeget");
 
 var { auth } = require("./middleware/auth");
 //const { isObject } = require("util");
@@ -94,9 +95,9 @@ app.get("/api/user/auth", auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
   
   console.log("success");
-  console.log(req.token);
-  console.log(req.id);
-  console.log(req.name);
+  // console.log(req.token);
+  // console.log(req.id);
+  // console.log(req.name);
   res.status(200).json({
     //유저정보 제공
     //isAuth: true,
@@ -122,10 +123,22 @@ app.post("/api/group/search_card", group_search,(req,res)=>{
 app.post("/api/group/timeline",boardget,(req,res)=>{
   console.log("timesuccess");
   console.log(req.array);
+  
     res.status(200).json({
       array:req.array
       
     });
+  
+});
+
+app.post("/api/group/notice",noticeget,(req,res)=>{
+  console.log("noticesuccess");
+  console.log(req.array);
+    res.status(200).json({
+      array:req.array
+      
+    });
+  
 });
 
 io.on("connection", (socket) => {
