@@ -49,6 +49,8 @@ const initialState = {
   ],
   timelineList: [
     {
+      id:1,
+      group: '두유개발자',
       photo_name: "오늘 공부한 것",
       photo_url: img1,
       content: `오늘 공부 했는데 오류가 나왔어요.. 
@@ -79,6 +81,8 @@ const initialState = {
       profileImage: img2
     },
     {
+      id:2,
+      group: '두유개발자',
       photo_name: "저희 좀 멋지죠?",
       photo_url: img2,
       content: "멘토님을 만나서 프로젝트 회의했다.",
@@ -106,6 +110,8 @@ const initialState = {
       profileImage: img2
     },
     {
+      id:3,
+      group: '두유개발자',
       photo_name: "저희 좀 멋지죠?",
       photo_url: img3,
       content: "하동호 열심히 하자!",
@@ -135,6 +141,8 @@ const initialState = {
   ],
   noticeList:[
     {
+      id:1,
+      group: '두유개발자',
       photo_name : '멋진 사람들',
       photo_url : img3,
       content: '다음 주 목요일(7월 22일)에 만날까요?',
@@ -158,7 +166,6 @@ const initialState = {
       ],
       kind: "notice",
       profileImage: img2
-
     }
   ]
   ,

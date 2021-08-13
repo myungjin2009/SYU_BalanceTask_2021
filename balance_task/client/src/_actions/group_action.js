@@ -32,19 +32,23 @@ export function chooseLoading(isLoading){
   }
 }
 //timeline 게시물 데이터 받기
-export function receiveTimeline(indexToSubmit){
-  const index_data = indexToSubmit.length-1; //마지막 번호
-  const request = axios.post("/api/group/timeline", index_data)
+export function receiveTimeline(dataToSubmit){
+  // dataToSubmit에는 밑에 데이터가 있음
+  //const body = {
+  //   last_number: entireTimeline.length-1, => 현재까지 timelineList의 마지막 데이터 번호를 볼 수 있다.
+  //   group: userData.group
+  // };
+  //다른 것도 자세히 알고싶다면, receiveTimeline같은 action creator함수를 ctrl + 왼쪽 클릭하면 이 함수를 어디에서 썼는지 볼 수 있다.
+  const request = axios.post("/api/group/timeline", dataToSubmit)
   .then(response => response.data).catch(err =>console.log(err));
   return{
     type: RECEIVE_TIMELINE,
     payload: request
   }
 }
-//notice 게시물 데이터 받기 //0~19->20~39
-export function receiveNotice(indexToSubmit){
-  const index_data = indexToSubmit.length-1; //마지막 번호
-  const request = axios.post('/api/group/notice', index_data)
+//notice 게시물 데이터 받기
+export function receiveNotice(dataToSubmit){
+  const request = axios.post('/api/group/notice', dataToSubmit)
   .then(response => response.data).catch(err => console.log(err));
 
   return {

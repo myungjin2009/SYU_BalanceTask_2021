@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { voteForPosts, receiveTimeline, receiveNotice } from '../../../_actions/group_action';
+import { voteForPosts} from '../../../_actions/group_action';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';

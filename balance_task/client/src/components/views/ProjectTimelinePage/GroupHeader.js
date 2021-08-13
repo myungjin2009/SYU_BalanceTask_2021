@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import HidingMenu from '../HidingMenu/HidingMenu';
+import {useDispatch} from "react-redux";
+import {chooseLoading} from '../../../_actions/group_action';
 
 const getUsers = () =>{
   const users_data = [
@@ -24,8 +26,9 @@ const getUsers = () =>{
 const handleTimeline = (setIsTimeline)=>{
   setIsTimeline(true);
 }
-const handleNotice = (setIsTimeline) =>{
+const handleNotice = (dispatch, setIsTimeline) =>{
   setIsTimeline(false);
+  dispatch(chooseLoading(true));
 }
 const handleMenu = (isMenu, setIsMenu) =>{
   if(isMenu === true){
@@ -52,7 +55,7 @@ const searchTimeline = (input, setSearch) =>{
   setSearch(value);
 }
 
-const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
+const GroupHeader = ({isTimeline, setIsTimeline, setSearch}) =>{
   const timeline = useRef(null);
   const notice = useRef(null);
   const slideMenu = useRef(null);
@@ -62,20 +65,21 @@ const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
 
   const [isMenu, setIsMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if(timeline===null ||notice===null || slideMenu === null){
+    if(timeline===null ||notice===null){
       return;
     }
-    if(isMenu === false){
-      // slideMenu.current.style.display = "none";
-      slideMenu.current.style.top = "-15vh";
-      menuBtn.current.style.transform = "rotate( 0deg )";
-    }else{
-      // slideMenu.current.style.display = "block";
-      slideMenu.current.style.top = "0";
-      menuBtn.current.style.transform = "rotate( 90deg )";
-    }
+    // if(isMenu === false){
+    //   // slideMenu.current.style.display = "none";
+    //   slideMenu.current.style.top = "-15vh";
+    //   menuBtn.current.style.transform = "rotate( 0deg )";
+    // }else{
+    //   // slideMenu.current.style.display = "block";
+    //   slideMenu.current.style.top = "0";
+    //   menuBtn.current.style.transform = "rotate( 90deg )";
+    // }
 
     if(isSearch === false){
       input_div.current.style.display = "none";
@@ -93,20 +97,21 @@ const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
       timeline.current.className = 'grayBtn';
       
     }
-  }, [isTimeline, isMenu, isSearch]);
+  }, [isTimeline, isSearch]);
 
   const users_data = getUsers();
   const group_name = users_data[0].group_name;
   return(
     <Container>
-      <SlideMenuContainer ref={slideMenu}>
+      {/* <SlideMenuContainer ref={slideMenu}>
         <SlideMenu>
           <li><Link to="/group_chat">채팅방</Link></li>
           <li><Link to="/group_calendar">워커 캘린더</Link></li>
           <li><Link to="/worker_invitation">워커 초대</Link></li>
           <li><Link to="/project_termination">프로젝트 종료</Link></li>
         </SlideMenu>
-      </SlideMenuContainer>
+      </SlideMenuContainer> */}
+      <HidingMenu menuBtn={menuBtn} isMenu={isMenu}/>
       <Header>
         <div className="menu" ref={menuBtn} onClick = {()=>handleMenu(isMenu, setIsMenu)}><i className="fas fa-bars"></i></div>
         <p>{group_name}</p>
@@ -118,7 +123,7 @@ const GroupHeader = ({isTimeline, setIsTimeline, search, setSearch}) =>{
           <button onClick={()=>searchTimeline(input, setSearch)}>검색</button>
         </Input>
         <div ref={timeline} className="blueBtn" onClick={()=>handleTimeline(setIsTimeline)}><i className="far fa-clock"></i>타임라인</div>
-        <div ref={notice} className="grayBtn" onClick={()=>handleNotice(setIsTimeline)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
+        <div ref={notice} className="grayBtn" onClick={()=>handleNotice(dispatch, setIsTimeline)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
       </Content>
       <Link to="/project_timeline/adding_posts" className="ToggleButton"><i className="fas fa-plus"></i></Link>
     </Container>

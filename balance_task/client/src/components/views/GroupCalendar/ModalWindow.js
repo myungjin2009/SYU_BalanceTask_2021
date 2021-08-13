@@ -15,20 +15,25 @@ function ModalWindow({isClick, setIsClick, modalData}) {
   }
 
   return (
+    <>
+    <Background isClick={isClick} onClick={()=> setIsClick(false)}>
+    </Background>
     <Container isClick={isClick}>
       <TitleContainer>
-        <p>{modalData.title}</p>
-        <i className="fas fa-edit" onClick={changeContent}></i>
-      </TitleContainer>
-      <ButtonGroup>
-        <Button variant="contained" color="secondary" onClick={removeContent}>
-          삭제
-        </Button>
-        <Button variant="contained" color="primary" onClick={()=> setIsClick(false)}>
-          취소
-        </Button>
-      </ButtonGroup>
+          <p>{modalData.title}</p>
+          <i className="fas fa-edit" onClick={changeContent}></i>
+        </TitleContainer>
+        <ButtonGroup>
+          <Button variant="contained" color="secondary" onClick={removeContent}>
+            삭제
+          </Button>
+          <Button variant="contained" color="primary" onClick={()=> setIsClick(false)}>
+            취소
+          </Button>
+        </ButtonGroup>
     </Container>
+    </>
+    
   )
 }
 const Container = styled.div`
@@ -44,9 +49,20 @@ const Container = styled.div`
   border: 1px solid black;
   padding: 10px;
   background: #eee;
-  z-index: 1;
+  z-index: 2;
   border-radius: 10px;
   border: 2px solid #aaa;
+`;
+
+const Background = styled.div`
+  display: ${({isClick})=> isClick ? "flex" : "none"};
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background: lightgray;
+  opacity: 0.8;
 `;
 
 const TitleContainer = styled.div`
