@@ -42,13 +42,7 @@ router.route("/api/user/login").post(function (req, res) {
       if (isUser) {
         const YOUR_SECRET_KEY = process.env.SECRET_KEY;
         const accessToken = jwt.sign(
-          {
-            id,
-          },
-          YOUR_SECRET_KEY,
-          {
-            expiresIn: "1h",
-          }
+          {id,},YOUR_SECRET_KEY,{expiresIn: "1h",}
         );
         console.log(accessToken);
         res.cookie("user", accessToken);

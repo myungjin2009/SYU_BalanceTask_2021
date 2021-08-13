@@ -167,30 +167,30 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case RECEIVE_GROUPS_CARD:
+    case RECEIVE_GROUPS_CARD:{
       const { groups_list } = state;
       if (action.payload === undefined) {
         return state;
       }
-      const new_array = [...groups_list, ...action.payload.data];
+      let new_array = [...groups_list, ...action.payload.array];
       return { ...state, groups_list: new_array };
-
-    case LOADING:
+    }
+    case LOADING:{
       return { ...state, isLoading: action.isLoading };
-
-    case JOIN_GROUP:
+    }
+    case JOIN_GROUP:{
       return { ...state, joinSuccess: action.payload };
-
-    case RECEIVE_TIMELINE:
+    }
+    case RECEIVE_TIMELINE:{
       const { timelineList } = state;
       if (action.payload === undefined) {
         return state;
       }
       //서버랑 연결되면 사용
-      // const new_array = [...timelineList, ...action.payload.timelineList];
-      // return { ...state, timelineList: new_array };
-
-    case RECEIVE_NOTICE:
+      let new_array = [...timelineList, ...action.payload.array];
+      return { ...state, timelineList: new_array };
+    }
+    case RECEIVE_NOTICE:{
       const { noticeList } = state;
       if (action.payload === undefined) {
         return state;
@@ -198,8 +198,8 @@ export default function (state = initialState, action) {
       //서버랑 연결되면 사용
       // const new_array = [...noticeList, ...action.payload.noticeList];
       // return {...state, noticeList: new_array};  
-
-    case VOTE_FOR_POSTS:
+    }
+    case VOTE_FOR_POSTS:{
       const {payload : {dataToSubmit:{kind, id, current_vote}}} = action;
       if(kind === "timeline"){
         let new_array = state.timelineList;
@@ -210,6 +210,7 @@ export default function (state = initialState, action) {
         new_array[id].votes_list = current_vote;
         return {...state, noticeList: new_array}
       }
+    }
     default:
       return state;
   }

@@ -29,6 +29,7 @@ const GroupSearch = (props) => {
       //   // 백엔드 애들이 주석 풀어주기
       // if(response.payload.success){
       //   // 2.로딩 해제하고 다시 리렌더링 된다.
+        console.log(response);
           dispatch(chooseLoading(false));
       // }
       });

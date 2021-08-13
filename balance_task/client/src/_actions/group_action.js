@@ -21,6 +21,9 @@ export function joinGroup(dataToSubmit){
     payload: request
   }
 }
+
+//위에가 그룹서칭
+
 //로딩을 알려주는 함수
 export function chooseLoading(isLoading){
   return {
@@ -38,7 +41,7 @@ export function receiveTimeline(indexToSubmit){
     payload: request
   }
 }
-//notice 게시물 데이터 받기
+//notice 게시물 데이터 받기 //0~19->20~39
 export function receiveNotice(indexToSubmit){
   const index_data = indexToSubmit.length-1; //마지막 번호
   const request = axios.post('/api/group/notice', index_data)
