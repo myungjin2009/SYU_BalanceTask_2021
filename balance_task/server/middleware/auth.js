@@ -138,7 +138,7 @@ let auth = (req, res, next) => {
           //return res.json({ isAuth: true, error: false });
 
           // User.findbytoken(token, (err, user) => {
-          //   if (err) throw err; console.log("true err");
+          //   if (err) throw err; 
           //   if (!err) return res.json({ isAuth: true, error: false });
           //   req.token = token;
           //   req.user = user;
