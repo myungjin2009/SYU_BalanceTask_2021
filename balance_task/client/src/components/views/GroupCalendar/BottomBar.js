@@ -14,21 +14,28 @@ function BottomBar({ dayData, setIsWeekends }) {
         />
       </WeekendsSetting>
       <h2>한 눈에 할 일 보기</h2>
-      <table>
+      <Table>
+        <tr>
+          <td>시작하는 날</td>
+          <td>끝나는 날</td>
+          <td>내용</td>
+        </tr>
         {dayData.map((el, i) => {
           return (
             <tr key={i}>
               <td>{el.start}&nbsp;</td>
-              <td>{el.title}</td>
+              <td>{el.end}</td>
+              <td >{el.title}</td>
             </tr>
           );
         })}
-      </table>
+      </Table>
     </Container>
   );
 }
 
 const Container = styled.div`
+  width: 100%;
   text-align: center;
 `;
 
@@ -38,6 +45,19 @@ const WeekendsSetting = styled.div`
   line-height: 40px;
   & > label {
     margin: 3px;
+  }
+`;
+
+const Table = styled.table`
+  width: 100%;
+  &>tr{
+    width: 100%;
+    &>td{
+      width: 120px;
+      &:last-child{
+        text-align: left;
+      }
+    }
   }
 `;
 

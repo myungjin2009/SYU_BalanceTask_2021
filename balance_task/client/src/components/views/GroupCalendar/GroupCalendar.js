@@ -13,7 +13,9 @@ const GroupCalendar = () => {
   const [isClick, setIsClick] = useState(false);
   const [isWeekends, setIsWeekends] = useState(false);
   const handleDateClick = (arg) =>{
-    let title = prompt('언제 일 하실 건가요?');
+    let end = prompt('언제까지 일 하실 건가요?');
+    let title = prompt('어떤 일을 하실 건가요?');
+    //이것도 모달창 만들어서 해도 될듯?
     console.log(arg);
     if(title === null || title === '') return;
 
@@ -21,7 +23,8 @@ const GroupCalendar = () => {
       dayData.concat({
         title: title,
         start: arg.dateStr,
-        end: arg.dateStr,
+        end,
+        // end: arg.dateStr,
         allDay: arg.allDay,
         email: '로그인시 받는 이메일' //redux의 userData의 정보로부터 넣으면 될듯
       })

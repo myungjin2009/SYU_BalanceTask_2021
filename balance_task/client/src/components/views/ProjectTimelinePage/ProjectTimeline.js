@@ -5,16 +5,24 @@ import { receiveTimeline ,chooseLoading, receiveNotice} from '../../../_actions/
 import TimelineBlock from './TimelineBlock';
 import GroupHeader from './GroupHeader';
 
-const getTimeline = (dispatch, entireTimeline, setTimeline) => {
-  dispatch(receiveTimeline(entireTimeline)).then(res=>{
+const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
+  const body = {
+    last_number: entireTimeline.length-1,
+    group: userData.group
+  };
+  dispatch(receiveTimeline(body)).then(res=>{
     dispatch(chooseLoading(false));
     setTimeline(entireTimeline);
     console.log('timeline 데이터 받기 성공!');
   });
 }
 
-const getNotice = (dispatch, entireNotice, setNotice) => {
-  dispatch(receiveNotice(entireNotice)).then(res =>{
+const getNotice = (userData, dispatch, entireNotice, setNotice) => {
+  const body = {
+    last_number: entireNotice.length-1,
+    group: userData.group
+  };
+  dispatch(receiveNotice(body)).then(res =>{
     dispatch(chooseLoading(false));
     setNotice(entireNotice);
     console.log('notice 데이터 받기 성공!');
@@ -36,6 +44,7 @@ const ProjectTimeline = ({user}) =>{
   const entireTimeline = useSelector(state => state.group.timelineList);
   const isLoading = useSelector(state => state.group.isLoading);
   const entireNotice = useSelector(state => state.group.noticeList);
+  const userData = useSelector(state => state.user.userData);
 
   const dispatch = useDispatch();
 
@@ -47,7 +56,7 @@ const ProjectTimeline = ({user}) =>{
   useEffect(()=>{
     if(isTimeline){
       if(isLoading){
-        getTimeline(dispatch, entireTimeline, setTimeline);
+        getTimeline(userData, dispatch, entireTimeline, setTimeline);
       }else{
         if(search ==='' || search === null){
           setTimeline(entireTimeline);
@@ -57,7 +66,7 @@ const ProjectTimeline = ({user}) =>{
       }
     }else{
       if(isLoading){
-        getNotice(dispatch, entireNotice, setNotice);
+        getNotice(userData, dispatch, entireNotice, setNotice);
       }else{
         if(search ==='' || search === null){
           setNotice(entireNotice);

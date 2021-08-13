@@ -248,6 +248,7 @@ const InputBox = styled.div`
     align-items: center;
   }
   & > form > input {
+    width: 200px;
     padding: 5px;
     outline: none;
     font-size: 16px;
@@ -285,6 +286,7 @@ const Box = styled.form`
     font-weight: bold;
   }
   & > input {
+    width: 200px;
     padding: 5px;
     outline: none;
     font-size: 16px;

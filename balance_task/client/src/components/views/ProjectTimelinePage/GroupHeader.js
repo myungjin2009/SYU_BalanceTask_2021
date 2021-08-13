@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HidingMenu from '../HidingMenu/HidingMenu';
-
+import {useDispatch} from "react-redux";
+import {chooseLoading} from '../../../_actions/group_action';
 
 const getUsers = () =>{
   const users_data = [
@@ -25,8 +26,9 @@ const getUsers = () =>{
 const handleTimeline = (setIsTimeline)=>{
   setIsTimeline(true);
 }
-const handleNotice = (setIsTimeline) =>{
+const handleNotice = (dispatch, setIsTimeline) =>{
   setIsTimeline(false);
+  dispatch(chooseLoading(true));
 }
 const handleMenu = (isMenu, setIsMenu) =>{
   if(isMenu === true){
@@ -63,6 +65,7 @@ const GroupHeader = ({isTimeline, setIsTimeline, setSearch}) =>{
 
   const [isMenu, setIsMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if(timeline===null ||notice===null){
@@ -120,7 +123,7 @@ const GroupHeader = ({isTimeline, setIsTimeline, setSearch}) =>{
           <button onClick={()=>searchTimeline(input, setSearch)}>검색</button>
         </Input>
         <div ref={timeline} className="blueBtn" onClick={()=>handleTimeline(setIsTimeline)}><i className="far fa-clock"></i>타임라인</div>
-        <div ref={notice} className="grayBtn" onClick={()=>handleNotice(setIsTimeline)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
+        <div ref={notice} className="grayBtn" onClick={()=>handleNotice(dispatch, setIsTimeline)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
       </Content>
       <Link to="/project_timeline/adding_posts" className="ToggleButton"><i className="fas fa-plus"></i></Link>
     </Container>
