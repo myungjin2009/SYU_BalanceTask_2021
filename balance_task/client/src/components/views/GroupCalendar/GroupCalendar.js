@@ -1,18 +1,27 @@
-import React, { useRef, useState } from 'react'
-import FullCalendar from '@fullcalendar/react' // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import timeGridPlugin from '@fullcalendar/timegrid'
+import React, {useEffect, useState } from 'react';
+import FullCalendar from '@fullcalendar/react'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import timeGridPlugin from '@fullcalendar/timegrid';
 import styled from 'styled-components';
-import ModalWindow from './ModalWindow'
-import BottomBar from './BottomBar'
-import Header from '../Header/Header'
+import { useDispatch } from 'react-redux';
+import { addDate, receiveDate } from '../../../_actions/group_calendar_action';
+import ModalWindow from './ModalWindow';
+import BottomBar from './BottomBar';
+import Header from '../Header/Header';
 const GroupCalendar = () => {
-  const [dayData, setDayData] = useState([]);
+  const [calendarData, setCalendarData] = useState([]);
   const [modalData, setModalData] = useState('');
   const [isClick, setIsClick] = useState(false);
   const [isWeekends, setIsWeekends] = useState(false);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(receiveDate()).then(response =>{
+      // setCalendarData(response.payload.calendarList);
+    });
+    
+  }, [])
   const calculateDate = () =>{
     const current_date = new Date();
     const year = current_date.getFullYear();
@@ -22,22 +31,35 @@ const GroupCalendar = () => {
   }
 
   const handleDateClick = (arg) =>{
-    let end = prompt('언제까지 일 하실 건가요?', calculateDate());
-    let title = prompt('어떤 일을 하실 건가요?');
-    //이것도 모달창 만들어서 해도 될듯?
-    console.log(arg);
-    if(title === null || title === '') return;
+    let end = prompt('언제까지 일 하실 건가요?', arg.dateStr);
     if(end === null || end === '') return;
-
-    setDayData(
-      dayData.concat({
-        title: title,
-        start: arg.dateStr,
-        end,
-        allDay: arg.allDay,
-        email: '로그인시 받는 이메일' //redux의 userData의 정보로부터 넣으면 될듯
-      })
-    )
+    let title = prompt('어떤 일을 하실 건가요?'); 
+    if(title === null || title === '') return;
+    
+    const endArray= end.split('-');
+    console.log(endArray);
+    if(endArray.length !== 3 || endArray[0].length!==4 || endArray[1].length!==2 || endArray[2].length!==2) {
+      console.log(endArray.lenth);
+      return;
+    }
+    console.log(arg);
+    const dateData = {
+      title: title,
+      start: calculateDate(),
+      end,
+      allDay: arg.allDay,
+      email: '로그인시 받는 이메일', //redux의 userData의 정보로부터 넣으면 될듯 email과 name은 그렇다
+      name: '이름'
+    }
+    setCalendarData(calendarData.concat(dateData));
+    dispatch(addDate(dateData)).then(response=>{
+      //백엔드애들이 주석 풀어주기
+      // if(response.payload.success){
+      //   console.log('할 일 추가됨');
+      // }else{
+      //  console.log('오류');
+      // }
+    });
   }
   //date를 누르고 나서 입력하고나서 어떻게 content를 표현할지
   const renderEventContent = (eventInfo) =>{
@@ -75,12 +97,12 @@ const GroupCalendar = () => {
         dateClick={handleDateClick}
         initialView="dayGridMonth"
         weekends={!isWeekends}
-        events={dayData}
+        events={calendarData}
         eventContent={renderEventContent}
         eventClick={clickEvent}
       />
       <ModalWindow isClick={isClick} setIsClick={setIsClick} modalData={modalData}/>
-      <BottomBar dayData={dayData} setIsWeekends={setIsWeekends}/>
+      <BottomBar calendarData={calendarData} setIsWeekends={setIsWeekends}/>
     </Container>
   )
 }

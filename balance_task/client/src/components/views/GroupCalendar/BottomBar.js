@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function BottomBar({ dayData, setIsWeekends }) {
+function BottomBar({ calendarData, setIsWeekends }) {
   return (
     <Container>
       <WeekendsSetting>
@@ -15,12 +15,15 @@ function BottomBar({ dayData, setIsWeekends }) {
       </WeekendsSetting>
       <h2>한 눈에 할 일 보기</h2>
       <Table>
-        <tr>
-          <td>시작하는 날</td>
-          <td>끝나는 날</td>
-          <td>내용</td>
-        </tr>
-        {dayData.map((el, i) => {
+        <thead>
+          <tr>
+            <td>시작하는 날</td>
+            <td>끝나는 날</td>
+            <td>내용</td>
+          </tr>
+        </thead>
+        <tbody>
+        {calendarData.map((el, i) => {
           return (
             <tr key={i}>
               <td>{el.start}&nbsp;</td>
@@ -29,6 +32,7 @@ function BottomBar({ dayData, setIsWeekends }) {
             </tr>
           );
         })}
+        </tbody>
       </Table>
     </Container>
   );
@@ -50,7 +54,7 @@ const WeekendsSetting = styled.div`
 
 const Table = styled.table`
   width: 100%;
-  &>tr{
+  &>thead>tr, &>tbody>tr{
     width: 100%;
     &>td{
       width: 120px;
