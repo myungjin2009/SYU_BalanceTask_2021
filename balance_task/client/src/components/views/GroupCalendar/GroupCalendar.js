@@ -12,19 +12,28 @@ const GroupCalendar = () => {
   const [modalData, setModalData] = useState('');
   const [isClick, setIsClick] = useState(false);
   const [isWeekends, setIsWeekends] = useState(false);
+
+  const calculateDate = () =>{
+    const current_date = new Date();
+    const year = current_date.getFullYear();
+    const month = current_date.getMonth()+1 < 10 ? "0"+(current_date.getMonth()+1) : current_date.getMonth()+1;
+    const date = current_date.getDate() < 10 ? "0"+current_date.getDate() : current_date.getDate();
+    return `${year}-${month}-${date}`;
+  }
+
   const handleDateClick = (arg) =>{
-    let end = prompt('언제까지 일 하실 건가요?');
+    let end = prompt('언제까지 일 하실 건가요?', calculateDate());
     let title = prompt('어떤 일을 하실 건가요?');
     //이것도 모달창 만들어서 해도 될듯?
     console.log(arg);
     if(title === null || title === '') return;
+    if(end === null || end === '') return;
 
     setDayData(
       dayData.concat({
         title: title,
         start: arg.dateStr,
         end,
-        // end: arg.dateStr,
         allDay: arg.allDay,
         email: '로그인시 받는 이메일' //redux의 userData의 정보로부터 넣으면 될듯
       })
