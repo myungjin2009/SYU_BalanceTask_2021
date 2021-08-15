@@ -91,8 +91,10 @@ const ProjectTimeline = ({user}) =>{
 
   useEffect(()=>{
     if(isTimeline){
+      //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
       if(isLoading){
         getTimeline(userData, dispatch, entireTimeline, setTimeline);
+        getNotice(userData, dispatch, entireNotice, setNotice);
       }else{
         if(search ==='' || search === null){
           setTimeline(entireTimeline);
@@ -101,14 +103,10 @@ const ProjectTimeline = ({user}) =>{
         }
       }
     }else{
-      if(isLoading){
-        getNotice(userData, dispatch, entireNotice, setNotice);
+      if(search ==='' || search === null){
+        setNotice(entireNotice);
       }else{
-        if(search ==='' || search === null){
-          setNotice(entireNotice);
-        }else{
-          searchPosts(search, notice, setNotice, entireNotice);
-        }
+        searchPosts(search, notice, setNotice, entireNotice);
       }
     }
   },[search, isLoading, isTimeline]);
@@ -132,7 +130,7 @@ const ProjectTimeline = ({user}) =>{
           }
         </Container> 
           :
-        <Container>
+        <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, entireNotice, userData, isLoading, isTimeline, dispatch)}>
           {
             isLoading ?
             <>
