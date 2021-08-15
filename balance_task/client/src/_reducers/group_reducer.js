@@ -46,6 +46,102 @@ const initialState = {
       image: img3,
       kind: "팀 프로젝트",
     },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
+    {
+      title: "키다리아저씨",
+      content: "재단에서 프로젝트 할 사람 모집",
+      writer: "키다리",
+      date: "2021-07-09 ~ 2021-08-03",
+      image: img3,
+      kind: "팀 프로젝트",
+    },
   ],
   timelineList: [
     {
@@ -140,6 +236,60 @@ const initialState = {
     },
   ],
   noticeList:[
+    {
+      id:1,
+      group: '두유개발자',
+      photo_name : '멋진 사람들',
+      photo_url : img3,
+      content: '다음 주 목요일(7월 22일)에 만날까요?',
+      user_name: '박건형',
+      date: '2021.07.15 00:01',
+      votes_list : [
+        {
+          user_name: '박건형',
+          vote: 0
+        },
+        {
+          user_name: '하동호',
+          vote: '반대'
+        },{
+          user_name: '백정훈',
+          vote: '반대'
+        },{
+          user_name: '김명진',
+          vote: 0
+        }
+      ],
+      kind: "notice",
+      profileImage: img2
+    },
+    {
+      id:1,
+      group: '두유개발자',
+      photo_name : '멋진 사람들',
+      photo_url : img3,
+      content: '다음 주 목요일(7월 22일)에 만날까요?',
+      user_name: '박건형',
+      date: '2021.07.15 00:01',
+      votes_list : [
+        {
+          user_name: '박건형',
+          vote: 0
+        },
+        {
+          user_name: '하동호',
+          vote: '반대'
+        },{
+          user_name: '백정훈',
+          vote: '반대'
+        },{
+          user_name: '김명진',
+          vote: 0
+        }
+      ],
+      kind: "notice",
+      profileImage: img2
+    },
     {
       id:1,
       group: '두유개발자',
