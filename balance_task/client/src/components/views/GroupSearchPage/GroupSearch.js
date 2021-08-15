@@ -7,19 +7,32 @@ import Navigation from '../Navigation/Navigation';
 import { receiveGroupCard , chooseLoading} from '../../../_actions/group_action';
 import {useDispatch, useSelector} from 'react-redux'; 
 
+//스크롤 내릴 때마다 새로운 정보 받기
+const handleScrollEvent = (e, dispatch, groups_list)=>{
+  const {target: {scrollTop, clientHeight, scrollHeight}} = e;
+  console.log(scrollTop+clientHeight);
+  console.log(scrollHeight);
+  if(Math.floor(scrollTop + clientHeight) == scrollHeight){
+    console.log('됐다');
+    //바로 로딩 true로 설정
+    dispatch(receiveGroupCard(groups_list));
+    //바로 로딩 false로 바꾸자
+  }
+}
+
+
 const GroupSearch = (props) => {
   //entireList는 data를 조작하기 위한 useState의 변수이다.
   const [entireList, setEntireList] = useState([]);
   const [search, setSearch] = useState('');
-  const button_ref = useRef(null);
-  
+
   const dispatch = useDispatch();
   //0. 먼저 리덕스로부터 데이터를 받는다. 하지만 처음엔 없다.
   //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
   //6. 또 다시 리덕스로부터 데이터를 받는다. 이번에도 데이터가 있다.
   const groups_list = useSelector(state => state.group.groups_list);
   const isLoading = useSelector(state => state.group.isLoading);
-  
+
   useEffect(()=>{
     if(isLoading){
       //1. 데이터 가져오고 redux의 store에 저장됨
@@ -51,22 +64,7 @@ const GroupSearch = (props) => {
     }
     //5.  ref로 등록된 버튼을 누르면 다시 isLoading이 true가 된다.
     //버튼을 누를 때마다 데이터 가져옴
-    if(button_ref.current === null){
-      return;
-    }
-    
-    const handleLoading = () =>{
-      if(!isLoading){
-        dispatch(chooseLoading(true));
-      }
-    }
-    button_ref.current.addEventListener("click",handleLoading);
-    return ()=>{
-      if(button_ref.current === null){
-        return;
-      }
-      button_ref.current.removeEventListener("click", handleLoading);
-    }
+    //스크롤 이벤트 넣으면서 사라진 버튼 이벤트
   },[isLoading, search]);
 
   const onClickHandler = (kind) =>{
@@ -101,16 +99,12 @@ const GroupSearch = (props) => {
             <LoadingBlock></LoadingBlock>
           </Main>
           :
-          <Main>
+          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list)}>
             {
               entireList.length !== 0 ?
               entireList.map((el, index)=><GroupCard props={props} title={el.title} content={el.content} writer={el.writer} date={el.date} image={el.image} kind={el.kind} key={index}/>)
               :
               <h2 style={{marginTop: "20vh"}}>아직 올린 사람이 없습니다!</h2>
-            }
-            {
-              entireList.length % 3 === 0 && entireList.length !==0 && 
-              <button ref={button_ref} style={{marginTop: "5vh", padding: "10px", borderRadius: "10px", border: "1px solid #aaa"}}>더 보기</button>
             }
           </Main>
         }

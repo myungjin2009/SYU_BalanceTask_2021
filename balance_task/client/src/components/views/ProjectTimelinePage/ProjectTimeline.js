@@ -8,7 +8,7 @@ import GroupHeader from './GroupHeader';
 const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
   const body = {
     last_number: entireTimeline.length-1,
-    group: userData.group
+    // group: userData.group
   };
   dispatch(receiveTimeline(body)).then(res=>{
     dispatch(chooseLoading(false));
@@ -20,7 +20,7 @@ const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
 const getNotice = (userData, dispatch, entireNotice, setNotice) => {
   const body = {
     last_number: entireNotice.length-1,
-    group: userData.group
+    // group: userData.group
   };
   dispatch(receiveNotice(body)).then(res =>{
     dispatch(chooseLoading(false));
@@ -38,6 +38,42 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
     const search_list =posts.filter((post)=>post.user_name === search);
     setPosts(search_list);
   }
+}
+
+//스크롤 내릴 때마다 새로운 정보 받기
+const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading, isTimeline, dispatch)=>{
+  //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
+  if(isLoading)return;
+  if(isTimeline){
+    const body = {
+      last_number: entireTimeline.length-1,
+      // group: userData.group
+    };
+    const {target: {scrollTop, clientHeight, scrollHeight}} = e;
+    console.log(scrollTop+clientHeight);
+    console.log(scrollHeight);
+    if(Math.floor(scrollTop + clientHeight) == scrollHeight){
+      console.log('됐다');
+      //바로 로딩 true로 설정
+      dispatch(receiveTimeline(body));
+      //바로 로딩 false로 바꾸자
+    }
+  }else{
+    const body = {
+      last_number: entireNotice.length-1,
+      // group: userData.group
+    };
+    const {target: {scrollTop, clientHeight, scrollHeight}} = e;
+    console.log(scrollTop+clientHeight);
+    console.log(scrollHeight);
+    if(Math.floor(scrollTop + clientHeight) == scrollHeight){
+      console.log('됐다');
+      //바로 로딩 true로 설정
+      dispatch(receiveNotice(body));
+      //바로 로딩 false로 바꾸자
+    }
+  }
+  
 }
 
 const ProjectTimeline = ({user}) =>{
@@ -82,7 +118,7 @@ const ProjectTimeline = ({user}) =>{
       <GroupHeader setSearch={setSearch} isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
       {
         isTimeline ? 
-        <Container>
+        <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, entireNotice, userData, isLoading, isTimeline, dispatch)}>
           {
             isLoading ? 
             <>
@@ -125,6 +161,7 @@ const Container = styled.div`
   height: 85vh;
   margin-top: 15vh;
   background: #fffefe;
+  overflow-y: auto;
 `;
 const LoadingBlock = styled.div`
   width: 90%;
