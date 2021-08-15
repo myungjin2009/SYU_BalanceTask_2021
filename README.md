@@ -35,8 +35,8 @@
 아이디 찾기페이지 - /api/user_email => method: post, /api/finding_password => method: post, /api/password_changing => method: post
 
 # 진행 상황
-- [x]자체 인증처리
-- []채팅(개인, 그룹)
+- [ x ]자체 인증처리
+- [ ]채팅(개인, 그룹)
 - []로그인api
 - []aws ec2(호스팅 및 데이터베이스 세팅)
 - []https 적용하기
