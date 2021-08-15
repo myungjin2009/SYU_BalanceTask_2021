@@ -45,16 +45,6 @@ const Router = (props) => {
         <Route exact path="/group_search/:team" component={Auth(Detail,true)}/>
         <Route exact path="/worker_list" component={Auth(WorkerList, true)} />
         <Route exact path="/project_timeline" component={Auth(ProjectTimeline, true)} />
-        
-        {/* <Route
-          exact
-          path="/project_timeline"
-          render={() => (
-            <ProjectTimeline
-              user={user}
-            />
-          )}
-        /> */}
         <Route exact path="/project_timeline/timeline/:index" component={ProjectTimelineDetail}/>
         <Route exact path="/project_timeline/notice/:index" component={ProjectTimelineDetail}/>
         {/* <Route

@@ -6,32 +6,30 @@ import TimelineBlock from './TimelineBlock';
 import GroupHeader from './GroupHeader';
 
 const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
-  if(userData !== {} || userData !== null){
+  
     const body = {
       last_number: entireTimeline.length-1,
-      // group: userData.group
+      group: userData.group
     };
     dispatch(receiveTimeline(body)).then(res=>{
       dispatch(chooseLoading(false));
       setTimeline(entireTimeline);
       console.log('timeline 데이터 받기 성공!');
     });
-  }
   
 }
 
 const getNotice = (userData, dispatch, entireNotice, setNotice) => {
-  if(userData !== {} || userData !== null){
+  
     const body = {
       last_number: entireNotice.length-1,
-      // group: userData.group
+      group: userData.group
     };
     dispatch(receiveNotice(body)).then(res =>{
       dispatch(chooseLoading(false));
       setNotice(entireNotice);
       console.log('notice 데이터 받기 성공!');
     });
-  }
   
 }
 
@@ -53,11 +51,9 @@ const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading
   if(isTimeline){
     const body = {
       last_number: entireTimeline.length-1,
-      // group: userData.group
+      group: userData.group
     };
     const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-    console.log(scrollTop+clientHeight);
-    console.log(scrollHeight);
     if(Math.floor(scrollTop + clientHeight) == scrollHeight){
       console.log('됐다');
       //바로 로딩 true로 설정
@@ -67,11 +63,9 @@ const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading
   }else{
     const body = {
       last_number: entireNotice.length-1,
-      // group: userData.group
+      group: userData.group
     };
     const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-    console.log(scrollTop+clientHeight);
-    console.log(scrollHeight);
     if(Math.floor(scrollTop + clientHeight) == scrollHeight){
       console.log('됐다');
       //바로 로딩 true로 설정
@@ -82,14 +76,12 @@ const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading
   
 }
 
-const ProjectTimeline = ({user}) =>{
+const ProjectTimeline = () =>{
   const entireTimeline = useSelector(state => state.group.timelineList);
   const isLoading = useSelector(state => state.group.isLoading);
   const entireNotice = useSelector(state => state.group.noticeList);
-  const userData = useSelector(state => {
-    console.log(state.user);
-    return state.user.userData;
-  });
+  const userData = useSelector(state => state.user.userData);
+  
 
   const dispatch = useDispatch();
 
@@ -100,7 +92,6 @@ const ProjectTimeline = ({user}) =>{
 
   useEffect(()=>{
     if(isTimeline){
-      
       //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
       if(isLoading){
         if(userData === undefined){
@@ -108,6 +99,7 @@ const ProjectTimeline = ({user}) =>{
         }
         getTimeline(userData, dispatch, entireTimeline, setTimeline);
         getNotice(userData, dispatch, entireNotice, setNotice);
+        
       }else{
         if(search ==='' || search === null){
           setTimeline(entireTimeline);
@@ -138,7 +130,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             timeline.map((user_post,i)=>(
-              <TimelineBlock key={i} isTimeline={isTimeline} index={i} user={user} user_post = {user_post}/>
+              <TimelineBlock key={i} isTimeline={isTimeline} index={i} user={userData.username} user_post = {user_post}/>
               ))
           }
         </Container> 
@@ -152,7 +144,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             notice.map((user_post, i)=>(
-              <TimelineBlock key={i} index={i} user={user} user_post = {user_post} />
+              <TimelineBlock key={i} index={i} user={userData.username} user_post = {user_post} />
             ))
           }
         </Container>   

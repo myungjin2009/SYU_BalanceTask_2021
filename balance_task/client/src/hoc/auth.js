@@ -28,6 +28,10 @@ export default function(SpecificComponent, option, adminRoute = null){
           }
         }
       });
+<<<<<<< HEAD
+=======
+      
+>>>>>>> master
     },[]);
     return(
       <SpecificComponent/>
