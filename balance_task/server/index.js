@@ -44,6 +44,12 @@ var login = require("./router/login");
 
 var logout = require("./router/logout");
 
+//var group_search = require("./router/group_search");
+var {group_search} = require("./group/groupfunction");
+
+var {boardget}=require("./groupboard/boardget");
+var {noticeget}=require("./groupboard/noticeget");
+
 var { auth } = require("./middleware/auth");
 //const { isObject } = require("util");
 // 익스프레스 객체 생성
@@ -82,7 +88,58 @@ var router = express.Router();
 app.post("/api/signup", signup);
 
 app.post("/api/user/login", login);
+
 app.post("/api/user/logout", logout);
+
+app.get("/api/user/auth", auth, (req, res) => {
+  //미들웨어 통과해서 여기오면 AUTH가 TRUE
+  
+  console.log("success");
+  // console.log(req.token);
+  // console.log(req.id);
+  // console.log(req.name);
+  res.status(200).json({
+    //유저정보 제공
+    //isAuth: true,
+    isAuth:isAuth,
+    name:req.name,
+    token:req.token,
+    id: req.id 
+  });
+});
+
+app.post("/api/group/search_card", group_search,(req,res)=>{
+  
+  console.log("ggggggggsuccess");
+  console.log(req.array);
+    res.status(200).json({
+      array:req.array
+      
+    });
+    //};
+  
+});
+
+app.post("/api/group/timeline",boardget,(req,res)=>{
+  console.log("timesuccess");
+  console.log(req.array);
+  
+    res.status(200).json({
+      array:req.array
+      
+    });
+  
+});
+
+app.post("/api/group/notice",noticeget,(req,res)=>{
+  console.log("noticesuccess");
+  console.log(req.array);
+    res.status(200).json({
+      array:req.array
+      
+    });
+  
+});
 
 io.on("connection", (socket) => {
   socket.on("chatting", (data) => {
@@ -163,18 +220,7 @@ io.on("connection", (socket) => {
 //     });
 //   };
 // }
-// app.get("/api/user/auth", auth, (req, res) => {
-//   res.status(200).json({
-//     _id: req.user._id,
-//     //isAdmin: req.user.role === 0 ? false : true,
-//     //isAuth: true,
-//     //email: req.user.email,
-//     name: req.user.name,
-//     //lastname: req.user.lastname,
-//     //role: req.user.role,
-//     //image: req.user.image,
-//   });
-// });
+
 
 // //로그아웃 토큰 지우기
 // app.get("/api/users/logout", auth, (req, res) => {
@@ -218,23 +264,3 @@ app.on("close", function () {
 
 //토큰 받기
 //const { auth } = require("./middleware/auth");
-app.get("/api/user/auth", auth, (req, res) => {
-  //미들웨어 통과해서 여기오면 AUTH가 TRUE
-  console.log("success");
-  console.log(req.token);
-  console.log(req.id);
-  // JSON.parse({
-  //   id: req.id,
-  //   token:req.token
-  // })
-  // JSON.stringify({
-  //   id: req.id,
-  //   token:req.token
-  // });
-  res.status(200).json({
-    //유저정보 제공
-    //isAuth: true,
-    token:req.token,
-    id: req.id //id 정보 클라이언트에 제공
-  });
-});

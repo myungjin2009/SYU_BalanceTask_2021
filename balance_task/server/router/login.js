@@ -32,9 +32,9 @@ router.route("/api/user/login").post(function (req, res) {
         var same = bcrypt.compareSync(password, info.password);
         if (info.id === id && same) {
           isUser = true;
-          console.log("true");
+          console.log("login 되었습니다.");
         } else {
-          console.log("false");
+          //console.log("false");
           //router.route("/api/")
           return;
         }
@@ -42,13 +42,7 @@ router.route("/api/user/login").post(function (req, res) {
       if (isUser) {
         const YOUR_SECRET_KEY = process.env.SECRET_KEY;
         const accessToken = jwt.sign(
-          {
-            id,
-          },
-          YOUR_SECRET_KEY,
-          {
-            expiresIn: "1h",
-          }
+          {id,},YOUR_SECRET_KEY,{expiresIn: "1h",}
         );
         console.log(accessToken);
         res.cookie("user", accessToken);

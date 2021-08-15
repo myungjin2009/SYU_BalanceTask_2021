@@ -28,7 +28,11 @@ export default function(SpecificComponent, option, adminRoute = null){
           }
         }
       });
+<<<<<<< HEAD
+
+=======
       
+>>>>>>> 3a75adf29dfabb90f253469a3207318b31747560
     },[]);
     return(
       <SpecificComponent/>

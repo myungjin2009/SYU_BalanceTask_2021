@@ -21,6 +21,9 @@ export function joinGroup(dataToSubmit){
     payload: request
   }
 }
+
+//위에가 그룹서칭
+
 //로딩을 알려주는 함수
 export function chooseLoading(isLoading){
   return {
