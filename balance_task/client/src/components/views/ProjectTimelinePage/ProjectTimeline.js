@@ -54,8 +54,6 @@ const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading
       group: userData.group
     };
     const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-    console.log(scrollTop+clientHeight);
-    console.log(scrollHeight);
     if(Math.floor(scrollTop + clientHeight) == scrollHeight){
       console.log('됐다');
       //바로 로딩 true로 설정
@@ -68,8 +66,6 @@ const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading
       group: userData.group
     };
     const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-    console.log(scrollTop+clientHeight);
-    console.log(scrollHeight);
     if(Math.floor(scrollTop + clientHeight) == scrollHeight){
       console.log('됐다');
       //바로 로딩 true로 설정
@@ -80,7 +76,7 @@ const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading
   
 }
 
-const ProjectTimeline = ({user}) =>{
+const ProjectTimeline = () =>{
   const entireTimeline = useSelector(state => state.group.timelineList);
   const isLoading = useSelector(state => state.group.isLoading);
   const entireNotice = useSelector(state => state.group.noticeList);
@@ -135,7 +131,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             timeline.map((user_post,i)=>(
-              <TimelineBlock key={i} isTimeline={isTimeline} index={i} user={user} user_post = {user_post}/>
+              <TimelineBlock key={i} isTimeline={isTimeline} index={i} user={userData.username} user_post = {user_post}/>
               ))
           }
         </Container> 
@@ -149,7 +145,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             notice.map((user_post, i)=>(
-              <TimelineBlock key={i} index={i} user={user} user_post = {user_post} />
+              <TimelineBlock key={i} index={i} user={userData.username} user_post = {user_post} />
             ))
           }
         </Container>   
