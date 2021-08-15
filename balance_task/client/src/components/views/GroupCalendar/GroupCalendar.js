@@ -18,6 +18,7 @@ const GroupCalendar = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(receiveDate()).then(response =>{
+      //데이터를 받아서 calendarList에 넣기
       // setCalendarData(response.payload.calendarList);
     });
     
@@ -79,7 +80,12 @@ const GroupCalendar = () => {
   //이벤트를 눌렀을 때
   const clickEvent = (info) =>{
     console.log(info);
-    setModalData({email: info.event._def.extendedProps.email, title: info.event._def.title});
+    setModalData({
+      email: info.event._def.extendedProps.email,
+      title: info.event._def.title,
+      start: info.event.startStr,
+      end: info.event.endStr
+    });
     console.log(modalData);
     setIsClick(true);
   }

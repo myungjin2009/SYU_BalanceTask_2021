@@ -16,7 +16,7 @@ export function addDate(dataToSubmit){
 }
 
 export function receiveDate(){
-  const request = axios.post('/api/group_calendar/adding_date')
+  const request = axios.get('/api/group_calendar/date')
   .then(response => response.data);
 
   return {
@@ -26,7 +26,7 @@ export function receiveDate(){
 }
 
 export function updateDate(dataToSubmit){
-  const request = axios.post('/api/group_calendar/adding_date', dataToSubmit)
+  const request = axios.post('/api/group_calendar/updating_date', dataToSubmit)
   .then(response => response.data);
 
   return {
@@ -36,7 +36,7 @@ export function updateDate(dataToSubmit){
 }
 
 export function deleteDate(dataToSubmit){
-  const request = axios.post('/api/group_calendar/adding_date', dataToSubmit)
+  const request = axios.post('/api/group_calendar/deleting_date', dataToSubmit)
   .then(response => response.data);
 
   return {

@@ -13,13 +13,13 @@ export default function (state = {}, action){
       return {calendarList: new_array};
     }
     case RECEIVE_DATE: {
-      
+      return {calendarList: action.payload.calendarList};
     }
     case DELETE_DATE: {
-      
+      return {calendarList: action.payload.calendarList};
     }
     case UPDATE_DATE: {
-      
+      return {calendarList: action.payload.calendarList};
     }
     default: 
       return state;
