@@ -6,9 +6,12 @@ import TimelineBlock from './TimelineBlock';
 import GroupHeader from './GroupHeader';
 
 const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
+  if(userData === {} || userData === null){
+    return;
+  }
   const body = {
     last_number: entireTimeline.length-1,
-    group: userData.group
+    //group: userData.group
   };
   dispatch(receiveTimeline(body)).then(res=>{
     dispatch(chooseLoading(false));
@@ -18,9 +21,12 @@ const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
 }
 
 const getNotice = (userData, dispatch, entireNotice, setNotice) => {
+  if(userData === {} || userData === null){
+    return;
+  }
   const body = {
     last_number: entireNotice.length-1,
-    group: userData.group
+    //group: userData.group
   };
   dispatch(receiveNotice(body)).then(res =>{
     dispatch(chooseLoading(false));
@@ -44,7 +50,11 @@ const ProjectTimeline = ({user}) =>{
   const entireTimeline = useSelector(state => state.group.timelineList);
   const isLoading = useSelector(state => state.group.isLoading);
   const entireNotice = useSelector(state => state.group.noticeList);
-  const userData = useSelector(state => state.user.userData);
+  //const userData = useSelector(state => state.user.userData);
+  const userData = useSelector(state => {
+    console.log(state.user);
+    return state.user.userData;
+  });
 
   const dispatch = useDispatch();
 

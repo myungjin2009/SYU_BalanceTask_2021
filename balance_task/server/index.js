@@ -47,7 +47,7 @@ var logout = require("./router/logout");
 //var group_search = require("./router/group_search");
 var {group_search} = require("./group/groupfunction");
 
-var {boardget}=require("./groupboard/boardget");
+var {boardget1}=require("./groupboard/boardget1");
 var {noticeget}=require("./groupboard/noticeget");
 
 var { auth } = require("./middleware/auth");
@@ -97,14 +97,16 @@ app.get("/api/user/auth", auth, (req, res) => {
   console.log("success");
   // console.log(req.token);
   // console.log(req.id);
-  // console.log(req.name);
+  console.log(req.array);
   res.status(200).json({
     //유저정보 제공
     //isAuth: true,
+    group:req.array,
     isAuth:isAuth,
     name:req.name,
     token:req.token,
-    id: req.id 
+    id: req.id, 
+    //groupname: req.group_name
   });
 });
 
@@ -120,7 +122,7 @@ app.post("/api/group/search_card", group_search,(req,res)=>{
   
 });
 
-app.post("/api/group/timeline",boardget,(req,res)=>{
+app.post("/api/group/timeline",boardget1,(req,res)=>{
   console.log("timesuccess");
   console.log(req.array);
   
