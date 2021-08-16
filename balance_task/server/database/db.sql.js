@@ -8,7 +8,8 @@ var mysql = require('mysql');
      user     : 'root',
     password : '1111',
      database : 'test',
-    debug    :  false
+    debug    :  false,
+    multipleStatements: true
   });
  
   return {

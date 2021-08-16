@@ -17,7 +17,6 @@ const Login = (props) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  console.log(props);
   const postUser = async(e) =>{
     e.preventDefault();
     if(id===''||password===''){
@@ -50,8 +49,8 @@ const Login = (props) => {
         <h1>Task</h1>
       </Header>
       <LoginBox onSubmit={postUser}>
-        <input type="email" placeholder="Email" onChange={(e)=>changeId(e, setId)}/>
-        <input type="password" placeholder="PASSWORD" onChange={(e)=>changePassword(e, setPassword)} autoComplete="off"/>
+        <input type="email" placeholder="Email" value={id} onChange={(e)=>changeId(e, setId)}/>
+        <input type="password" placeholder="PASSWORD" value={password} onChange={(e)=>changePassword(e, setPassword)} autoComplete="off"/>
         <button type="submit">로그인</button>
       </LoginBox>
       <DefaultLoginBox>

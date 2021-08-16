@@ -5,20 +5,32 @@ import { receiveTimeline ,chooseLoading, receiveNotice} from '../../../_actions/
 import TimelineBlock from './TimelineBlock';
 import GroupHeader from './GroupHeader';
 
-const getTimeline = (dispatch, entireTimeline, setTimeline) => {
-  dispatch(receiveTimeline(entireTimeline)).then(res=>{
-    dispatch(chooseLoading(false));
-    setTimeline(entireTimeline);
-    console.log('timeline 데이터 받기 성공!');
-  });
+const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
+  
+    const body = {
+      last_number: entireTimeline.length-1,
+      group: userData.group
+    };
+    dispatch(receiveTimeline(body)).then(res=>{
+      dispatch(chooseLoading(false));
+      setTimeline(entireTimeline);
+      console.log('timeline 데이터 받기 성공!');
+    });
+  
 }
 
-const getNotice = (dispatch, entireNotice, setNotice) => {
-  dispatch(receiveNotice(entireNotice)).then(res =>{
-    dispatch(chooseLoading(false));
-    setNotice(entireNotice);
-    console.log('notice 데이터 받기 성공!');
-  });
+const getNotice = (userData, dispatch, entireNotice, setNotice) => {
+  
+    const body = {
+      last_number: entireNotice.length-1,
+      group: userData.group
+    };
+    dispatch(receiveNotice(body)).then(res =>{
+      dispatch(chooseLoading(false));
+      setNotice(entireNotice);
+      console.log('notice 데이터 받기 성공!');
+    });
+  
 }
 
 const searchPosts = (search, posts, setPosts, entirePosts) =>{
@@ -32,10 +44,44 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
   }
 }
 
-const ProjectTimeline = ({user}) =>{
+//스크롤 내릴 때마다 새로운 정보 받기
+const handleScrollEvent = (e, entireTimeline, entireNotice, userData , isLoading, isTimeline, dispatch)=>{
+  //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
+  if(isLoading)return;
+  if(isTimeline){
+    const body = {
+      last_number: entireTimeline.length-1,
+      group: userData.group
+    };
+    const {target: {scrollTop, clientHeight, scrollHeight}} = e;
+    if(Math.floor(scrollTop + clientHeight) == scrollHeight){
+      console.log('됐다');
+      //바로 로딩 true로 설정
+      dispatch(receiveTimeline(body));
+      //바로 로딩 false로 바꾸자
+    }
+  }else{
+    const body = {
+      last_number: entireNotice.length-1,
+      group: userData.group
+    };
+    const {target: {scrollTop, clientHeight, scrollHeight}} = e;
+    if(Math.floor(scrollTop + clientHeight) == scrollHeight){
+      console.log('됐다');
+      //바로 로딩 true로 설정
+      dispatch(receiveNotice(body));
+      //바로 로딩 false로 바꾸자
+    }
+  }
+  
+}
+
+const ProjectTimeline = () =>{
   const entireTimeline = useSelector(state => state.group.timelineList);
   const isLoading = useSelector(state => state.group.isLoading);
   const entireNotice = useSelector(state => state.group.noticeList);
+  const userData = useSelector(state => state.user.userData);
+  
 
   const dispatch = useDispatch();
 
@@ -46,8 +92,15 @@ const ProjectTimeline = ({user}) =>{
 
   useEffect(()=>{
     if(isTimeline){
+
+      //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
       if(isLoading){
-        getTimeline(dispatch, entireTimeline, setTimeline);
+        if(userData === undefined){
+          return;
+        }
+        getTimeline(userData, dispatch, entireTimeline, setTimeline);
+        getNotice(userData, dispatch, entireNotice, setNotice);
+        
       }else{
         if(search ==='' || search === null){
           setTimeline(entireTimeline);
@@ -56,24 +109,20 @@ const ProjectTimeline = ({user}) =>{
         }
       }
     }else{
-      if(isLoading){
-        getNotice(dispatch, entireNotice, setNotice);
+      if(search ==='' || search === null){
+        setNotice(entireNotice);
       }else{
-        if(search ==='' || search === null){
-          setNotice(entireNotice);
-        }else{
-          searchPosts(search, notice, setNotice, entireNotice);
-        }
+        searchPosts(search, notice, setNotice, entireNotice);
       }
     }
-  },[search, isLoading, isTimeline]);
+  },[search, isLoading, isTimeline, userData]);
 
   return(
     <>
-      <GroupHeader search={search} setSearch={setSearch} isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
+      <GroupHeader setSearch={setSearch} isTimeline={isTimeline} setIsTimeline={setIsTimeline}/>
       {
         isTimeline ? 
-        <Container>
+        <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, entireNotice, userData, isLoading, isTimeline, dispatch)}>
           {
             isLoading ? 
             <>
@@ -82,12 +131,12 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             timeline.map((user_post,i)=>(
-              <TimelineBlock key={i} isTimeline={isTimeline} index={i} user={user} user_post = {user_post}/>
+              <TimelineBlock key={i} isTimeline={isTimeline} index={i} user={userData.username} user_post = {user_post}/>
               ))
           }
         </Container> 
           :
-        <Container>
+        <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, entireNotice, userData, isLoading, isTimeline, dispatch)}>
           {
             isLoading ?
             <>
@@ -96,7 +145,7 @@ const ProjectTimeline = ({user}) =>{
             </>
             :
             notice.map((user_post, i)=>(
-              <TimelineBlock key={i} index={i} user={user} user_post = {user_post} />
+              <TimelineBlock key={i} index={i} user={userData.username} user_post = {user_post} />
             ))
           }
         </Container>   
@@ -116,6 +165,7 @@ const Container = styled.div`
   height: 85vh;
   margin-top: 15vh;
   background: #fffefe;
+  overflow-y: auto;
 `;
 const LoadingBlock = styled.div`
   width: 90%;

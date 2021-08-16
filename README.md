@@ -34,6 +34,13 @@
 회원가입페이지 - /api/user_email => method: post, /api/signup => method: post
 아이디 찾기페이지 - /api/user_email => method: post, /api/finding_password => method: post, /api/password_changing => method: post
 
-# 규칙
--> 1.그 페이지를 만들 때 RESTAPI로 뭘 쓸 건지 
--> gitlab 자주사용하고 front 
+# 진행 상황
+- [ x ]자체 인증처리
+- [ ]채팅(개인, 그룹)
+- []로그인api
+- []aws ec2(호스팅 및 데이터베이스 세팅)
+- []https 적용하기
+- []도메인 사기
+- []FCM 적용하기
+- []PWA 적용하기
+

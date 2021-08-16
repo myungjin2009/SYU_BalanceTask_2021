@@ -27,15 +27,16 @@ class Contact extends React.Component {
 }
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: auto;
-  height: auto;
-  gap: 6vh;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const InputBox = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;

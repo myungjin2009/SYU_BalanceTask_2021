@@ -13,7 +13,7 @@ let noticeget = (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(rows);
+        //console.log(rows);
         console.log("noticeget come");
         var array=[];
         var array2=[];
@@ -89,24 +89,6 @@ let noticeget = (req, res, next) => {
             file:req.file,
             kind:req.notice,
             votes_list:array2 
-              // [
-              //   {
-              //     user_name: "박건형",
-              //     vote: "찬성",
-              //   },
-              //   {
-              //     user_name: "하동호",
-              //     vote: "찬성",
-              //   },
-              //   {
-              //     user_name: "백정훈",
-              //     vote: "반대",
-              //   },
-              //   {
-              //     user_name: "김명진",
-              //     vote: "찬성",
-              //   },
-              // ]
             });
             req.array=array;
         }else{

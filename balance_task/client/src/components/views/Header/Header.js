@@ -18,6 +18,7 @@ const Title = styled.header`
   text-align:center;
   border-bottom: 0.5px solid #aaa;
   box-shadow: 0 2px 4px #aaa;
+  z-index: 1000;
   &>span{
     font-size: 30px;
     line-height: 60px;
