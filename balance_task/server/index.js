@@ -18,7 +18,7 @@ var expressErrorHandler = require("express-error-handler");
 var expressSession = require("express-session");
 //채팅
 const server = app.listen(5000, () => {
-  console.log("listening on 5000!");
+  console.log("=================listening on 5000!=================");
 });
 const io = require("socket.io")(server);
 //const server=http.createServer(app);
@@ -125,7 +125,7 @@ app.post("/api/group/search_card", group_search,(req,res)=>{
 app.post("/api/group/timeline",boardget1,(req,res)=>{
   console.log("timesuccess");
   console.log(req.array);
-  
+  //console.log(req.info_user);
     res.status(200).json({
       array:req.array
       
@@ -133,15 +133,15 @@ app.post("/api/group/timeline",boardget1,(req,res)=>{
   
 });
 
-app.post("/api/group/notice",noticeget,(req,res)=>{
-  console.log("noticesuccess");
-  console.log(req.array);
-    res.status(200).json({
-      array:req.array
+// app.post("/api/group/notice",noticeget,(req,res)=>{
+//   console.log("noticesuccess");
+//   console.log(req.array);
+//     res.status(200).json({
+//       array:req.array
       
-    });
+//     });
   
-});
+// });
 
 io.on("connection", (socket) => {
   socket.on("chatting", (data) => {
