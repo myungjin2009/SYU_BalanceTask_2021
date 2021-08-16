@@ -26,11 +26,21 @@ function ModalWindow({isClick, setIsClick, modalData}) {
 
   //여기서부터는 통신하는 부분
   const changeContent = () =>{
-    dispatch(updateDate(modalData));
+    setIsClick(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+    setIsChanged(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+    input_ref.current.style.display="none";
+    setContent('');
+    dispatch(updateDate(modalData)).then(response => {
+      if(!response.payload.success) return;
+    });
   }
 
   const removeContent = () =>{
-    dispatch(deleteDate(modalData));
+    setIsClick(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+    dispatch(deleteDate(modalData)).then(response =>{
+      if(!response.payload.success) return;
+
+    });
   }
   useEffect(()=>{
     //useEffect에서 처리해야할 것은 modalData.email과 지금 로그인 중인 user의 email을 비교해서

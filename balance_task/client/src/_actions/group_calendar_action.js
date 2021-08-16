@@ -7,7 +7,10 @@ import {ADD_DATE, RECEIVE_DATE, UPDATE_DATE, DELETE_DATE} from './types';
 
 export function addDate(dataToSubmit){
   const request = axios.post('/api/group_calendar/adding_date', dataToSubmit)
-  .then(response => response.data);
+  .then(response => {
+    //request안에 dataToSubmit을 보내기 위해서 사용
+    return Promise.resolve({data: response.data, addedList: dataToSubmit});
+  });
 
   return {
     type: ADD_DATE,
@@ -27,7 +30,9 @@ export function receiveDate(){
 
 export function updateDate(dataToSubmit){
   const request = axios.post('/api/group_calendar/updating_date', dataToSubmit)
-  .then(response => response.data);
+  .then(response => {
+    return Promise.resolve({data: response.data, updatedList: dataToSubmit});
+  });
 
   return {
     type: UPDATE_DATE,
@@ -37,7 +42,9 @@ export function updateDate(dataToSubmit){
 
 export function deleteDate(dataToSubmit){
   const request = axios.post('/api/group_calendar/deleting_date', dataToSubmit)
-  .then(response => response.data);
+  .then(response => {
+    return Promise.resolve({data: response.data, deletedList: dataToSubmit});
+  });
 
   return {
     type: DELETE_DATE,
