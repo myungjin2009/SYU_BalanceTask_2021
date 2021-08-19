@@ -15,7 +15,7 @@ import NotFound from "./views/NotFoundPage/NotFound";
 import MyPage from "./views/MyPagePage/MyPage";
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import Detail from "./views/GroupSearchPage/Detail";
-
+import CreateGroup from "./views/CreateGroupPage/CreateGroup";
 import WorkerList from "./views/WorkerListPage/WorkerList";
 import FindingPW from "./views/FindingPWPage/FindingPW";
 import Prac from "./practice";
@@ -42,8 +42,11 @@ const Router = (props) => {
           path="/group_search"
           component={Auth(GroupSearch, true)}
         />
+        <Route exact path="/create_group" component={Auth(CreateGroup, true)} />
         <Route exact path="/group_search/:team" component={Auth(Detail,true)}/>
+
         <Route exact path="/worker_list" component={Auth(WorkerList, true)} />
+
         <Route exact path="/project_timeline" component={Auth(ProjectTimeline, true)} />
         <Route exact path="/project_timeline/timeline/:index" component={ProjectTimelineDetail}/>
         <Route exact path="/project_timeline/notice/:index" component={ProjectTimelineDetail}/>
@@ -51,7 +54,6 @@ const Router = (props) => {
           path="/project_timeline/adding_posts"
           component={AddingPosts}
         /> */}
-
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/settings/AppInfo" component={AppInfo} />
         <Route exact path="/settings/Contact" component={Contact} />

@@ -110,7 +110,7 @@ const GroupSearch = (props) => {
           </Main>
         }
       <Button>
-        <Link to="/adding_group"><i className="fas fa-plus"></i></Link>
+        <Link to="/create_group"><i className="fas fa-plus"></i></Link>
       </Button>
       <Navigation />
     </Container>
