@@ -8,12 +8,13 @@ import settings_icon from '../../../images/settings_icon.png';
 import edit_icon from '../../../images/edit_icon.png';
 import {withRouter} from "react-router";
 
+import Project from "./Project";
 
 const ProfileName = "홍길동";
 const FinishedPJ = 3;                   //아직 REDUX 적용 안함
 const ContinuingPJ = 1;
-const Score = 100;
-const ProfileMessage = "프론트엔드 HTML CSS 리액트 잘다룹니다 백엔드도 할줄 압니다. 깃으로 협업가능";
+const Score = 78;
+const ProfileMessage = "프론트엔드 백엔드 둘다 하는 유니콘입니다. 리액트 몽고DB 깃으로 협업가능";
 //ProfileMessage 글자수 제한 필요.
 
 
@@ -60,10 +61,13 @@ class MyPage extends React.Component {
           <div className="profileIntroduce">프로필 소개</div>
           <div className = "profileMessage">{ProfileMessage}</div>
           <img className="editIcon" alt="Edit_icon" src={edit_icon} />
-        </Introduce>   
+        </Introduce>
+
+        <Working>진행중인 프로젝트</Working>
+          <Project></Project>
 
 
-        <Navigation></Navigation>
+        <Navigation />
       </Container>
     );
   }
@@ -78,8 +82,8 @@ const Container = styled.div`
 const Header = styled.div`
   position: relative;
   background-color: rgb(135,220,252);
-  width: 100%;
   height: 17vh;
+  
   & > .profile_IMG {
     width: 30%;
     height: 100%;
@@ -141,8 +145,6 @@ const Header = styled.div`
         position: absolute;
         width: 13vh;
         height: 13vh;
-        top: -5%;
-        left: -5%;
         background-color: green;
         opacity: .4;
       }
@@ -172,13 +174,13 @@ const Introduce = styled.form`
   width: 100%;
   height: 13vh;
   margin-top: 2vh;
-  background-color: rgba(120,120,120,0.3);
+  background-color: rgb(214,214,214);
   position: relative;
   overflow: hidden;
   
   
   & > .profileIntroduce {
-    background-color: rgba(120,120,120,0.3);
+    background-color: rgb(185,185,185);
     position: relative;
     display: flex;
     align-items: center;
@@ -209,5 +211,15 @@ const Introduce = styled.form`
   }
 `;
 
+const Working = styled.div`
+  margin: 2vh 0 1vh 0;
+  background-color: rgba(199,229,251);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3vh;
+  border-radius: 13px;
+  line-height: 6vh;
+`;
 
 export default withRouter(MyPage);
