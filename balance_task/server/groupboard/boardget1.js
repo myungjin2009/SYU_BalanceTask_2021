@@ -12,8 +12,9 @@ let boardget1 = (req, res, next) => {
   // 커넥션 풀에서 연결 객체를 가져옴
     const array=[];
     const array2=[];    
-    const sql1 = "SELECT * FROM groupboard ";
-    sql.pool.query(sql1, (err, rows, fields) => {
+    const sql1 = "SELECT * FROM groupboard; ";
+    const sql2 = "SELECT * FROM vote; ";
+    sql.pool.query(sql1+sql2, (err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
@@ -24,7 +25,7 @@ let boardget1 = (req, res, next) => {
           
           // if(info.notice===0){
           //console.log(newarray);  
-            req.board_number = info.board_number;
+            req.board_number = info[0].board_number;
             console.log(req.board_number);
             req.title = info.title;
             console.log( req.title );

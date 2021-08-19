@@ -47,9 +47,10 @@ var logout = require("./router/logout");
 //var group_search = require("./router/group_search");
 var {group_search} = require("./group/groupfunction");
 
-var {boardget1}=require("./groupboard/boardget1");
+//var {boardget1}=require("./groupboard/boardget1");
 var {noticeget}=require("./groupboard/noticeget");
-
+var {boardget2}=require("./groupboard/boardget2");
+var {vote2}=require("./groupboard/vote2");
 var { auth } = require("./middleware/auth");
 //const { isObject } = require("util");
 // 익스프레스 객체 생성
@@ -122,9 +123,11 @@ app.post("/api/group/search_card", group_search,(req,res)=>{
   
 });
 
-app.post("/api/group/timeline",boardget1,(req,res)=>{
+app.post("/api/group/timeline",boardget2,(req,res)=>{
   console.log("timesuccess");
-  console.log(req.array);
+  // console.log(req.array);
+  // console.log(req.board_number);
+  
   //console.log(req.info_user);
     res.status(200).json({
       array:req.array
