@@ -7,7 +7,8 @@ import Auth from "../hoc/auth";
 // import ProjectTermination from "../routes/ProjectTermination";
 // import WorkerInvitation from "../routes/WorkerInvitation";
 import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
-import ProjectTimelineDetail from "./views/ProjectTimelinePage/Detail";
+import ProjectNotice from "./views/ProjectNoticePage/ProjectNotice";
+import PostBlockDetail from "./views/common/PostBlockDetail";
 import GroupCalendar from "./views/GroupCalendar/GroupCalendar";
 import Signup from "./views/SignupPage/Signup";
 import Login from "./views/LoginPage/Login";
@@ -48,8 +49,9 @@ const Router = (props) => {
         <Route exact path="/worker_list" component={Auth(WorkerList, true)} />
 
         <Route exact path="/project_timeline" component={Auth(ProjectTimeline, true)} />
-        <Route exact path="/project_timeline/timeline/:index" component={ProjectTimelineDetail}/>
-        <Route exact path="/project_timeline/notice/:index" component={ProjectTimelineDetail}/>
+        <Route exact path="/project_timeline/:index" component={Auth(PostBlockDetail, true)}/>
+        <Route exact path="/project_notice" component={Auth(ProjectNotice, true)} />
+        <Route exact path="/project_notice/:index" component={Auth(PostBlockDetail, true)}/>
         {/* <Route
           path="/project_timeline/adding_posts"
           component={AddingPosts}

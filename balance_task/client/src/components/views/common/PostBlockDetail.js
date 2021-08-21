@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import Header from '../Header/Header';
 
-function Detail(props) {
+function PostBlockDetail(props) {
   const {photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage} = props.location.state;
   console.log(photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage);
   return (
@@ -148,4 +148,4 @@ const UnmarkedList = styled.div`
   }
 `;
 
-export default Detail
+export default PostBlockDetail

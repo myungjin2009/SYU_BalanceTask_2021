@@ -319,7 +319,7 @@ const initialState = {
     }
   ]
   ,
-  isLoading: true,
+  isLoading: {timeline: true, notice: true, group_search: true},
 };
 
 export default function (state = initialState, action) {
@@ -333,7 +333,7 @@ export default function (state = initialState, action) {
       return { ...state, groups_list: new_array };
     }
     case LOADING:{
-      return { ...state, isLoading: action.isLoading };
+      return { ...state, isLoading: {...state.isLoading, ...action.isLoading} };
     }
     case JOIN_GROUP:{
       return { ...state, joinSuccess: action.payload };

@@ -15,9 +15,9 @@ const ProjectList = {               //REDUX 적용 예정
 const Project = () => {
     return(
         <Container>
-            <div className="IMG_Container">
-                <img className ="project_logo" src={hanium_logo} />
-            </div>
+            <IMG_Container image={hanium_logo}>
+                <div className="project_logo"></div>
+            </IMG_Container>
             <div className="ProjectName">한이음 ICT</div>
 
         </Container>
@@ -25,38 +25,36 @@ const Project = () => {
 }
 
 const Container = styled.div`
-    height: 12vh;
-    background-color: rgba(114,189,245);
-    border-radius: 20px;
-    position: relative;
-    width:100vw;
+height: 12vh;
+background-color: rgba(114,189,245);
+border-radius: 20px;
+position: relative;
+width:100vw;
 
-    & > .IMG_Container {
-        width: 30%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid black;
-        
-        & > .project_logo{
-            align-items: center;
-            width: 10vh;
-            height: 10vh;
-            border-radius: 50%;
-            
-            
-            overflow: hidden;
-        }
+& > .ProjectName{
+    border: 1px solid black;
+    font-size: 2.4vh;
+    
+    width: 30%;
+    float: left;
+}
+`;
+const IMG_Container = styled.div`
+    width: 30%;
+    height: 100%;
+    border: 1px solid black;
+    float: left;
+    
+    &>.project_logo {
+        width: 12vh;
+        height: 12vh;
+        background-image: url(${({image})=>image});
+        background-position: center;
+        background-size: cover;
+        border-radius: 6vh;
+        margin: 0 auto;
     }
 
-    & > .ProjectName{
-        border: 1px solid black;
-        font-size: 2.4vh;
-        display: block;
-        width: 30%;
-        float:left;
-    }
 `;
 
 export default Project;

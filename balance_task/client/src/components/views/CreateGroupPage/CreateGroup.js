@@ -87,6 +87,7 @@ function CreateGroup(props) {
   height: 100vh;
   padding: 0 10px;
   background: #eee;
+  
   &>div{
     width: 90%;
   }
@@ -137,6 +138,7 @@ const Input = styled.div`
     font-size: 20px;
   }
   &>input{
+    width: 240px;
     border-radius: 10px;
     box-shadow: 0px -1px 1px #aaa;
     border: 1px solid #aaa;
@@ -182,13 +184,12 @@ const PhotoInput = styled.div`
 const Content = styled.div`
   margin: 1vh 0;
   display: flex;
-  justify-content: space-around;
+  gap: 15px;
   &>label{
-    width: 20%;
     font-size: 24px;
   }
   &>textarea{
-    width: 80%;
+    width: 280px;
     padding: 15px;
     border: 1px solid #aaa;
     height: 200px;
