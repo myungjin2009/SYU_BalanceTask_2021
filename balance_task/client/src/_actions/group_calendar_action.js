@@ -18,8 +18,8 @@ export function addDate(dataToSubmit){
   }
 }
 
-export function receiveDate(){
-  const request = axios.get('/api/group_calendar/date')
+export function receiveDate(dataToSubmit){
+  const request = axios.post('/api/group_calendar/date',dataToSubmit)
   .then(response => response.data);
 
   return {

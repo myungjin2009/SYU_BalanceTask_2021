@@ -5,7 +5,7 @@ import { receiveTimeline ,chooseLoading} from '../../../_actions/group_action';
 import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
 
-const getTimeline = (userData, dispatch,entireNotice, entireTimeline, setIsCompleted, isCompleted) => {
+const getTimeline = (userData, dispatch,entireTimeline, setIsCompleted) => {
   
     const body = {
       last_number: entireTimeline.length-1,

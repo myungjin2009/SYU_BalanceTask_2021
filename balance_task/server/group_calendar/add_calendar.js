@@ -10,7 +10,7 @@ const { info } = require("console");
 let add_calendar= (req, res, next) => {
   console.log("add_calendar 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
-  var paramprocess = req.body.process || req.query.process;
+ // var paramprocess = req.body.process || req.query.process;
   var paramgroup_name = req.body.group_name || req.query.group_name;
   var paramdate = req.body.date || req.query.date;
   var paramtext= req.body.do_text || req.query.do_text;

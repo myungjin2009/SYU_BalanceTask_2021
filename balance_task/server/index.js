@@ -201,7 +201,7 @@ app.post("/api/group/timeline",boardget1, async (req,res)=>{
 });
 
 app.post("/api/group/notice",noticeget,async (req,res)=>{
-  console.log("========= ===========================notice success=========================================");
+  console.log("====================================notice success=========================================");
   console.log(req.array[0]);
   let all_array=req.array;
   console.log(all_array);

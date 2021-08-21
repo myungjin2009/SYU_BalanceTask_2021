@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import Header from '../Header/Header';
+import { withRouter } from 'react-router-dom';
 
 function PostBlockDetail(props) {
   const {photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage} = props.location.state;
@@ -148,4 +149,4 @@ const UnmarkedList = styled.div`
   }
 `;
 
-export default PostBlockDetail
+export default withRouter(PostBlockDetail)

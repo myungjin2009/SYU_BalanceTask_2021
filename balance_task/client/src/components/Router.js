@@ -48,10 +48,11 @@ const Router = (props) => {
 
         <Route exact path="/worker_list" component={Auth(WorkerList, true)} />
 
-        <Route exact path="/project_timeline" component={Auth(ProjectTimeline, true)} />
-        <Route exact path="/project_timeline/:index" component={Auth(PostBlockDetail, true)}/>
-        <Route exact path="/project_notice" component={Auth(ProjectNotice, true)} />
-        <Route exact path="/project_notice/:index" component={Auth(PostBlockDetail, true)}/>
+        <Route exact path="/:group/project_timeline" component={Auth(ProjectTimeline, true)} />
+        <Route exact path="/:group/project_timeline/:index" component={Auth(PostBlockDetail, true)}/>
+        <Route exact path="/:group/project_notice" component={Auth(ProjectNotice, true)} />
+        <Route exact path="/:group/project_notice/:index" component={Auth(PostBlockDetail, true)}/>
+        <Route path="/:group/group_calendar" component={GroupCalendar} />
         {/* <Route
           path="/project_timeline/adding_posts"
           component={AddingPosts}
@@ -62,7 +63,7 @@ const Router = (props) => {
         <Route exact path="/settings/EditAccount" component={EditAccount} />
         <Route exact path="/settings/Withdraw" component={Withdraw} />
         
-        <Route path="/group_calendar" component={GroupCalendar} />
+        
         {/* <Route path="/group_chat" component={GroupChat} />
         <Route path="/worker_invitation" component={WorkerInvitation} />
         <Route path="/project_termination" component={ProjectTermination} /> */}

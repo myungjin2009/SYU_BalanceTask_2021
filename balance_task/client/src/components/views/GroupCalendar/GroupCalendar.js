@@ -5,18 +5,21 @@ import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClic
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { addDate, receiveDate } from '../../../_actions/group_calendar_action';
 import ModalWindow from './ModalWindow';
 import BottomBar from './BottomBar';
 import Header from '../Header/Header';
-const GroupCalendar = () => {
+const GroupCalendar = (props) => {
   const [calendarData, setCalendarData] = useState([]);
   const [modalData, setModalData] = useState('');
   const [isClick, setIsClick] = useState(false);
   const [isWeekends, setIsWeekends] = useState(false);
 
   const dispatch = useDispatch();
+  const group=props.match.params.group;
   useEffect(() => {
+    console.log(props.match.params.group);
     dispatch(receiveDate()).then(response =>{
       //데이터를 받아서 calendarList에 넣기
       // setCalendarData(response.payload.calendarList);
@@ -47,10 +50,11 @@ const GroupCalendar = () => {
     const dateData = {
       title: title,
       start: calculateDate(),
-      end,
+      end:end,
       allDay: arg.allDay,
       email: '로그인시 받는 이메일', //redux의 userData의 정보로부터 넣으면 될듯 email과 name은 그렇다
-      name: '이름'
+      name: '이름',
+      group:group
     }
     setCalendarData(calendarData.concat(dateData));
     dispatch(addDate(dateData)).then(response=>{
@@ -128,4 +132,4 @@ const Container = styled.div`
   }
 `;
 
-export default GroupCalendar;
+export default withRouter(GroupCalendar);

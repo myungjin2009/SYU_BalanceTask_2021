@@ -68,9 +68,9 @@ const PostBlock = (props) =>{
   return(
     <Container>
       <Image photo_url={photo_url} onClick = {()=>{
-      if(path="/project_timeline"){
+      if(path==="/project_timeline"){
         props.history.push('/project_timeline/'+index, user_post);
-      }else if(path="/project_notice"){
+      }else if(path==="/project_notice"){
         props.history.push('/project_notice/'+index, user_post);
       }
     }}></Image>
