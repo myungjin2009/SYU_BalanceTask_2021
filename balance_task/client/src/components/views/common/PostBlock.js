@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
-<<<<<<< HEAD:balance_task/client/src/components/views/common/PostBlock.js
 const handleVote = (dispatch, votes, index, user, e, kind, setVote, path) => {
   if(votes === null) return;
   const button_text = e.target.textContent;
@@ -57,60 +56,6 @@ const handleVote = (dispatch, votes, index, user, e, kind, setVote, path) => {
   }
   // api 호출
 }
-=======
-// const handleVote = (dispatch, votes, index, user, e, kind, setVote, isTimeline) => {
-//   if(votes === null) return;
-//   const button_text = e.target.textContent;
-//   if(button_text==="찬성") {
-//     const current_vote = votes.map((el)=>{
-//       if(el.user_name===user && el.vote === '반대'){
-//         return {...el, vote: '찬성'}
-//       }
-//       else if(el.user_name===user && el.vote === 0){
-//         return {...el, vote: '찬성'}
-//       }
-//       else{
-//         return {...el};
-//       }
-//     });
-//     let body = {
-//       id: index,
-//       current_vote,
-//       kind
-//     }
-//     dispatch(voteForPosts(body));
-//     if(isTimeline){
-//       setVote(current_vote);
-//     }else{
-//       setVote(current_vote);
-//     }
-//   }else if(button_text==="반대"){
-//     const current_vote = votes.map((el)=>{
-//       if(el.user_name===user && el.vote === '찬성'){
-//         return {...el, vote: '반대'}
-//       }
-//       else if(el.user_name===user && el.vote === 0){
-//         return {...el, vote: '반대'}
-//       }
-//       else{
-//         return {...el};
-//       }
-//     });
-//     let body = {
-//       id: index,
-//       current_vote,
-//       kind
-//     }
-//     dispatch(voteForPosts(body));
-//     if(isTimeline){
-//       setVote(current_vote);
-//     }else{
-//       setVote(current_vote);
-//     }
-//   }
-//   // api 호출
-// }
->>>>>>> backEnd:balance_task/client/src/components/views/ProjectTimelinePage/TimelineBlock.js
 
 const PostBlock = (props) =>{
   const {index, user_post ,user} = props;
@@ -135,13 +80,8 @@ const PostBlock = (props) =>{
       </Content>
       <VotingSpace>
         <ButtonContainer>
-<<<<<<< HEAD:balance_task/client/src/components/views/common/PostBlock.js
           <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, path)}>찬성</button>
           <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, path)}>반대</button>  
-=======
-          {/* <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>찬성</button>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>반대</button>   */}
->>>>>>> backEnd:balance_task/client/src/components/views/ProjectTimelinePage/TimelineBlock.js
         </ButtonContainer>
         <Bar>
           {
