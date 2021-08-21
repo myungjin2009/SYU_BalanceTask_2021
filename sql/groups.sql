@@ -14,6 +14,7 @@ CREATE TABLE `groups` (
 	`content` TEXT NULL DEFAULT NULL COLLATE 'utf8_general_ci',
 	`host_images` TEXT NULL DEFAULT NULL COLLATE 'utf8_general_ci',
 	`deadline` DATETIME NULL DEFAULT NULL,
+	`makedate` DATETIME NULL DEFAULT NULL,
 	PRIMARY KEY (`group_name`, `user`) USING BTREE,
 	INDEX `FK_groups_user` (`user`) USING BTREE,
 	CONSTRAINT `FK_groups_user` FOREIGN KEY (`user`) REFERENCES `test`.`user` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION

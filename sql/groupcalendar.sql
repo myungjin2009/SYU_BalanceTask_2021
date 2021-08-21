@@ -14,4 +14,3 @@ CREATE TABLE `groupcalendar` (
 COLLATE='armscii8_bin'
 ENGINE=InnoDB
 ;
-
