@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
 const { info } = require("console");
-var vote = require("./vote");
+
 
 
 
@@ -11,10 +11,14 @@ let boardget1 = (req, res, next) => {
   console.log("boardget 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
     const array=[];
-    const array2=[];    
+    //const array2=[]; 
+    ////
+    
+    ///
+    
     const sql1 = "SELECT * FROM groupboard; ";
-    const sql2 = "SELECT * FROM vote; ";
-    sql.pool.query(sql1+sql2, (err, rows, fields) => {
+    //const sql2 = "SELECT * FROM vote; ";
+    sql.pool.query(sql1, (err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
@@ -25,7 +29,7 @@ let boardget1 = (req, res, next) => {
           
           // if(info.notice===0){
           //console.log(newarray);  
-            req.board_number = info[0].board_number;
+            req.board_number = info.board_number;
             console.log(req.board_number);
             req.title = info.title;
             console.log( req.title );
@@ -39,8 +43,8 @@ let boardget1 = (req, res, next) => {
             req.date =info.date;
             //req.notice =info.notice;
             array.push({
-              id:req.board_number,
-              group:req.group,
+              id: req.board_number,
+              group:req.info_groupname,
               photo_name:req.title,
               date:info.date,
               //deadline:req.deadline,
@@ -48,22 +52,23 @@ let boardget1 = (req, res, next) => {
               content:req.text,
               image:req.image,
               file:req.file,
-              kind:req.notice,
-              //votes_list:array2 
+              kind:"timeLine",
+              votes_list:null 
             });
+            req.array=array;
             //sql.pool.release();
-            vote.vote(req.board_number,array, function(err,vote_list) {
-              // 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
-              // if (err) {
-              //           console.error('사용자 추가 중 에러 발생 : ' + err.stack);
-                        array.push({vote_list});
-                        console.log(array);
-                    //     return;
-                    // }
-                    ;
+            // vote.vote(req.board_number,array, function(err,vote_list) {
+            //   // 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
+            //   // if (err) {
+            //   //           console.error('사용자 추가 중 에러 발생 : ' + err.stack);
+            //             array.push({vote_list});
+            //             console.log(array);
+            //         //     return;
+            //         // }
+                    
               
-              }
-            );
+            //   }
+            // );
             
             //console.log(array);
             //next();

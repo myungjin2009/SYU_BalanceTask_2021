@@ -1,61 +1,61 @@
 import React,{useState} from 'react';
-import { voteForPosts} from '../../../_actions/group_action';
+// import { voteForPosts} from '../../../_actions/group_action';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
-const handleVote = (dispatch, votes, index, user, e, kind, setVote, isTimeline) => {
-  if(votes === null) return;
-  const button_text = e.target.textContent;
-  if(button_text==="찬성") {
-    const current_vote = votes.map((el)=>{
-      if(el.user_name===user && el.vote === '반대'){
-        return {...el, vote: '찬성'}
-      }
-      else if(el.user_name===user && el.vote === 0){
-        return {...el, vote: '찬성'}
-      }
-      else{
-        return {...el};
-      }
-    });
-    let body = {
-      id: index,
-      current_vote,
-      kind
-    }
-    dispatch(voteForPosts(body));
-    if(isTimeline){
-      setVote(current_vote);
-    }else{
-      setVote(current_vote);
-    }
-  }else if(button_text==="반대"){
-    const current_vote = votes.map((el)=>{
-      if(el.user_name===user && el.vote === '찬성'){
-        return {...el, vote: '반대'}
-      }
-      else if(el.user_name===user && el.vote === 0){
-        return {...el, vote: '반대'}
-      }
-      else{
-        return {...el};
-      }
-    });
-    let body = {
-      id: index,
-      current_vote,
-      kind
-    }
-    dispatch(voteForPosts(body));
-    if(isTimeline){
-      setVote(current_vote);
-    }else{
-      setVote(current_vote);
-    }
-  }
-  // api 호출
-}
+// const handleVote = (dispatch, votes, index, user, e, kind, setVote, isTimeline) => {
+//   if(votes === null) return;
+//   const button_text = e.target.textContent;
+//   if(button_text==="찬성") {
+//     const current_vote = votes.map((el)=>{
+//       if(el.user_name===user && el.vote === '반대'){
+//         return {...el, vote: '찬성'}
+//       }
+//       else if(el.user_name===user && el.vote === 0){
+//         return {...el, vote: '찬성'}
+//       }
+//       else{
+//         return {...el};
+//       }
+//     });
+//     let body = {
+//       id: index,
+//       current_vote,
+//       kind
+//     }
+//     dispatch(voteForPosts(body));
+//     if(isTimeline){
+//       setVote(current_vote);
+//     }else{
+//       setVote(current_vote);
+//     }
+//   }else if(button_text==="반대"){
+//     const current_vote = votes.map((el)=>{
+//       if(el.user_name===user && el.vote === '찬성'){
+//         return {...el, vote: '반대'}
+//       }
+//       else if(el.user_name===user && el.vote === 0){
+//         return {...el, vote: '반대'}
+//       }
+//       else{
+//         return {...el};
+//       }
+//     });
+//     let body = {
+//       id: index,
+//       current_vote,
+//       kind
+//     }
+//     dispatch(voteForPosts(body));
+//     if(isTimeline){
+//       setVote(current_vote);
+//     }else{
+//       setVote(current_vote);
+//     }
+//   }
+//   // api 호출
+// }
 
 const TimelineBlock = (props) =>{
   const {index, isTimeline, user_post ,user} = props;
@@ -80,8 +80,8 @@ const TimelineBlock = (props) =>{
       </Content>
       <VotingSpace>
         <ButtonContainer>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>찬성</button>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>반대</button>  
+          {/* <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>찬성</button>
+          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>반대</button>   */}
         </ButtonContainer>
         <Bar>
           {

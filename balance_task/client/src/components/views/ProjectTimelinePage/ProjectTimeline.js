@@ -5,30 +5,32 @@ import { receiveTimeline ,chooseLoading, receiveNotice} from '../../../_actions/
 import TimelineBlock from './TimelineBlock';
 import GroupHeader from './GroupHeader';
 
-const getTimeline = (userData, dispatch, entireTimeline, setTimeline) => {
+const getTimeline = (userData, dispatch,entireNotice, entireTimeline, setIsCompleted, isCompleted) => {
   
     const body = {
       last_number: entireTimeline.length-1,
       group: userData.group
     };
     dispatch(receiveTimeline(body)).then(res=>{
-      dispatch(chooseLoading(false));
-      setTimeline(entireTimeline);
+      setIsCompleted({...isCompleted, timeline: true});
       console.log('timeline 데이터 받기 성공!');
+      getNotice(userData, dispatch, entireNotice, setIsCompleted, isCompleted);
+      // dispatch(chooseLoading(false));
     });
   
 }
 
-const getNotice = (userData, dispatch, entireNotice, setNotice) => {
+const getNotice = (userData, dispatch, entireNotice, setIsCompleted, isCompleted) => {
   
     const body = {
       last_number: entireNotice.length-1,
       group: userData.group
     };
     dispatch(receiveNotice(body)).then(res =>{
-      dispatch(chooseLoading(false));
-      setNotice(entireNotice);
+      console.log(res);
+      setIsCompleted({...isCompleted, notice: true});
       console.log('notice 데이터 받기 성공!');
+      dispatch(chooseLoading(false));
     });
   
 }
@@ -81,7 +83,7 @@ const ProjectTimeline = () =>{
   const isLoading = useSelector(state => state.group.isLoading);
   const entireNotice = useSelector(state => state.group.noticeList);
   const userData = useSelector(state => state.user.userData);
-  
+  console.log(entireTimeline);
 
   const dispatch = useDispatch();
 
@@ -89,6 +91,7 @@ const ProjectTimeline = () =>{
   const [notice, setNotice] = useState(entireNotice);
   const [search, setSearch] = useState(null);
   const [isTimeline, setIsTimeline] = useState(true);
+  const [isCompleted, setIsCompleted] = useState({timeline: false, notice: false});
 
   useEffect(()=>{
     if(isTimeline){
@@ -97,10 +100,25 @@ const ProjectTimeline = () =>{
         if(userData === undefined){
           return;
         }
-        getTimeline(userData, dispatch, entireTimeline, setTimeline);
-        getNotice(userData, dispatch, entireNotice, setNotice);
+        getTimeline(userData, dispatch, entireNotice, entireTimeline, setIsCompleted, isCompleted);
+        getNotice(userData, dispatch, entireNotice, setIsCompleted, isCompleted);
+        console.log(isCompleted.timeline, isCompleted.timeline);
+        // if(isCompleted.timeline &&isCompleted.notice){
+        //   dispatch(chooseLoading(false));
+        // }
         
       }else{
+        console.log(isCompleted.timeline, isCompleted.notice);
+        if(isCompleted.timeline &&isCompleted.notice){
+          setTimeline(entireTimeline);
+          setNotice(entireNotice);
+          console.log(entireTimeline);
+          console.log(entireNotice);
+
+          console.log('timeline notice 모두 최신화 성공!');
+          
+          return;
+        }
         if(search ==='' || search === null){
           setTimeline(entireTimeline);
         }else{
