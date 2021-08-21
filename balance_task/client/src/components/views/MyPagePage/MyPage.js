@@ -18,72 +18,70 @@ const ProfileMessage = "프론트엔드 백엔드 둘다 하는 유니콘입니�
 //ProfileMessage 글자수 제한 필요.
 
 
-class MyPage extends React.Component {
+const MyPage = (props) => {
 
-  constructor(props) {
-    super(props);
-  }
+  const test = [1,2,3,4,5,6,7,8]
+  const test1 = test.map(() => (<Project/>));
 
-  render() {
-    return (
-      <Container>
-        <Header>
-          
-          <div className="profile_IMG">
-            <img className="Profile" alt="Profile" src={profile_default} />
-          </div>
+  return (
+    <Container>
+      <Header>
+        
+        <div className="profile_IMG">
+          <img className="Profile" alt="Profile" src={profile_default} />
+        </div>
 
-          
-          <div className="profile_DETAIL">
-            <div className="name">{ProfileName}<br/></div>
-            <div className="info">진행중 : {ContinuingPJ}개<br/></div>
-            <div className="info">진행완료 : {FinishedPJ}개</div>
-          </div>
+        
+        <div className="profile_DETAIL">
+          <div className="name">{ProfileName}<br/></div>
+          <div className="info">진행중 : {ContinuingPJ}개<br/></div>
+          <div className="info">진행완료 : {FinishedPJ}개</div>
+        </div>
 
-          <div className="profile_REPUTATION">
-            <div className="circle">
-              <div className="Score_color"></div>
-              평점
-              <div className="Score_display">{Score}
-              </div>
+        <div className="profile_REPUTATION">
+          <div className="circle">
+            <div className="Score_color"></div>
+            평점
+            <div className="Score_display">{Score}
             </div>
           </div>
+        </div>
 
 
-          <div className="settings_ICON">
-            <img className="Settings_icon" alt="Settings_icon" src={settings_icon} 
-            onClick={()=>{this.props.history.push('/settings')}}/>
-          </div>
-        
-        </Header>
+        <div className="settings_ICON">
+          <img className="Settings_icon" alt="Settings_icon" src={settings_icon} 
+          onClick={()=>{props.history.push('/settings')}}/>
+        </div>
+      
+      </Header>
 
-        <Introduce>
-          <div className="profileIntroduce">프로필 소개</div>
-          <div className = "profileMessage">{ProfileMessage}</div>
-          <img className="editIcon" alt="Edit_icon" src={edit_icon} />
-        </Introduce>
+      <Introduce>
+        <div className="profileIntroduce">프로필 소개</div>
+        <div className = "profileMessage">{ProfileMessage}</div>
+        <img className="editIcon" alt="Edit_icon" src={edit_icon} />
+      </Introduce>
 
-        <Working>진행중인 프로젝트</Working>
-          <Project></Project>
+      <Working>참여한 프로젝트</Working>
+      {test1}
 
-
-        <Navigation />
-      </Container>
-    );
-  }
+      <Navigation />
+    </Container>
+  );
 }
 
 const Container = styled.div`
   width: 100vw;
-  height: auto;
+  height: 92vh;
+  overflow:auto;
   min-width: 325px;
+  
 `;
 
 const Header = styled.div`
   position: relative;
   background-color: rgb(135,220,252);
   height: 17vh;
-  
+
   & > .profile_IMG {
     width: 30%;
     height: 100%;
@@ -171,7 +169,6 @@ const Header = styled.div`
 
 const Introduce = styled.form`
   border-radius: 15px;
-  width: 100%;
   height: 13vh;
   margin-top: 2vh;
   background-color: rgb(214,214,214);
@@ -182,9 +179,8 @@ const Introduce = styled.form`
   & > .profileIntroduce {
     background-color: rgb(185,185,185);
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    line-height: 5vh;
     font-size: 3vh;
     height: 40%;
   }
@@ -212,14 +208,14 @@ const Introduce = styled.form`
 `;
 
 const Working = styled.div`
-  margin: 2vh 0 1vh 0;
+  margin-top: 2vh;
+  height: 5.5vh;
   background-color: rgba(199,229,251);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
   font-size: 3vh;
-  border-radius: 13px;
-  line-height: 6vh;
+  border-radius: 15px 15px 0 0;
+  border-bottom: 2px solid gray;
+  line-height: 5.5vh;
 `;
 
 export default withRouter(MyPage);
