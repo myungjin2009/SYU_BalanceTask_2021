@@ -5,42 +5,16 @@ import { receiveTimeline ,chooseLoading} from '../../../_actions/group_action';
 import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
 
-<<<<<<< HEAD
-const getTimeline = (userData, dispatch,entireTimeline, setIsCompleted) => {
-=======
 const getTimeline = (userData, dispatch,entireNotice, entireTimeline, setIsCompleted, isCompleted) => {
->>>>>>> backEnd
   
     const body = {
       last_number: entireTimeline.length-1,
       group: userData.group
     };
     dispatch(receiveTimeline(body)).then(res=>{
-<<<<<<< HEAD
       setIsCompleted(true);
       console.log('timeline 데이터 받기 성공!');
       dispatch(chooseLoading({timeline: false}));
-=======
-      setIsCompleted({...isCompleted, timeline: true});
-      console.log('timeline 데이터 받기 성공!');
-      getNotice(userData, dispatch, entireNotice, setIsCompleted, isCompleted);
-      // dispatch(chooseLoading(false));
-    });
-  
-}
-
-const getNotice = (userData, dispatch, entireNotice, setIsCompleted, isCompleted) => {
-  
-    const body = {
-      last_number: entireNotice.length-1,
-      group: userData.group
-    };
-    dispatch(receiveNotice(body)).then(res =>{
-      console.log(res);
-      setIsCompleted({...isCompleted, notice: true});
-      console.log('notice 데이터 받기 성공!');
-      dispatch(chooseLoading(false));
->>>>>>> backEnd
     });
   
 }
@@ -83,7 +57,6 @@ const ProjectTimeline = () =>{
 
   const [timeline, setTimeline] = useState(entireTimeline);
   const [search, setSearch] = useState(null);
-<<<<<<< HEAD
   const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(()=>{
@@ -91,42 +64,6 @@ const ProjectTimeline = () =>{
     if(isLoading){
       if(userData === undefined){
         return;
-=======
-  const [isTimeline, setIsTimeline] = useState(true);
-  const [isCompleted, setIsCompleted] = useState({timeline: false, notice: false});
-
-  useEffect(()=>{
-    if(isTimeline){
-      //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
-      if(isLoading){
-        if(userData === undefined){
-          return;
-        }
-        getTimeline(userData, dispatch, entireNotice, entireTimeline, setIsCompleted, isCompleted);
-        getNotice(userData, dispatch, entireNotice, setIsCompleted, isCompleted);
-        console.log(isCompleted.timeline, isCompleted.timeline);
-        // if(isCompleted.timeline &&isCompleted.notice){
-        //   dispatch(chooseLoading(false));
-        // }
-        
-      }else{
-        console.log(isCompleted.timeline, isCompleted.notice);
-        if(isCompleted.timeline &&isCompleted.notice){
-          setTimeline(entireTimeline);
-          setNotice(entireNotice);
-          console.log(entireTimeline);
-          console.log(entireNotice);
-
-          console.log('timeline notice 모두 최신화 성공!');
-          
-          return;
-        }
-        if(search ==='' || search === null){
-          setTimeline(entireTimeline);
-        }else{
-          searchPosts(search, timeline, setTimeline, entireTimeline);
-        }
->>>>>>> backEnd
       }
       getTimeline(userData, dispatch,entireTimeline, setIsCompleted);
       
