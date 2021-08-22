@@ -48,9 +48,9 @@ const handleVote = (dispatch, votes, index, user, e, kind, setVote, path) => {
       kind
     }
     dispatch(voteForPosts(body));
-    if(path==="/project_timeline"){
+    if(path==="/:group/project_timeline"){
       setVote(current_vote);
-    }else if(path==="/project_notice"){
+    }else if(path==="/:group/project_notice"){
       setVote(current_vote);
     }
   }
@@ -68,10 +68,10 @@ const PostBlock = (props) =>{
   return(
     <Container>
       <Image photo_url={photo_url} onClick = {()=>{
-      if(path==="/project_timeline"){
-        props.history.push('/project_timeline/'+index, user_post);
-      }else if(path==="/project_notice"){
-        props.history.push('/project_notice/'+index, user_post);
+      if(path==="/:group/project_timeline"){
+        props.history.push('/:group/project_timeline/'+index, user_post);
+      }else if(path==="/:group/project_notice"){
+        props.history.push('/:group/project_notice/'+index, user_post);
       }
     }}></Image>
       <Content>
