@@ -59,7 +59,7 @@ const ProjectTimeline = (props) =>{
   const [timeline, setTimeline] = useState(entireTimeline);
   const [search, setSearch] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
-
+  console.log(props);
   const group=props.match.params.group;
 
   useEffect(()=>{

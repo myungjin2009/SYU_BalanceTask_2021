@@ -6,6 +6,7 @@ import {
   AUTH_USER_EMAIL,
   FIND_PASSWORD,
   CHANGE_PASSWORD,
+  RECEIVE_MYPAGE
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -76,4 +77,14 @@ export function auth() {
     type: AUTH_USER,
     payload: request,
   };
+}
+//마이페이지에서 프로젝트 리스트 받기
+export function receiveProjectMypage(dataToSubmit){
+  const request = axios.post('/api/user/receive_mypage', dataToSubmit)
+  .then(res => res.data);
+
+  return {
+    type: RECEIVE_MYPAGE,
+    payload: request
+  }
 }
