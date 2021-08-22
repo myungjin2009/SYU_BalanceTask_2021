@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {chooseLoading, receiveNotice} from '../../../_actions/group_action';
 import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
+import { withRouter, Link } from 'react-router-dom';
 
 const getNotice = (userData, dispatch, entireNotice, setIsCompleted) => {
   
@@ -47,7 +48,7 @@ const handleScrollEvent = (e, entireNotice, userData , isLoading, dispatch)=>{
   }
 }
 
-const ProjectNotice = () =>{
+const ProjectNotice = (props) =>{
   const isLoading = useSelector(state => state.group.isLoading.notice);
   const entireNotice = useSelector(state => state.group.noticeList);
   const userData = useSelector(state => state.user.userData);
@@ -57,6 +58,8 @@ const ProjectNotice = () =>{
   const [notice, setNotice] = useState(entireNotice);
   const [search, setSearch] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
+
+  const group=props.match.params.group;
 
   useEffect(()=>{
     //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
@@ -82,7 +85,7 @@ const ProjectNotice = () =>{
 
   return(
     <>
-      <GroupHeader setSearch={setSearch}/>
+      <GroupHeader setSearch={setSearch} group={group}/>
       <Container onScroll={(e)=>handleScrollEvent(e, entireNotice, userData, isLoading, dispatch)}>
         {
           isLoading ?
@@ -95,7 +98,8 @@ const ProjectNotice = () =>{
             <PostBlock key={i} index={i} user={userData.username} user_post = {user_post} />
           ))
         }
-      </Container>   
+      </Container>
+      <Button><Link to={`/${group}/project_notice/adding_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>
     </>
   )
 }
@@ -124,4 +128,22 @@ const LoadingBlock = styled.div`
     margin-top: 17vh;
   }
 `;
-export default ProjectNotice;
+const Button = styled.div`
+  position: fixed;
+  bottom: 5vh;
+  right: 5vw;
+  width: 40px;
+  height: 40px;
+  &>.AddButton{
+    display: block;
+    text-align: center;
+    background: #aaa;
+    border-radius: 50%;
+    font-size: 20px;
+    height: 40px;
+    line-height: 40px;
+    opacity: 0.5;
+    color:black;
+  }
+`;
+export default withRouter(ProjectNotice);

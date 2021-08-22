@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import HidingMenu from '../HidingMenu/HidingMenu';
 
@@ -22,12 +22,12 @@ const getUsers = () =>{
   return users_data;
 }
 
-const handleTimeline = (props)=>{
-  props.history.push('/project_timeline');
+const handleTimeline = (props, group)=>{
+  props.history.push(`/${group}/project_timeline`);
   console.log(props);
 }
-const handleNotice = (props) =>{
-  props.history.push('/project_notice');
+const handleNotice = (props, group) =>{
+  props.history.push(`/${group}/project_notice`);
   console.log(props);
 }
 const handleMenu = (isMenu, setIsMenu) =>{
@@ -56,7 +56,7 @@ const searchTimeline = (input, setSearch) =>{
 }
 
 const GroupHeader = (props) =>{
-  const {setSearch} = props;
+  const {setSearch, group} = props;
   const timeline = useRef(null);
   const notice = useRef(null);
   const menuBtn = useRef(null);
@@ -79,10 +79,10 @@ const GroupHeader = (props) =>{
       input_div.current.children[0].focus();
     }
 
-    if(props.match.path === "/project_timeline"){
+    if(props.match.path === "/:group/project_timeline"){
       timeline.current.className = 'blueBtn';
       notice.current.className = 'grayBtn';
-    }else if(props.match.path === "/project_notice"){
+    }else if(props.match.path === "/:group/project_notice"){
       notice.current.className = 'blueBtn';
       timeline.current.className = 'grayBtn';
       
@@ -93,7 +93,7 @@ const GroupHeader = (props) =>{
   const group_name = users_data[0].group_name;
   return(
     <Container>
-      <HidingMenu menuBtn={menuBtn} isMenu={isMenu}/>
+      <HidingMenu menuBtn={menuBtn} isMenu={isMenu} group={group}/>
       <Header>
         <div className="menu" ref={menuBtn} onClick = {()=>handleMenu(isMenu, setIsMenu)}><i className="fas fa-bars"></i></div>
         <p>{group_name}</p>
@@ -104,10 +104,10 @@ const GroupHeader = (props) =>{
           <input ref={input} type="text" placeholder="작성자 검색하기"/>
           <button onClick={()=>searchTimeline(input, setSearch)}>검색</button>
         </Input>
-        <div ref={timeline} className="blueBtn" onClick={()=>handleTimeline(props)}><i className="far fa-clock"></i>타임라인</div>
-        <div ref={notice} className="grayBtn" onClick={()=>handleNotice(props)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
+        <div ref={timeline} className="blueBtn" onClick={()=>handleTimeline(props,group)}><i className="far fa-clock"></i>타임라인</div>
+        <div ref={notice} className="grayBtn" onClick={()=>handleNotice(props,group)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
       </Content>
-      <Link to="/project_timeline/adding_posts" className="ToggleButton"><i className="fas fa-plus"></i></Link>
+      
     </Container>
   )
 }
@@ -119,18 +119,7 @@ const Container = styled.div`
   text-align:center;
   position: fixed;
   top:0;
-  &>.ToggleButton{
-    position: fixed;
-    bottom: 5vh;
-    right: 5vw;
-    background: #aaa;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    opacity: 0.5;
-    color:black;
-  }
+  
 `;
 const Header = styled.header`
   background: #76D8F3;

@@ -5,9 +5,59 @@ import {
   AUTH_USER_EMAIL,
   FIND_PASSWORD,
   CHANGE_PASSWORD,
+  RECEIVE_MYPAGE
 } from "../_actions/types";
+import hanium_logo from '../images/hanium_logo.jpg';
+import profile_default from '../images/profile_sample.jpg';
 
-export default function (state = {}, action) {
+const initialState = {
+  profile:{
+    ProfileName: "홍길동",
+    ProfileImage: profile_default,
+    FinishedPJ: 3,
+    ContinuingPJ: 1,
+    Score: 78,
+    ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다. 
+    리액트 몽고DB 깃으로 협업가능`,
+  },
+  project_list:[
+    {
+      id: 1,
+      group: "한이음 IcTT",
+      project_Host: "주식회사한이음",
+      logo_src: "",
+      project_DeadLine: 20210920,
+      favoriteList: false,
+      Contribution: 65,
+      Finished: false,
+      logo: hanium_logo
+    },
+    {
+      id: 2,
+      group: "한사랑 IcTT",
+      project_Host: "주식회사한음",
+      logo_src: "",
+      project_DeadLine: 20210920,
+      favoriteList: false,
+      Contribution: 65,
+      Finished: false,
+      logo: hanium_logo
+    },
+    {
+      id: 3,
+      group: "와우 IcTT",
+      project_Host: "주식회사이음",
+      logo_src: "",
+      project_DeadLine: 20210920,
+      favoriteList: false,
+      Contribution: 65,
+      Finished: false,
+      logo: hanium_logo
+    }
+  ]
+}
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case LOGIN_USER:
       return { ...state, loginSuccess: action.payload };
@@ -21,6 +71,13 @@ export default function (state = {}, action) {
       return { ...state, findingPasswordSuccess: action.payload };
     case CHANGE_PASSWORD:
       return { ...state, changingPasswordSuccess: action.payload };
+    case RECEIVE_MYPAGE:{
+      if(action.payload === undefined || action.payload === null){
+        return state;
+      }
+      return { ...state, profile: action.payload.profile, 
+        project_list: action.payload.project_list};
+    }
     default:
       return state;
   }

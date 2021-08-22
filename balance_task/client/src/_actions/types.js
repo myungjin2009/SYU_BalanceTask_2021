@@ -6,6 +6,7 @@ export const AUTH_USER = "auth_user";
 export const AUTH_USER_EMAIL = "auth_user_email";
 export const FIND_PASSWORD = "find_password";
 export const CHANGE_PASSWORD = "change_password";
+export const RECEIVE_MYPAGE = "receive_mypage";
 
 /* group */
 //group에서의 액션 타입

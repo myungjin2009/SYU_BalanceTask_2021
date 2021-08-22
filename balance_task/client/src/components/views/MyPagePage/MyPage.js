@@ -9,26 +9,29 @@ import edit_icon from '../../../images/edit_icon.png';
 import {withRouter} from "react-router";
 
 import Project from "./Project";
+import { useSelector } from "react-redux";
 
-const ProfileName = "홍길동";
-const FinishedPJ = 3;                   //아직 REDUX 적용 안함
-const ContinuingPJ = 1;
-const Score = 78;
-const ProfileMessage = "프론트엔드 백엔드 둘다 하는 유니콘입니다. 리액트 몽고DB 깃으로 협업가능";
+// const ProfileName = "홍길동";
+// const FinishedPJ = 3;                   //아직 REDUX 적용 안함
+// const ContinuingPJ = 1;
+// const Score = 78;
+// const ProfileMessage = "프론트엔드 백엔드 둘다 하는 유니콘입니다. 리액트 몽고DB 깃으로 협업가능";
 //ProfileMessage 글자수 제한 필요.
 
 
 const MyPage = (props) => {
+  const state = useSelector(state => state.user);
+  const {profile, project_list} = state;
+  const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = profile;
 
-  const test = [1,2,3,4,5,6,7,8]
-  const test1 = test.map(() => (<Project/>));
+  const test1 = project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
 
   return (
     <Container>
       <Header>
         
         <div className="profile_IMG">
-          <img className="Profile" alt="Profile" src={profile_default} />
+          <img className="Profile" alt="Profile" src={ProfileImage} />
         </div>
 
         
