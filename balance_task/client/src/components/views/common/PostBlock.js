@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
-const handleVote = (dispatch, votes, index, user, e, kind, setVote, isTimeline) => {
+const handleVote = (dispatch, votes, index, user, e, kind, setVote, path) => {
   if(votes === null) return;
   const button_text = e.target.textContent;
   if(button_text==="찬성") {
@@ -25,9 +25,9 @@ const handleVote = (dispatch, votes, index, user, e, kind, setVote, isTimeline) 
       kind
     }
     dispatch(voteForPosts(body));
-    if(isTimeline){
+    if(path==="/project_timeline"){
       setVote(current_vote);
-    }else{
+    }else if(path === "/project_notice"){
       setVote(current_vote);
     }
   }else if(button_text==="반대"){
@@ -48,30 +48,30 @@ const handleVote = (dispatch, votes, index, user, e, kind, setVote, isTimeline) 
       kind
     }
     dispatch(voteForPosts(body));
-    if(isTimeline){
+    if(path==="/:group/project_timeline"){
       setVote(current_vote);
-    }else{
+    }else if(path==="/:group/project_notice"){
       setVote(current_vote);
     }
   }
   // api 호출
 }
 
-const TimelineBlock = (props) =>{
-  const {index, isTimeline, user_post ,user} = props;
+const PostBlock = (props) =>{
+  const {index, user_post ,user} = props;
   const {photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage} = user_post;
   //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
   const [vote, setVote] = useState(votes_list);
-
+  const path = props.match.path;
   const dispatch = useDispatch();
   
   return(
     <Container>
       <Image photo_url={photo_url} onClick = {()=>{
-      if(isTimeline){
-        props.history.push('/project_timeline/timeline/'+index, user_post);
-      }else{
-        props.history.push('/project_timeline/notice/'+index, user_post);
+      if(path==="/:group/project_timeline"){
+        props.history.push('/:group/project_timeline/'+index, user_post);
+      }else if(path==="/:group/project_notice"){
+        props.history.push('/:group/project_notice/'+index, user_post);
       }
     }}></Image>
       <Content>
@@ -80,8 +80,8 @@ const TimelineBlock = (props) =>{
       </Content>
       <VotingSpace>
         <ButtonContainer>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>찬성</button>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, isTimeline)}>반대</button>  
+          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, path)}>찬성</button>
+          <button onClick={(e)=>handleVote(dispatch, votes_list, index, user, e, kind, setVote, path)}>반대</button>  
         </ButtonContainer>
         <Bar>
           {
@@ -175,4 +175,4 @@ const WhiteBlock = styled.div`
   height: 100%;
   background: white;
 `;
-export default withRouter(TimelineBlock);
+export default withRouter(PostBlock);

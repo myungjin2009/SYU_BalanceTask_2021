@@ -3,9 +3,16 @@ const express = require("express");
 const router = express.Router();
 
 let node__mailer = (req, res, next) => {
+<<<<<<< HEAD
   let user_email = req.body.value;
   res.send("잘 받음");
 
+=======
+
+  let user_email = req.body.value;
+  res.send("잘 받음");
+
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
   const email = {
     service: "Naver",
     port: 587,
@@ -41,9 +48,18 @@ let node__mailer = (req, res, next) => {
   };
 
   send(content);
+<<<<<<< HEAD
   req.authNum = authNum;
   next();
 };
 
 module.exports = { node__mailer };
 // module.exports.authNum=authNum;
+=======
+  req.authNum=authNum;
+  next();
+};
+
+module.exports={node__mailer};
+// module.exports.authNum=authNum;
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a

@@ -43,6 +43,7 @@ var user = require("./user/adduser");
 var signup = require("./router/signup");
 var login = require("./router/login");
 var logout = require("./router/logout");
+<<<<<<< HEAD
 var { node__mailer } = require("./router/node-mailer");
 
 //그룹
@@ -51,14 +52,30 @@ var group_add = require("./group/group_add");
 //게시판
 var { noticeget } = require("./groupboard/noticeget");
 var { boardget1 } = require("./groupboard/boardget1");
+=======
+var {node__mailer}=require("./router/node-mailer");
+
+//그룹 
+var {group_search} = require("./group/groupget");
+var group_add=require("./group/group_add");
+//게시판
+var {noticeget}=require("./groupboard/noticeget");
+var {boardget1}=require("./groupboard/boardget1");
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
 
 //jwt들
 var { auth } = require("./middleware/auth");
 
 //그룹 캘린더
+<<<<<<< HEAD
 var { group_calendar } = require("./group_calendar/group_calendar");
 var { add_calendar } = require("./group_calendar/add_calendar");
 var { del_calendar } = require("./group_calendar/del_calendar");
+=======
+var {group_calendar}=require("./group_calendar/group_calendar");
+var {add_calendar}=require("./group_calendar/add_calendar");
+var {del_calendar}=require("./group_calendar/del_calendar");
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
 //const { isObject } = require("util");
 // 익스프레스 객체 생성
 
@@ -99,6 +116,7 @@ app.post("/api/user/login", login);
 
 app.post("/api/user/logout", logout);
 
+<<<<<<< HEAD
 app.post("/api/user_email", node__mailer, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
 
@@ -108,6 +126,19 @@ app.post("/api/user_email", node__mailer, (req, res) => {
   //   success: true,
   // });
 });
+=======
+app.post("/api/user_email",node__mailer,
+(req, res) => {
+  //미들웨어 통과해서 여기오면 AUTH가 TRUE
+  
+  console.log("success");
+  console.log(req.authNum);
+  res.status(200).json({
+    success: true
+  });
+}
+);
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
 
 app.get("/api/user/auth", auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
@@ -139,6 +170,7 @@ app.post("/api/group/search_card", group_search, (req, res) => {
 
 app.post("/api/group/search_card", group_add);
 
+<<<<<<< HEAD
 app.post("/api/group/timeline", boardget1, async (req, res) => {
   console.log(
     "==========================================timesuccess==========================================="
@@ -147,6 +179,15 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";
+=======
+
+app.post("/api/group/timeline",boardget1, async (req,res)=>{
+  console.log("==========================================timesuccess===========================================");
+  console.log(req.array[0]);
+  let all_array=req.array;
+  console.log(all_array);
+  let all_array2="";
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
   // console.log(req.board_number);
   sql.pool.getConnection(function (err, conn) {
     if (err) {
@@ -158,6 +199,7 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
       return;
     }
     console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
+<<<<<<< HEAD
 
     for (let i = 0; i < req.array.length; i++) {
       let vote_list = [];
@@ -201,6 +243,53 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
       );
 
       conn.on("error", function (err) {
+=======
+    
+    for(let i=0;i<req.array.length;i++){
+    let vote_list=[];
+    console.log(i);
+    conn.query(
+      "select * from `vote` v, user u where board_number=? and u.id=v.user",
+      i+1,
+      async function (err,rows, fields) {
+        //conn.release(); // 반드시 해제해야 함
+        console.log("실행 대상 SQL : ");
+        await rows.forEach(async (info,index,newarray) => {
+          var discuss=""
+          if(info.discuss===1){
+              discuss="찬성";
+          }else if(info.discuss===2){
+            discuss="반대";
+          }else{
+            discuss=info.discuss;
+          }
+          console.log( info.name );
+          console.log( info.group );
+          console.log( info.board_number );
+          console.log( discuss );
+
+          vote_list.push({
+              user_name:info.name,
+              vote:discuss
+          });
+          
+          all_array[i].votes_list=vote_list;
+          console.log(all_array[i]);
+          
+          }); 
+        all_array2=all_array;
+        //console.log (all_array2);
+        if(i===req.array.length-1){
+          res.status(200).json({
+            array:all_array2
+      
+            });
+        }
+      }
+    );
+      
+    conn.on("error",  function (err) {
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
         console.log("데이터베이스 연결 시 에러 발생함.");
         console.dir(err);
 
@@ -210,6 +299,7 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 app.post("/api/group/notice", noticeget, async (req, res) => {
   console.log(
     "====================================notice success========================================="
@@ -218,6 +308,14 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";
+=======
+app.post("/api/group/notice",noticeget,async (req,res)=>{
+  console.log("====================================notice success=========================================");
+  console.log(req.array[0]);
+  let all_array=req.array;
+  console.log(all_array);
+  let all_array2="";
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
   // console.log (req.boa rd _number);
   sql.pool.getConnection(function (err, conn) {
     if (err) {
@@ -229,6 +327,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
       return;
     }
     console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
+<<<<<<< HEAD
 
     for (let i = 0; i < req.array.length; i++) {
       let vote_list = [];
@@ -279,11 +378,73 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
       });
     }
   });
+=======
+    
+    for(let i=0;i<req.array.length;i++){
+    let vote_list=[];
+    console.log(i);
+    conn.query(
+      "select * from `vote2` v, user u where board_number=? and u.id=v.user",
+      i+1,
+      async function (err,rows, fields) {
+        //conn.release( ); // 반드시 해제해야 함
+        console.log("실행 대상 SQL : ");
+        await rows.forEach(async (info,index,newarray) => {
+          var discuss=""
+          if(info.discuss===1){
+              discuss="찬성";
+          }else if(info.discuss===2){
+            discuss="반대";
+          }else{
+            discuss=info.discuss;
+          }
+          console.log( info.user );
+          console.log( info.group );
+          console.log( info.board_number );
+          console.log( discuss );
+
+          vote_list.push({
+              user_name:info.name,
+              vote:discuss
+          });
+          
+          all_array[i].votes_list=vote_list;
+          console.log(all_array[i]);
+          
+          }); 
+        all_array2=all_array;
+        //console.log(all_array2);
+        if(i===req.array.length-1){
+          res.status(200).json({
+            array:all_array2
+      
+            });
+        }
+      }
+    );
+      
+    conn.on("error",  function (err) {
+      console.log("데이터베이스 연결 시 에러 발생함.");
+      console.dir(err);
+
+      callback(err, null);
+      });
+
+    }
+  });
+  
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
 });
 
 app.post("/api/group_calendar/date", group_calendar);
 app.post("/api/group_calendar/updating_date", add_calendar);
 app.post("/api/group_calendar/deleting_date", del_calendar);
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
 
 io.on("connection", (socket) => {
   socket.on("chatting", (data) => {

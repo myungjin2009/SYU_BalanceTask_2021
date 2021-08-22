@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
-import { receiveTimeline ,chooseLoading} from '../../../_actions/group_action';
+import {chooseLoading, receiveNotice} from '../../../_actions/group_action';
 import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
 import { withRouter, Link } from 'react-router-dom';
 
-const getTimeline = (userData, dispatch,entireTimeline, setIsCompleted) => {
+const getNotice = (userData, dispatch, entireNotice, setIsCompleted) => {
   
     const body = {
-      last_number: entireTimeline.length-1,
+      last_number: entireNotice.length-1,
       group: userData.group
     };
-    dispatch(receiveTimeline(body)).then(res=>{
+    dispatch(receiveNotice(body)).then(res =>{
       setIsCompleted(true);
-      console.log('timeline 데이터 받기 성공!');
-      dispatch(chooseLoading({timeline: false}));
+      console.log('notice 데이터 받기 성공!');
+      dispatch(chooseLoading({notice: false}));
     });
   
 }
@@ -32,34 +32,33 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
 }
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch)=>{
+const handleScrollEvent = (e, entireNotice, userData , isLoading, dispatch)=>{
   //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
   if(isLoading)return;
   const body = {
-    last_number: entireTimeline.length-1,
+    last_number: entireNotice.length-1,
     group: userData.group
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   if(Math.floor(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
-    dispatch(receiveTimeline(body));
+    dispatch(receiveNotice(body));
     //바로 로딩 false로 바꾸자
   }
 }
 
-const ProjectTimeline = (props) =>{
-  const entireTimeline = useSelector(state => state.group.timelineList);
-  const isLoading = useSelector(state => state.group.isLoading.timeline);
+const ProjectNotice = (props) =>{
+  const isLoading = useSelector(state => state.group.isLoading.notice);
+  const entireNotice = useSelector(state => state.group.noticeList);
   const userData = useSelector(state => state.user.userData);
-  console.log(entireTimeline);
-
+  console.log(entireNotice);
   const dispatch = useDispatch();
 
-  const [timeline, setTimeline] = useState(entireTimeline);
+  const [notice, setNotice] = useState(entireNotice);
   const [search, setSearch] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
-  console.log(props);
+
   const group=props.match.params.group;
 
   useEffect(()=>{
@@ -68,21 +67,18 @@ const ProjectTimeline = (props) =>{
       if(userData === undefined){
         return;
       }
-      getTimeline(userData, dispatch,entireTimeline, setIsCompleted);
-      
+      getNotice(userData, dispatch, entireNotice, setIsCompleted);
     }else{
-      console.log(isCompleted);
       if(isCompleted){
-        setTimeline(entireTimeline);
-        console.log(entireTimeline);
-
-        console.log('timeline 최신화 성공!');
+        setNotice(entireNotice);
+        console.log(entireNotice);
+        console.log('notice 최신화 성공!');
         return;
       }
       if(search ==='' || search === null){
-        setTimeline(entireTimeline);
+        setNotice(entireNotice);
       }else{
-        searchPosts(search, timeline, setTimeline, entireTimeline);
+        searchPosts(search, notice, setNotice, entireNotice);
       }
     }
   },[search, isLoading, userData]);
@@ -90,20 +86,20 @@ const ProjectTimeline = (props) =>{
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
-      <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, userData, isLoading, dispatch)}>
+      <Container onScroll={(e)=>handleScrollEvent(e, entireNotice, userData, isLoading, dispatch)}>
         {
-          isLoading ? 
+          isLoading ?
           <>
             <LoadingBlock></LoadingBlock>
             <LoadingBlock></LoadingBlock>
           </>
           :
-          timeline.map((user_post,i)=>(
-            <PostBlock key={i} index={i} user={userData.username} user_post = {user_post}/>
-            ))
+          notice.map((user_post, i)=>(
+            <PostBlock key={i} index={i} user={userData.username} user_post = {user_post} />
+          ))
         }
       </Container>
-      <Button><Link to={`/${group}/project_timeline/adding_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>
+      <Button><Link to={`/${group}/project_notice/adding_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>
     </>
   )
 }
@@ -150,4 +146,4 @@ const Button = styled.div`
     color:black;
   }
 `;
-export default withRouter(ProjectTimeline);
+export default withRouter(ProjectNotice);

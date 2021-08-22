@@ -1,36 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import { updateDate, deleteDate } from '../../../_actions/group_calendar_action';
 
 function ModalWindow({isClick, setIsClick, modalData}) {
-  // const email = useSelector(state => state.user.userData.email);
+  // const email = useSelector(state => state.user.userData.email); 
+  // =>이메일은 groupCalendar.js에서 받는 걸로하고 props로 넘겨주자
+  const [isChanged, setIsChanged] = useState(false);
+  const [content, setContent] = useState('');
+  const input_ref = useRef(null);
+  const dispatch = useDispatch();
 
+  const handleOnChange = (e) =>{
+    const {target: {value}} = e;
+    setContent(value);
+  }
+
+  const clickPencil = () =>{
+    setIsChanged(true);
+    if(input_ref.current === null)return;
+    input_ref.current.style.display="block";
+    input_ref.current.focus();
+  }
+
+  //여기서부터는 통신하는 부분
   const changeContent = () =>{
-
+    setIsClick(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+    setIsChanged(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+    input_ref.current.style.display="none";
+    setContent('');
+    dispatch(updateDate(modalData)).then(response => {
+      if(!response.payload.success) return;
+    });
   }
 
   const removeContent = () =>{
+    setIsClick(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+    dispatch(deleteDate(modalData)).then(response =>{
+      if(!response.payload.success) return;
 
+    });
   }
-
+  useEffect(()=>{
+    //useEffect에서 처리해야할 것은 modalData.email과 지금 로그인 중인 user의 email을 비교해서
+    //할 일을 만든 주인공인지 주인공이 아닌지 확인 해야한다.
+  },[]);
   return (
     <>
     <Background isClick={isClick} onClick={()=> setIsClick(false)}>
     </Background>
     <Container isClick={isClick}>
       <TitleContainer>
-          <p>{modalData.title}</p>
-          <i className="fas fa-edit" onClick={changeContent}></i>
-        </TitleContainer>
-        <ButtonGroup>
-          <Button variant="contained" color="secondary" onClick={removeContent}>
-            삭제
-          </Button>
-          <Button variant="contained" color="primary" onClick={()=> setIsClick(false)}>
-            취소
-          </Button>
-        </ButtonGroup>
+        <input style={{display: "none"}} ref={input_ref} type="text" value={content} onChange={handleOnChange} placeholder={modalData.title}/>
+        {!isChanged && <p>{modalData.title}</p>}
+        <i className="fas fa-edit" onClick={clickPencil}></i>
+      </TitleContainer>
+      <Term>
+        <span><b>시작</b>: {modalData.start}&nbsp;&nbsp;</span>
+        <span><b>끝</b>: {modalData.end}</span>
+      </Term>
+      <ButtonGroup>
+        { isChanged?
+          <> 
+            <Button variant="contained" color="secondary" onClick={changeContent}>
+              보내기
+            </Button>
+            <Button variant="contained" color="primary" onClick={()=> {
+              setIsChanged(false);
+              input_ref.current.style.display="none";
+            }}>
+              수정 취소
+            </Button>
+          </>:
+          <>
+            <Button variant="contained" color="secondary" onClick={removeContent}>
+              삭제
+            </Button>
+            <Button variant="contained" color="primary" onClick={()=> setIsClick(false)}>
+              취소
+            </Button>
+          </>
+        }
+        
+      </ButtonGroup>
     </Container>
     </>
     
@@ -72,17 +125,31 @@ const TitleContainer = styled.div`
   line-height: 32px;
   font-size: 1rem;
   padding: 3px;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
   &>p{
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
   }
+  &>input{
+    border: none;
+    font-size: 1rem;
+    outline: none;
+  }
+`;
+
+const Term = styled.div`
+  display: flex;
   justify-content: center;
-  align-items: center;
-  background: white;
+  font-size: 13px;
+  background: #f3f3f3;
   border-radius: 10px;
 `;
+
 const ButtonGroup = styled.div`
   display: flex;
   width: 100%;

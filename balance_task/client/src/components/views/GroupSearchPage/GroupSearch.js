@@ -31,7 +31,7 @@ const GroupSearch = (props) => {
   //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
   //6. 또 다시 리덕스로부터 데이터를 받는다. 이번에도 데이터가 있다.
   const groups_list = useSelector(state => state.group.groups_list);
-  const isLoading = useSelector(state => state.group.isLoading);
+  const isLoading = useSelector(state => state.group.isLoading.group_search);
 
   useEffect(()=>{
     if(isLoading){
@@ -43,7 +43,7 @@ const GroupSearch = (props) => {
       // if(response.payload.success){
       //   // 2.로딩 해제하고 다시 리렌더링 된다.
         console.log(response);
-          dispatch(chooseLoading(false));
+          dispatch(chooseLoading({group_search: false}));
       // }
       });
       
@@ -110,7 +110,7 @@ const GroupSearch = (props) => {
           </Main>
         }
       <Button>
-        <Link to="/adding_group"><i className="fas fa-plus"></i></Link>
+        <Link to="/create_group"><i className="fas fa-plus"></i></Link>
       </Button>
       <Navigation />
     </Container>

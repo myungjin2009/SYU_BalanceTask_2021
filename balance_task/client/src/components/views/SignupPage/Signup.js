@@ -55,11 +55,19 @@ const handleAuthorize = (
     setIsClick(true);
     //5분으로 세팅
     setMinutes(5);
+<<<<<<< HEAD
     const body = {
       value,
     };
     dispatch(authUserEmail(body)).then((response) => {
       if (response.payload.success === false) {
+=======
+    const body={
+      value: value+ "@naver.com"
+    }
+    dispatch(authUserEmail(body)).then((response)=>{
+      if(response.payload.success === false){
+>>>>>>> 512cfc8b33d56e8cb19104d594e734da2d79d36a
         console.log(response.payload.success);
         alert("오류!");
         return;
@@ -159,13 +167,14 @@ const Signup = (props) => {
         }
       >
         <input
-          type="email"
+          type="text"
           ref={auth_input}
           value={email}
           onChange={(e) => changeEmail(e, setEmail)}
           placeholder="이메일"
           required
         />
+        <input type = "text" value="@naver.com" disabled/>
         <button type="submit">인증</button>
       </EmailBox>
       <InputContainer onSubmit={handleSubmit}>
@@ -273,11 +282,14 @@ const EmailBox = styled.form`
   border: 1px solid black;
   margin: 1vh;
   & > input {
-    width: 80%;
+    width: 40%;
     font-size: 1rem;
     padding: 5px;
     outline: none;
     border: none;
+    &:last-of-type{
+      width: 40%;
+    }
   }
   & > button {
     background: #0288d1;
