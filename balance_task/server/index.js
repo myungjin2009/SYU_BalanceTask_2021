@@ -43,10 +43,11 @@ var user = require("./user/adduser");
 var signup = require("./router/signup");
 var login = require("./router/login");
 var logout = require("./router/logout");
+var {node__mailer}=require("./router/node-mailer");
 
 //그룹 
-var {group_search} = require("./group/groupfunction");
-
+var {group_search} = require("./group/groupget");
+var group_add=require("./group/group_add");
 //게시판
 var {noticeget}=require("./groupboard/noticeget");
 var {boardget1}=require("./groupboard/boardget1");
@@ -98,6 +99,18 @@ app.post("/api/user/login", login);
 
 app.post("/api/user/logout", logout);
 
+app.post("/api/user_email",node__mailer,
+(req, res) => {
+  //미들웨어 통과해서 여기오면 AUTH가 TRUE
+  
+  console.log("success");
+  console.log(req.authNum);
+  res.status(200).json({
+    success: true
+  });
+}
+);
+
 app.get("/api/user/auth", auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
   
@@ -128,6 +141,9 @@ app.post("/api/group/search_card", group_search,(req,res)=>{
     //};
   
 });
+
+app.post("/api/group/search_card", group_add);
+
 
 app.post("/api/group/timeline",boardget1, async (req,res)=>{
   console.log("==========================================timesuccess===========================================");
@@ -222,7 +238,7 @@ app.post("/api/group/notice",noticeget,async (req,res)=>{
     let vote_list=[];
     console.log(i);
     conn.query(
-      "select * from `vote2` where board_number=?",
+      "select * from `vote2` v, user u where board_number=? and u.id=v.user",
       i+1,
       async function (err,rows, fields) {
         //conn.release( ); // 반드시 해제해야 함
@@ -242,7 +258,7 @@ app.post("/api/group/notice",noticeget,async (req,res)=>{
           console.log( discuss );
 
           vote_list.push({
-              user_name:info.user,
+              user_name:info.name,
               vote:discuss
           });
           
