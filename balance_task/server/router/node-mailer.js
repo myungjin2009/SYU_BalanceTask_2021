@@ -2,10 +2,12 @@ const nodemailer = require("nodemailer");
 const express = require("express");
 const router = express.Router();
 
+//var NUM;
+
 let node__mailer = (req, res, next) => {
 
   let user_email = req.body.value;
-  res.send("잘 받음");
+  //res.send("잘 받음");
 
   const email = {
     service: "Naver",
@@ -42,9 +44,15 @@ let node__mailer = (req, res, next) => {
   };
 
   send(content);
+  
   req.authNum=authNum;
+  //NUM=authNum;
   next();
 };
 
+
+
+
 module.exports={node__mailer};
+//module.exports=nodemailer;
 // module.exports.authNum=authNum;

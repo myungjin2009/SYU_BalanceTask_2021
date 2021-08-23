@@ -99,17 +99,17 @@ app.post("/api/user/login", login);
 
 app.post("/api/user/logout", logout);
 
-app.post("/api/user_email",node__mailer,
-(req, res) => {
+app.post("/api/user_email",node__mailer,async (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
   
   console.log("success");
   console.log(req.authNum);
+  //res.send(req.authNUm);
   res.status(200).json({
-    success: true
-  });
-}
-);
+    success:true,
+    okNumber:req.authNUm
+  })
+});
 
 app.get("/api/user/auth", auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
