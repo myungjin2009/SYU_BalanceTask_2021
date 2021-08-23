@@ -12,11 +12,11 @@ router.route('/api/signup').post(function(req, res) {
     var paramPassword = req.body.password || req.query.password;
     var paramName = req.body.name || req.query.name;
     var paramAgreement = req.body.isCheck || req.query.isCheck;
-	var paramauthNumber=req.body.authNumber || req.query.authNumber;
-    //var sendNumber=req.okNumber;
+	var paramauthNumber=req.body.authNumber || req.query.authNumber; //사용자
+    var sendNumber=req.body.okNumber || req.query.okNumber
 	
 	console.log(paramauthNumber);
-	//console.log(sendNumber);
+	console.log(sendNumber);
 
 	if(paramauthNumber == sendNumber){ 
 			console.log("인증번호 맞다");

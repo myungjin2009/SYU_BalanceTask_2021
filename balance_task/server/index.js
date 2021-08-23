@@ -103,10 +103,10 @@ app.post("/api/user_email", node__mailer, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
 
   console.log("success");
-  console.log(req.authNum);
+  // console.log(req.authNum);
   res.status(200).json({
     success: true,
-    okNUmber:req.authNum
+    okNumber:req.authNum
   });
 });
 

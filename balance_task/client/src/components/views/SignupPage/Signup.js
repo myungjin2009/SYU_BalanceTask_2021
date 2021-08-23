@@ -38,7 +38,8 @@ const handleAuthorize = (
   setIsClick,
   auth_input,
   isClick,
-  setMinutes
+  setMinutes,
+  setOkNumber
 ) => {
   e.preventDefault();
   const {
@@ -56,7 +57,7 @@ const handleAuthorize = (
     //5분으로 세팅
     setMinutes(5);
     const body={
-      value: value+ "@naver.com"
+      value: `${value}@naver.com`
     }
     dispatch(authUserEmail(body)).then((response)=>{
       if(response.payload.success === false){
@@ -65,6 +66,8 @@ const handleAuthorize = (
         return;
       }
       console.log(response.payload.success);
+      console.log(response.payload.okNumber);
+      setOkNumber(response.payload.okNumber);
     });
   }
 };
@@ -77,7 +80,7 @@ const Signup = (props) => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [name, setName] = useState("");
   const [isCheck, setIsCheck] = useState(false);
-
+  const [okNumber,setOkNumber]= useState(false);
   const auth_input = useRef(null);
   const password_input = useRef(null);
 
@@ -122,11 +125,12 @@ const Signup = (props) => {
     }
 
     const body = {
-      email,
+      email:`${email}@naver.com`,
       authNumber,
       password,
       name,
       isCheck,
+      okNumber,
     };
     dispatch(signupUser(body)).then((response) => {
       console.log(response);
@@ -154,7 +158,8 @@ const Signup = (props) => {
             setIsClick,
             auth_input,
             isClick,
-            setMinutes
+            setMinutes,
+            setOkNumber
           )
         }
       >
