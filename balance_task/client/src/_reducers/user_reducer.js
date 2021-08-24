@@ -5,7 +5,8 @@ import {
   AUTH_USER_EMAIL,
   FIND_PASSWORD,
   CHANGE_PASSWORD,
-  RECEIVE_MYPAGE
+  RECEIVE_MYPAGE,
+  LOADING_MYPAGE
 } from "../_actions/types";
 import hanium_logo from '../images/hanium_logo.jpg';
 import profile_default from '../images/profile_sample.jpg';
@@ -53,8 +54,31 @@ const initialState = {
       Contribution: 65,
       Finished: false,
       logo: hanium_logo
+    },
+    {
+      id: 4,
+      group: "와우 IcTT",
+      project_Host: "주식회사이음",
+      logo_src: "",
+      project_DeadLine: 20210920,
+      favoriteList: false,
+      Contribution: 65,
+      Finished: false,
+      logo: hanium_logo
+    },
+    {
+      id: 5,
+      group: "와우 IcTT",
+      project_Host: "주식회사이음",
+      logo_src: "",
+      project_DeadLine: 20210920,
+      favoriteList: false,
+      Contribution: 65,
+      Finished: false,
+      logo: hanium_logo
     }
-  ]
+  ],
+  isLoading: true
 }
 
 export default function (state = initialState, action) {
@@ -75,8 +99,12 @@ export default function (state = initialState, action) {
       if(action.payload === undefined || action.payload === null){
         return state;
       }
-      return { ...state, profile: action.payload.profile, 
-        project_list: action.payload.project_list};
+      // return { ...state, profile: action.payload.profile, 
+        // project_list: action.payload.project_list};
+        return state;
+    }
+    case LOADING_MYPAGE:{
+      return {...state, isLoading: action.isLoading}
     }
     default:
       return state;
