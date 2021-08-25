@@ -1,9 +1,11 @@
 import { RECEIVE_GROUPS_CARD, LOADING, JOIN_GROUP, VOTE_FOR_POSTS, RECEIVE_NOTICE, RECEIVE_TIMELINE} from "./types";
 import axios from "axios";
 //그룹 찾기 페이지에서 그룹카드들 받기
-export function receiveGroupCard(indexToSubmit){
-  const index_data = indexToSubmit.length-1; //마지막 번호
-  const request = axios.post('/api/group/search_card',index_data) //마지막 번호 보내기
+export function receiveGroupCard(dataToSubmit){
+   //const body = {
+  //   last_number: groups_list.length-1, => 현재까지 groups_list의 마지막 데이터 번호를 볼 수 있다.
+  // };
+  const request = axios.post('/api/group/search_card',dataToSubmit) //마지막 번호 보내기
   .then(response => response.data).catch(err => console.log(err));
   
   return {

@@ -1,15 +1,15 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import styled, {keyframes} from "styled-components";
 import Navigation from "../Navigation/Navigation";
 
 
-import profile_default from '../../../images/profile_sample.jpg';
 import settings_icon from '../../../images/settings_icon.png';
 import edit_icon from '../../../images/edit_icon.png';
 import {withRouter} from "react-router";
 
 import Project from "./Project";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 
 // const ProfileName = "홍길동";
 // const FinishedPJ = 3;                   //아직 REDUX 적용 안함
@@ -18,59 +18,105 @@ import { useSelector } from "react-redux";
 // const ProfileMessage = "프론트엔드 백엔드 둘다 하는 유니콘입니다. 리액트 몽고DB 깃으로 협업가능";
 //ProfileMessage 글자수 제한 필요.
 
+const receiveMyPageData = (dispatch, userData) =>{
+  // const {email, name} = userData;
+  const body = {
+    // email, name
+  }
+  dispatch(receiveProjectMypage(body)).then(res => {
+    // if(res.payload.success){
+      
+    // }
+    console.log('ddsasdas');
+    dispatch(chooseLoading(false));
+  });
+}
 
 const MyPage = (props) => {
   const state = useSelector(state => state.user);
+  console.log(state);
   const {profile, project_list} = state;
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = profile;
-
+  const isLoading = useSelector(state => state.user.isLoading);
+  const userData = useSelector(state => state.user.userData);
+  const dispatch = useDispatch();
   const test1 = project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
+  
+  useEffect(()=>{
+    if(isLoading){
+      //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
+      receiveMyPageData(dispatch, userData);
+      dispatch(chooseLoading(false));
+    }
+  },[isLoading]);
 
   return (
     <Container>
-      <Header>
-        
-        <div className="profile_IMG">
-          <img className="Profile" alt="Profile" src={ProfileImage} />
-        </div>
+      {
+        isLoading ? <>
+          <Header style={{background: "#eee", borderRadius: "15px"}} isLoading={isLoading}>
 
-        
-        <div className="profile_DETAIL">
-          <div className="name">{ProfileName}<br/></div>
-          <div className="info">진행중 : {ContinuingPJ}개<br/></div>
-          <div className="info">진행완료 : {FinishedPJ}개</div>
-        </div>
+          </Header>
+          <Introduce style={{background: "#eee"}} isLoading={isLoading}>
 
-        <div className="profile_REPUTATION">
-          <div className="circle">
-            <div className="Score_color"></div>
-            평점
-            <div className="Score_display">{Score}
+          </Introduce>
+          <WorkingBlock>
+
+          </WorkingBlock>
+
+        </>:
+        (<>
+          <Header isLoading={isLoading}>
+          
+            <div className="profile_IMG">
+              <img className="Profile" alt="Profile" src={ProfileImage} />
             </div>
-          </div>
-        </div>
-
-
-        <div className="settings_ICON">
-          <img className="Settings_icon" alt="Settings_icon" src={settings_icon} 
-          onClick={()=>{props.history.push('/settings')}}/>
-        </div>
+    
+            
+            <div className="profile_DETAIL">
+              <div className="name">{ProfileName}<br/></div>
+              <div className="info">진행중 : {ContinuingPJ}개<br/></div>
+              <div className="info">진행완료 : {FinishedPJ}개</div>
+            </div>
+    
+            <div className="profile_REPUTATION">
+              <div className="circle">
+                <div className="Score_color"></div>
+                평점
+                <div className="Score_display">{Score}
+                </div>
+              </div>
+            </div>
+    
+    
+            <div className="settings_ICON">
+              <img className="Settings_icon" alt="Settings_icon" src={settings_icon} 
+              onClick={()=>{props.history.push('/settings')}}/>
+            </div>
+          
+          </Header>
+    
+          <Introduce>
+            <div className="profileIntroduce">프로필 소개</div>
+            <div className = "profileMessage">{ProfileMessage}</div>
+            <img className="editIcon" alt="Edit_icon" src={edit_icon} />
+          </Introduce>
+    
+          <Working>참여한 프로젝트</Working>
+          {test1}
+          <Navigation />
+        </>)
+      }
       
-      </Header>
-
-      <Introduce>
-        <div className="profileIntroduce">프로필 소개</div>
-        <div className = "profileMessage">{ProfileMessage}</div>
-        <img className="editIcon" alt="Edit_icon" src={edit_icon} />
-      </Introduce>
-
-      <Working>참여한 프로젝트</Working>
-      {test1}
-
-      <Navigation />
     </Container>
   );
 }
+
+const blinkEffect = keyframes`
+  50%{
+    opacity: 0;
+  }
+`;
 
 const Container = styled.div`
   width: 100vw;
@@ -79,12 +125,20 @@ const Container = styled.div`
   min-width: 325px;
   
 `;
-
+const WorkingBlock = styled.div`
+  margin-top: 3vh;
+  background: #eee;
+  width: 100vw;
+  height: 20vh;
+  border-radius: 15px;
+  animation: ${blinkEffect} 0.8s ease-in-out infinite;
+`;
 const Header = styled.div`
   position: relative;
   background-color: rgb(135,220,252);
   height: 17vh;
-
+  animation: ${blinkEffect} 0.8s ease-in-out infinite;
+  ${({isLoading})=> !isLoading && "animation: none"};
   & > .profile_IMG {
     width: 30%;
     height: 100%;
@@ -177,7 +231,8 @@ const Introduce = styled.form`
   background-color: rgb(214,214,214);
   position: relative;
   overflow: hidden;
-  
+  animation: ${blinkEffect} 0.8s ease-in-out infinite;
+  ${({isLoading})=> !isLoading && "animation: none"};
   
   & > .profileIntroduce {
     background-color: rgb(185,185,185);

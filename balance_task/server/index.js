@@ -144,7 +144,7 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
   console.log(
     "==========================================timesuccess==========================================="
   );
-  console.log(req.array[0]);
+  console.log(req.array);
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";

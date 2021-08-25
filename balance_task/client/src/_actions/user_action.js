@@ -6,7 +6,8 @@ import {
   AUTH_USER_EMAIL,
   FIND_PASSWORD,
   CHANGE_PASSWORD,
-  RECEIVE_MYPAGE
+  RECEIVE_MYPAGE,
+  LOADING_MYPAGE
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -86,5 +87,13 @@ export function receiveProjectMypage(dataToSubmit){
   return {
     type: RECEIVE_MYPAGE,
     payload: request
+  }
+}
+
+//로딩을 알려주는 함수
+export function chooseLoading(isLoading){
+  return {
+    type: LOADING_MYPAGE,
+    isLoading
   }
 }

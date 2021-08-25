@@ -9,10 +9,10 @@ let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
     //let data=no+5;
-    var paramlastnumber=req.body.last_Number;
-
+    let paramlastnumber=req.body.last_number || req.query.last_number;
+    console.log(paramlastnumber);
     const sql1 = "SELECT * FROM `groups` g, user u where g.user=u.id ORDER BY makedate DESC LIMIT ?";
-    sql.pool.query(sql1,paramlastnumber+3,(err, rows, fields) => {
+    sql.pool.query(sql1,paramlastnumber+4,(err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {

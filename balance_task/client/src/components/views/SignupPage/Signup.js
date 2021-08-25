@@ -80,7 +80,8 @@ const Signup = (props) => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [name, setName] = useState("");
   const [isCheck, setIsCheck] = useState(false);
-  const [okNumber,setOkNumber]= useState(false);
+  const [okNumber, setOkNumber] = useState('');
+  
   const auth_input = useRef(null);
   const password_input = useRef(null);
 
@@ -125,7 +126,7 @@ const Signup = (props) => {
     }
 
     const body = {
-      email:`${email}@naver.com`,
+      email: `${email}@naver.com`,
       authNumber,
       password,
       name,
@@ -152,15 +153,7 @@ const Signup = (props) => {
       </KakaoButton>
       <EmailBox
         onSubmit={(e) =>
-          handleAuthorize(
-            e,
-            dispatch,
-            setIsClick,
-            auth_input,
-            isClick,
-            setMinutes,
-            setOkNumber
-          )
+          handleAuthorize(e, dispatch, setIsClick, auth_input, isClick, setMinutes, setOkNumber)
         }
       >
         <input

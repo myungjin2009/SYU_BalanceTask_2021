@@ -17,11 +17,16 @@ let boardget1 = (req, res, next) => {
     if(paramlastnumber===undefined){
       paramlastnumber = 2;
     }
-
-    console.log(paramlastnumber);
-    const sql1 = "SELECT * FROM groupboard where board_number< 100 limit ?; ";
+    let paramlastnumber2=paramlastnumber+2;
+    console.log(paramlastnumber2);
+    let paramlastnumber4=paramlastnumber+3;
+    console.log(paramlastnumber4);
+    var data=paramlastnumber2 + "=<board_number<=" + paramlastnumber4+" LIMIT 1"
+    console.log(data);
+    const sql1 = "SELECT * FROM groupboard where "+ paramlastnumber2+ "<= board_number and board_number<="+ paramlastnumber4+";"
     //const sql2 = "SELECT * FROM vote; ";
-    sql.pool.query(sql1,paramlastnumber+3, (err, rows, fields) => {
+    console.log(sql1);
+    sql.pool.query(sql1,(err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
