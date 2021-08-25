@@ -3,12 +3,16 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
 
+//const no=0;
+
 let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
-  
-    const sql1 = "SELECT * FROM `groups` g, user u where g.user=u.id ORDER BY makedate DESC";
-    sql.pool.query(sql1, (err, rows, fields) => {
+    //let data=no+5;
+    var paramlastnumber=req.body.last_Number;
+
+    const sql1 = "SELECT * FROM `groups` g, user u where g.user=u.id ORDER BY makedate DESC LIMIT ?";
+    sql.pool.query(sql1,paramlastnumber+3,(err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {

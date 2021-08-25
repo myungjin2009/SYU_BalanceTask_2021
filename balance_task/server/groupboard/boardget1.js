@@ -5,20 +5,23 @@ const cookie = require("cookie");
 const { info } = require("console");
 
 
-
-
 let boardget1 = (req, res, next) => {
   console.log("boardget 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
     const array=[];
     //const array2=[]; 
     ////
-    
+    let paramlastnumber=req.body.last_number;
     ///
-    
-    const sql1 = "SELECT * FROM groupboard; ";
+    console.log(paramlastnumber);
+    if(paramlastnumber===undefined){
+      paramlastnumber = 2;
+    }
+
+    console.log(paramlastnumber);
+    const sql1 = "SELECT * FROM groupboard where board_number< 100 limit ?; ";
     //const sql2 = "SELECT * FROM vote; ";
-    sql.pool.query(sql1, (err, rows, fields) => {
+    sql.pool.query(sql1,paramlastnumber+3, (err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
