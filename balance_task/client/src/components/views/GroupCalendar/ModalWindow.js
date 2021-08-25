@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import {useSelector, useDispatch} from 'react-redux';
 import { updateDate, deleteDate } from '../../../_actions/group_calendar_action';
+import { computeInnerRect } from '@fullcalendar/react';
 
 function ModalWindow({isClick, setIsClick, modalData}) {
   // const email = useSelector(state => state.user.userData.email); 
@@ -26,7 +27,7 @@ function ModalWindow({isClick, setIsClick, modalData}) {
 
   //여기서부터는 통신하는 부분
   const changeContent = () =>{
-    setIsClick(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+    setIsClick({...isClick , modal_window: false}); //서버랑 통신 잘되면 dispatch안의 then에 넣기
     setIsChanged(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
     input_ref.current.style.display="none";
     setContent('');
@@ -36,11 +37,14 @@ function ModalWindow({isClick, setIsClick, modalData}) {
   }
 
   const removeContent = () =>{
-    setIsClick(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
-    dispatch(deleteDate(modalData)).then(response =>{
-      if(!response.payload.success) return;
-
-    });
+    const isRemove = window.confirm("정말 삭제하실 겁니까?");
+    if(isRemove === true){
+      setIsClick({...isClick , modal_window: true}); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+      dispatch(deleteDate(modalData)).then(response =>{
+        if(!response.payload.success) return;
+  
+      });
+    }
   }
   useEffect(()=>{
     //useEffect에서 처리해야할 것은 modalData.email과 지금 로그인 중인 user의 email을 비교해서
@@ -48,9 +52,9 @@ function ModalWindow({isClick, setIsClick, modalData}) {
   },[]);
   return (
     <>
-    <Background isClick={isClick} onClick={()=> setIsClick(false)}>
+    <Background isClick={isClick.modal_window} onClick={()=> setIsClick({...isClick , modal_window: false})}>
     </Background>
-    <Container isClick={isClick}>
+    <Container isClick={isClick.modal_window}>
       <TitleContainer>
         <input style={{display: "none"}} ref={input_ref} type="text" value={content} onChange={handleOnChange} placeholder={modalData.title}/>
         {!isChanged && <p>{modalData.title}</p>}
@@ -77,7 +81,7 @@ function ModalWindow({isClick, setIsClick, modalData}) {
             <Button variant="contained" color="secondary" onClick={removeContent}>
               삭제
             </Button>
-            <Button variant="contained" color="primary" onClick={()=> setIsClick(false)}>
+            <Button variant="contained" color="primary" onClick={()=> setIsClick({...isClick , modal_window: false})}>
               취소
             </Button>
           </>
