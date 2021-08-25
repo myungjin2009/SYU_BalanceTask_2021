@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { addDate, receiveDate } from '../../../_actions/group_calendar_action';
+import { receiveDate } from '../../../_actions/group_calendar_action';
 import ModalWindow from './ModalWindow';
 import BottomBar from './BottomBar';
 import Header from '../Header/Header';

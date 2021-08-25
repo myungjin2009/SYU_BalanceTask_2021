@@ -37,17 +37,22 @@ const GroupSearch = (props) => {
   const groups_list = useSelector(state => state.group.groups_list);
   const isLoading = useSelector(state => state.group.isLoading.group_search);
 
+
+
   useEffect(()=>{
     if(isLoading){
       //1. 데이터 가져오고 redux의 store에 저장됨
       //7. 새로운 데이터를 다시 가져오고 redux의 store에 저장됨 그리고 다시 3번과정으로 돌아감. 이과정은 이벤트 발동시 반복됨
-      dispatch(receiveGroupCard(groups_list))
+      const body = {
+        last_number: groups_list.length-1,
+      };
+      dispatch(receiveGroupCard(body))
       .then(response =>{
       //   // 백엔드 애들이 주석 풀어주기
       // if(response.payload.success){
       //   // 2.로딩 해제하고 다시 리렌더링 된다.
         console.log(response);
-          dispatch(chooseLoading({group_search: false}));
+        dispatch(chooseLoading({group_search: false}));
       // }
       });
       

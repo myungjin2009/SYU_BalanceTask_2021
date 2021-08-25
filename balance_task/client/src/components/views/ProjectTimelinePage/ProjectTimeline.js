@@ -32,7 +32,7 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
 }
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch)=>{
+const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch, setIsCompleted)=>{
   //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
   if(isLoading)return;
   const body = {
@@ -43,6 +43,7 @@ const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch)=>{
   if(Math.floor(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
+    setIsCompleted(true);
     dispatch(receiveTimeline(body));
     //바로 로딩 false로 바꾸자
   }
@@ -74,6 +75,7 @@ const ProjectTimeline = (props) =>{
       console.log(isCompleted);
       if(isCompleted){
         setTimeline(entireTimeline);
+        setIsCompleted(false);
         console.log(entireTimeline);
 
         console.log('timeline 최신화 성공!');
@@ -90,7 +92,7 @@ const ProjectTimeline = (props) =>{
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
-      <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, userData, isLoading, dispatch)}>
+      <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, userData, isLoading, dispatch, setIsCompleted)}>
         {
           isLoading ? 
           <>

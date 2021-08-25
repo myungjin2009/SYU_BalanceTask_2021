@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { addDate } from '../../../_actions/group_calendar_action';
 function ModalDate({dateData, isClick, setIsClick}) {
   console.log(dateData);
   const calculateDate = () =>{
@@ -48,7 +50,15 @@ function ModalDate({dateData, isClick, setIsClick}) {
       <Background isClick={isClick.modal_date} onClick={()=> setIsClick({...isClick , modal_date: false})}>
       </Background>
       <Container isClick={isClick.modal_date}>
-        <div>ddd</div>
+        <div>
+          <label>시작 날</label><input type="text"/>
+        </div>
+        <div>
+          <label>끝나는 날</label><input type="text"/>
+        </div>
+        <div>
+          <label>어떤 일을 할 것인가요?</label>
+        </div>
       </Container>
     </>
   )
