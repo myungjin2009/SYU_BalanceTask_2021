@@ -132,6 +132,9 @@ app.get("/api/user/auth", auth, (req, res) => {
 app.post("/api/group/search_card", group_search, (req, res) => {
   console.log("ggggggggsuccess");
   console.log(req.array);
+  if(req.array===undefined){
+    return ;
+  }
   res.status(200).json({
     array: req.array,
   });
@@ -219,6 +222,9 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
     "====================================notice success========================================="
   );
   console.log(req.array[0]);
+  if(req.array===undefined){
+    return ;
+  }
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";
@@ -236,10 +242,10 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
 
     for (let i = 0; i < req.array.length; i++) {
       let vote_list = [];
-      console.log(i);
+      console.log(req.array[i].id);
       conn.query(
         "select * from `vote2` v, user u where board_number=? and u.id=v.user",
-        i + 1,
+        req.array[i].id,
         async function (err, rows, fields) {
           //conn.release( ); // 반드시 해제해야 함
           console.log("실행 대상 SQL : ");

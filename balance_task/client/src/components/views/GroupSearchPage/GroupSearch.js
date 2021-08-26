@@ -8,18 +8,21 @@ import { receiveGroupCard , chooseLoading} from '../../../_actions/group_action'
 import {useDispatch, useSelector} from 'react-redux'; 
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, dispatch, groups_list, isLoading)=>{
+const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList)=>{
   if(isLoading)return;
   const body = {
     last_number: groups_list.length-1,
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-  console.log(scrollTop+clientHeight);
-  console.log(scrollHeight);
+  // console.log(scrollTop+clientHeight);
+  // console.log(scrollHeight);
   if(Math.floor(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
-    dispatch(receiveGroupCard(body));
+    dispatch(receiveGroupCard(body)).then(res=>{
+      //console.log(entireNotice,res.payload.array)
+      setEntireList([...groups_list,...res.payload.array]);
+    });
     //바로 로딩 false로 바꾸자
   }
 }
@@ -27,15 +30,15 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading)=>{
 
 const GroupSearch = (props) => {
   //entireList는 data를 조작하기 위한 useState의 변수이다.
-  const [entireList, setEntireList] = useState([]);
+  const groups_list = useSelector(state => state.group.groups_list);
+  const isLoading = useSelector(state => state.group.isLoading.group_search);
+  const [entireList, setEntireList] = useState(groups_list);
   const [search, setSearch] = useState('');
 
   const dispatch = useDispatch();
   //0. 먼저 리덕스로부터 데이터를 받는다. 하지만 처음엔 없다.
   //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
   //6. 또 다시 리덕스로부터 데이터를 받는다. 이번에도 데이터가 있다.
-  const groups_list = useSelector(state => state.group.groups_list);
-  const isLoading = useSelector(state => state.group.isLoading.group_search);
 
 
 
@@ -109,7 +112,7 @@ const GroupSearch = (props) => {
             <LoadingBlock></LoadingBlock>
           </Main>
           :
-          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading)}>
+          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading,setEntireList)}>
             {
               entireList.length !== 0 ?
               entireList.map((el, index)=><GroupCard props={props} title={el.title} content={el.content} writer={el.writer} date={el.date} image={el.image} kind={el.kind} key={index}/>)
