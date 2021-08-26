@@ -32,7 +32,7 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
 }
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch, setTimeline, setIsCompleted, isCompleted)=>{
+const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch, setTimeline,setIsCompleted,isCompleted)=>{
   //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
   if(isLoading)return;
   const body = {
@@ -43,14 +43,14 @@ const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch, se
   if(Math.floor(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
-    // setIsCompleted(false);
-    dispatch(receiveTimeline(body)).then(res =>{
-      // console.log(isCompleted);
-      // setIsCompleted(true);
-      console.log(entireTimeline, res.payload.array);
-      setTimeline([...entireTimeline, ...res.payload.array]);
+    //setIsCompleted(false);
+    dispatch(receiveTimeline(body)).then(res=>{
+      //console.log(isCompleted);
+      //setIsCompleted(true);
+      console.log(entireTimeline,res.payload.array)
+      setTimeline([...entireTimeline,...res.payload.array]);
     });
-    
+    //setIsCompleted(true);
     //바로 로딩 false로 바꾸자
   }
 }
@@ -71,6 +71,7 @@ const ProjectTimeline = (props) =>{
 
   useEffect(()=>{
     //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
+    console.log(isLoading);
     if(isLoading){
       if(userData === undefined){
         return;
@@ -79,10 +80,10 @@ const ProjectTimeline = (props) =>{
       
     }else{
       if(isCompleted){
-        // setIsCompleted(false);
         console.log(isCompleted);
         setTimeline(entireTimeline);
         console.log(entireTimeline);
+        //setIsCompleted(false);
         console.log('timeline 최신화 성공!');
         return;
       }
@@ -93,11 +94,11 @@ const ProjectTimeline = (props) =>{
       }
     }
   },[search, isLoading, userData]);
-
+  console.log(timeline);
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
-      <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, userData, isLoading, dispatch, setTimeline, setIsCompleted, isCompleted)}>
+      <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, userData, isLoading, dispatch, setTimeline,setIsCompleted,isCompleted )}>
         {
           isLoading ? 
           <>

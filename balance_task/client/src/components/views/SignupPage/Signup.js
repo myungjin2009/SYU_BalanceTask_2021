@@ -1,4 +1,4 @@
-import React, {useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
@@ -31,8 +31,6 @@ const changeIsCheck = (e, setIsCheck) => {
   setIsCheck(e.target.checked);
 };
 
-
-
 //인증번호 보내는 함수
 const handleAuthorize = (
   e,
@@ -64,7 +62,7 @@ const handleAuthorize = (
     dispatch(authUserEmail(body)).then((response)=>{
       if(response.payload.success === false){
         console.log(response.payload.success);
-        alert('오류!');
+        alert("오류!");
         return;
       }
       console.log(response.payload.success);
@@ -86,9 +84,9 @@ const Signup = (props) => {
   
   const auth_input = useRef(null);
   const password_input = useRef(null);
-  
+
   const dispatch = useDispatch();
-  const {minutes, seconds, setMinutes} = useTimer({mm:0, ss:0});
+  const { minutes, seconds, setMinutes } = useTimer({ mm: 0, ss: 0 });
 
   const title = "회원가입";
 
@@ -121,8 +119,8 @@ const Signup = (props) => {
       return;
     }
 
-    if(minutes===0&&seconds===0){
-      alert('인증 시간 초과하셨습니다. 다시 회원가입해주시기 바랍니다.');
+    if (minutes === 0 && seconds === 0) {
+      alert("인증 시간 초과하셨습니다. 다시 회원가입해주시기 바랍니다.");
       props.history.push("/");
       return;
     }
@@ -137,10 +135,10 @@ const Signup = (props) => {
     };
     dispatch(signupUser(body)).then((response) => {
       console.log(response);
-      if(response.payload.success===true){
-        props.history.push('/');
-      }else{
-        alert('오류!');
+      if (response.payload.success === true) {
+        props.history.push("/");
+      } else {
+        alert("오류!");
         console.log(response);
       }
     });
@@ -176,7 +174,11 @@ const Signup = (props) => {
             required
             value={authNumber}
             onChange={(e) => changeAuthNumber(e, setAuthNumber)}
-            placeholder={minutes===0&&seconds===0 ? '시간 초과하셨어요😢' : minutes+":"+seconds+"남았습니다!🤷‍♀️"}
+            placeholder={
+              minutes === 0 && seconds === 0
+                ? "시간 초과하셨어요😢"
+                : minutes + ":" + seconds + "남았습니다!🤷‍♀️"
+            }
           />
         ) : (
           <p>이메일 인증 버튼을 눌러야 회원가입 버튼이 생깁니다!</p>
