@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 function BottomBar({ calendarData, setIsWeekends }) {
+  const table_ref = useRef(null);
   return (
     <Container>
       <WeekendsSetting>
@@ -13,8 +14,21 @@ function BottomBar({ calendarData, setIsWeekends }) {
           }}
         />
       </WeekendsSetting>
-      <h2>한 눈에 할 일 보기</h2>
-      <Table>
+      <div className="ToDoList">
+        <h2>한 눈에 할 일 보기</h2>
+        <input
+            type="checkbox"
+            onClick={(e) => {
+              const {target: {checked}} = e;
+              if(checked){
+                table_ref.current.style.display = "table";
+              }else{
+                table_ref.current.style.display = "none";
+              }
+            }}
+          />
+      </div>
+      <Table ref={table_ref}>
         <thead>
           <tr>
             <td>시작하는 날</td>
@@ -41,6 +55,16 @@ function BottomBar({ calendarData, setIsWeekends }) {
 const Container = styled.div`
   width: 100%;
   text-align: center;
+  &>.ToDoList{
+    height:35px;
+  }
+  &>.ToDoList>h2{
+    display: inline;
+  }
+  &>.ToDoList>input{
+    width: 17.5px;
+    height: 17.5px;
+  }
 `;
 
 const WeekendsSetting = styled.div`
@@ -53,6 +77,7 @@ const WeekendsSetting = styled.div`
 `;
 
 const Table = styled.table`
+  display: none;
   width: 100%;
   &>thead>tr, &>tbody>tr{
     width: 100%;

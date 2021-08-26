@@ -7,6 +7,8 @@ import Select from '@material-ui/core/Select';
 function CreateGroup(props) {
   
   const [category, setcategory] = useState('학교 조별 과제');
+  const [detailImageFile, setDetailImageFile] = useState(null);
+  const [detailImageUrl, setDetailImageUrl] = useState(null);
   // const handleDateChange = (date) => {
   //   setSelectedDate(date);
   //   console.log(selectedDate);
@@ -31,6 +33,24 @@ function CreateGroup(props) {
     //   }
     // })
   }
+
+  const setThumbnail = (event) => { 
+    event.preventDefault();
+    let {target:{files}} = event;
+    console.log(files);
+    if(files.length === 0 || files.length === undefined){
+      return;
+    }
+
+    let reader = new FileReader(); 
+    setDetailImageFile(files[0]);
+    setDetailImageUrl(reader.result);
+    console.log(reader);
+    reader.onloadend = function (event) {  
+      console.log(detailImageFile, detailImageUrl);
+    };
+  }
+
     return (
       <Conatainer>
         <Header>
@@ -70,7 +90,13 @@ function CreateGroup(props) {
         <Input><label>주최자: </label><input type="text" /></Input>
         <PhotoInput>
           <label>사진: </label>
+          <input type="file" accept="image/*" onChange={setThumbnail}/>
         </PhotoInput>
+          {detailImageFile && (
+            <div className="image_area">
+              <img src={detailImageUrl} alt={detailImageFile.name} />
+            </div>
+          )}
         <Content>
           <label>내용:</label>
           <textarea></textarea>

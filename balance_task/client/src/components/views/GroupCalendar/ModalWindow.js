@@ -56,10 +56,11 @@ function ModalWindow({isClick, setIsClick, modalData}) {
     </Background>
     <Container isClick={isClick.modal_window}>
       <TitleContainer>
-        <input style={{display: "none"}} ref={input_ref} type="text" value={content} onChange={handleOnChange} placeholder={modalData.title}/>
+        <input style={{display: "none", width: "50%"}} ref={input_ref} type="text" value={content} onChange={handleOnChange} placeholder={modalData.title}/>
         {!isChanged && <p>{modalData.title}</p>}
         <i className="fas fa-edit" onClick={clickPencil}></i>
       </TitleContainer>
+      <div style={{textAlign: "center"}}>작성자: {modalData.name}</div>
       <Term>
         <span><b>시작</b>: {modalData.start}&nbsp;&nbsp;</span>
         <span><b>끝</b>: {modalData.end}</span>

@@ -16,7 +16,7 @@ const GroupCalendar = (props) => {
   const [modalData, setModalData] = useState('');
   const [isClick, setIsClick] = useState({modal_window: false, modal_date: false});
   const [isWeekends, setIsWeekends] = useState(false);
-  const [dateData, setDateData] = useState(null);
+  const [dateInfo, setDateInfo] = useState(null);
   const dispatch = useDispatch();
   const group=props.match.params.group;
   useEffect(() => {
@@ -29,7 +29,7 @@ const GroupCalendar = (props) => {
   }, []);
 
   const handleDateClick = (arg) =>{
-    setDateData(arg);
+    setDateInfo(arg);
     setIsClick({...isClick, modal_date: true});
   }
   //date를 누르고 나서 입력하고나서 어떻게 content를 표현할지
@@ -54,7 +54,8 @@ const GroupCalendar = (props) => {
       email: info.event._def.extendedProps.email,
       title: info.event._def.title,
       start: info.event.startStr,
-      end: info.event.endStr
+      end: info.event.endStr,
+      name: info.event.extendedProps.name
     });
     console.log(modalData);
     setIsClick({...isClick , modal_window: true});
@@ -77,7 +78,7 @@ const GroupCalendar = (props) => {
         eventContent={renderEventContent}
         eventClick={clickEvent}
       />
-      {isClick.modal_date && <ModalDate dateData={dateData} isClick={isClick} setIsClick={setIsClick}/>}
+      {isClick.modal_date && <ModalDate dateInfo={dateInfo} isClick={isClick} setIsClick={setIsClick} calendarData={calendarData} setCalendarData={setCalendarData}/>}
       <ModalWindow isClick={isClick} setIsClick={setIsClick} modalData={modalData}/>
       <BottomBar calendarData={calendarData} setIsWeekends={setIsWeekends}/>
     </Container>
