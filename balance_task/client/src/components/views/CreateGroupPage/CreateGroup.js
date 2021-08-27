@@ -18,11 +18,18 @@ const changeCategory = (e, setcategory) => {
   setcategory(e.target.value);
 };
 
-const changeDeadline = (e, setDeadline) => {
+const changeStart = (e, setStart) => {
   const {
     target: { value },
   } = e;
-  setDeadline(value);
+  setStart(value);
+};
+
+const changeEnd = (e, setEnd) => {
+  const {
+    target: { value },
+  } = e;
+  setEnd(value);
 };
 
 const changeHighlight = (e, setHighlight) => {
@@ -56,7 +63,8 @@ const changeContent = (e, setContent) => {
 function CreateGroup(props) {
   const [groupName, setGroupName] = useState("");
   const [category, setcategory] = useState("학교 조별 과제");
-  const [deadline, setDeadline] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const [highlight, setHighlight] = useState("");
   const [host, setHost] = useState("");
   const [manager, setManager] = useState("");
@@ -84,7 +92,8 @@ function CreateGroup(props) {
     if (
       groupName === "" ||
       category === "" ||
-      deadline === "" ||
+      start === "" ||
+      end === "" ||
       highlight === "" ||
       host === "" ||
       manager === "" ||
@@ -97,7 +106,8 @@ function CreateGroup(props) {
     const formData = new FormData();
     formData.append('groupName', groupName);
     formData.append('category', category);
-    formData.append('deadline', deadline);
+    formData.append('start', start);
+    formData.append('end', end);
     formData.append('highlight', highlight);
     formData.append('host', host);
     formData.append('manager', manager);
@@ -171,13 +181,28 @@ function CreateGroup(props) {
         </Select>
       </Category>
       <Deadline>
-        <label>기한: </label>
+        <label>시작하는 날짜: </label>
         <TextField
           id="date"
           type="date"
+          label="시작하는 날짜"
           defaultValue={calculateDate()}
-          value={deadline}
-          onChange={(e) => changeDeadline(e, setDeadline)}
+          value={start}
+          onChange={(e) => changeStart(e, setStart)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </Deadline>
+      <Deadline>
+        <label>끝나는 날짜: </label>
+        <TextField
+          id="date"
+          type="date"
+          label="끝나는 날짜"
+          defaultValue={calculateDate()}
+          value={end}
+          onChange={(e) => changeEnd(e, setEnd)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -319,15 +344,12 @@ const Category = styled.div`
 const Deadline = styled.div`
   display: flex;
   align-items: center;
+  gap: 30px;
   & > label {
     margin-right: 3vw;
     font-size: 24px;
     flex-grow: 1;
-  }
-  & > span {
-    padding: 3px;
-    border-radius: 10px;
-    background: white;
+    width: 30%;
   }
 `;
 const PhotoInput = styled.div`
