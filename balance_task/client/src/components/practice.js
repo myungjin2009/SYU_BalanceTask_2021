@@ -1,59 +1,37 @@
-import React, { useState } from 'react'
-import FullCalendar, { formatDate } from '@fullcalendar/react' // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import timeGridPlugin from '@fullcalendar/timegrid'
-export default function (){
-  const [dayData, setDayData] = useState([]);
-  const handleDateClick = (arg) =>{
-    let title = prompt('언제 일 하실 건가요?');
+import React, { useState } from 'react';
 
-    if(title === null || title === '') return;
-
-    setDayData(
-      dayData.concat({
-        title: title,
-        start: arg.dateStr,
-        end: arg.dateStr,
-        allDay: arg.allDay
-      })
-    )
-  }
-  //date를 누르고 나서 입력하고나서 어떻게 content를 표현할지
-  const renderEventContent = (eventInfo) =>{
-    //allday: false일 때
-    if(eventInfo.timeText!==""){
-      console.log(eventInfo);
-      return ;
+const Prac = () => {
+  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  const [imgFile, setImgFile] = useState(null);	//파일	
+  // console.log(imgBase64, imgFile);
+  
+  const handleChangeFile = (event) => {
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+      const base64 = reader.result;
+      if (base64) {
+        setImgBase64(base64.toString()); // 파일 base64 상태 업데이트
+        console.log(base64);
+      }
     }
-    //allday: true일 때
-    return (
-      <>
-        <i>{eventInfo.event._def.title}</i>
-      </>
-    )
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다.
+      setImgFile(event.target.files[0]); // 파일 상태 업데이트
+    }
   }
-  //이벤트를 눌렀을 때
-  const clickEvent = (info) =>{
-    console.log(info.event._def.title);
-    let content = window.confirm(info.event._def.title);
-  }
-
+  
   return (
-    <FullCalendar
-      plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin]}
-      headerToolbar={{
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      }}
-      
-      dateClick={handleDateClick}
-      initialView="dayGridMonth"
-      weekends={true}
-      events={dayData}
-      eventContent={renderEventContent}
-      eventClick={clickEvent}
-    />
-  )
+    <div>
+      <div style={{"backgroundColor": "#efefef", "width":"150px", "height" : "150px"}}>
+        <img src={imgBase64}/>
+      </div>
+      <div>
+      	{/* onChange 추가 */}
+        <input type="file" name="imgFile" id="imgFile" onChange={handleChangeFile}/>
+      </div>
+    </div>
+  );
 }
+
+export default Prac;

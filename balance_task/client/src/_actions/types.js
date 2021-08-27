@@ -9,15 +9,17 @@ export const CHANGE_PASSWORD = "change_password";
 export const RECEIVE_MYPAGE = "receive_mypage";
 export const LOADING_MYPAGE = "loading_mypage";
 /* group */
-//group에서의 액션 타입
+//group 들어가기 전에서의 액션 타입
 export const JOIN_GROUP = "join_group";
 export const RECEIVE_GROUPS_CARD = "receive_groups_card";
 export const LOADING = "loading";
+export const CREATE_GROUP = "create_group";
 
 //group에 들어갔을 때의 액션타입
 export const RECEIVE_TIMELINE = "receive_timeline";
 export const RECEIVE_NOTICE = "receive_notice";
 export const VOTE_FOR_POSTS = "vote_for_posts";
+
 
 /* group_calendar */
 export const ADD_DATE = 'add_date';

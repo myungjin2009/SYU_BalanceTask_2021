@@ -5,6 +5,7 @@ import {
   VOTE_FOR_POSTS,
   RECEIVE_NOTICE,
   RECEIVE_TIMELINE,
+  CREATE_GROUP
 } from "../_actions/types";
 import img1 from "../images/노답.jpg";
 import img2 from "../images/멋쟁이들.jpg";
@@ -356,6 +357,9 @@ export default function (state = initialState, action) {
       //서버랑 연결되면 사용
       const new_array = [...noticeList, ...action.payload.array];
       return {...state, noticeList: new_array};  
+    }
+    case CREATE_GROUP:{
+      return {...state, createGroupSuccess: action.payload}
     }
     // case VOTE_FOR_POSTS:{
     //   const {payload : {dataToSubmit:{kind, id, current_vote}}} = action;
