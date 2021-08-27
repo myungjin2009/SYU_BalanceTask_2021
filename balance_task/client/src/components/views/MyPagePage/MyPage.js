@@ -69,7 +69,10 @@ const MyPage = (props) => {
           <Header isLoading={isLoading}>
           
             <div className="profile_IMG">
-              <img className="Profile" alt="Profile" src={ProfileImage} />
+                <img className="Profile" alt="Profile" src={ProfileImage} />
+              <div className="EditProfile">
+                <i class="fas fa-user-circle"></i>
+              </div>
             </div>
     
             
@@ -88,10 +91,10 @@ const MyPage = (props) => {
               </div>
             </div>
     
-    
-            <div className="settings_ICON">
-              <img className="Settings_icon" alt="Settings_icon" src={settings_icon} 
-              onClick={()=>{props.history.push('/settings')}}/>
+            <div className="settings">
+              <div className="Settings_icon">
+                <i class="fas fa-cog" onClick={()=>{props.history.push('/settings')}}></i>
+              </div>
             </div>
           
           </Header>
@@ -99,7 +102,9 @@ const MyPage = (props) => {
           <Introduce>
             <div className="profileIntroduce">프로필 소개</div>
             <div className = "profileMessage">{ProfileMessage}</div>
-            <img className="editIcon" alt="Edit_icon" src={edit_icon} />
+            <div className = "editIcon">
+              <i class="far fa-edit"></i>
+            </div>
           </Introduce>
     
           <Working>참여한 프로젝트</Working>
@@ -146,12 +151,22 @@ const Header = styled.div`
     align-items: center;
     justify-content: center;
     float: left;
-    & > img {
+    & > .Profile {
       border: 2px solid white;
       overflow: hidden;
       width: 12vh;
       height: 12vh;
       border-radius: 50%;
+    }
+    & > .EditProfile {
+      position: absolute;
+      font-size: 4vh;
+      top: 85%;
+      left: 24%;
+      transform:translate(-24%, -85%);
+    }
+    & > .EditProfile:active{
+      color: white;
     }
   }
   & > .profile_DETAIL {
@@ -205,21 +220,21 @@ const Header = styled.div`
       }
     }
   }
-  & > .settings_ICON {
+  & > .settings {
     position: relative;
     width: 8%;
     height: 100%;
     float: left;
-    & > img {
+    & > .Settings_icon {
       position: absolute;
-      background-color: transparent;
-      height: 4vh;
+      
+      font-size: 4vh;
       top: 100%;
       left: 100%;
       transform:translate(-100%, -100%);
     }
-    & > img:active{
-      border: solid;
+    & > .Settings_icon:active{
+      color: white;
     }
   }
 `;
@@ -254,14 +269,15 @@ const Introduce = styled.form`
     font-size: 3vh;
     text-align: center;
   }
-  & > img {
+  & > .editIcon {
     position: absolute;
-    top: 50%;
+    top: 44%;
     left: 87%;
     background-color: transparent;
-    border:none;
-    width: 5vh;
-    height: 5vh;
+    font-size: 4vh;
+  }
+  & > .editIcon:active{
+    color: white;
   }
 `;
 
