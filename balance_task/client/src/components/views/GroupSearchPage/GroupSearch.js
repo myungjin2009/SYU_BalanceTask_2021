@@ -8,17 +8,20 @@ import { receiveGroupCard , chooseLoading} from '../../../_actions/group_action'
 import {useDispatch, useSelector} from 'react-redux'; 
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, dispatch, groups_list, isLoading, setEntireList)=>{
+const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList)=>{
   if(isLoading)return;
   const body = {
     last_number: groups_list.length-1,
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
+  // console.log(scrollTop+clientHeight);
+  // console.log(scrollHeight);
   if(Math.floor(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
-    dispatch(receiveGroupCard(body)).then(res =>{
-      setEntireList([...groups_list, res.payload.array]);
+    dispatch(receiveGroupCard(body)).then(res=>{
+      //console.log(entireNotice,res.payload.array)
+      setEntireList([...groups_list,...res.payload.array]);
     });
     //바로 로딩 false로 바꾸자
   }
@@ -109,7 +112,7 @@ const GroupSearch = (props) => {
             <LoadingBlock></LoadingBlock>
           </Main>
           :
-          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading, setEntireList)}>
+          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading,setEntireList)}>
             {
               entireList.length !== 0 ?
               entireList.map((el, index)=><GroupCard props={props} title={el.title} content={el.content} writer={el.writer} date={el.date} image={el.image} kind={el.kind} key={index}/>)

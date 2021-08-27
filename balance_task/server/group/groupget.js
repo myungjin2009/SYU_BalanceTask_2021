@@ -7,12 +7,22 @@ const cookie = require("cookie");
 
 let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
-  // 커넥션 풀에서 연결 객체를 가져옴
-    //let data=no+5;
+  const sql2="select count(group_no) from `groups`";
+    sql.pool.query(sql2,(err,rows,fields)=>{
+     var maxno=rows[0]['count(group_no)']
+
+
     let paramlastnumber=req.body.last_number || req.query.last_number;
     console.log(paramlastnumber);
-    const sql1 = "SELECT * FROM `groups` g, user u where g.user=u.id ORDER BY makedate DESC LIMIT ?";
-    sql.pool.query(sql1,paramlastnumber+4,(err, rows, fields) => {
+    let lownumber= maxno-paramlastnumber-5;
+    console.log(lownumber);
+    let highnumber= maxno-paramlastnumber-1;
+    console.log(highnumber);
+    //var data=lownumber + "=<group_no<=" + highnumber+" LIMIT 1"
+    const sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
+    //const sql1 = "SELECT * FROM `groups` where 1=< group_no and group_no <="+ paramlastnumber4+";";
+    console.log(sql1);
+    sql.pool.query(sql1,(err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
@@ -28,11 +38,13 @@ let group_search = (req, res, next) => {
           req.category =info.category;
           req.content =info.content;
           req.deadline =info.deadline;
-          
+          req.group_no=info.group_no;
           //user
           req.name=info.name;
 
-          array.push({title:req.group_name,
+          array.push({
+            id:req.group_no,
+            title:req.group_name,
             date:req.startdate+"~"+req.deadline,
             deadline:req.deadline,
             writer:req.name,
@@ -46,6 +58,7 @@ let group_search = (req, res, next) => {
       next();
       }
     });
+  });
 };
 
 

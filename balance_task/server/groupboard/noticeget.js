@@ -7,14 +7,25 @@ const { info } = require("console");
 
 let noticeget = (req, res, next) => {
   console.log("notice 함수 호출됨");
-  // 커넥션 풀에서 연결 객체를 가져옴
+  const sql2="select count(board_number) from groupnotice";
+  sql.pool.query(sql2,(err,rows,fields)=>{
+   var maxno=rows[0]['count(board_number)']
     const array=[];
-    //const array2=[]; 
-    ////
     
-    ///
+    let paramlastnumber=req.body.last_number;
     
-    const sql1 = "SELECT * FROM groupnotice; ";
+    console.log(paramlastnumber);
+    if(paramlastnumber===undefined){
+      paramlastnumber = 2;
+    }
+    
+    console.log(maxno);
+    let lownumber=maxno-paramlastnumber-2;
+    console.log(lownumber);
+    let highnumber=maxno-paramlastnumber-1;
+    console.log(highnumber);
+    //const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
+    const sql1 = "SELECT * FROM groupnotice where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
     //const sql2 = "SELECT * FROM vote; ";
     sql.pool.query(sql1, (err, rows, fields) => {
       if (err) {
@@ -61,7 +72,7 @@ let noticeget = (req, res, next) => {
       next()
       //console.log(array);
     });//sql
-  
+  });
 };
 
 module.exports= {noticeget};

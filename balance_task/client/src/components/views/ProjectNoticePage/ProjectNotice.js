@@ -32,7 +32,7 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
 }
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, entireNotice, userData , isLoading, dispatch, setNotice)=>{
+const handleScrollEvent = (e, entireNotice, userData , isLoading, dispatch,setNotice)=>{
   //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
   if(isLoading)return;
   const body = {
@@ -43,8 +43,8 @@ const handleScrollEvent = (e, entireNotice, userData , isLoading, dispatch, setN
   if(Math.floor(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
-    dispatch(receiveNotice(body)).then(res =>{
-      console.log(entireNotice, res.payload.array)
+    dispatch(receiveNotice(body)).then(res=>{
+      console.log(entireNotice,res.payload.array)
       setNotice([...entireNotice,...res.payload.array]);
     });
     //바로 로딩 false로 바꾸자
@@ -89,7 +89,7 @@ const ProjectNotice = (props) =>{
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
-      <Container onScroll={(e)=>handleScrollEvent(e, entireNotice, userData, isLoading, dispatch, setNotice)}>
+      <Container onScroll={(e)=>handleScrollEvent(e, entireNotice, userData, isLoading, dispatch,setNotice)}>
         {
           isLoading ?
           <>

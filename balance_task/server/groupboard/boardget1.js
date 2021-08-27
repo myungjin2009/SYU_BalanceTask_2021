@@ -7,23 +7,26 @@ const { info } = require("console");
 
 let boardget1 = (req, res, next) => {
   console.log("boardget 함수 호출됨");
-  // 커넥션 풀에서 연결 객체를 가져옴
+  const sql2="select count(board_number) from groupboard";
+    sql.pool.query(sql2,(err,rows,fields)=>{
+     var maxno=rows[0]['count(board_number)']
+    
     const array=[];
-    //const array2=[]; 
-    ////
+    
     let paramlastnumber=req.body.last_number;
-    ///
+    
     console.log(paramlastnumber);
     if(paramlastnumber===undefined){
       paramlastnumber = 2;
     }
-    let paramlastnumber2=paramlastnumber+2;
-    console.log(paramlastnumber2);
-    let paramlastnumber4=paramlastnumber+3;
-    console.log(paramlastnumber4);
-    var data=paramlastnumber2 + "=<board_number<=" + paramlastnumber4+" LIMIT 1"
-    console.log(data);
-    const sql1 = "SELECT * FROM groupboard where "+ paramlastnumber2+ "<= board_number and board_number<="+ paramlastnumber4+";"
+    
+    console.log(maxno);
+    let lownumber=maxno-paramlastnumber-2;
+    console.log(lownumber);
+    let highnumber=maxno-paramlastnumber-1;
+    console.log(highnumber);
+    
+    const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
     //const sql2 = "SELECT * FROM vote; ";
     console.log(sql1);
     sql.pool.query(sql1,(err, rows, fields) => {
@@ -64,78 +67,7 @@ let boardget1 = (req, res, next) => {
               votes_list:null 
             });
             req.array=array;
-            //sql.pool.release();
-            // vote.vote(req.board_number,array, function(err,vote_list) {
-            //   // 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
-            //   // if (err) {
-            //   //           console.error('사용자 추가 중 에러 발생 : ' + err.stack);
-            //             array.push({vote_list});
-            //             console.log(array);
-            //         //     return;
-            //         // }
-                    
-              
-            //   }
-            // );
-            
-            //console.log(array);
-            //next();
-
-
-            // array.forEach((board,index,newarray)=>{
-            //   console.log("in array");
-            //   //console.log(newarray);
-            //   req.board_number = board.id;
-            //   console.log(req.board_number);
-            //   req.title = board.photo_name;
-            //   console.log( req.title );
-            //   req.image =board.image;
-            //   console.log( req.image );
-            //   req.file =board.file;
-            //   req.text =board.content;
-            //   console.log( req.text );
-            //   req.info_user =board.user_name;
-            //   req.info_groupname=board.group;
-            //   req.date =board.date;
-            //     const sql2="select * from vote where board_number=? ";
-            //           sql.pool.query(sql2,req.board_number,(err,rows,fields)=>{
-            //             console.log(rows);
-            //             rows.forEach((info) => {
-            //                 console.log("in vote");
-            //                 req.name=info.user;
-            //                 req.group=info.group;
-            //                 req.board_number=info.board_number;
-            //                 if(info.discuss===1){
-            //                     req.discuss="찬성";
-            //                   }else if(info.discuss===2){
-            //                     req.discuss="반대";
-            //                   }else{
-            //                     req.discuss=info.discuss;
-            //                   }
-            //                     console.log( req.name );
-            //                     console.log( req.group );
-            //                     console.log( req.board_number );
-            //                     console.log( req.discuss );
-            //                 array2.push({
-            //                     user_name:req.name,
-            //                     vote:req.discusss
-            //                 });
-            //                     //req.array=array;
-            //             })
-                        
-            //             req.notice ="timeline";
-            //             req.array=array;
-            //           //next();  
-            //           console.log("===============vote===========")
-            //           console.log(req.array);   
-            //           }); 
-                      
-            //     })
-          // }else{
-          //   console.log("====================else===========");
-          //   req.board_number=0;
-          //     return;
-          // }
+      
           
           });
         
@@ -143,56 +75,7 @@ let boardget1 = (req, res, next) => {
       next()
       //console.log(array);
     });//sql
-    
-    // console.log(array);
-    // array.forEach((board,index,newarray)=>{
-    //   console.log("in array");
-    //   console.log(newarray);
-    //   req.board_number = board.id;
-    //   console.log(req.board_number);
-    //   req.title = board.photo_name;
-    //   console.log( req.title );
-    //   req.image =board.image;
-    //   console.log( req.image );
-    //   req.file =board.file;
-    //   req.text =board.content;
-    //   console.log( req.text );
-    //   req.info_user =board.user_name;
-    //   req.info_groupname=board.group;
-    //   req.date =board.date;
-    //     const sql2="select * from vote where board_number=? ";
-    //           sql.pool.query(sql2,req.board_number,(err,rows,fields)=>{
-    //             console.log(rows);
-    //             rows.forEach((info) => {
-    //                 console.log("in vote");
-    //                 req.name=info.user;
-    //                 req.group=info.group;
-    //                 req.board_number=info.board_number;
-    //                 if(info.discuss===1){
-    //                     req.discuss="찬성";
-    //                   }else if(info.discuss===2){
-    //                     req.discuss="반대";
-    //                   }else{
-    //                     req.discuss=info.discuss;
-    //                   }
-    //                     console.log( req.name );
-    //                     console.log( req.group );
-    //                     console.log( req.board_number );
-    //                     console.log( req.discuss );
-    //                 array2.push({
-    //                     user_name:req.name,
-    //                     vote:req.discusss
-    //                 });
-    //                     //req.array=array;
-    //             })
-                
-    //             req.notice ="timeline";
-    //             req.array=array;
-    //           //next();     
-    //           }); 
-    //   next();
-    // })
-    //next()
+  });  
 };
 
 module.exports= {boardget1};
