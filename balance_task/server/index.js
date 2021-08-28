@@ -38,24 +38,25 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
 
-//로그인 , 유저 관련
+//로그인 , 유저 관련 모듈
 var user = require("./user/adduser");
 var signup = require("./router/signup");
 var login = require("./router/login");
 var logout = require("./router/logout");
 var { node__mailer } = require("./router/node-mailer");
 
-//그룹
+//그룹 관련 모듈
 var { group_search } = require("./group/groupget");
 var group_add = require("./group/group_add");
-//게시판
+
+//타임라인, 공지 관련 모듈
 var { noticeget } = require("./groupboard/noticeget");
 var { boardget1 } = require("./groupboard/boardget1");
 
-//jwt들
+//jwt auth 모듈
 var { auth } = require("./middleware/auth");
 
-//그룹 캘린더
+//그룹 캘린더 관련 모듈
 var { group_calendar } = require("./group_calendar/group_calendar");
 var { add_calendar } = require("./group_calendar/add_calendar");
 var { del_calendar } = require("./group_calendar/del_calendar");
@@ -101,9 +102,8 @@ app.post("/api/user/logout", logout);
 
 app.post("/api/user_email", node__mailer, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
-
-  console.log("success");
-  // console.log(req.authNum);
+  console.log("mailer_success");
+  //인증버호와 트루는 넘겨줌
   res.status(200).json({
     success: true,
     okNumber:req.authNum
@@ -114,8 +114,7 @@ app.get("/api/user/auth", auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
 
   console.log("success");
-  // console.log(req.token);
-  // console.log(req.id);
+  //로그인한 유저 정보를 넘겨줌
   console.log(req.array);
   res.status(200).json({
     //유저정보 제공
@@ -130,18 +129,19 @@ app.get("/api/user/auth", auth, (req, res) => {
 });
 
 app.post("/api/group/search_card", group_search, (req, res) => {
-  console.log("ggggggggsuccess");
+  console.log("group get success");
   console.log(req.array);
   if(req.array===undefined){
     return ;
   }
+  //그룸들에 대한 모든 정보를 넘겨줌
   res.status(200).json({
     array: req.array,
   });
-  //};
+  
 });
 
-app.post("/api/group/search_card", group_add);
+app.post("/api/group/create_group", group_add);
 
 app.post("/api/group/timeline", boardget1, async (req, res) => {
   console.log(
@@ -151,6 +151,7 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
   if(req.array===undefined){
     return ;
   }
+  //timeline에 해당하는 게시물을 가져와서 넘겨준다.
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";
@@ -225,6 +226,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   if(req.array===undefined){
     return ;
   }
+  //notice에 해당하는 게시물을 가져와서 넘겨준다.
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";
