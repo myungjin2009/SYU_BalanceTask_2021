@@ -123,7 +123,7 @@ function CreateGroup(props) {
 
     dispatch(createGroup(formData, config)).then((res) => {
       console.log('굳좝맨');
-      props.history.push('/group_search');
+      //props.history.push('/group_search');
       // if(res.payload.success){
       //   props.history.push('/group_search');
       // }

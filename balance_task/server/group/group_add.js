@@ -4,19 +4,30 @@ const sql=require('../database/db_connect');
 var group = require('../group_function/addgroup');
 const bcrypt=require('bcrypt');
 
-router.route('/api/signup').post(function(req, res) {
-	console.log('/process/adduser 호출됨.');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
+var app = express();
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+router.route('/api/group/create_group').post(multipartMiddleware,function(req, res) {
+	console.log('/process/addgroup 호출됨.');
     
     var paramgroup_name = req.body.groupName || req.query.groupName;
     var paramgroup_images= req.body.detailImageFile || req.query.detailImageFile;
     var paramhost = req.body.host || req.query.host;
     var paramstartdate = req.body.start || req.query.start;
     var paramdeadline = req.body.end || req.query.end;
-    var parammanger= req.body.manger || req.query.manger;
+    var parammanger= req.body.manager || req.query.manager;
     var paramcategory = req.body.category  || req.query.category ;
     var paramcontent = req.body.content || req.query.content;
 	var paramhighlight=req.body.highlight || req.query.highlight;
-
+	var paramid=req.auth; 
+	
+	console.log(req.auth);
+	
   console.log(group.addgroup);  
 	if (sql.pool) {
 		group.addgroup(paramgroup_name, paramhost, paramstartdate ,paramdeadline,parammanger,paramcategory,paramcontent, paramhighlight, function(err, addedUser) {

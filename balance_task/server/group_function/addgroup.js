@@ -2,6 +2,7 @@ const sql = require("../database/db_connect");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
+const moment=require("moment");
 
 var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight,callback) {
   //console.log("addUser 호출됨 : " + id + ", " + password + ", " + name + ", ");
@@ -17,13 +18,21 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
     return;
     }
     console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
+  
+
+    const sql2="select count(group_no) from `groups`";
+    sql.pool.query(sql2,(err,rows,fields)=>{
+     var maxno=rows[0]['count(group_no)']
 
     // 데이터를 객체로 만듦
-    var data = {groupname:groupname, host:host , stardate:startdate, deadline: deadline, manger: manager , categroy:category, content:content, highlight:highlight  };
+    
+    var time=moment().format('YYYY-MM-DD HH:MM:SS');
+
+    var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time  };
     
     // SQL 문을 실행함
     var exec = conn.query(
-    "insert into groups set ?",
+    "insert into `groups` set ?",
     data,
     function (err, result) {
         conn.release(); // 반드시 해제해야 함
@@ -48,6 +57,7 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
 
     callback(err, null);
     });
+  });
 });
 };
 

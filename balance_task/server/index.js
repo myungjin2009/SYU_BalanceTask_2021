@@ -68,7 +68,7 @@ app.set("port", process.env.PORT || 5000);
 
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
 app.use(bodyParser.urlencoded({ extended: false }));
-
+//var parser=bodyParser.urlencoded({ extended: false });
 // body-parser를 이용해 application/json 파싱
 app.use(bodyParser.json());
 
@@ -141,7 +141,13 @@ app.post("/api/group/search_card", group_search, (req, res) => {
   
 });
 
-app.post("/api/group/create_group", group_add);
+app.post("/api/group/create_group", group_add,(req,res)=>{
+  console.log("그룹 추가");
+  res.status(200).json({
+    success: true,
+    
+  });
+});
 
 app.post("/api/group/timeline", boardget1, async (req, res) => {
   console.log(
