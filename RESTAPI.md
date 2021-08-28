@@ -63,11 +63,30 @@
 
 
 ## 프로젝트 현황페이지 - 작성자: 박건형
-  /api/group/timeline => method: get
+  /api/group/timeline => method: post
   #### 설명: timeline 정보 가져오기
-  /api/group/notice => method: get
+  /api/group/notice => method: post
   #### 설명: notice 정보 가져오기
   /api/group/vote =>method: post
   #### 설명:  게시물 투표하기
-  #### 위치: views/GroupSearchPage/GroupSearch.js
+  #### 위치: views/GroupSearchPage/
+
+## 그룹 만들기 페이지 - 작성자: 박건형
+  /api/group/create_group => method: post
+  #### 설명: 그룹 만들기에 필요한 양식을 작성 후 서버에 요청
+  #### 위치: views/CreateGroupPage/CreateGroup.js
+
+## < GROUP CALENDAR >
+
+## 그룹 캘린더 페이지 - 작성자: 박건형
+  /api/group_calendar/add_date => method: post
+  #### 설명: 해당 날짜에 무슨 일을 할 건지 추가
+  /api/group_calendar/date => method: post
+  #### 설명: 그룹 캘린더 화면으로 이동시 데이터 달력에 있는 할 일 데이터를 가져옴
+  /api/group_calendar/update_date => method: post
+  #### 설명: 해당 그룹 캘린더에서 할 일 수정하기
+  /api/group_calendar/delete_date => method: post
+  #### 설명: 해당 그룹 캘린더에서 할 일 삭제하기
+  #### 위치: views/GroupCalendar/
+
 

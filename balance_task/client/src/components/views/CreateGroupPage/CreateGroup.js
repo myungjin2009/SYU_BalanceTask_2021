@@ -74,21 +74,22 @@ function CreateGroup(props) {
 
   const dispatch = useDispatch();
 
-  const calculateDate = () => {
-    const current_date = new Date();
-    const year = current_date.getFullYear();
-    const month =
-      current_date.getMonth() + 1 < 10
-        ? "0" + (current_date.getMonth() + 1)
-        : current_date.getMonth() + 1;
-    const date =
-      current_date.getDate() < 10
-        ? "0" + current_date.getDate()
-        : current_date.getDate();
-    return `${year}-${month}-${date}`;
-  };
+  // const calculateDate = () => {
+  //   const current_date = new Date();
+  //   const year = current_date.getFullYear();
+  //   const month =
+  //     current_date.getMonth() + 1 < 10
+  //       ? "0" + (current_date.getMonth() + 1)
+  //       : current_date.getMonth() + 1;
+  //   const date =
+  //     current_date.getDate() < 10
+  //       ? "0" + current_date.getDate()
+  //       : current_date.getDate();
+  //   return `${year}-${month}-${date}`;
+  // };
 
-  const postHandler = () => {
+  const postHandler = (e) => {
+    e.preventDefault();
     if (
       groupName === "" ||
       category === "" ||
@@ -98,7 +99,7 @@ function CreateGroup(props) {
       host === "" ||
       manager === "" ||
       content === "" ||
-      detailImageFile === ""
+      detailImageFile === null
     ) {
       alert('모두 입력해주시기 바랍니다.');
       return;
@@ -122,6 +123,10 @@ function CreateGroup(props) {
 
     dispatch(createGroup(formData, config)).then((res) => {
       console.log('굳좝맨');
+      props.history.push('/group_search');
+      // if(res.payload.success){
+      //   props.history.push('/group_search');
+      // }
     });
   };
 
@@ -186,7 +191,6 @@ function CreateGroup(props) {
           id="date"
           type="date"
           label="시작하는 날짜"
-          defaultValue={calculateDate()}
           value={start}
           onChange={(e) => changeStart(e, setStart)}
           InputLabelProps={{
@@ -200,7 +204,6 @@ function CreateGroup(props) {
           id="date"
           type="date"
           label="끝나는 날짜"
-          defaultValue={calculateDate()}
           value={end}
           onChange={(e) => changeEnd(e, setEnd)}
           InputLabelProps={{
@@ -332,7 +335,7 @@ const Category = styled.div`
   align-items: center;
   & > label {
     margin-right: 3vw;
-    font-size: 24px;
+    font-size: 20px;
     flex-grow: 1;
   }
   & > span {
@@ -347,7 +350,7 @@ const Deadline = styled.div`
   gap: 30px;
   & > label {
     margin-right: 3vw;
-    font-size: 24px;
+    font-size: 20px;
     flex-grow: 1;
     width: 30%;
   }
@@ -375,7 +378,7 @@ const Content = styled.div`
     flex-grow: 1;
   }
   & > textarea {
-    width: 70%;
+    width: 60%;
     padding: 15px;
     border: 1px solid #aaa;
     height: 200px;
