@@ -4,7 +4,7 @@ require("dotenv").config();
 const cookie = require("cookie");
 const moment=require("moment");
 
-var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight, jwt,callback) {
+var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight, jwt, images,callback) {
   //console.log("addUser 호출됨 : " + id + ", " + password + ", " + name + ", ");
 
   // 커넥션 풀에서 연결 객체를 가져옴
@@ -32,7 +32,7 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
     
     var time=moment().format('YYYY-MM-DD HH:mm:ss');
 
-    var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time, user:groupjwt };
+    var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time, user:groupjwt,group_images:images };
     
     // SQL 문을 실행함
     var exec = conn.query(

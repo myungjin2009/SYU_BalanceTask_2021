@@ -34,7 +34,7 @@ router.route('/api/group/create_group').post(multipartMiddleware,function(req, r
 	
   console.log(group.addgroup);  
 	if (sql.pool) {
-		group.addgroup(paramgroup_name, paramhost, paramstartdate ,paramdeadline,parammanger,paramcategory,paramcontent, paramhighlight, paramjwt, function(err, addedUser) {
+		group.addgroup(paramgroup_name, paramhost, paramstartdate ,paramdeadline,parammanger,paramcategory,paramcontent, paramhighlight, paramjwt, paramgroup_images, function(err, addedUser) {
 			// 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
 			if (err) {
                 console.error('사용자 추가 중 에러 발생 : ' + err.stack);
