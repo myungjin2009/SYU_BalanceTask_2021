@@ -4,7 +4,7 @@ require("dotenv").config();
 const cookie = require("cookie");
 const moment=require("moment");
 
-var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight,callback) {
+var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight, jwt,callback) {
   //console.log("addUser 호출됨 : " + id + ", " + password + ", " + name + ", ");
 
   // 커넥션 풀에서 연결 객체를 가져옴
@@ -18,7 +18,11 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
     return;
     }
     console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
-  
+    const sql3="select id from user where jwt=?"
+    sql.pool.query(sql3,jwt,(err,rows,fields)=>{
+      console.log(rows)
+      var groupjwt=rows[0]['id'];
+      
 
     const sql2="select count(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
@@ -26,9 +30,9 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
 
     // 데이터를 객체로 만듦
     
-    var time=moment().format('YYYY-MM-DD HH:MM:SS');
+    var time=moment().format('YYYY-MM-DD HH:mm:ss');
 
-    var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time  };
+    var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time, user:groupjwt };
     
     // SQL 문을 실행함
     var exec = conn.query(
@@ -58,6 +62,7 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
     callback(err, null);
     });
   });
+});
 });
 };
 

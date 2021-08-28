@@ -7,6 +7,10 @@ const bcrypt=require('bcrypt');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const cookie = require("cookie");
+
 var app = express();
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,13 +28,13 @@ router.route('/api/group/create_group').post(multipartMiddleware,function(req, r
     var paramcategory = req.body.category  || req.query.category ;
     var paramcontent = req.body.content || req.query.content;
 	var paramhighlight=req.body.highlight || req.query.highlight;
-	var paramid=req.auth; 
+	var paramjwt=req.cookies.user; 
 	
-	console.log(req.auth);
+	//console.log(paramjwt);
 	
   console.log(group.addgroup);  
 	if (sql.pool) {
-		group.addgroup(paramgroup_name, paramhost, paramstartdate ,paramdeadline,parammanger,paramcategory,paramcontent, paramhighlight, function(err, addedUser) {
+		group.addgroup(paramgroup_name, paramhost, paramstartdate ,paramdeadline,parammanger,paramcategory,paramcontent, paramhighlight, paramjwt, function(err, addedUser) {
 			// 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
 			if (err) {
                 console.error('사용자 추가 중 에러 발생 : ' + err.stack);
