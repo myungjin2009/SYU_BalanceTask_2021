@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
 
-var addgroup = function (groupname, host, startdate, deadline, manager, category, content, callback) {
+var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight,callback) {
   //console.log("addUser 호출됨 : " + id + ", " + password + ", " + name + ", ");
 
   // 커넥션 풀에서 연결 객체를 가져옴
@@ -19,7 +19,7 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
     console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
 
     // 데이터를 객체로 만듦
-    var data = {groupname:groupname, host:host , stardate:startdate, deadline: deadline, manger: manager , categroy:category, content:content  };
+    var data = {groupname:groupname, host:host , stardate:startdate, deadline: deadline, manger: manager , categroy:category, content:content, highlight:highlight  };
     
     // SQL 문을 실행함
     var exec = conn.query(

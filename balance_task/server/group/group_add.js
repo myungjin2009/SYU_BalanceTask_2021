@@ -7,18 +7,19 @@ const bcrypt=require('bcrypt');
 router.route('/api/signup').post(function(req, res) {
 	console.log('/process/adduser 호출됨.');
     
-    var paramgroup_name = req.body.group_name || req.query.group_name;
-    var paramgroup_images= req.body.group_images || req.query.group_images;
+    var paramgroup_name = req.body.groupName || req.query.groupName;
+    var paramgroup_images= req.body.detailImageFile || req.query.detailImageFile;
     var paramhost = req.body.host || req.query.host;
-    var paramstartdate = req.body.startdate || req.query.startdate;
-    var paramdeadline = req.body.deadline || req.query.deadline;
+    var paramstartdate = req.body.start || req.query.start;
+    var paramdeadline = req.body.end || req.query.end;
     var parammanger= req.body.manger || req.query.manger;
     var paramcategory = req.body.category  || req.query.category ;
     var paramcontent = req.body.content || req.query.content;
+	var paramhighlight=req.body.highlight || req.query.highlight;
 
   console.log(group.addgroup);  
 	if (sql.pool) {
-		group.addgroup(paramgroup_name, paramhost, paramstartdate ,paramdeadline,parammanger,paramcategory,paramcontent, function(err, addedUser) {
+		group.addgroup(paramgroup_name, paramhost, paramstartdate ,paramdeadline,parammanger,paramcategory,paramcontent, paramhighlight, function(err, addedUser) {
 			// 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송
 			if (err) {
                 console.error('사용자 추가 중 에러 발생 : ' + err.stack);
