@@ -6,7 +6,7 @@ import {ADD_DATE, RECEIVE_DATE, UPDATE_DATE, DELETE_DATE} from './types';
 //만약 데이트를 추가를 한다면 리덕스 store에 저장된 데이터도 수정하고
 
 export function addDate(dataToSubmit){
-  const request = axios.post('/api/group_calendar/adding_date', dataToSubmit)
+  const request = axios.post('/api/group_calendar/add_date', dataToSubmit)
   .then(response => {
     //request안에 dataToSubmit을 보내기 위해서 사용
     return Promise.resolve({data: response.data, addedList: dataToSubmit});
@@ -29,7 +29,7 @@ export function receiveDate(dataToSubmit){
 }
 
 export function updateDate(dataToSubmit){
-  const request = axios.post('/api/group_calendar/updating_date', dataToSubmit)
+  const request = axios.post('/api/group_calendar/update_date', dataToSubmit)
   .then(response => {
     return Promise.resolve({data: response.data, updatedList: dataToSubmit});
   });
@@ -41,7 +41,7 @@ export function updateDate(dataToSubmit){
 }
 
 export function deleteDate(dataToSubmit){
-  const request = axios.post('/api/group_calendar/deleting_date', dataToSubmit)
+  const request = axios.post('/api/group_calendar/delete_date', dataToSubmit)
   .then(response => {
     return Promise.resolve({data: response.data, deletedList: dataToSubmit});
   });
