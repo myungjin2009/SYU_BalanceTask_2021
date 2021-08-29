@@ -34,7 +34,9 @@ const Detail = (props)=>{
       </Category>
       <Img image={image} onClick={()=>{
         window.open(image);
-      }}></Img>
+      }}><div>
+        </div>
+      </Img>
       <Deadline>
         <label>기간: </label> 
         <span>{date}</span>
@@ -52,7 +54,6 @@ const Conatainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
   padding: 0 10px;
   background: #eee;
   &>div{
@@ -123,14 +124,17 @@ const Category = styled.div`
   }
 `;
 const Img = styled.div`
-  width: 100%;
-  height: 100%;
+  background: #424242;
+  border-radius: 10px;
+  border: 5px solid #aaa;
+  &>div{
+    height: 400px;
   margin: 1vh 0;
   background-image: url(${({image})=>image});
   background-position: center;
-  background-size: cover;
-  border: 5px solid #aaa;
-  border-radius: 10px;
+  background-size: contain; //비율은 유지하려고, cover를 하면 해당 화면의 크기에 맞게 하기 때문에 비율 안맞음
+  background-repeat: no-repeat; //빈 화면을 반복으로 채우는걸 방지
+  }
 `;
 const Deadline = styled.div`
   display: flex;
