@@ -11,12 +11,7 @@ import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 
-// const ProfileName = "홍길동";
-// const FinishedPJ = 3;                   //아직 REDUX 적용 안함
-// const ContinuingPJ = 1;
-// const Score = 78;
-// const ProfileMessage = "프론트엔드 백엔드 둘다 하는 유니콘입니다. 리액트 몽고DB 깃으로 협업가능";
-//ProfileMessage 글자수 제한 필요.
+
 
 const receiveMyPageData = (dispatch, userData) =>{
   // const {email, name} = userData;
