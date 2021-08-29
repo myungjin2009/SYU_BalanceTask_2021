@@ -19,6 +19,7 @@ const LoadWorker = (props) => {
                     <img className ="ProfileimgSource" src={MyProfile.ProfileImage} />
                 </div>
                 <div className = "ProfileName">{MyProfile.ProfileName}</div>
+                <div className = "ProfileScore">{MyProfile.Score}</div>
                 <div className = "ProfileMessage">{MyProfile.ProfileMessage}</div>
             </Profile>
         );
@@ -65,13 +66,24 @@ const Profile = styled.div`
     }
     & > .ProfileMessage {
         border-radius: 13px;
-        transform: translate(-8%, 27%);         //가운데 정렬하기 위한 코드
+        transform: translate(-8%, 27%);         //메시지박스 가운데 정렬하기 위한 코드
         padding: 4px 8px 4px 8px;
         background-color: rgb(170,231,253);
         width: 35%;
         height: 65%;
         float: right;
         font-size: 1.5vh;
+    }
+    & > .ProfileScore {
+        border-radius: 13px;
+        transform: translate(-8%, 27%);         //메시지박스 가운데 정렬하기 위한 코드
+        text-align: center;
+        line-height: 5.85vh;
+        background-color: rgb(153,204,153);
+        width: 10%;
+        height: 65%;
+        float: right;
+        font-size: 2.5vh;
     }
 `;
 
