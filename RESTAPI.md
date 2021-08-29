@@ -49,6 +49,12 @@
   #### 설명: 바뀐 비밀번호를 서버로 보낸다. 서버에서는 데이터베이스 업데이트 해야함
 
 
+## 마이페이지 - 작성자: 김명진
+  /api/user/receive_mypage => method: post
+  #### 설명 : 사용자의 프로필(별명,사진,가입된 프로젝트) 보여주기 위한 정보 불러오기
+  ####        사용자 정보를 서버에 보내야 하니깐
+  
+
 ## < GROUP >
 
 ## 그룹 찾기 페이지 - 작성자: 박건형
@@ -75,6 +81,7 @@
   /api/group/create_group => method: post
   #### 설명: 그룹 만들기에 필요한 양식을 작성 후 서버에 요청
   #### 위치: views/CreateGroupPage/CreateGroup.js
+
 
 ## < GROUP CALENDAR >
 
