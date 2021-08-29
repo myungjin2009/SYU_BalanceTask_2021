@@ -33,6 +33,7 @@
 로그인페이지 - /api/user => method: post, /api/kakao_user => method: post 
 회원가입페이지 - /api/user_email => method: post, /api/signup => method: post
 아이디 찾기페이지 - /api/user_email => method: post, /api/finding_password => method: post, /api/password_changing => method: post
+마이페이지 - /api/user/receive_mypage => method: post
 
 # 진행 상황
 - [ x ]자체 인증처리
