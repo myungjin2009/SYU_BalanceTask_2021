@@ -1,4 +1,11 @@
 const sql = require("../database/db_connect");
+const fs=require("fs");
+var express = require('express');
+var router = express.Router();
+var app = express();
+const multer = require("multer");
+const upload = multer({dest: './upload'});
+
 
 
 let group_search = (req, res, next) => {
@@ -34,9 +41,33 @@ let group_search = (req, res, next) => {
           req.content =info.content;
           req.deadline =info.deadline;
           req.group_no=info.group_no;
-          
+          req.image=info.group_images;
           req.name=info.name;
+          var changeString=String(req.image);
+          console.log(req.image);
+          //var instr=fs.readFileSync(changeString,'utf-8');
+          //console.log(instr);
+        //   if(changeString!=="null"){
 
+          
+        //   fs.open(changeString,'r',function(err,fd){
+        //     if(err) throw err;
+
+        //     var buf=new Buffer.alloc(10);
+        //     console.log('버퍼타입: %s',Buffer.isBuffer(buf));
+        //     fs.read(fd,buf,0,buf.length,null,function(err,bytesRead,buffer){
+        //       if(err) throw err;
+
+        //       instr=buffer.toString('utf8',0,bytesRead);
+        //       console.log('파일에서 읽은 데이터: %s',instr);
+        //       fs.close(fd,function(){
+        //         console.log("읽고 열기 완료");
+        //       })
+        //     })
+        //   })
+        // }
+        //fs.readFile(changeString);
+        //console.log(instr);
           array.push({
             id:req.group_no,
             title:req.group_name,
@@ -45,9 +76,12 @@ let group_search = (req, res, next) => {
             writer:req.name,
             makehost:req.makehost,
             kind:req.category,
-            content:req.content
+            content:req.content,
+            image: req.image
             });
+          
             req.array=array;
+            
         })
         
       next();

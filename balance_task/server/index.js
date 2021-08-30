@@ -4,6 +4,10 @@ const express = require("express"),
   http = require("http"),
   path = require("path");
 
+const multer = require("multer");
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 const app = express();
 // Express의 미들웨어 불러오기
 var bodyParser = require("body-parser"),
@@ -26,6 +30,7 @@ const io = require("socket.io")(server);
 // const io=socketIO(server);
 var cors = require("cors");
 const moment = require("moment");
+const fs=require("fs");
 //비밀번호
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -63,6 +68,7 @@ var { del_calendar } = require("./group_calendar/del_calendar");
 //const { isObject } = require("util");
 // 익스프레스 객체 생성
 
+
 // 설정 파일에 들어있는 port 정보 사용하여 포트 설정
 app.set("port", process.env.PORT || 5000);
 
@@ -90,6 +96,10 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+const upload = multer({dest: './upload'}); 	
+	//var upload = multer({ storage: storage });
+	app.use('/image', express.static('./upload'));
 //===== 라우팅 함수 등록 =====//
 // 라우터 객체 참조//var router = express.Router();
 var router = express.Router();
@@ -128,9 +138,9 @@ app.get("/api/user/auth", auth, (req, res) => {
   });
 });
 
-app.post("/api/group/search_card", group_search, (req, res) => {
+app.post("/api/group/search_card", upload.single("image"),group_search, (req, res) => {
   console.log("group get success");
-  console.log(req.array);
+  //console.log(req.array);
   if(req.array===undefined){
     return ;
   }
@@ -228,7 +238,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   console.log(
     "====================================notice success========================================="
   );
-  console.log(req.array[0]);
+  
   if(req.array===undefined){
     return ;
   }

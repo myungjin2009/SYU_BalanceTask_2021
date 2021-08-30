@@ -16,11 +16,29 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-router.route('/api/group/create_group').post(multipartMiddleware,function(req, res) {
+const multer = require("multer");
+const path = require("path");
+
+// var storage = multer.diskStorage({
+// 		destination: function (req, file, cb) {
+// 		  cb(null, "./image");
+// 		},
+// 		filename: function (req, file, cb) {
+// 		  const ext = path.extname(file.originalname);
+// 		  cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
+// 		},
+		
+// 	  });
+	const upload = multer({dest: './upload'}); 	
+	//var upload = multer({ storage: storage });
+	app.use('/image', express.static('./upload'));
+
+router.route('/api/group/create_group').post(upload.single("image"),function(req, res) {
 	console.log('/process/addgroup 호출됨.');
-    
+	//multipartMiddleware;
+    console.log(req.file.filename);
     var paramgroup_name = req.body.groupName || req.query.groupName;
-    var paramgroup_images= req.body.detailImageFile || req.query.detailImageFile;
+    var paramgroup_images= `/image/${req.file.filename}`;
     var paramhost = req.body.host || req.query.host;
     var paramstartdate = req.body.start || req.query.start;
     var paramdeadline = req.body.end || req.query.end;

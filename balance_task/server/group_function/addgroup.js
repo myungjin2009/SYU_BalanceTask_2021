@@ -3,7 +3,10 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
 const moment=require("moment");
+const fs=require("fs");
 
+const multer = require("multer");
+const path = require("path");
 var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight, jwt, images,callback) {
   //console.log("addUser 호출됨 : " + id + ", " + password + ", " + name + ", ");
 
@@ -29,8 +32,21 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
      var maxno=rows[0]['count(group_no)']
 
     // 데이터를 객체로 만듦
+    // var storage = multer.diskStorage({
+    //   destination: function (req, file, cb) {
+    //     cb(null, "./server/image");
+    //   },
+    //   filename: function (req, file, cb) {
+    //     const ext = path.extname(file.originalname);
+    //     cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
+    //   },
+    // });
     
     var time=moment().format('YYYY-MM-DD HH:mm:ss');
+    // var paramimage=fs.readFilesync('./package.json','utf8');
+    // fs.readFile('./package.json','utf8',function(err,paramimage) {
+    //   console.log(paramimage);
+    // });
 
     var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time, user:groupjwt,group_images:images };
     
