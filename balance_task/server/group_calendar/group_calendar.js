@@ -25,20 +25,20 @@ let group_calendar= (req, res, next) => {
             console.log(req.process);
             req.group_name = info.group_name;
             console.log( req.group_name );
-            req.date =info.date;
-            console.log( req.date );
+            req.start =info.start;
+            console.log( req.start );
             req.do_text=info.do_text;
             req.writer =info.writer;
             console.log( req.writer );
-            req.deadline =info.deadline;
+            req.end =info.end;
             //req.notice =info.notice;
             array.push({
               id: req.process ,
               group:req.group_name,
               //photo_name:req.title,
-              date:req.date,
-              //deadline:req.deadline,
-              user_name:req.writerr,
+              start:req.start,
+              end:req.end,
+              name:req.writer,
               content:req.do_text,
               //votes_list:null 
             });

@@ -3,21 +3,46 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
 const { info } = require("console");
+var http = require('http');
+var url = require('url');
+// var _url;
+// var queryData;
+// var app = http.createServer(function(request, response){
+// 	    url = request.url;
+//     	queryData = url.parse(_url, true).query;
+//         // url모듈의 parse함수를 사용해 _url값을 받고 query 부분을 가져옴
+        
+//         console.log(queryData);
+//         console.log(queryData.id);
 
-
+// });
 
 
 let add_calendar= (req, res, next) => {
   console.log("add_calendar 함수 호출됨");
-  // 커넥션 풀에서 연결 객체를 가져옴
- // var paramprocess = req.body.process || req.query.process;
-  var paramgroup_name = req.body.group_name || req.query.group_name;
-  var paramdate = req.body.date || req.query.date;
-  var paramtext= req.body.do_text || req.query.do_text;
-  var paramwriter=req.body.writer || req.query.writer;
-  var paramdeadline=req.body.deadline || req.query.deadline;
 
-  var data = {process: paramprocess, group_name:paramgroup_name ,date: paramdate, do_text: paramtext, writer:paramwriter,deadline:paramdeadline };
+	//var queryData = url.parse(req.url, true).query;
+  
+
+  var paramjwt=req.cookies.user; 
+  const sql3="select id from user where jwt=?"
+    sql.pool.query(sql3,paramjwt,(err,rows,fields)=>{
+      console.log(rows)
+      var groupjwt=rows[0]['id'];
+  //console.log( window.location.pathname);
+  var paramgroup_name = req.params.group;
+  console.log(req.body);
+  const sql2="select count(process) from `groupcalendar` where group_name=?";
+  sql.pool.query(sql2,paramgroup_name,(err,rows,fields)=>{
+  var maxno=rows[0]['count(process)']
+
+  var paramgroup_name = req.params.group;
+  var paramstart = req.body.start || req.query.start;
+  var paramtitle= req.body.title || req.query.title;
+  var paramname=groupjwt;
+  var paramend=req.body.end || req.query.end;
+
+  var data = {process: maxno+1, group_name:paramgroup_name ,start:paramstart, do_text: paramtitle, writer:paramname,end:paramend,title:paramtitle };
 
     const sql1 = "insert into groupcalendar set ?; ";
     //const sql2 = "SELECT * FROM vote; ";
@@ -27,37 +52,12 @@ let add_calendar= (req, res, next) => {
       } else {
         //console.log(rows);
         console.log("addcalendar come");
-        
-        // rows.forEach((info,index,newarray) => {
-        //     req.process = info.process;
-        //     console.log(req.process);
-        //     req.group_name = info.group_name;
-        //     console.log( req.group_name );
-        //     req.date =info.date;
-        //     console.log( req.date );
-        //     req.do_text=info.do_text;
-        //     req.writer =info.writer;
-        //     console.log( req.writer );
-        //     req.deadline =info.deadline;
-        //     //req.notice =info.notice;
-        //     array.push({
-        //       id: req.process ,
-        //       group:req.group_name,
-        //       //photo_name:req.title,
-        //       date:req.date,
-        //       //deadline:req.deadline,
-        //       user_name:req.writerr,
-        //       content:req.do_text,
-        //       //votes_list:null 
-        //     });
-        //     req.array=array;
-        //   });
       }
       next()
       
-    });//sql
-    
-    
+      });//sql
+    });
+  });    
 };
 
 module.exports= {add_calendar};

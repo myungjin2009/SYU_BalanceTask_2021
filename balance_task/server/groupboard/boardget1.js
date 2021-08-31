@@ -16,12 +16,13 @@ let boardget1 = (req, res, next) => {
     let paramlastnumber=req.body.last_number;
     
     console.log(paramlastnumber);
-    if(paramlastnumber===undefined){
-      paramlastnumber = 2;
-    }
+    
 
     //lownumber째 부터 highnumber째까지 데이터를 보내준다.
     let lownumber=maxno-paramlastnumber-2;
+    if(lownumber<=0){
+      lownumber=0;
+    }
     console.log(lownumber);
     let highnumber=maxno-paramlastnumber-1;
     console.log(highnumber);

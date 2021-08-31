@@ -309,8 +309,14 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   });
 });
 
-app.post("/api/group_calendar/date", group_calendar);
-app.post("/api/group_calendar/updating_date", add_calendar);
+app.post("/api/group_calendar/date", group_calendar,(req, res) => {
+  console.log(req.array);
+  res.status(200).json({
+    success: true,
+    calendarList: req.array,
+  });
+});
+app.post("/api/group_calendar/add_date", add_calendar);
 app.post("/api/group_calendar/deleting_date", del_calendar);
 
 io.on("connection", (socket) => {
