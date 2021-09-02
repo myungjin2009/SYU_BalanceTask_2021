@@ -9,7 +9,7 @@ const MyProfile = {                                         //REDUX 적용후 �
     Score: 78,                                              //REDUX 적용후 해체 예정
     ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다.`,
   }                                                         //REDUX 적용후 해체 예정
-const TEMP_INDEX = 0;   //임시
+const TEMP_INDEX = 1;   //임시
 const WorkerProfile = [{
         ProfileName: "김지원",                               //REDUX 적용후 해체 예정
         ProfileImage: profile_default,
@@ -25,6 +25,46 @@ const WorkerProfile = [{
         ProfileImage: profile_default,
         Score: 77,
         ProfileMessage: ``  
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
+    },{                                                      //REDUX 적용후 해체 예정
+        ProfileName: "존문가",
+        ProfileImage: profile_default,
+        Score: 31,
+        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
     },{                                                      //REDUX 적용후 해체 예정
         ProfileName: "존문가",
         ProfileImage: profile_default,

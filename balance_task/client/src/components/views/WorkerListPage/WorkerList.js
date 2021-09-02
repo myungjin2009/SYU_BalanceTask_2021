@@ -20,7 +20,7 @@ const WorkerList = () => {
       <Header>
         나의 워커 목록 <span className="WorkerCount">{Total_WorkerList}</span>
 
-        <input type="text" className="SearchBox" active={isShow} ref={SearchBox} placeholder="   검색"></input>
+        <input type="text" className="SearchBox" active={isShow} ref={SearchBox} placeholder="검색"></input>
       
         <span className="SearchIcon" ref={SearchIcon} onClick={() => {
           if (isShow === 1) {
@@ -93,7 +93,9 @@ const Header = styled.div`
     height: 6vh;
     border: none;
     border-radius: 15px;
+    outline: none;
     font-size: 2.5vh;
+    padding-left: 2vh;
   }
   & > .SearchBox[active="1"] {
     animation-name: ${SearchBox_Slide};
@@ -116,7 +118,7 @@ const Header = styled.div`
 `;
 
 const List = styled.div`
-  height: 76vh;
+  height: 82vh;
   overflow: auto;
 
   & > .brBar {

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled, {keyframes} from "styled-components";
 import Navigation from "../Navigation/Navigation";
+import Modal from './Modal';
 
 
 import settings_icon from '../../../images/settings_icon.png';
@@ -28,6 +29,14 @@ const receiveMyPageData = (dispatch, userData) =>{
 }
 
 const MyPage = (props) => {
+  const[modalOpen, setModalOpen] = React.useState(false);       //모달창
+  const openModal = () => {
+    setModalOpen(true);
+  }
+  const closeModal = () => {
+    setModalOpen(false);
+  }                                                       //모달창
+
   const state = useSelector(state => state.user);
   console.log(state);
   const {profile, project_list} = state;
@@ -76,7 +85,7 @@ const MyPage = (props) => {
               <div className="info">진행중 : {ContinuingPJ}개<br/></div>
               <div className="info">진행완료 : {FinishedPJ}개</div>
             </div>
-    
+            
             <div className="profile_REPUTATION">
               <div className="circle">
                 <div className="Score_color"></div>
@@ -93,10 +102,13 @@ const MyPage = (props) => {
             </div>
           
           </Header>
-    
+          
           <Introduce>
             <div className="profileIntroduce">프로필 소개</div>
-            <div className = "profileMessage">{ProfileMessage}</div>
+            <div className = "profileMessage" onClick={openModal}>{ProfileMessage}</div>
+            <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
+              테스트모달
+            </Modal>
             <div className = "editIcon">
               <i class="far fa-edit"></i>
             </div>
