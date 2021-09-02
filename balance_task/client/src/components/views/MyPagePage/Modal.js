@@ -1,17 +1,16 @@
 import React from 'react';
 import styled,{keyframes} from 'styled-components';
-import "./Modal.css";
+// import "./Modal.css";
 
 const Modal = ( props ) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
     const { open, close, header } = props;
 
-    const MyModal = open ? ActiveModal : Modal;
-
     return (
         // 모달이 열릴때 openModal 클래스가 생성된다.
 
         <MyModal>
+            <div className={ open ? 'openModal modal' : 'modal' }>
             { open ? (  
                 <section>
                     <header>
@@ -26,8 +25,8 @@ const Modal = ( props ) => {
                     </footer>
                 </section>
             ) : null }
+            </div>
         </MyModal>
-
     )
 }
 
@@ -52,6 +51,12 @@ const modal_bg_show = keyframes`
 `;
 
 const MyModal = styled.div`
+    & > .modal.openModal{
+        display: flex;
+        align-items: center;
+        /* 팝업이 열릴때 스르륵 열리는 효과 */
+        animation: modal-bg-show .3s;
+    }
     & > .modal {
         display: none;
         position: fixed;
@@ -116,13 +121,6 @@ const MyModal = styled.div`
             }
         }
     }
-`;
-
-const ActiveModal = styled(MyModal)`
-    display: flex;
-    align-items: center;
-    /* 팝업이 열릴때 스르륵 열리는 효과 */
-    animation: ${modal_bg_show} .3s;
 `;
 
 export default Modal;

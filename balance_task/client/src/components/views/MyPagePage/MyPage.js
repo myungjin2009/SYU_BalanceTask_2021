@@ -75,7 +75,7 @@ const MyPage = (props) => {
             <div className="profile_IMG">
                 <img className="Profile" alt="Profile" src={ProfileImage} />
               <div className="EditProfile">
-                <i class="fas fa-user-circle"></i>
+                <i className="fas fa-user-circle"></i>
               </div>
             </div>
     
@@ -105,11 +105,11 @@ const MyPage = (props) => {
           
           <Introduce>
             <div className="profileIntroduce">프로필 소개</div>
-            <div className = "profileMessage" onClick={openModal}>{ProfileMessage}</div>
+            <div className = "profileMessage" >{ProfileMessage}</div>
             <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
               테스트모달
             </Modal>
-            <div className = "editIcon">
+            <div className = "editIcon" onClick={openModal}>
               <i class="far fa-edit"></i>
             </div>
           </Introduce>
