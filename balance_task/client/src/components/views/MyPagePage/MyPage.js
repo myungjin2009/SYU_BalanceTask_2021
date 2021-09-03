@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled, {keyframes} from "styled-components";
 import Navigation from "../Navigation/Navigation";
+import Modal from './Modal';
 
 
 import settings_icon from '../../../images/settings_icon.png';
@@ -11,12 +12,7 @@ import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 
-// const ProfileName = "홍길동";
-// const FinishedPJ = 3;                   //아직 REDUX 적용 안함
-// const ContinuingPJ = 1;
-// const Score = 78;
-// const ProfileMessage = "프론트엔드 백엔드 둘다 하는 유니콘입니다. 리액트 몽고DB 깃으로 협업가능";
-//ProfileMessage 글자수 제한 필요.
+
 
 const receiveMyPageData = (dispatch, userData) =>{
   // const {email, name} = userData;
@@ -33,6 +29,14 @@ const receiveMyPageData = (dispatch, userData) =>{
 }
 
 const MyPage = (props) => {
+  const[modalOpen, setModalOpen] = React.useState(false);       //모달창
+  const openModal = () => {
+    setModalOpen(true);
+  }
+  const closeModal = () => {
+    setModalOpen(false);
+  }                                                       //모달창
+
   const state = useSelector(state => state.user);
   console.log(state);
   const {profile, project_list} = state;
@@ -71,7 +75,7 @@ const MyPage = (props) => {
             <div className="profile_IMG">
                 <img className="Profile" alt="Profile" src={ProfileImage} />
               <div className="EditProfile">
-                <i class="fas fa-user-circle"></i>
+                <i className="fas fa-user-circle"></i>
               </div>
             </div>
     
@@ -81,7 +85,7 @@ const MyPage = (props) => {
               <div className="info">진행중 : {ContinuingPJ}개<br/></div>
               <div className="info">진행완료 : {FinishedPJ}개</div>
             </div>
-    
+            
             <div className="profile_REPUTATION">
               <div className="circle">
                 <div className="Score_color"></div>
@@ -98,11 +102,14 @@ const MyPage = (props) => {
             </div>
           
           </Header>
-    
+          
           <Introduce>
             <div className="profileIntroduce">프로필 소개</div>
-            <div className = "profileMessage">{ProfileMessage}</div>
-            <div className = "editIcon">
+            <div className = "profileMessage" >{ProfileMessage}</div>
+            <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
+              테스트모달
+            </Modal>
+            <div className = "editIcon" onClick={openModal}>
               <i class="far fa-edit"></i>
             </div>
           </Introduce>

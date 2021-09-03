@@ -18,8 +18,7 @@ const initialState = {
     FinishedPJ: 3,
     ContinuingPJ: 1,
     Score: 78,
-    ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다. 
-    리액트 몽고DB 깃으로 협업가능`,
+    ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다.`,
   },
   project_list:[
     {
