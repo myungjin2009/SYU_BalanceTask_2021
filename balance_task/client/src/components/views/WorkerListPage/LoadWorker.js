@@ -14,7 +14,7 @@ const WorkerProfile = [{
         ProfileName: "김지원",                               //REDUX 적용후 해체 예정
         ProfileImage: profile_default,
         Score: 89,
-        ProfileMessage: `맞겨만 주세요`                      //REDUX 적용후 해체 예정
+        ProfileMessage: `맡겨만 주세요`                      //REDUX 적용후 해체 예정
     }, {
         ProfileName: "김디비",
         ProfileImage: profile_default,

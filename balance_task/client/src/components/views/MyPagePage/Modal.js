@@ -15,7 +15,10 @@ const Modal = ( props ) => {
                 <section>
                     <header>
                         {header}
-                        <button className="close" onClick={close}> &times; </button>
+                        {/* <button className="close" onClick={close}> &times; </button> */}
+                        <div className="close" onClick={close}>
+                            <i class="fas fa-times"></i>
+                        </div>
                     </header>
                     <main>
                         {props.children}
@@ -54,8 +57,7 @@ const MyModal = styled.div`
     & > .modal.openModal{
         display: flex;
         align-items: center;
-        /* 팝업이 열릴때 스르륵 열리는 효과 */
-        animation: modal-bg-show .3s;
+        animation: ${modal_bg_show} .3s; 
     }
     & > .modal {
         display: none;
@@ -77,7 +79,6 @@ const MyModal = styled.div`
             margin:0 auto;
             border-radius: .3rem;
             background-color: #fff;
-            /* 팝업이 열릴때 스르륵 열리는 효과 */
             animation: ${modal_show} .3s;
             overflow: hidden;
     
@@ -87,7 +88,7 @@ const MyModal = styled.div`
                 background-color: #f1f1f1;
                 font-weight: 700;
     
-                & > button {
+                & > .close {
                     position: absolute;
                     top: 15px;
                     right: 15px;
@@ -112,11 +113,12 @@ const MyModal = styled.div`
                 padding: 12px 16px;
                 text-align: right;
                 & > button {
-                    padding: 6px 12px;
-                    color: #fff;
-                    background-color: #6c757d;
-                    border-radius: 5px;
-                    font-size: 13px;
+                    padding: 0.5rem 1rem;  
+                    font-size: 1rem;
+                    text-align: center;
+                    
+                    border: none;
+                    border-radius: 4px;
                 }
             }
         }
