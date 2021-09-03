@@ -8,12 +8,14 @@ const { info } = require("console");
 
 
 let group_calendar= (req, res, next) => {
-  console.log("boardget 함수 호출됨");
+  console.log("groupcalendar 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
     const array=[];
-    const sql1 = "SELECT * FROM groupcalendar; ";
+    var group = req.body.group;
+    console.log(group);
+    const sql1 = "SELECT * FROM groupcalendar where group_name=?; ";
     //const sql2 = "SELECT * FROM vote; ";
-    sql.pool.query(sql1, (err, rows, fields) => {
+    sql.pool.query(sql1,group, (err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
@@ -31,6 +33,7 @@ let group_calendar= (req, res, next) => {
             req.writer =info.writer;
             console.log( req.writer );
             req.end =info.end;
+            console.log( req.end );
             //req.notice =info.notice;
             array.push({
               id: req.process ,
@@ -39,7 +42,7 @@ let group_calendar= (req, res, next) => {
               start:req.start,
               end:req.end,
               name:req.writer,
-              content:req.do_text,
+              title:req.do_text,
               //votes_list:null 
             });
             req.array=array;

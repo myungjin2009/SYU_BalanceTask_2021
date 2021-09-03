@@ -18,6 +18,7 @@ export default function(SpecificComponent, option, adminRoute = null){
     useEffect(()=>{
       dispatch(auth())
       .then(response => {
+        //console.log(response.payload);
         if(!response.payload.isAuth){
           if(option){
             props.history.push('/login');

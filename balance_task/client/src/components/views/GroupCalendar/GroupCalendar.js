@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { receiveDate } from '../../../_actions/group_calendar_action';
 import ModalWindow from './ModalWindow';
@@ -18,12 +18,19 @@ const GroupCalendar = (props) => {
   const [isWeekends, setIsWeekends] = useState(false);
   const [dateInfo, setDateInfo] = useState(null);
   const dispatch = useDispatch();
+  const user_group=useSelector(state=>state.user);
+  console.log(user_group);
   const group=props.match.params.group;
   useEffect(() => {
+    // const isUserGroup = user_group.filter(el => el === group);
+    // if(isUserGroup[0] !== true){
+    //   props.history.push('/my_page');
+    //   return;
+    // }
     console.log(props.match.params.group);
-    dispatch(receiveDate()).then(response =>{
+    dispatch(receiveDate(group)).then(response =>{
       //데이터를 받아서 calendarList에 넣기
-      // setCalendarData(response.payload.calendarList);
+      setCalendarData(response.payload.calendarList);
     });
     
   }, []);
@@ -55,7 +62,8 @@ const GroupCalendar = (props) => {
       title: info.event._def.title,
       start: info.event.startStr,
       end: info.event.endStr,
-      name: info.event.extendedProps.name
+      name: info.event.extendedProps.name,
+      group:group
     });
     console.log(modalData);
     setIsClick({...isClick , modal_window: true});
@@ -78,7 +86,7 @@ const GroupCalendar = (props) => {
         eventContent={renderEventContent}
         eventClick={clickEvent}
       />
-      {isClick.modal_date && <ModalDate dateInfo={dateInfo} isClick={isClick} setIsClick={setIsClick} calendarData={calendarData} setCalendarData={setCalendarData}/>}
+      {isClick.modal_date && <ModalDate group={group} dateInfo={dateInfo} isClick={isClick} setIsClick={setIsClick} calendarData={calendarData} setCalendarData={setCalendarData}/>}
       <ModalWindow isClick={isClick} setIsClick={setIsClick} modalData={modalData}/>
       <BottomBar calendarData={calendarData} setIsWeekends={setIsWeekends}/>
     </Container>

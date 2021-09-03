@@ -87,8 +87,11 @@ export default function (state = initialState, action) {
       return { ...state, loginSuccess: action.payload };
     case SIGNUP_USER:
       return { ...state, signupSuccess: action.payload };
-    case AUTH_USER:
+    case AUTH_USER:{
+      const data={...state, userData: action.payload};
+      console.log(data);
       return { ...state, userData: action.payload };
+    }
     case AUTH_USER_EMAIL:
       return { ...state, emailAuth: action.payload };
     case FIND_PASSWORD:

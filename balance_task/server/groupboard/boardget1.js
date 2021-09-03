@@ -1,8 +1,7 @@
 const sql = require("../database/db_connect");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const cookie = require("cookie");
-const { info } = require("console");
+
 
 
 let boardget1 = (req, res, next) => {

@@ -15,7 +15,7 @@ const calculateDate = () =>{
   return `${year}-${month}-${date}`;
 }
 
-function ModalDate({dateInfo, isClick, setIsClick, calendarData, setCalendarData}) {
+function ModalDate({group,dateInfo, isClick, setIsClick, calendarData, setCalendarData}) {
   console.log(dateInfo);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
@@ -54,8 +54,9 @@ function ModalDate({dateInfo, isClick, setIsClick, calendarData, setCalendarData
         allDay: dateInfo.allDay,
         email: '로그인시 받는 이메일', //redux의 userData의 정보로부터 넣으면 될듯 email과 name은 그렇다
         name: '이름',
-        //group:group
+        group:group
       }
+      console.log(dateData);
       setCalendarData(calendarData.concat(dateData));
       dispatch(addDate(dateData)).then(response=>{
         //백엔드애들이 주석 풀어주기
@@ -74,8 +75,9 @@ function ModalDate({dateInfo, isClick, setIsClick, calendarData, setCalendarData
         end:end,
         email: '로그인시 받는 이메일', //redux의 userData의 정보로부터 넣으면 될듯 email과 name은 그렇다
         name: '이름',
-        //group:group
+        group:group
       }
+      console.log(dateData);
       setCalendarData(calendarData.concat(dateData));
       dispatch(addDate(dateData)).then(response=>{
         //백엔드애들이 주석 풀어주기

@@ -30,13 +30,14 @@ let add_calendar= (req, res, next) => {
       console.log(rows)
       var groupjwt=rows[0]['id'];
   //console.log( window.location.pathname);
-  var paramgroup_name = req.params.group;
+  var paramgroup_name = req.body.group;
   console.log(req.body);
-  const sql2="select count(process) from `groupcalendar` where group_name=?";
+  const sql2="select count(*) from groupcalendar where group_name=?";
   sql.pool.query(sql2,paramgroup_name,(err,rows,fields)=>{
-  var maxno=rows[0]['count(process)']
-
-  var paramgroup_name = req.params.group;
+    console.log(rows);
+  let maxno=rows[0]['count(*)']
+  
+  var paramgroup_name = req.body.group;
   var paramstart = req.body.start || req.query.start;
   var paramtitle= req.body.title || req.query.title;
   var paramname=groupjwt;

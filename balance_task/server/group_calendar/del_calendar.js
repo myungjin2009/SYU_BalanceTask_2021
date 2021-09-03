@@ -10,8 +10,8 @@ const { info } = require("console");
 let del_calendar= (req, res, next) => {
   console.log("del_calendar 함수 호출됨");
   // 커넥션 풀에서 연결 객체를 가져옴
-    var paramprocess = req.body.process || req.query.process;
-    var paramgroup_name = req.body.group_name || req.query.group_name;
+    var paramprocess = req.body.id || req.query.id;
+    var paramgroup_name = req.body.group || req.query.group;
     // var paramName = req.body.name || req.query.name;
     // var paramAgreement = req.body.isCheck || req.query.isCheck;
     var data = { paramprocess,paramgroup_name};
@@ -23,31 +23,6 @@ let del_calendar= (req, res, next) => {
       } else {
         //console.log(rows);
         console.log("del_calendar come");
-        
-        // rows.forEach((info,index,newarray) => {
-        //     req.process = info.process;
-        //     console.log(req.process);
-        //     req.group_name = info.group_name;
-        //     console.log( req.group_name );
-        //     req.date =info.date;
-        //     console.log( req.date );
-        //     req.do_text=info.do_text;
-        //     req.writer =info.writer;
-        //     console.log( req.writer );
-        //     req.deadline =info.deadline;
-        //     //req.notice =info.notice;
-        //     array.push({
-        //       id: req.process ,
-        //       group:req.group_name,
-        //       //photo_name:req.title,
-        //       date:req.date,
-        //       //deadline:req.deadline,
-        //       user_name:req.writerr,
-        //       content:req.do_text,
-        //       //votes_list:null 
-        //     });
-        //     req.array=array;
-        //   });
       }
       next()
       

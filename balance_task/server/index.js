@@ -310,6 +310,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
 });
 
 app.post("/api/group_calendar/date", group_calendar,(req, res) => {
+  console.log("==================================calendar=====================================");
   console.log(req.array);
   res.status(200).json({
     success: true,
