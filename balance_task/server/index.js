@@ -329,9 +329,46 @@ app.post("/api/group_calendar/delete_date", del_calendar,(req,res)=>{
   });
 });
 app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
-  res.status(200).json({
-    success: true
-  });
+  const sql2="select * from `groupcalendar` where process=?";
+        var array=[];
+        sql.pool.query(sql2,req.id,(err,rows,fields)=>{   
+            if (err) {
+                console.log(err);
+            } else {
+                //console.log(rows);
+                console.log("groupcalendar come");
+                
+                rows.forEach((info,index,newarray) => {
+                    req.process = info.process;
+                    console.log(req.process);
+                    req.group_name = info.group_name;
+                    console.log( req.group_name );
+                    req.start =info.start;
+                    console.log( req.start );
+                    req.do_text=info.title;
+                    req.writer =info.writer;
+                    console.log( req.writer );
+                    req.end =info.end;
+                    console.log( req.end );
+                    //req.notice =info.notice;
+                    array.push({
+                    id: req.process ,
+                    group:req.group_name,
+                      //photo_name:req.title,
+                    start:req.start,
+                    end:req.end,
+                    name:req.writer,
+                    title:req.do_text,
+                      //votes_list:null 
+                    });
+                    req.array=array;
+                });
+            }
+            console.log(req.array);
+            res.status(200).json({
+            calendarList: req.array,
+            });
+        })
 });
 
 io.on("connection", (socket) => {

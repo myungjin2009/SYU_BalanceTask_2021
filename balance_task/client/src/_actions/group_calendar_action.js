@@ -30,9 +30,7 @@ export function receiveDate(dataToSubmit){
 
 export function updateDate(dataToSubmit){
   const request = axios.post('/api/group_calendar/update_date', dataToSubmit)
-  .then(response => {
-    return Promise.resolve({success: response.data, updateData: {id:dataToSubmit.id, title:dataToSubmit.title}});
-  });
+  .then(response => response.data);
 
   return {
     type: UPDATE_DATE,

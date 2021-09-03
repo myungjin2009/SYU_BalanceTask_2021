@@ -21,20 +21,8 @@ export default function (state = {}, action){
       return {calendarList: new_array};
     }
     case UPDATE_DATE: {
-      console.log(state.calendarList);
-      const update_array = state.calendarList.filter((list) => {
-        console.log(action.payload.updateData);
-      
-          // if(list.id ===Number(action.payload.updateData.id)){
-          // return list;
-          // }
-      
-          return list;
-        
-      });
-      update_array = {...update_array, title: action.payload.updateData.title};
-      const new_array = [...state.calendarList, update_array];
-      //const new_array = [...state.calendarList, action.payload.updatedList]
+      const new_array = [...state.calendarList, action.payload.calendarList];
+      console.log(action.payload);
       return {calendarList: new_array};
     }
     default: 

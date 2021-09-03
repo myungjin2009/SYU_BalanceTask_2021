@@ -14,6 +14,8 @@ let update_calendar= (req, res, next) => {
     //console.log(req.title);
     var paramid= req.body.id|| req.query.id;
     var paramgroup_name = req.body.group || req.query.group;
+
+    req.id=paramid;
     // var paramName = req.body.name || req.query.name;
     // var paramAgreement = req.body.isCheck || req.query.isCheck;
     //var data = { paramprocess,paramgroup_name};
@@ -27,8 +29,7 @@ let update_calendar= (req, res, next) => {
         //console.log(rows);
         console.log("update_calendar come");
       }
-      next()
-      
+      next() 
     });//sql
     
     
