@@ -65,6 +65,7 @@ var { auth } = require("./middleware/auth");
 var { group_calendar } = require("./group_calendar/group_calendar");
 var { add_calendar } = require("./group_calendar/add_calendar");
 var { del_calendar } = require("./group_calendar/del_calendar");
+var { update_calendar } = require("./group_calendar/update_calendar");
 //const { isObject } = require("util");
 // 익스프레스 객체 생성
 
@@ -317,8 +318,21 @@ app.post("/api/group_calendar/date", group_calendar,(req, res) => {
     calendarList: req.array,
   });
 });
-app.post("/api/group_calendar/add_date", add_calendar);
-app.post("/api/group_calendar/deleting_date", del_calendar);
+app.post("/api/group_calendar/add_date", add_calendar,(req,res)=>{
+  res.status(200).json({
+    id: req.maxno
+  });
+});
+app.post("/api/group_calendar/delete_date", del_calendar,(req,res)=>{
+  res.status(200).json({
+    success: true
+  });
+});
+app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
+  res.status(200).json({
+    success: true
+  });
+});
 
 io.on("connection", (socket) => {
   socket.on("chatting", (data) => {

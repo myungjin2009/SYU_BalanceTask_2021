@@ -9,7 +9,7 @@ export function addDate(dataToSubmit){
   const request = axios.post('/api/group_calendar/add_date', dataToSubmit)
   .then(response => {
     //request안에 dataToSubmit을 보내기 위해서 사용
-    return Promise.resolve({data: response.data, addedList: dataToSubmit});
+    return Promise.resolve({...dataToSubmit, id: response.data.id});
   });
 
   return {
@@ -31,7 +31,7 @@ export function receiveDate(dataToSubmit){
 export function updateDate(dataToSubmit){
   const request = axios.post('/api/group_calendar/update_date', dataToSubmit)
   .then(response => {
-    return Promise.resolve({data: response.data, updatedList: dataToSubmit});
+    return Promise.resolve({success: response.data, updateData: {id:dataToSubmit.id, title:dataToSubmit.title}});
   });
 
   return {
@@ -43,7 +43,7 @@ export function updateDate(dataToSubmit){
 export function deleteDate(dataToSubmit){
   const request = axios.post('/api/group_calendar/delete_date', dataToSubmit)
   .then(response => {
-    return Promise.resolve({data: response.data, deletedList: dataToSubmit});
+    return Promise.resolve({success: response.data, id:dataToSubmit.id});
   });
 
   return {

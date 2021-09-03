@@ -32,11 +32,13 @@ let add_calendar= (req, res, next) => {
   //console.log( window.location.pathname);
   var paramgroup_name = req.body.group;
   console.log(req.body);
-  const sql2="select count(*) from groupcalendar where group_name=?";
+  const sql2="select max(process) from groupcalendar where group_name=?";
   sql.pool.query(sql2,paramgroup_name,(err,rows,fields)=>{
     console.log(rows);
-  let maxno=rows[0]['count(*)']
+  let maxno=rows[0]['max(process)']
   
+  req.maxno=maxno+1;
+
   var paramgroup_name = req.body.group;
   var paramstart = req.body.start || req.query.start;
   var paramtitle= req.body.title || req.query.title;
@@ -51,6 +53,12 @@ let add_calendar= (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
+        // const sql4="select * from groupcalendar where id=?"
+        // sql.pool.query(sql1,data.process, (err, rows, fields) => {
+        //   res.status(200).json({
+        //     id: maxno+1
+        //   });
+        // })
         //console.log(rows);
         console.log("addcalendar come");
       }

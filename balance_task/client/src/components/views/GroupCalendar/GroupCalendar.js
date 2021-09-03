@@ -19,7 +19,7 @@ const GroupCalendar = (props) => {
   const [dateInfo, setDateInfo] = useState(null);
   const dispatch = useDispatch();
   const user_group=useSelector(state=>state.user);
-  console.log(user_group);
+  //console.log(user_group);
   const group=props.match.params.group;
   useEffect(() => {
     // const isUserGroup = user_group.filter(el => el === group);
@@ -43,7 +43,7 @@ const GroupCalendar = (props) => {
   const renderEventContent = (eventInfo) =>{
     //allday: false일 때
     if(eventInfo.timeText!==""){
-      console.log(eventInfo);
+      //console.log(eventInfo);
       return ;
       //return으로 아무것도 안주면 default로 값을 주는 것 같음.
     }
@@ -57,6 +57,7 @@ const GroupCalendar = (props) => {
   //이벤트를 눌렀을 때
   const clickEvent = (info) =>{
     console.log(info);
+    setDateInfo(info);
     setModalData({
       email: info.event._def.extendedProps.email,
       title: info.event._def.title,
@@ -87,7 +88,7 @@ const GroupCalendar = (props) => {
         eventClick={clickEvent}
       />
       {isClick.modal_date && <ModalDate group={group} dateInfo={dateInfo} isClick={isClick} setIsClick={setIsClick} calendarData={calendarData} setCalendarData={setCalendarData}/>}
-      <ModalWindow isClick={isClick} setIsClick={setIsClick} modalData={modalData}/>
+      <ModalWindow isClick={isClick} dateInfo={dateInfo} setIsClick={setIsClick} modalData={modalData}/>
       <BottomBar calendarData={calendarData} setIsWeekends={setIsWeekends}/>
     </Container>
   )

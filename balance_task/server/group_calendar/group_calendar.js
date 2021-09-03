@@ -29,7 +29,7 @@ let group_calendar= (req, res, next) => {
             console.log( req.group_name );
             req.start =info.start;
             console.log( req.start );
-            req.do_text=info.do_text;
+            req.do_text=info.title;
             req.writer =info.writer;
             console.log( req.writer );
             req.end =info.end;

@@ -57,14 +57,15 @@ function ModalDate({group,dateInfo, isClick, setIsClick, calendarData, setCalend
         group:group
       }
       console.log(dateData);
-      setCalendarData(calendarData.concat(dateData));
       dispatch(addDate(dateData)).then(response=>{
         //백엔드애들이 주석 풀어주기
         // if(response.payload.success){
-        //   console.log('할 일 추가됨');
-        // }else{
-        //  console.log('오류');
-        // }
+          //   console.log('할 일 추가됨');
+          // }else{
+            //  console.log('오류');
+            // }
+            console.log(response.payload);
+            setCalendarData(calendarData.concat(response.payload));
       });
       setIsClick({...isClick , modal_date: false});
       
