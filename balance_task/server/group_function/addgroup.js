@@ -2,8 +2,12 @@ const sql = require("../database/db_connect");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
+const moment=require("moment");
+const fs=require("fs");
 
-var addgroup = function (groupname, host, startdate, deadline, manager, category, content, callback) {
+const multer = require("multer");
+const path = require("path");
+var addgroup = function (groupname, host, startdate, deadline, manager, category, content, highlight, jwt, images,callback) {
   //console.log("addUser 호출됨 : " + id + ", " + password + ", " + name + ", ");
 
   // 커넥션 풀에서 연결 객체를 가져옴
@@ -17,13 +21,38 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
     return;
     }
     console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
+    const sql3="select id from user where jwt=?"
+    sql.pool.query(sql3,jwt,(err,rows,fields)=>{
+      console.log(rows)
+      var groupjwt=rows[0]['id'];
+      
+
+    const sql2="select count(group_no) from `groups`";
+    sql.pool.query(sql2,(err,rows,fields)=>{
+     var maxno=rows[0]['count(group_no)']
 
     // 데이터를 객체로 만듦
-    var data = {groupname:groupname, host:host , stardate:startdate, deadline: deadline, manger: manager , categroy:category, content:content  };
+    // var storage = multer.diskStorage({
+    //   destination: function (req, file, cb) {
+    //     cb(null, "./server/image");
+    //   },
+    //   filename: function (req, file, cb) {
+    //     const ext = path.extname(file.originalname);
+    //     cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
+    //   },
+    // });
+    
+    var time=moment().format('YYYY-MM-DD HH:mm:ss');
+    // var paramimage=fs.readFilesync('./package.json','utf8');
+    // fs.readFile('./package.json','utf8',function(err,paramimage) {
+    //   console.log(paramimage);
+    // });
+
+    var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time, user:groupjwt,group_images:images };
     
     // SQL 문을 실행함
     var exec = conn.query(
-    "insert into groups set ?",
+    "insert into `groups` set ?",
     data,
     function (err, result) {
         conn.release(); // 반드시 해제해야 함
@@ -48,6 +77,8 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
 
     callback(err, null);
     });
+  });
+});
 });
 };
 

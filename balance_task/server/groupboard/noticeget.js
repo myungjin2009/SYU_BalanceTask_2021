@@ -27,6 +27,7 @@ let noticeget = (req, res, next) => {
     //const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
     const sql1 = "SELECT * FROM groupnotice where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
     //const sql2 = "SELECT * FROM vote; ";
+    console.log(sql1);
     sql.pool.query(sql1, (err, rows, fields) => {
       if (err) {
         console.log(err);

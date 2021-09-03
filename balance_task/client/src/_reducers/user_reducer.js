@@ -18,8 +18,7 @@ const initialState = {
     FinishedPJ: 3,
     ContinuingPJ: 1,
     Score: 78,
-    ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다. 
-    리액트 몽고DB 깃으로 협업가능`,
+    ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다.`,
   },
   project_list:[
     {
@@ -87,8 +86,11 @@ export default function (state = initialState, action) {
       return { ...state, loginSuccess: action.payload };
     case SIGNUP_USER:
       return { ...state, signupSuccess: action.payload };
-    case AUTH_USER:
+    case AUTH_USER:{
+      const data={...state, userData: action.payload};
+      console.log(data);
       return { ...state, userData: action.payload };
+    }
     case AUTH_USER_EMAIL:
       return { ...state, emailAuth: action.payload };
     case FIND_PASSWORD:

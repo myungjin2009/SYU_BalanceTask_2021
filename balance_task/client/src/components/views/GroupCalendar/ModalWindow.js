@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { updateDate, deleteDate } from '../../../_actions/group_calendar_action';
 import { computeInnerRect } from '@fullcalendar/react';
 
-function ModalWindow({isClick, setIsClick, modalData}) {
+function ModalWindow({dateInfo,isClick, setIsClick, modalData}) {
   // const email = useSelector(state => state.user.userData.email); 
   // =>이메일은 groupCalendar.js에서 받는 걸로하고 props로 넘겨주자
   const [isChanged, setIsChanged] = useState(false);
@@ -27,12 +27,19 @@ function ModalWindow({isClick, setIsClick, modalData}) {
 
   //여기서부터는 통신하는 부분
   const changeContent = () =>{
-    setIsClick({...isClick , modal_window: false}); //서버랑 통신 잘되면 dispatch안의 then에 넣기
-    setIsChanged(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
-    input_ref.current.style.display="none";
-    setContent('');
-    dispatch(updateDate(modalData)).then(response => {
-      if(!response.payload.success) return;
+    const obj = {
+      group: modalData.group,
+      id: dateInfo.event.id,
+      title: content
+    }
+    dispatch(updateDate(obj)).then(response => {
+      if(!response.payload.success){
+        setIsClick({...isClick , modal_window: false}); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+        setIsChanged(false); //서버랑 통신 잘되면 dispatch안의 then에 넣기
+        input_ref.current.style.display="none";
+        setContent('');
+        return;
+      } 
     });
   }
 
@@ -40,8 +47,16 @@ function ModalWindow({isClick, setIsClick, modalData}) {
     const isRemove = window.confirm("정말 삭제하실 겁니까?");
     if(isRemove === true){
       setIsClick({...isClick , modal_window: true}); //서버랑 통신 잘되면 dispatch안의 then에 넣기
-      dispatch(deleteDate(modalData)).then(response =>{
-        if(!response.payload.success) return;
+      const obj={
+        group:modalData.group,
+        id:dateInfo.event.id
+      }
+      dispatch(deleteDate(obj)).then(response =>{
+        if(response.payload.success){
+          alert("삭제 성공했습니다.");
+          return;
+        } 
+        
   
       });
     }

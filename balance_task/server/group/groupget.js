@@ -1,9 +1,12 @@
 const sql = require("../database/db_connect");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const cookie = require("cookie");
+const fs=require("fs");
+var express = require('express');
+var router = express.Router();
+var app = express();
+const multer = require("multer");
+const upload = multer({dest: './upload'});
 
-//const no=0;
+
 
 let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
@@ -12,25 +15,24 @@ let group_search = (req, res, next) => {
      var maxno=rows[0]['count(group_no)']
 
 
-    let paramlastnumber=req.body.last_number || req.query.last_number;
+    let paramlastnumber=req.body.last_number || req.query.last_number;   //last_number의 값을 받는다.
     console.log(paramlastnumber);
-    let lownumber= maxno-paramlastnumber-5;
+    //lownumber째 부터 highnumber째까지 데이터를 보내준다.
+    let lownumber= maxno-paramlastnumber-5;                      
     console.log(lownumber);
     let highnumber= maxno-paramlastnumber-1;
     console.log(highnumber);
-    //var data=lownumber + "=<group_no<=" + highnumber+" LIMIT 1"
+    
     const sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
-    //const sql1 = "SELECT * FROM `groups` where 1=< group_no and group_no <="+ paramlastnumber4+";";
+    
     console.log(sql1);
     sql.pool.query(sql1,(err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
-        //console.log(rows);
         console.log("groups come");
         var array=[];
         rows.forEach((info) => {
-          //group
           req.group_name = info.group_name;
           req.startdate =info.startdate;
           req.makeuser =info.user;
@@ -39,9 +41,33 @@ let group_search = (req, res, next) => {
           req.content =info.content;
           req.deadline =info.deadline;
           req.group_no=info.group_no;
-          //user
+          req.image=info.group_images;
           req.name=info.name;
+          var changeString=String(req.image);
+          console.log(req.image);
+          //var instr=fs.readFileSync(changeString,'utf-8');
+          //console.log(instr);
+        //   if(changeString!=="null"){
 
+          
+        //   fs.open(changeString,'r',function(err,fd){
+        //     if(err) throw err;
+
+        //     var buf=new Buffer.alloc(10);
+        //     console.log('버퍼타입: %s',Buffer.isBuffer(buf));
+        //     fs.read(fd,buf,0,buf.length,null,function(err,bytesRead,buffer){
+        //       if(err) throw err;
+
+        //       instr=buffer.toString('utf8',0,bytesRead);
+        //       console.log('파일에서 읽은 데이터: %s',instr);
+        //       fs.close(fd,function(){
+        //         console.log("읽고 열기 완료");
+        //       })
+        //     })
+        //   })
+        // }
+        //fs.readFile(changeString);
+        //console.log(instr);
           array.push({
             id:req.group_no,
             title:req.group_name,
@@ -50,9 +76,12 @@ let group_search = (req, res, next) => {
             writer:req.name,
             makehost:req.makehost,
             kind:req.category,
-            content:req.content
+            content:req.content,
+            image: req.image
             });
+          
             req.array=array;
+            
         })
         
       next();

@@ -4,6 +4,10 @@ const express = require("express"),
   http = require("http"),
   path = require("path");
 
+const multer = require("multer");
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 const app = express();
 // Express의 미들웨어 불러오기
 var bodyParser = require("body-parser"),
@@ -26,6 +30,7 @@ const io = require("socket.io")(server);
 // const io=socketIO(server);
 var cors = require("cors");
 const moment = require("moment");
+const fs=require("fs");
 //비밀번호
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -38,36 +43,39 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
 
-//로그인 , 유저 관련
+//로그인 , 유저 관련 모듈
 var user = require("./user/adduser");
 var signup = require("./router/signup");
 var login = require("./router/login");
 var logout = require("./router/logout");
 var { node__mailer } = require("./router/node-mailer");
 
-//그룹
+//그룹 관련 모듈
 var { group_search } = require("./group/groupget");
 var group_add = require("./group/group_add");
-//게시판
+
+//타임라인, 공지 관련 모듈
 var { noticeget } = require("./groupboard/noticeget");
 var { boardget1 } = require("./groupboard/boardget1");
 
-//jwt들
+//jwt auth 모듈
 var { auth } = require("./middleware/auth");
 
-//그룹 캘린더
+//그룹 캘린더 관련 모듈
 var { group_calendar } = require("./group_calendar/group_calendar");
 var { add_calendar } = require("./group_calendar/add_calendar");
 var { del_calendar } = require("./group_calendar/del_calendar");
+var { update_calendar } = require("./group_calendar/update_calendar");
 //const { isObject } = require("util");
 // 익스프레스 객체 생성
+
 
 // 설정 파일에 들어있는 port 정보 사용하여 포트 설정
 app.set("port", process.env.PORT || 5000);
 
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
 app.use(bodyParser.urlencoded({ extended: false }));
-
+//var parser=bodyParser.urlencoded({ extended: false });
 // body-parser를 이용해 application/json 파싱
 app.use(bodyParser.json());
 
@@ -89,6 +97,10 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+const upload = multer({dest: './upload'}); 	
+	//var upload = multer({ storage: storage });
+	app.use('/image', express.static('./upload'));
 //===== 라우팅 함수 등록 =====//
 // 라우터 객체 참조//var router = express.Router();
 var router = express.Router();
@@ -101,9 +113,8 @@ app.post("/api/user/logout", logout);
 
 app.post("/api/user_email", node__mailer, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
-
-  console.log("success");
-  // console.log(req.authNum);
+  console.log("mailer_success");
+  //인증버호와 트루는 넘겨줌
   res.status(200).json({
     success: true,
     okNumber:req.authNum
@@ -114,8 +125,7 @@ app.get("/api/user/auth", auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
 
   console.log("success");
-  // console.log(req.token);
-  // console.log(req.id);
+  //로그인한 유저 정보를 넘겨줌
   console.log(req.array);
   res.status(200).json({
     //유저정보 제공
@@ -129,19 +139,26 @@ app.get("/api/user/auth", auth, (req, res) => {
   });
 });
 
-app.post("/api/group/search_card", group_search, (req, res) => {
-  console.log("ggggggggsuccess");
-  console.log(req.array);
+app.post("/api/group/search_card", upload.single("image"),group_search, (req, res) => {
+  console.log("group get success");
+  //console.log(req.array);
   if(req.array===undefined){
     return ;
   }
+  //그룸들에 대한 모든 정보를 넘겨줌
   res.status(200).json({
     array: req.array,
   });
-  //};
+  
 });
 
-app.post("/api/group/search_card", group_add);
+app.post("/api/group/create_group", group_add,(req,res)=>{
+  console.log("그룹 추가");
+  res.status(200).json({
+    success: true,
+    
+  });
+});
 
 app.post("/api/group/timeline", boardget1, async (req, res) => {
   console.log(
@@ -151,6 +168,7 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
   if(req.array===undefined){
     return ;
   }
+  //timeline에 해당하는 게시물을 가져와서 넘겨준다.
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";
@@ -221,10 +239,11 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   console.log(
     "====================================notice success========================================="
   );
-  console.log(req.array[0]);
+  
   if(req.array===undefined){
     return ;
   }
+  //notice에 해당하는 게시물을 가져와서 넘겨준다.
   let all_array = req.array;
   console.log(all_array);
   let all_array2 = "";
@@ -291,9 +310,66 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   });
 });
 
-app.post("/api/group_calendar/date", group_calendar);
-app.post("/api/group_calendar/updating_date", add_calendar);
-app.post("/api/group_calendar/deleting_date", del_calendar);
+app.post("/api/group_calendar/date", group_calendar,(req, res) => {
+  console.log("==================================calendar=====================================");
+  console.log(req.array);
+  res.status(200).json({
+    success: true,
+    calendarList: req.array,
+  });
+});
+app.post("/api/group_calendar/add_date", add_calendar,(req,res)=>{
+  res.status(200).json({
+    id: req.maxno
+  });
+});
+app.post("/api/group_calendar/delete_date", del_calendar,(req,res)=>{
+  res.status(200).json({
+    success: true
+  });
+});
+app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
+  const sql2="select * from `groupcalendar` where process=?";
+        var array=[];
+        sql.pool.query(sql2,req.id,(err,rows,fields)=>{   
+            if (err) {
+                console.log(err);
+            } else {
+                //console.log(rows);
+                console.log("groupcalendar come");
+                
+                rows.forEach((info,index,newarray) => {
+                    req.process = info.process;
+                    console.log(req.process);
+                    req.group_name = info.group_name;
+                    console.log( req.group_name );
+                    req.start =info.start;
+                    console.log( req.start );
+                    req.do_text=info.title;
+                    req.writer =info.writer;
+                    console.log( req.writer );
+                    req.end =info.end;
+                    console.log( req.end );
+                    //req.notice =info.notice;
+                    array.push({
+                    id: req.process ,
+                    group:req.group_name,
+                      //photo_name:req.title,
+                    start:req.start,
+                    end:req.end,
+                    name:req.writer,
+                    title:req.do_text,
+                      //votes_list:null 
+                    });
+                    req.array=array;
+                });
+            }
+            console.log(req.array);
+            res.status(200).json({
+            calendarList: req.array,
+            });
+        })
+});
 
 io.on("connection", (socket) => {
   socket.on("chatting", (data) => {

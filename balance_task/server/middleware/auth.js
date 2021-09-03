@@ -14,11 +14,10 @@ let auth = (req, res, next) => {
     if (err) {
       console.log(err);
     } else {
-      //console.log(rows);
-      //var array=[];
+      
       rows.forEach((info) => {
         if (info.jwt === token) {
-          //isUser = true;
+          
           var array=[];
           console.log("true");
           req.token = token;
@@ -34,7 +33,6 @@ let auth = (req, res, next) => {
           const sql2="select * from `groups` where user=?";
           sql.pool.query(sql2,req.id,(err,rows,fields)=>{
               //console.log(rows);
-              
               rows.forEach((info) => {
                 req.group_name=info.group_name;
                 array.push({
@@ -45,14 +43,8 @@ let auth = (req, res, next) => {
               req.array=array;
             next();
           })
-          //console.log(array);
-          //req.array=array;
-          //req.user = user;
-          //next();
           console.log("json true");
-          //return res.json({ isAuth: true, error: false });
         } else {
-          //console.log("err");
           return;
         }
       });

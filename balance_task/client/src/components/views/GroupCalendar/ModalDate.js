@@ -15,7 +15,7 @@ const calculateDate = () =>{
   return `${year}-${month}-${date}`;
 }
 
-function ModalDate({dateInfo, isClick, setIsClick, calendarData, setCalendarData}) {
+function ModalDate({group,dateInfo, isClick, setIsClick, calendarData, setCalendarData}) {
   console.log(dateInfo);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
@@ -41,7 +41,7 @@ function ModalDate({dateInfo, isClick, setIsClick, calendarData, setCalendarData
     setToDo(value);
   }
 
-  const addToDo = () =>{
+  const addToDo = () =>{              
     if(start === null || start === '') return;
     if(end === null || end === '') return;
     if(toDo === null || toDo === '') return;
@@ -54,16 +54,18 @@ function ModalDate({dateInfo, isClick, setIsClick, calendarData, setCalendarData
         allDay: dateInfo.allDay,
         email: '로그인시 받는 이메일', //redux의 userData의 정보로부터 넣으면 될듯 email과 name은 그렇다
         name: '이름',
-        // group:group
+        group:group
       }
-      setCalendarData(calendarData.concat(dateData));
+      console.log(dateData);
       dispatch(addDate(dateData)).then(response=>{
         //백엔드애들이 주석 풀어주기
         // if(response.payload.success){
-        //   console.log('할 일 추가됨');
-        // }else{
-        //  console.log('오류');
-        // }
+          //   console.log('할 일 추가됨');
+          // }else{
+            //  console.log('오류');
+            // }
+            console.log(response.payload);
+            setCalendarData(calendarData.concat(response.payload));
       });
       setIsClick({...isClick , modal_date: false});
       
@@ -74,16 +76,17 @@ function ModalDate({dateInfo, isClick, setIsClick, calendarData, setCalendarData
         end:end,
         email: '로그인시 받는 이메일', //redux의 userData의 정보로부터 넣으면 될듯 email과 name은 그렇다
         name: '이름',
-        // group:group
+        group:group
       }
+      console.log(dateData);
       setCalendarData(calendarData.concat(dateData));
       dispatch(addDate(dateData)).then(response=>{
         //백엔드애들이 주석 풀어주기
-        // if(response.payload.success){
-        //   console.log('할 일 추가됨');
-        // }else{
-        //  console.log('오류');
-        // }
+        if(response.payload.success){
+          console.log('할 일 추가됨');
+        }else{
+         console.log('오류');
+        }
       });
       setIsClick({...isClick , modal_date: false});
     }
