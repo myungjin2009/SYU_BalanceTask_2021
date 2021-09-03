@@ -1,23 +1,28 @@
 import React from 'react'
 import Modal from './views/MyPagePage/Modal';
+import styled from 'styled-components';
 
 function Practice() {
-  const[modalOpen, setModalOpen] = React.useState(false); 
-  const openModal = () => {
-    setModalOpen(true);
-  }
-  const closeModal = () => {
-    setModalOpen(false);
-  }     
 
   return (
-    <div>
-      <button onClick={openModal}>버튼</button>
-      <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
-        테스트모달
-      </Modal>
-    </div>
-  )
+    <Container>
+      <label className="input_file_button" for="input_file">
+        업로드
+      </label>
+      <input type="file" id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={onImgChange}/>
+    </Container>
+  );
 }
+// CSS
+
+const Container = styled.div`
+  & > .input_file_button {
+    padding: 6px 25px;
+    background-color:#FF6600;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+`;
 
 export default Practice

@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import styled, {keyframes} from "styled-components";
 import Navigation from "../Navigation/Navigation";
 import Modal from './Modal';
 
-
-import settings_icon from '../../../images/settings_icon.png';
-import edit_icon from '../../../images/edit_icon.png';
 import {withRouter} from "react-router";
-
 import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 
 
+const handleChangeText = (e, setCount, setText) => {          //프로필수정-글자수 세기
+  setText(e.target.value);
+  setCount(e.target.value.length);
+};
 
 const receiveMyPageData = (dispatch, userData) =>{
   // const {email, name} = userData;
@@ -23,7 +23,6 @@ const receiveMyPageData = (dispatch, userData) =>{
     // if(res.payload.success){
       
     // }
-    console.log('ddsasdas');
     dispatch(chooseLoading(false));
   });
 }
@@ -35,10 +34,21 @@ const MyPage = (props) => {
   }
   const closeModal = () => {
     setModalOpen(false);
-  }                                                       //모달창
+  }                                                             //모달창
 
-  const state = useSelector(state => state.user);
-  console.log(state);
+
+
+  const[count, setCount] = React.useState(0);                  //프로필수정-글자수 세기
+  const[text, setText] = React.useState('');                   //프로필수정-글자수 세기
+  const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
+  const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
+  
+  
+  const ImgBtn = React.useRef();                                //프로필 수정 버튼
+  const ImgBtnClick = () => {
+    ImgBtn.current.click();
+  }                                                             //프로필 수정 버튼
+
   const {profile, project_list} = state;
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = profile;
   const isLoading = useSelector(state => state.user.isLoading);
@@ -53,6 +63,27 @@ const MyPage = (props) => {
       dispatch(chooseLoading(false));
     }
   },[isLoading]);
+
+  const profileImgChange = (event) => {                         //프로필 이미지
+    let reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) {
+        setDetailImageUrl(base64.toString());
+      }
+    };
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+      //이 코드가 onloadend의 트리거가 된다.
+      //그 덕에 setThumbnail함수가 이 코드가 2번 실행되는 것같다.
+      //그리고 reader.result 안에 base64 인코딩 된 스트링 데이터가 있게 된다.
+      setDetailImageFile(event.target.files[0]);
+    } else {
+      setDetailImageUrl(null);
+      setDetailImageFile(null);
+    }
+  };                                                              //프로필 이미지
 
   return (
     <Container>
@@ -73,9 +104,10 @@ const MyPage = (props) => {
           <Header isLoading={isLoading}>
           
             <div className="profile_IMG">
-                <img className="Profile" alt="Profile" src={ProfileImage} />
-              <div className="EditProfile">
+              {detailImageUrl ? <img className="Profile" alt="Profile" src={detailImageUrl} />:<img className="Profile" alt="Profile" src={ProfileImage} />}
+              <div className="EditProfile" onClick={ImgBtnClick}>
                 <i className="fas fa-user-circle"></i>
+                <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />
               </div>
             </div>
     
@@ -106,8 +138,9 @@ const MyPage = (props) => {
           <Introduce>
             <div className="profileIntroduce">프로필 소개</div>
             <div className = "profileMessage" >{ProfileMessage}</div>
-            <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
-              테스트모달
+            <Modal open={ modalOpen } close={ closeModal } header="프로필 편집">
+              <input type="text"  maxLength="25" value={text} onChange={(e) => handleChangeText(e, setCount, setText)}></input>
+              <div className="numCount">{count}/25</div>
             </Modal>
             <div className = "editIcon" onClick={openModal}>
               <i class="far fa-edit"></i>
