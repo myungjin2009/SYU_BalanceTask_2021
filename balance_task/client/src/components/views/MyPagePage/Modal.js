@@ -116,7 +116,6 @@ const MyModal = styled.div`
                     padding: 0.5rem 1rem;  
                     font-size: 1rem;
                     text-align: center;
-                    
                     border: none;
                     border-radius: 4px;
                 }
