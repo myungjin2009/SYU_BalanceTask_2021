@@ -40,7 +40,11 @@ router.route("/api/user/login").post(function (req, res) {
           {id,},YOUR_SECRET_KEY,{expiresIn: "1h",}
         );
         console.log(accessToken);
-        res.cookie("user", accessToken);
+        res.cookie("user", accessToken,{
+          //maxAge: 15*60,
+          httpOnly: true,
+          path:'/'
+        });
         if (sql.pool) {
           user.savetoken(accessToken, req.body.id, function (err, savetoken) {
             // 동일한 id로 추가하려는 경우 에러 발생 - 클라이언트로 에러 전송

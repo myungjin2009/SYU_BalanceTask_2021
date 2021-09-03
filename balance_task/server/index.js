@@ -123,7 +123,6 @@ app.post("/api/user_email", node__mailer, (req, res) => {
 
 app.get("/api/user/auth", auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
-
   console.log("success");
   //로그인한 유저 정보를 넘겨줌
   console.log(req.array);
