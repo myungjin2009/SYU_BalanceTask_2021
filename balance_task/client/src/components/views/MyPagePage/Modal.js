@@ -106,6 +106,22 @@ const MyModal = styled.div`
                 padding: 16px;
                 border-bottom: 1px solid #dee2e6;
                 border-top: 1px solid #dee2e6;
+                & > input {
+                    width: 90%;
+                    height: auto;
+                    line-height : normal;
+                    padding: .8em .5em;
+                    border: 1px solid #999;
+                    border-radius: 0;
+                    outline-style: none;
+                    display: block;
+                    margin: 0 auto;
+                }
+                & > .numCount {
+                    width: 100%;
+                    margin-top: 2vh;
+                    text-align: center;
+                }
             }
     
     
