@@ -43,16 +43,14 @@ const MyPage = (props) => {
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   
-  
   const ImgBtn = React.useRef();                                //프로필 수정 버튼
   const ImgBtnClick = () => {
     ImgBtn.current.click();
   }                                                             //프로필 수정 버튼
-
-  const {profile, project_list} = state;
+  const state = useSelector(state => state.user);
+  const {profile, project_list, userData} = state;
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = profile;
   const isLoading = useSelector(state => state.user.isLoading);
-  const userData = useSelector(state => state.user.userData);
   const dispatch = useDispatch();
   const test1 = project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   
@@ -104,7 +102,7 @@ const MyPage = (props) => {
           <Header isLoading={isLoading}>
           
             <div className="profile_IMG">
-              {detailImageUrl ? <img className="Profile" alt="Profile" src={detailImageUrl} />:<img className="Profile" alt="Profile" src={ProfileImage} />}
+              {detailImageUrl ? <UserProfile url = {detailImageUrl}></UserProfile>:<img className="Profile" alt="Profile" src={ProfileImage} />}
               <div className="EditProfile" onClick={ImgBtnClick}>
                 <i className="fas fa-user-circle"></i>
                 <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />
@@ -169,6 +167,14 @@ const Container = styled.div`
   overflow:auto;
   min-width: 325px;
   
+`;
+const UserProfile = styled.div`
+  background-image: url('${(props) => props.url}');
+  width: 12vh;
+  height: 12vh;
+  border-radius: 50%;
+  background-size: cover;
+  border: 2px solid white;
 `;
 const WorkingBlock = styled.div`
   margin-top: 3vh;

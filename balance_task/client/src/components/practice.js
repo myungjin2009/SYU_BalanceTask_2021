@@ -9,7 +9,7 @@ function Practice() {
       <label className="input_file_button" for="input_file">
         업로드
       </label>
-      <input type="file" id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={onImgChange}/>
+      <input type="file" id="input_file" style={{display:"none"}} accept='image/*' name='file'/>
     </Container>
   );
 }
