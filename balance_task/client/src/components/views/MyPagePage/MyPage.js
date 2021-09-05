@@ -127,7 +127,7 @@ const MyPage = (props) => {
     
             <div className="settings">
               <div className="Settings_icon">
-                <i class="fas fa-cog" onClick={()=>{props.history.push('/settings')}}></i>
+                <i className="fas fa-cog" onClick={()=>{props.history.push('/settings')}}></i>
               </div>
             </div>
           
@@ -141,7 +141,7 @@ const MyPage = (props) => {
               <div className="numCount">{count}/25</div>
             </Modal>
             <div className = "editIcon" onClick={openModal}>
-              <i class="far fa-edit"></i>
+              <i className="far fa-edit"></i>
             </div>
           </Introduce>
     

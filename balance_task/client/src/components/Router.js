@@ -28,8 +28,6 @@ import EditAccount from "./views/SettingPage/EditAccount";
 import Withdraw from "./views/SettingPage/Withdraw";
 
 const Router = (props) => {
-  const [user, setUser] = useState("박건형");
-
   return (
     <BrowserRouter>
       <Switch>

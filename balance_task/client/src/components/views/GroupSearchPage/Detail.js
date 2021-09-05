@@ -6,11 +6,13 @@ import { joinGroup } from '../../../_actions/group_action';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
   const {location:{state:{content, writer, date, image, kind}}} = props;
-  const userData = useSelector(state => state.user.userData);
+  // const userData = useSelector(state => state.user.userData);
   const dispatch = useDispatch();
-  
+  const new_obj = {
+    group: team,
+  }
   const postHandler = () =>{
-    dispatch(joinGroup(userData)).then(response=>{
+    dispatch(joinGroup(new_obj)).then(response=>{
       if(response.payload.success){
         props.history.goBack();
       }

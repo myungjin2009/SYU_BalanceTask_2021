@@ -21,17 +21,17 @@ const initialState = {
     ProfileMessage: ``,
   },
   project_list:[
-    // {
-    //   id: 1,
-    //   group: "한이음 IcTT",
-    //   project_Host: "주식회사한이음",
-    //   logo_src: "",
-    //   project_DeadLine: 20210920,
-    //   favoriteList: false,
-    //   Contribution: 65,
-    //   Finished: false,
-    //   logo: hanium_logo
-    // },
+    {
+      id: 1,
+      group: "두유개발자",
+      project_Host: "주식회사한이음",
+      logo_src: "",
+      project_DeadLine: 20210920,
+      favoriteList: false,
+      Contribution: 65,
+      Finished: false,
+      logo: hanium_logo
+    },
     // {
     //   id: 2,
     //   group: "한사랑 IcTT",
@@ -88,7 +88,6 @@ export default function (state = initialState, action) {
       return { ...state, signupSuccess: action.payload };
     case AUTH_USER:{
       const data={...state, userData: action.payload, profile: {...state.profile, ProfileName: action.payload.name}};
-      console.log(data);
       return data;
     }
     case AUTH_USER_EMAIL:

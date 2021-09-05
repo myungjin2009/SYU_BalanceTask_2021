@@ -18,7 +18,7 @@ const GroupCalendar = (props) => {
   const [isWeekends, setIsWeekends] = useState(false);
   const [dateInfo, setDateInfo] = useState(null);
   const dispatch = useDispatch();
-  const user_group=useSelector(state=>state.user);
+  // const user_group=useSelector(state=>state.user);
   //console.log(user_group);
   const group=props.match.params.group;
   useEffect(() => {
@@ -33,7 +33,7 @@ const GroupCalendar = (props) => {
       setCalendarData(response.payload.calendarList);
     });
     
-  }, []);
+  }, [isClick]);
 
   const handleDateClick = (arg) =>{
     setDateInfo(arg);
