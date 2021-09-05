@@ -9,7 +9,11 @@ function Practice() {
       <label className="input_file_button" for="input_file">
         업로드
       </label>
+<<<<<<< HEAD
       <input type="file" id="input_file" style={{display:"none"}} accept='image/*' name='file' />
+=======
+      <input type="file" id="input_file" style={{display:"none"}} accept='image/*' name='file'/>
+>>>>>>> 08d87a6ab284de53cade3569a893493ba919c246
     </Container>
   );
 }

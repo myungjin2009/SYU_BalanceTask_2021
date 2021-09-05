@@ -13,69 +13,69 @@ import profile_default from '../images/profile_sample.jpg';
 
 const initialState = {
   profile:{
-    ProfileName: "홍길동",
+    ProfileName: '',
     ProfileImage: profile_default,
-    FinishedPJ: 3,
-    ContinuingPJ: 1,
-    Score: 78,
-    ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다.`,
+    FinishedPJ: 0,
+    ContinuingPJ: 0,
+    Score: '',
+    ProfileMessage: ``,
   },
   project_list:[
-    {
-      id: 1,
-      group: "한이음 IcTT",
-      project_Host: "주식회사한이음",
-      logo_src: "",
-      project_DeadLine: 20210920,
-      favoriteList: false,
-      Contribution: 65,
-      Finished: false,
-      logo: hanium_logo
-    },
-    {
-      id: 2,
-      group: "한사랑 IcTT",
-      project_Host: "주식회사한음",
-      logo_src: "",
-      project_DeadLine: 20210920,
-      favoriteList: false,
-      Contribution: 65,
-      Finished: false,
-      logo: hanium_logo
-    },
-    {
-      id: 3,
-      group: "와우 IcTT",
-      project_Host: "주식회사이음",
-      logo_src: "",
-      project_DeadLine: 20210920,
-      favoriteList: false,
-      Contribution: 65,
-      Finished: false,
-      logo: hanium_logo
-    },
-    {
-      id: 4,
-      group: "와우 IcTT",
-      project_Host: "주식회사이음",
-      logo_src: "",
-      project_DeadLine: 20210920,
-      favoriteList: false,
-      Contribution: 65,
-      Finished: false,
-      logo: hanium_logo
-    },
-    {
-      id: 5,
-      group: "와우 IcTT",
-      project_Host: "주식회사이음",
-      logo_src: "",
-      project_DeadLine: 20210920,
-      favoriteList: false,
-      Contribution: 65,
-      Finished: false,
-      logo: hanium_logo
-    }
+    // {
+    //   id: 1,
+    //   group: "한이음 IcTT",
+    //   project_Host: "주식회사한이음",
+    //   logo_src: "",
+    //   project_DeadLine: 20210920,
+    //   favoriteList: false,
+    //   Contribution: 65,
+    //   Finished: false,
+    //   logo: hanium_logo
+    // },
+    // {
+    //   id: 2,
+    //   group: "한사랑 IcTT",
+    //   project_Host: "주식회사한음",
+    //   logo_src: "",
+    //   project_DeadLine: 20210920,
+    //   favoriteList: false,
+    //   Contribution: 65,
+    //   Finished: false,
+    //   logo: hanium_logo
+    // },
+    // {
+    //   id: 3,
+    //   group: "와우 IcTT",
+    //   project_Host: "주식회사이음",
+    //   logo_src: "",
+    //   project_DeadLine: 20210920,
+    //   favoriteList: false,
+    //   Contribution: 65,
+    //   Finished: false,
+    //   logo: hanium_logo
+    // },
+    // {
+    //   id: 4,
+    //   group: "와우 IcTT",
+    //   project_Host: "주식회사이음",
+    //   logo_src: "",
+    //   project_DeadLine: 20210920,
+    //   favoriteList: false,
+    //   Contribution: 65,
+    //   Finished: false,
+    //   logo: hanium_logo
+    // },
+    // {
+    //   id: 5,
+    //   group: "와우 IcTT",
+    //   project_Host: "주식회사이음",
+    //   logo_src: "",
+    //   project_DeadLine: 20210920,
+    //   favoriteList: false,
+    //   Contribution: 65,
+    //   Finished: false,
+    //   logo: hanium_logo
+    // }
   ],
   isLoading: true
 }
@@ -87,9 +87,9 @@ export default function (state = initialState, action) {
     case SIGNUP_USER:
       return { ...state, signupSuccess: action.payload };
     case AUTH_USER:{
-      const data={...state, userData: action.payload};
+      const data={...state, userData: action.payload, profile: {...state.profile, ProfileName: action.payload.name}};
       console.log(data);
-      return { ...state, userData: action.payload };
+      return data;
     }
     case AUTH_USER_EMAIL:
       return { ...state, emailAuth: action.payload };
