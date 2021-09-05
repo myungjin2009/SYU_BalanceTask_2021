@@ -33,7 +33,7 @@ const GroupCalendar = (props) => {
       setCalendarData(response.payload.calendarList);
     });
     
-  }, []);
+  }, [isClick]);
 
   const handleDateClick = (arg) =>{
     setDateInfo(arg);

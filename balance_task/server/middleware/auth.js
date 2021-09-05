@@ -7,6 +7,7 @@ let auth = (req, res, next) => {
   //인증 처리를 할 코드를 넣어야 한다
   // 클라이언트 쿠키에서 토큰을 가져온다.
   let token = req.cookies.user;
+  console.log("auth=====================================================================================auth");
   const sql1= "SELECT * FROM user";
   //const sql1 = "SELECT * FROM user u , `groups` g where u.id=g.user ";
   //const sql2="select * from `groups`";
@@ -29,7 +30,7 @@ let auth = (req, res, next) => {
           req.user_image=info.user_image;
           req.introduce=info.introduce;
           req.user_category=info.user_category;
-          isAuth=true;
+          req.isAuth=true;
           const sql2="select * from `groups` where user=?";
           sql.pool.query(sql2,req.id,(err,rows,fields)=>{
               //console.log(rows);

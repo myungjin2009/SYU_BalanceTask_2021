@@ -10,7 +10,10 @@ const Detail = (props)=>{
   const dispatch = useDispatch();
   
   const postHandler = () =>{
-    dispatch(joinGroup(userData)).then(response=>{
+    const new_obj={
+      group:team,
+    }
+    dispatch(joinGroup(new_obj)).then(response=>{
       if(response.payload.success){
         props.history.goBack();
       }

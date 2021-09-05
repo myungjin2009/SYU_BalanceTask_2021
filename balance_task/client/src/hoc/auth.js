@@ -21,11 +21,11 @@ export default function(SpecificComponent, option, adminRoute = null){
         //console.log(response.payload);
         if(!response.payload.isAuth){
           if(option){
-            props.history.push('/login');
+            props.history.push('/');
           }
         }else{
           if(option === false){
-            props.history.push('/');
+            props.history.push('/my_page');
           }
         }
       });

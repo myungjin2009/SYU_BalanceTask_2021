@@ -53,6 +53,7 @@ var { node__mailer } = require("./router/node-mailer");
 //그룹 관련 모듈
 var { group_search } = require("./group/groupget");
 var group_add = require("./group/group_add");
+var { grouppart } = require("./group/grouppart");
 
 //타임라인, 공지 관련 모듈
 var { noticeget } = require("./groupboard/noticeget");
@@ -105,11 +106,29 @@ const upload = multer({dest: './upload'});
 // 라우터 객체 참조//var router = express.Router();
 var router = express.Router();
 
-app.post("/api/signup", signup);
+app.post("/api/signup", signup,(req,res)=>{
 
-app.post("/api/user/login", login);
+  res.status(200).json({
+    success: true,
+    
+  });
+});
 
-app.post("/api/user/logout", logout);
+app.post("/api/user/login", login,(req,res)=>{
+
+  res.status(200).json({
+    success: true,
+    
+  });
+});
+
+app.post("/api/user/logout", logout,(req,res)=>{
+
+  res.status(200).json({
+    success: true,
+    
+  });
+});
 
 app.post("/api/user_email", node__mailer, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
@@ -121,7 +140,14 @@ app.post("/api/user_email", node__mailer, (req, res) => {
   });
 });
 
-app.get("/api/user/auth", auth, (req, res) => {
+app.get("/api/user/auth",(req, res) => {
+  if(req.cookies.user===undefined || req.cookies.user===null){
+    res.status(200).json({
+      isAuth: false,
+    });
+    return ;
+  }
+}, auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
   console.log("success");
   //로그인한 유저 정보를 넘겨줌
@@ -130,10 +156,11 @@ app.get("/api/user/auth", auth, (req, res) => {
     //유저정보 제공
     //isAuth: true,
     group: req.array,
-    isAuth: isAuth,
+    isAuth: req.isAuth,
     name: req.name,
     token: req.token,
     id: req.id,
+    //success: true,
     //groupname: req.group_name
   });
 });
@@ -147,6 +174,7 @@ app.post("/api/group/search_card", upload.single("image"),group_search, (req, re
   //그룸들에 대한 모든 정보를 넘겨줌
   res.status(200).json({
     array: req.array,
+    success: true,
   });
   
 });
@@ -159,7 +187,14 @@ app.post("/api/group/create_group", group_add,(req,res)=>{
   });
 });
 
-app.post("/api/group/timeline", boardget1, async (req, res) => {
+app.post("/api/group/participation",grouppart,(req,res)=>{
+  res.status(200).json({
+    success: true,
+    
+  });
+});
+
+app.post("/api/group/timeline", boardget1, (req, res) => {
   console.log(
     "==========================================timesuccess==========================================="
   );
@@ -219,6 +254,7 @@ app.post("/api/group/timeline", boardget1, async (req, res) => {
           if (i === req.array.length - 1) {
             res.status(200).json({
               array: all_array2,
+              success: true,
             });
           }
         }
@@ -294,6 +330,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
           if (i === req.array.length - 1) {
             res.status(200).json({
               array: all_array2,
+              success: true,
             });
           }
         }
@@ -319,7 +356,8 @@ app.post("/api/group_calendar/date", group_calendar,(req, res) => {
 });
 app.post("/api/group_calendar/add_date", add_calendar,(req,res)=>{
   res.status(200).json({
-    id: req.maxno
+    id: req.maxno,
+    success: true,
   });
 });
 app.post("/api/group_calendar/delete_date", del_calendar,(req,res)=>{
@@ -366,6 +404,7 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
             console.log(req.array);
             res.status(200).json({
             calendarList: req.array,
+            success: true,
             });
         })
 });

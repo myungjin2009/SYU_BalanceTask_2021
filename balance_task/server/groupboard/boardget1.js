@@ -24,6 +24,9 @@ let boardget1 = (req, res, next) => {
     }
     console.log(lownumber);
     let highnumber=maxno-paramlastnumber-1;
+    if(highnumber<=0){
+      highnumber=0;
+    }
     console.log(highnumber);
     
     const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
