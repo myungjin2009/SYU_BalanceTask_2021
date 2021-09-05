@@ -41,7 +41,6 @@ const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch, se
   };
   console.log(body);
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-  console.log(Math.ceil(scrollTop + clientHeight),scrollHeight);
   if(Math.ceil(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
@@ -49,7 +48,7 @@ const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch, se
     dispatch(receiveTimeline(body)).then(res=>{
       //console.log(isCompleted);
       //setIsCompleted(true);
-      //console.log(entireTimeline,res.payload.array)
+      // console.log(entireTimeline,res.payload.array)
       console.log(res.payload.array);
       setTimeline([...entireTimeline,...res.payload.array]);
     });
@@ -62,19 +61,19 @@ const ProjectTimeline = (props) =>{
   const entireTimeline = useSelector(state => state.group.timelineList);
   const isLoading = useSelector(state => state.group.isLoading.timeline);
   const userData = useSelector(state => state.user.userData);
-  //console.log(entireTimeline);
+  // console.log(entireTimeline);
 
   const dispatch = useDispatch();
 
   const [timeline, setTimeline] = useState(entireTimeline);
   const [search, setSearch] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
-  //console.log(props);
+  // console.log(props);
   const group=props.match.params.group;
 
   useEffect(()=>{
     //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
-    //console.log(isLoading);
+    // console.log(isLoading);
     if(isLoading){
       if(userData === undefined){
         return;
@@ -83,9 +82,9 @@ const ProjectTimeline = (props) =>{
       
     }else{
       if(isCompleted){
-        //console.log(isCompleted);
+        // console.log(isCompleted);
         setTimeline(entireTimeline);
-        //console.log(entireTimeline);
+        // console.log(entireTimeline);
         //setIsCompleted(false);
         console.log('timeline 최신화 성공!');
         return;
@@ -97,7 +96,7 @@ const ProjectTimeline = (props) =>{
       }
     }
   },[search, isLoading, userData]);
-  //console.log(timeline);
+  // console.log(timeline);
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>

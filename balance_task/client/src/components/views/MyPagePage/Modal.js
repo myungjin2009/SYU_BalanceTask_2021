@@ -106,21 +106,6 @@ const MyModal = styled.div`
                 padding: 16px;
                 border-bottom: 1px solid #dee2e6;
                 border-top: 1px solid #dee2e6;
-                & > input {
-                    width: 90%;
-                    height: auto;
-                    line-height : normal;
-                    padding: .8em .5em;
-                    border: 1px solid #999;
-                    border-radius: 0;
-                    outline-style: none;
-                    display: block;
-                    margin: 0 auto;
-                }
-                & > .numCount {
-                    width: 100%;
-                    margin-top: 2vh;
-                    text-align: center;
                 }
             }
     
@@ -141,3 +126,32 @@ const MyModal = styled.div`
 `;
 
 export default Modal;
+
+
+{/*
+모달창 사용하기
+
+사용하고자 하는 컴포넌트에서 import 해준 후,
+
+맨 위에다가 모달창을 열고 닫게 해주는 useState 복붙
+----------------------------------------------------------------------------
+const MyPage = (props) => {
+  const[modalOpen, setModalOpen] = React.useState(false);       
+  const openModal = () => {
+    setModalOpen(true);
+  }
+  const closeModal = () => {
+    setModalOpen(false);
+  }                                                             
+----------------------------------------------------------------------------
+
+그리고 원하는 위치에
+
+
+            <Modal open={ modalOpen } close={ closeModal } header="모달창 제목">
+                내용
+            </Modal>
+            <button onClick={openModal} />
+
+
+*/}

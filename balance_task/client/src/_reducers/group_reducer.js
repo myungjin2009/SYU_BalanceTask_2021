@@ -2,14 +2,14 @@ import {
   RECEIVE_GROUPS_CARD,
   LOADING,
   JOIN_GROUP,
-  VOTE_FOR_POSTS,
+  // VOTE_FOR_POSTS,
   RECEIVE_NOTICE,
   RECEIVE_TIMELINE,
   CREATE_GROUP
 } from "../_actions/types";
-import img1 from "../images/노답.jpg";
-import img2 from "../images/멋쟁이들.jpg";
-import img3 from "../images/별.jpg";
+// import img1 from "../images/노답.jpg";
+// import img2 from "../images/멋쟁이들.jpg";
+// import img3 from "../images/별.jpg";
 
 const initialState = {
   groups_list: [
@@ -346,7 +346,8 @@ export default function (state = initialState, action) {
       }
       //서버랑 연결되면 사용
       let new_array = [...timelineList, ...action.payload.array];
-      console.log(new_array);
+      console.log("1",timelineList);
+      console.log("2",action.payload.array);
       return { ...state, timelineList: new_array };
     }
     case RECEIVE_NOTICE:{
