@@ -14,6 +14,7 @@ import Signup from "./views/SignupPage/Signup";
 import Login from "./views/LoginPage/Login";
 import NotFound from "./views/NotFoundPage/NotFound";
 import MyPage from "./views/MyPagePage/MyPage";
+import EditProfileMessage from "./views/MyPagePage/EditProfileMessage";
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import Detail from "./views/GroupSearchPage/Detail";
 import CreateGroup from "./views/CreateGroupPage/CreateGroup";
@@ -36,6 +37,7 @@ const Router = (props) => {
         <Route path="/finding_password" component={Auth(FindingPW, false)}/>
         {/* <Route path="/practice" component={Prac}/> */}
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
+        <Route exact path="/editProfileMessage" component={Auth(EditProfileMessage, true)} />
         <Route
           exact
           path="/group_search"
