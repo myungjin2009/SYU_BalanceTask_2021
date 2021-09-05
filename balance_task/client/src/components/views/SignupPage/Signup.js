@@ -110,6 +110,7 @@ const Signup = (props) => {
     if (!pwdCheck.test(password)) {
       // pwdCheck는 정규 표현식으로 test하는 함수를 지원한다.
       alert("비밀번호는 영문, 숫자, 특수문자 합 9-15자리가 되어야합니다.");
+      return;
     }
 
     if (password !== passwordCheck) {
