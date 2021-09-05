@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import styled from 'styled-components';
-=======
 import styled,{keyframes} from 'styled-components';
->>>>>>> edb861619d72dc999538d082386e9a5a44388eca
 import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
 
 const MyProfile = {                                         //REDUX 적용후 해체 예정
@@ -13,9 +9,6 @@ const MyProfile = {                                         //REDUX 적용후 �
     Score: 78,                                              //REDUX 적용후 해체 예정
     ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다.`,
   }                                                         //REDUX 적용후 해체 예정
-<<<<<<< HEAD
-
-=======
 const TEMP_INDEX = 1;   //임시
 const WorkerProfile = [{
         ProfileName: "김지원",                               //REDUX 적용후 해체 예정
@@ -79,16 +72,11 @@ const WorkerProfile = [{
         ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
     }
 ];
->>>>>>> edb861619d72dc999538d082386e9a5a44388eca
 
 const LoadWorker = (props) => {
     if(props.type === "MyProfile") {
         return(
-<<<<<<< HEAD
-            <Profile>
-=======
             <Profile type="myProfile" color="rgb(230,247,230)">
->>>>>>> edb861619d72dc999538d082386e9a5a44388eca
                 <div className = "ProfileImg">
                     <img className ="ProfileimgSource" src={MyProfile.ProfileImage} />
                 </div>
@@ -99,17 +87,6 @@ const LoadWorker = (props) => {
         );
     }
     else if(props.type === "WorkerProfile") {
-<<<<<<< HEAD
-        return(<div>
-            <NoWorker>
-                <div className="NoWorkerIcon">
-                    <i class="fas fa-users-slash"></i>    
-                </div>
-                <div className="NoWorkerMessage">아직 추가된 워커가 없습니다!</div>
-            </NoWorker>
-            
-        </div>);
-=======
         if(TEMP_INDEX < 1) {
             return(<div>
                 <NoWorker>
@@ -143,7 +120,6 @@ const LoadWorker = (props) => {
                 </div>
             );
         }
->>>>>>> edb861619d72dc999538d082386e9a5a44388eca
     }
     
 }
@@ -151,22 +127,14 @@ const LoadWorker = (props) => {
 const Profile = styled.div`
     height: 9vh;
     border-bottom: 2px solid rgb(200,200,200);
-<<<<<<< HEAD
-    & > .ProfileImg {
-        
-=======
     background-color: ${props => props.color};
     & > .ProfileImg {
->>>>>>> edb861619d72dc999538d082386e9a5a44388eca
         width: 15%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-<<<<<<< HEAD
-=======
         margin-left: 0.5vh;
->>>>>>> edb861619d72dc999538d082386e9a5a44388eca
         float: left;
         & > .ProfileimgSource {
             border: 1.5px solid black;
