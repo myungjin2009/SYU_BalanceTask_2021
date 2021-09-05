@@ -1,18 +1,14 @@
 import React, {useEffect} from "react";
+import {useHistory} from "react-router";  //history.push에 propr값 넘겨주기 위한 임포트
 import styled, {keyframes} from "styled-components";
 import Navigation from "../Navigation/Navigation";
 import Modal from './Modal';
+import EditProfileMessage from './EditProfileMessage';
 
 import {withRouter} from "react-router";
 import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
-
-
-const handleChangeText = (e, setCount, setText) => {          //프로필수정-글자수 세기
-  setText(e.target.value);
-  setCount(e.target.value.length);
-};
 
 const receiveMyPageData = (dispatch, userData) =>{
   // const {email, name} = userData;
@@ -28,6 +24,7 @@ const receiveMyPageData = (dispatch, userData) =>{
 }
 
 const MyPage = (props) => {
+  const history = useHistory();                                 //history.push
   const[modalOpen, setModalOpen] = React.useState(false);       //모달창
   const openModal = () => {
     setModalOpen(true);
@@ -36,10 +33,6 @@ const MyPage = (props) => {
     setModalOpen(false);
   }                                                             //모달창
 
-
-
-  const[count, setCount] = React.useState(0);                  //프로필수정-글자수 세기
-  const[text, setText] = React.useState('');                   //프로필수정-글자수 세기
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   
@@ -48,7 +41,7 @@ const MyPage = (props) => {
   const ImgBtnClick = () => {
     ImgBtn.current.click();
   }                                                             //프로필 수정 버튼
-
+  const state = useSelector(state => state.user);
   const {profile, project_list} = state;
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = profile;
   const isLoading = useSelector(state => state.user.isLoading);
@@ -138,11 +131,18 @@ const MyPage = (props) => {
           <Introduce>
             <div className="profileIntroduce">프로필 소개</div>
             <div className = "profileMessage" >{ProfileMessage}</div>
+            {/*
             <Modal open={ modalOpen } close={ closeModal } header="프로필 편집">
               <input type="text"  maxLength="25" value={text} onChange={(e) => handleChangeText(e, setCount, setText)}></input>
               <div className="numCount">{count}/25</div>
             </Modal>
-            <div className = "editIcon" onClick={openModal}>
+            <div className = "editIcon" onClick={openModal}>*/}
+            <div className = "editIcon" onClick={() => {
+              history.push({                     //history.push 사용시 props 데이터 넘겨주기
+                pathname: '/EditProfileMessage',
+                state: {Message: ProfileMessage}
+            })
+              }}>
               <i class="far fa-edit"></i>
             </div>
           </Introduce>
