@@ -23,6 +23,10 @@ let group_calendar= (req, res, next) => {
         console.log("groupcalendar come");
         
         rows.forEach((info,index,newarray) => {
+            const color = new Array(6).fill(0).map((el)=>{
+              return Math.floor(Math.random() * 9);
+            }).join('');
+            console.log(color);
             req.process = info.process;
             console.log(req.process);
             req.group_name = info.group_name;
@@ -43,6 +47,8 @@ let group_calendar= (req, res, next) => {
               end:req.end,
               name:req.writer,
               title:req.do_text,
+              color: "#"+color
+              // display: 'background'
               //votes_list:null 
             });
             req.array=array;

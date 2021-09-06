@@ -140,13 +140,15 @@ app.post("/api/user_email", node__mailer, (req, res) => {
   });
 });
 
-app.get("/api/user/auth",(req, res) => {
+app.get("/api/user/auth",(req, res, next) => {
   if(req.cookies.user===undefined || req.cookies.user===null){
+    console.log('아직 로그인 안됨');
     res.status(200).json({
       isAuth: false,
     });
     return ;
   }
+  next();
 }, auth, (req, res) => {
   //미들웨어 통과해서 여기오면 AUTH가 TRUE
   console.log("success");

@@ -73,7 +73,7 @@ router.route("/api/user/login").post(function (req, res) {
           accessToken,
         });
       } else {
-        res.status(400).json({ error: "invalid user" });
+        res.status(200).json({ error: "invalid user" });
       }
     }
   });
