@@ -29,10 +29,11 @@ const Login = (props) => {
     
     dispatch(loginUser(body))
     .then(response => {
+      console.log(response);
       if(response.payload.success===true){
         props.history.push('/my_page');
       }else{
-        alert('오류!');
+        alert('아이디 또는 비밀번호가 맞지 않습니다!');
       }
     });
     
