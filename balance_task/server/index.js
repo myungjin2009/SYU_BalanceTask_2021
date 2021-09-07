@@ -62,6 +62,10 @@ var { boardget1 } = require("./groupboard/boardget1");
 //jwt auth 모듈
 var { auth } = require("./middleware/auth");
 
+//mypage 모듈
+
+var {mypage}=require("./mypage/mypage");
+
 //그룹 캘린더 관련 모듈
 var { group_calendar } = require("./group_calendar/group_calendar");
 var { add_calendar } = require("./group_calendar/add_calendar");
@@ -195,6 +199,19 @@ app.post("/api/group/participation",grouppart,(req,res)=>{
     
   });
 });
+
+app.post("/api/user/receive_mypage",mypage,upload.single("image"),(req,res)=>{
+  res.status(200).json({
+    success: true,
+    ProfileName: req.name,
+    ProfileImage: req.user_image,
+    FinishedPJ: req.FinishedPJ,
+    ContinuingPJ: req.ContinuingPJ,
+    Score: req.evaluation_score,
+    ProfileMessage: req.introduce,
+    project_list:req.array,
+  });
+})
 
 app.post("/api/group/timeline", boardget1, (req, res) => {
   console.log(

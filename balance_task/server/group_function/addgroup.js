@@ -70,6 +70,26 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
         callback(null, result);
     }
     );
+    var data2 = {group_name:groupname, user:groupjwt};
+    var exec2 = conn.query(
+      "insert into groupusers set ?",
+      data2,
+      function (err, result) {
+          //conn.release(); // 반드시 해제해야 함
+          console.log("실행 대상 SQL : " + exec2.sql);
+  
+          if (err) {
+          console.log("SQL 실행 시 에러 발생함.");
+          console.dir(err);
+  
+          //callback(err, null);
+  
+          return;
+          }
+  
+          //callback(null, result);
+      }
+      );
 
     conn.on("error", function (err) {
     console.log("데이터베이스 연결 시 에러 발생함.");

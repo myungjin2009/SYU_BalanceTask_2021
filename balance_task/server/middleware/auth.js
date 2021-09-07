@@ -31,17 +31,28 @@ let auth = (req, res, next) => {
           req.introduce=info.introduce;
           req.user_category=info.user_category;
           req.isAuth=true;
-          const sql2="select * from `groups` where user=?";
+          const sql2="select * from groupusers where user=?";
           sql.pool.query(sql2,req.id,(err,rows,fields)=>{
               //console.log(rows);
-              rows.forEach((info) => {
+              //req.array=array;
+            // const sql3="select * from groupusers where user=?";
+            // sql.pool.query(sql3,req.id,(err,rows,fields)=>{
+            //   rows.forEach((info) => {
+            //     req.group_name=info.group_name;
+            //     array.push({
+            //       group:req.group_name,
+            //     });
+            //     //console.log(array);
+            //   })
+            // })
+            rows.forEach((info) => {
                 req.group_name=info.group_name;
                 array.push({
                   group:req.group_name,
                 });
                 //console.log(array);
               })
-              req.array=array;
+            req.array=array;
             next();
           })
           console.log("json true");
