@@ -39,9 +39,11 @@ const MyPage = (props) => {
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   const [myPageData, setMyPageData] = React.useState({profile, project_list});
+  console.log(myPageData.profile);
   
   const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
+
   console.log(myPageData.profile);
   useEffect(()=>{
     if(isLoading){

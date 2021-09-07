@@ -206,20 +206,75 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
   console.log(
     "==========================================mypage==========================================="
   );
-  console.log(req.array);
-  res.status(200).json({
-    success: true,
-    profile:{
-      ProfileName: req.name,
-      ProfileImage: req.user_image,
-      FinishedPJ: req.FinishedPJ,
-      ContinuingPJ: req.ContinuingPJ,
-      Score: req.evaluation_score,
-      ProfileMessage: req.introduce
-    },
-    project_list:req.array,
-  });
-})
+            console.log(req.name);
+            let userarray=[]
+            userarray.push({
+              ProfileName: req.name,
+              ProfileImage: req.user_image,
+              FinishedPJ: 0,
+              ContinuingPJ: 0,
+              Score: req.evaluation_score,
+              ProfileMessage: req.introduce
+            });
+            console.log(userarray);
+            var array=[];
+            const sql2="select * from `groups` g,groupusers i where g.group_name=i.group_name and i.user=?";
+            sql.pool.query(sql2,req.id,(err,rows,fields)=>{  
+
+            rows.forEach((info) => {
+                req.group_name = info.group_name;
+                req.startdate =info.startdate;
+                req.makeuser =info.user;
+                req.makehost =info.host;
+                req.category =info.category;
+                req.content =info.content;
+                req.deadline =info.deadline;
+                req.group_no=info.group_no;
+                req.image=info.group_images;
+                req.name=info.name;
+                req.enjoy=info.enjoy;
+                if(req.enjoy===null || req.enjoy===0){
+                    req.enjoy=false;
+                }
+                req.complete=info.complete;
+                if(req.complete===1){
+                    req.complete=true;
+                }
+                array.push({
+                    id:req.group_no,
+                    group:req.group_name,
+                    logo_src: "",
+                    project_Hostt:req.makehost,
+                    project_DeadLine:req.deadline,
+                    project_StartLine:req.startdate,
+                    favoriteList: req.enjoy,
+                    Finished: req.complete,
+                    logo: "hanium_logo"
+                });
+                  //console.log(array);
+            })
+            console.log(req.userarray);
+            req.array=array;
+            var time=moment().format('YYYY-MM-DD HH:mm:ss');
+            req.FinishedPJ=0;
+            req.ContinuingPJ=0;
+            for(var i=0;i<array.length;i++){
+                if(array[i].deadline<=time){
+                    userarray[0].FinishedPJ=userarray[0].FinishedPJ+1;                   
+                }else{
+                  userarray[0].ContinuingPJ=userarray[0].ContinuingPJ+1;
+                }
+            }
+            console.log(req.array);
+            console.log(userarray);
+            res.status(200).json({
+                success: true,
+                profile:userarray[0],
+                project_list:req.array,
+              });
+      });         
+  
+});
 
 app.post("/api/group/timeline", boardget1, (req, res) => {
   console.log(
