@@ -8,6 +8,13 @@ const bcrypt=require('bcrypt');
 
 let findpassword= (req, res, next) => {
     console.log("findpassword 호출됨");
+    var paramauthNumber=req.body.authNumber || req.query.authNumber;
+    var sendNumber=req.body.okNumber || req.query.okNumber;
+    if(paramauthNumber == sendNumber){ 
+        console.log("인증번호 맞다");
+    }else{
+        console.log("인증번호 틀리다");
+    }
     var paramid=req.body.id || req.query.id;
     var paramPassword=req.body.password || req.query.password;
     const encryptedPassowrd = bcrypt.hashSync(paramPassword, 10);

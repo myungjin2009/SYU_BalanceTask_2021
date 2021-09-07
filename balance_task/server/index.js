@@ -201,6 +201,9 @@ app.post("/api/group/participation",grouppart,(req,res)=>{
 });
 
 app.post("/api/user/receive_mypage",mypage,upload.single("image"),(req,res)=>{
+  console.log(
+    "==========================================mypage==========================================="
+  );
   res.status(200).json({
     success: true,
     ProfileName: req.name,

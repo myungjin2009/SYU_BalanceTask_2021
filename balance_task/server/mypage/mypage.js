@@ -10,13 +10,11 @@ const moment=require("moment");
 
 
 let mypage = (req, res, next) => {
-    //인증 처리를 할 코드를 넣어야 한다
-    // 클라이언트 쿠키에서 토큰을 가져온다.
+
     let token = req.cookies.user;
     console.log("mypage 호출");
     const sql1= "SELECT * FROM user where jwt=?";
-    //const sql1 = "SELECT * FROM user u , `groups` g where u.id=g.user ";
-    //const sql2="select * from `groups`";
+    
     sql.pool.query(sql1,token, (err, rows, fields) => {
     if (err) {
         console.log(err);
@@ -62,11 +60,13 @@ let mypage = (req, res, next) => {
                 array.push({
                     id:req.group_no,
                     group:req.group_name,
+                    logo_src: "",
                     project_Hostt:req.makehost,
                     project_DeadLine:req.deadline,
                     project_StartLine:req.startdate,
                     favoriteList: req.enjoy,
                     Finished: req.complete,
+                    logo: "hanium_logo"
                 });
                   //console.log(array);
             })
@@ -75,19 +75,19 @@ let mypage = (req, res, next) => {
             req.FinishedPJ=0;
             req.ContinuingPJ=0;
             for(var i=0;i<array.length;i++){
-                if(array[i].deadline>=time){
+                if(array[i].deadline<=time){
                     req.FinishedPJ=req.FinishedPJ+1;                   
                 }else{
                     req.ContinuingPJ=req.ContinuingPJ+1;
                 }
             }
             next();
-        })
+            })
             console.log("mypage true");
-        });
+            });
         //next();
-      }
+        }
     });
-  };
+};
   
-  module.exports = {mypage};
+module.exports = {mypage};
