@@ -200,18 +200,21 @@ app.post("/api/group/participation",grouppart,(req,res)=>{
   });
 });
 
-app.post("/api/user/receive_mypage",mypage,upload.single("image"),(req,res)=>{
+app.post("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
   console.log(
     "==========================================mypage==========================================="
   );
+  console.log(req.array);
   res.status(200).json({
     success: true,
+    profile:{
     ProfileName: req.name,
     ProfileImage: req.user_image,
     FinishedPJ: req.FinishedPJ,
     ContinuingPJ: req.ContinuingPJ,
     Score: req.evaluation_score,
-    ProfileMessage: req.introduce,
+    ProfileMessage: req.introduce
+    },
     project_list:req.array,
   });
 })

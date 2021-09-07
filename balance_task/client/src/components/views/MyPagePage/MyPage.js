@@ -21,8 +21,9 @@ const receiveMyPageData = (dispatch, userData, setMyPageData) =>{
   dispatch(receiveProjectMypage(body)).then(res => {
     if(res.payload.success){
       console.log('데이터 받기 성공');
+      console.log(res.payload.profile,res.payload.project_list);
       dispatch(chooseLoading(false));
-      setMyPageData(res.payload.my_page_data);
+      setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
     }
   });
 }
