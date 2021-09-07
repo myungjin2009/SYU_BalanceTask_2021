@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Header from '../Header/Header';
 import Button from '@material-ui/core/Button';      //버튼
 import {withRouter} from 'react-router-dom';
-import { updateMessage } from '../../../_actions/user_action';
+import { updateMessage, chooseLoading } from '../../../_actions/user_action';
 import {useDispatch} from 'react-redux';
 const handleChangeText = (e, setCount, setText) => {          //프로필수정-글자수 세기
     setCount(e.target.value.length);
@@ -16,11 +16,13 @@ const ApplyButton = (dispatch,text, props) => {
     }
     dispatch(updateMessage(new_obj)).then((res)=>{
         if(res.payload.success){
+            dispatch(chooseLoading(true));
             alert('수정 되었습니다.');
             props.history.push({
                 pathname: '/my_page',
                 isUpdate: true
             });
+
         }
 
     });
@@ -33,7 +35,7 @@ const EditProfileMessage = (props) => {
     const dispatch = useDispatch();
     // const SetMessage = React.useRef(null);
     const[count, setCount] = React.useState(0);                  //프로필수정-글자수 세기
-    const[text, setText] = React.useState(!props.match.params.message === null ? props.match.params.message : "새로운 메시지를 입력해보세요");
+    const[text, setText] = React.useState(props.match.params.message);
     React.useEffect(()=>{
         // const Message = location.state.Message;
         // setText();

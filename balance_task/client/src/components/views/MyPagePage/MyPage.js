@@ -34,8 +34,7 @@ const MyPage = (props) => {
   
   const {profile, project_list, userData} = state;
   // const isMessageUpdated = props.location
-  console.log(props.location.state.isUpdate);
-  
+  console.log(props.location);
   
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
@@ -53,7 +52,7 @@ const MyPage = (props) => {
       console.log(myPageData);
       // dispatch(chooseLoading(false));
     }
-  },[isLoading, userData, props.location.state.isUpdate]);
+  },[isLoading, userData]);
 
   const profileImgChange = (event) => {                         //프로필 이미지
     let reader = new FileReader();
