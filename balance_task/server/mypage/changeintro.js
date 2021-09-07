@@ -9,7 +9,7 @@ var app = express();
 let changeintro = (req, res, next) => {
 
     let token = req.cookies.user;
-    let paramintro=req.body.introduce || req.query.introduce;
+    let paramintro=req.body.text || req.query.text;
     console.log("changeintro 호출");
     const sql1= "update user set introduce="+paramintro+" where jwt="+token+";"
     
@@ -17,10 +17,10 @@ let changeintro = (req, res, next) => {
     if (err) {
         console.log(err);
     } else {
-       console.log("changeintro true");
+        console.log("changeintro true");
         next();
         }
     });
 };
-  
+
 module.exports = {changeintro};
