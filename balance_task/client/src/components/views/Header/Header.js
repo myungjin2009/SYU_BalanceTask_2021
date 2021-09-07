@@ -2,14 +2,31 @@ import React from 'react'
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 function Header(props) {
-  const {title} = props;
+  const {title, message} = props;
+  const goBack = ()=>{
+    if(message){
+      const data = window.confirm(message);
+      if(data){
+        props.history.goBack();
+        return;
+      }
+      return;
+    }
+    props.history.goBack();
+  }
   return (
     <Title>
-      <i className="fas fa-chevron-left" onClick={()=>props.history.goBack()}></i>
+      <i className="fas fa-chevron-left" onClick={goBack}></i>
       <span>{title}</span>
     </Title>
   )
 }
+
+Header.defaultProps = {
+  title: "제목",
+  message: null
+}
+
 const Title = styled.header`
   position: fixed;
   top:0;

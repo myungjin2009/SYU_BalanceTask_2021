@@ -25,57 +25,12 @@ const initialState = {
       id: 1,
       group: "두유개발자",
       project_Host: "주식회사한이음",
-      logo_src: "",
+      project_StartZLine: 20210820,
       project_DeadLine: 20210920,
       favoriteList: false,
-      Contribution: 65,
       Finished: false,
       logo: hanium_logo
     },
-    // {
-    //   id: 2,
-    //   group: "한사랑 IcTT",
-    //   project_Host: "주식회사한음",
-    //   logo_src: "",
-    //   project_DeadLine: 20210920,
-    //   favoriteList: false,
-    //   Contribution: 65,
-    //   Finished: false,
-    //   logo: hanium_logo
-    // },
-    // {
-    //   id: 3,
-    //   group: "와우 IcTT",
-    //   project_Host: "주식회사이음",
-    //   logo_src: "",
-    //   project_DeadLine: 20210920,
-    //   favoriteList: false,
-    //   Contribution: 65,
-    //   Finished: false,
-    //   logo: hanium_logo
-    // },
-    // {
-    //   id: 4,
-    //   group: "와우 IcTT",
-    //   project_Host: "주식회사이음",
-    //   logo_src: "",
-    //   project_DeadLine: 20210920,
-    //   favoriteList: false,
-    //   Contribution: 65,
-    //   Finished: false,
-    //   logo: hanium_logo
-    // },
-    // {
-    //   id: 5,
-    //   group: "와우 IcTT",
-    //   project_Host: "주식회사이음",
-    //   logo_src: "",
-    //   project_DeadLine: 20210920,
-    //   favoriteList: false,
-    //   Contribution: 65,
-    //   Finished: false,
-    //   logo: hanium_logo
-    // }
   ],
   isLoading: true
 }

@@ -2,58 +2,58 @@ import React, {useEffect} from "react";
 import {useHistory} from "react-router";  //history.push에 propr값 넘겨주기 위한 임포트
 import styled, {keyframes} from "styled-components";
 import Navigation from "../Navigation/Navigation";
-import Modal from './Modal';
-import EditProfileMessage from './EditProfileMessage';
 
 import {withRouter} from "react-router";
 import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 
-const receiveMyPageData = (dispatch, userData) =>{
-  // const {email, name} = userData;
-  const body = {
-    // email, name
+const receiveMyPageData = (dispatch, userData, setMyPageData) =>{
+  if(userData === undefined){
+    console.log(userData);
+    return;
   }
+  const {id, name} = userData;
+  const body = {
+    id, name
+  }
+
   dispatch(receiveProjectMypage(body)).then(res => {
-    // if(res.payload.success){
-      
-    // }
-    dispatch(chooseLoading(false));
+    if(res.payload.success){
+      console.log('데이터 받기 성공');
+      dispatch(chooseLoading(false));
+      setMyPageData(res.payload.my_page_data);
+    }
   });
 }
 
 const MyPage = (props) => {
-  const history = useHistory();                                 //history.push
-  const[modalOpen, setModalOpen] = React.useState(false);       //모달창
-  const openModal = () => {
-    setModalOpen(true);
-  }
-  const closeModal = () => {
-    setModalOpen(false);
-  }                                                             //모달창
+  const state = useSelector(state => state.user);
+  const isLoading = useSelector(state => state.user.isLoading);
 
-  const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
-  const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
+  const history = useHistory();                                 //history.push
+  const dispatch = useDispatch();
+
   
   const ImgBtn = React.useRef();                                //프로필 수정 버튼
   const ImgBtnClick = () => {
     ImgBtn.current.click();
   }                                                             //프로필 수정 버튼
-  const state = useSelector(state => state.user);
+  
   const {profile, project_list, userData} = state;
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = profile;
-  const isLoading = useSelector(state => state.user.isLoading);
-  const dispatch = useDispatch();
   const test1 = project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   
+  const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
+  const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
+  const [myPageData, setMyPageData] = React.useState({profile, project_list});
   useEffect(()=>{
     if(isLoading){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
-      receiveMyPageData(dispatch, userData);
-      dispatch(chooseLoading(false));
+      receiveMyPageData(dispatch, userData, setMyPageData);
+      // dispatch(chooseLoading(false));
     }
-  },[isLoading]);
+  },[isLoading, userData]);
 
   const profileImgChange = (event) => {                         //프로필 이미지
     let reader = new FileReader();
@@ -129,19 +129,13 @@ const MyPage = (props) => {
           <Introduce>
             <div className="profileIntroduce">프로필 소개</div>
             <div className = "profileMessage" >{ProfileMessage}</div>
-            {/*
-            <Modal open={ modalOpen } close={ closeModal } header="프로필 편집">
-              <input type="text"  maxLength="25" value={text} onChange={(e) => handleChangeText(e, setCount, setText)}></input>
-              <div className="numCount">{count}/25</div>
-            </Modal>
-            <div className = "editIcon" onClick={openModal}>*/}
             <div className = "editIcon" onClick={() => {
               history.push({                     //history.push 사용시 props 데이터 넘겨주기
                 pathname: '/EditProfileMessage',
                 state: {Message: ProfileMessage}
             })
               }}>
-              <i class="far fa-edit"></i>
+              <i className="far fa-edit"></i>
             </div>
           </Introduce>
     
