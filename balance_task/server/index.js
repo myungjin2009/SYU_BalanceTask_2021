@@ -253,13 +253,15 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
                 });
                   //console.log(array);
             })
-            console.log(req.userarray);
             req.array=array;
-            var time=moment().format('YYYY-MM-DD HH:mm:ss');
+            let time=moment().format('YYYY-MM-DD HH:mm:ss');
+            const today= new Date(time);
             req.FinishedPJ=0;
             req.ContinuingPJ=0;
+            
             for(var i=0;i<array.length;i++){
-                if(array[i].deadline<=time){
+              
+                if(array[i].project_DeadLine<=today){
                     userarray[0].FinishedPJ=userarray[0].FinishedPJ+1;                   
                 }else{
                   userarray[0].ContinuingPJ=userarray[0].ContinuingPJ+1;
