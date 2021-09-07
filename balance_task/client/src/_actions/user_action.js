@@ -7,6 +7,7 @@ import {
   FIND_PASSWORD,
   CHANGE_PASSWORD,
   RECEIVE_MYPAGE,
+  UPDATE_MESSAGE,
   LOADING_MYPAGE
 } from "./types";
 //로그인 할 때
@@ -79,7 +80,7 @@ export function auth() {
     payload: request,
   };
 }
-//마이페이지에서 프로젝트 리스트 받기
+//마이페이지에서 마이페이지 데이터 받기
 export function receiveProjectMypage(){
   const request = axios.get('/api/user/receive_mypage')
   .then(res => res.data);
@@ -89,6 +90,17 @@ export function receiveProjectMypage(){
     payload: request
   }
 }
+//마이페이지에서 마이페이지 중 메시지만 데이터 업데이티하기
+export function updateMessage(dataToSubmit){
+  const request = axios.post('/api/user/update_mypage/message', dataToSubmit)
+  .then(res => res.data);
+
+  return {
+    type: UPDATE_MESSAGE,
+    payload: request
+  }
+}
+
 
 //로딩을 알려주는 함수
 export function chooseLoading(isLoading){

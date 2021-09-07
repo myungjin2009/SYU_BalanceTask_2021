@@ -33,7 +33,8 @@ const MyPage = (props) => {
   }                                                             //프로필 수정 버튼
   
   const {profile, project_list, userData} = state;
-  
+  // const isMessageUpdated = props.location
+  console.log(props.location.state.isUpdate);
   
   
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
@@ -52,7 +53,7 @@ const MyPage = (props) => {
       console.log(myPageData);
       // dispatch(chooseLoading(false));
     }
-  },[isLoading, userData]);
+  },[isLoading, userData, props.location.state.isUpdate]);
 
   const profileImgChange = (event) => {                         //프로필 이미지
     let reader = new FileReader();

@@ -3,20 +3,34 @@ import styled from 'styled-components';
 import Header from '../Header/Header';
 import Button from '@material-ui/core/Button';      //버튼
 import {withRouter} from 'react-router-dom';
-
+import { updateMessage } from '../../../_actions/user_action';
+import {useDispatch} from 'react-redux';
 const handleChangeText = (e, setCount, setText) => {          //프로필수정-글자수 세기
     setCount(e.target.value.length);
     setText(e.target.value);
 };
 
-const ApplyButton = (props) => {
-                    //셋스테이트로 보내기
-    props.goBack(); //적용후 자동으로 뒤로가기
+const ApplyButton = (dispatch,text, props) => {
+    const new_obj = {
+        text
+    }
+    dispatch(updateMessage(new_obj)).then((res)=>{
+        if(res.payload.success){
+            alert('수정 되었습니다.');
+            props.history.push({
+                pathname: '/my_page',
+                isUpdate: true
+            });
+        }
+
+    });
 }
+
 
 
 const EditProfileMessage = (props) => {
     console.log(props.match.params.message);
+    const dispatch = useDispatch();
     // const SetMessage = React.useRef(null);
     const[count, setCount] = React.useState(0);                  //프로필수정-글자수 세기
     const[text, setText] = React.useState(!props.match.params.message === null ? props.match.params.message : "새로운 메시지를 입력해보세요");
@@ -32,7 +46,7 @@ const EditProfileMessage = (props) => {
         <Content>
             <input type="text" maxLength="25" value={text} onChange={(e) => handleChangeText(e, setCount, setText)}></input>
             <div className="numCount">{count}/25</div>
-            <Button className="applyButton" variant="contained" color="primary" onClick={() => {ApplyButton(props.history)}}>
+            <Button className="applyButton" variant="contained" color="primary" onClick={() => ApplyButton(dispatch, text, props)}>
               적용하기
             </Button>
         </Content>

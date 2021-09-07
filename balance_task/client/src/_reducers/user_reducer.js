@@ -6,6 +6,7 @@ import {
   FIND_PASSWORD,
   CHANGE_PASSWORD,
   RECEIVE_MYPAGE,
+  UPDATE_MESSAGE,
   LOADING_MYPAGE
 } from "../_actions/types";
 import hanium_logo from '../images/hanium_logo.jpg';
@@ -57,6 +58,9 @@ export default function (state = initialState, action) {
       }
       return { ...state, profile: action.payload.profile, 
         project_list: action.payload.project_list};
+    }
+    case UPDATE_MESSAGE:{
+      return {...state, updateMessageSuccess: action.payload.success}
     }
     case LOADING_MYPAGE:{
       return {...state, isLoading: action.isLoading}
