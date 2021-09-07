@@ -267,8 +267,6 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
                   userarray[0].ContinuingPJ=userarray[0].ContinuingPJ+1;
                 }
             }
-            console.log(req.array);
-            console.log(userarray);
             res.status(200).json({
                 success: true,
                 profile:userarray[0],
@@ -277,6 +275,13 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
       });         
   
 });
+
+
+app.post("/api/user/update_mypage/message",changeintro, (req, res) => {
+  res.status(200).json({
+    success: true,
+  });
+})
 
 app.post("/api/group/timeline", boardget1, (req, res) => {
   console.log(
