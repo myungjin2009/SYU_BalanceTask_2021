@@ -8,17 +8,8 @@ import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 
-const receiveMyPageData = (dispatch, userData, setMyPageData) =>{
-  if(userData === undefined){
-    console.log(userData);
-    return;
-  }
-  const {id, name} = userData;
-  const body = {
-    id, name
-  }
-
-  dispatch(receiveProjectMypage(body)).then(res => {
+const receiveMyPageData = (dispatch, setMyPageData) =>{
+  dispatch(receiveProjectMypage()).then(res => {
     if(res.payload.success){
       console.log('데이터 받기 성공');
       console.log(res.payload.profile,res.payload.project_list);
@@ -51,7 +42,7 @@ const MyPage = (props) => {
   useEffect(()=>{
     if(isLoading){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
-      receiveMyPageData(dispatch, userData, setMyPageData);
+      receiveMyPageData(dispatch, setMyPageData);
       // dispatch(chooseLoading(false));
     }
   },[isLoading, userData]);

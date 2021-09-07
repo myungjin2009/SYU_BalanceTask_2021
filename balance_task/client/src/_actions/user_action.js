@@ -80,8 +80,8 @@ export function auth() {
   };
 }
 //마이페이지에서 프로젝트 리스트 받기
-export function receiveProjectMypage(dataToSubmit){
-  const request = axios.post('/api/user/receive_mypage', dataToSubmit)
+export function receiveProjectMypage(){
+  const request = axios.get('/api/user/receive_mypage')
   .then(res => res.data);
 
   return {

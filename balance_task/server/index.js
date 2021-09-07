@@ -200,7 +200,7 @@ app.post("/api/group/participation",grouppart,(req,res)=>{
   });
 });
 
-app.post("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
+app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
   console.log(
     "==========================================mypage==========================================="
   );
