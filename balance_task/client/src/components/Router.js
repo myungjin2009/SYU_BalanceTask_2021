@@ -37,7 +37,7 @@ const Router = (props) => {
         <Route path="/finding_password" component={Auth(FindingPW, false)}/>
         {/* <Route path="/practice" component={Prac}/> */}
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
-        <Route exact path="/editProfileMessage" component={Auth(EditProfileMessage, true)} />
+        <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
         <Route
           exact
           path="/group_search"

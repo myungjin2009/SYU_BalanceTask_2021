@@ -12,9 +12,9 @@ const receiveMyPageData = (dispatch, setMyPageData) =>{
   dispatch(receiveProjectMypage()).then(res => {
     if(res.payload.success){
       console.log('데이터 받기 성공');
-      console.log(res.payload.profile,res.payload.project_list);
-      dispatch(chooseLoading(false));
+      console.log(res.payload);
       setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
+      dispatch(chooseLoading(false));
     }
   });
 }
@@ -33,16 +33,21 @@ const MyPage = (props) => {
   }                                                             //프로필 수정 버튼
   
   const {profile, project_list, userData} = state;
-  const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = profile;
-  const test1 = project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
+  
+  
   
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   const [myPageData, setMyPageData] = React.useState({profile, project_list});
+  
+  const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
+  const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
+  console.log(myPageData.profile);
   useEffect(()=>{
     if(isLoading){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
       receiveMyPageData(dispatch, setMyPageData);
+      console.log(myPageData);
       // dispatch(chooseLoading(false));
     }
   },[isLoading, userData]);
@@ -122,10 +127,7 @@ const MyPage = (props) => {
             <div className="profileIntroduce">프로필 소개</div>
             <div className = "profileMessage" >{ProfileMessage}</div>
             <div className = "editIcon" onClick={() => {
-              history.push({                     //history.push 사용시 props 데이터 넘겨주기
-                pathname: '/EditProfileMessage',
-                state: {Message: ProfileMessage}
-            })
+              history.push(`/EditProfileMessage/${ProfileMessage}`)
               }}>
               <i className="far fa-edit"></i>
             </div>

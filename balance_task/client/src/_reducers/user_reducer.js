@@ -18,7 +18,7 @@ const initialState = {
     FinishedPJ: 0,
     ContinuingPJ: 0,
     Score: '',
-    ProfileMessage: ``,
+    ProfileMessage: `ㄴㄴ`,
   },
   project_list:[
     {
@@ -55,9 +55,8 @@ export default function (state = initialState, action) {
       if(action.payload === undefined || action.payload === null){
         return state;
       }
-      // return { ...state, profile: action.payload.profile, 
-        // project_list: action.payload.project_list};
-        return state;
+      return { ...state, profile: action.payload.profile, 
+        project_list: action.payload.project_list};
     }
     case LOADING_MYPAGE:{
       return {...state, isLoading: action.isLoading}

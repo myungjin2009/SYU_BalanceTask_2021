@@ -208,12 +208,12 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
   res.status(200).json({
     success: true,
     profile:{
-    ProfileName: req.name,
-    ProfileImage: req.user_image,
-    FinishedPJ: req.FinishedPJ,
-    ContinuingPJ: req.ContinuingPJ,
-    Score: req.evaluation_score,
-    ProfileMessage: req.introduce
+      ProfileName: req.name,
+      ProfileImage: req.user_image,
+      FinishedPJ: req.FinishedPJ,
+      ContinuingPJ: req.ContinuingPJ,
+      Score: req.evaluation_score,
+      ProfileMessage: req.introduce
     },
     project_list:req.array,
   });
