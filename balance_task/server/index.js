@@ -58,6 +58,7 @@ var { grouppart } = require("./group/grouppart");
 //타임라인, 공지 관련 모듈
 var { noticeget } = require("./groupboard/noticeget");
 var { boardget1 } = require("./groupboard/boardget1");
+var { votechange }=require("./groupboard/vote");
 
 //jwt auth 모듈
 var { auth } = require("./middleware/auth");
@@ -281,7 +282,13 @@ app.post("/api/user/update_mypage/message",changeintro, (req, res) => {
   res.status(200).json({
     success: true,
   });
-})
+});
+
+app.post("/api/user/update_mypage/photo",upload.single("image"),changeimage, (req, res) => {
+  res.status(200).json({
+    success: true,
+  });
+});
 
 app.post("/api/group/timeline", boardget1, (req, res) => {
   console.log(
@@ -291,9 +298,9 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
   if(req.array===undefined){
     return ;
   }
+  //console.log(req.urlgroup);
   //timeline에 해당하는 게시물을 가져와서 넘겨준다.
   let all_array = req.array;
-  console.log(all_array);
   let all_array2 = "";
   // console.log(req.board_number);
   sql.pool.getConnection(function (err, conn) {
@@ -311,7 +318,7 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
       let vote_list = [];
       console.log(req.array[i].id);
       conn.query(
-        "select * from `vote` v, user u where board_number=? and u.id=v.user",
+        "select * from vote v, user u where board_number=? and u.id=v.user and v.group='"+req.urlgroup+"'",
         req.array[i].id,
         async function (err, rows, fields) {
           //conn.release(); // 반드시 해제해야 함
@@ -387,7 +394,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
       let vote_list = [];
       console.log(req.array[i].id);
       conn.query(
-        "select * from `vote2` v, user u where board_number=? and u.id=v.user",
+        "select * from `vote2` v, user u where board_number=? and u.id=v.user and v.group='"+req.urlgroup+"'",
         req.array[i].id,
         async function (err, rows, fields) {
           //conn.release( ); // 반드시 해제해야 함
@@ -434,6 +441,12 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
     }
   });
 });
+
+app.post("",votechange,(req,res)=>{
+  res.status(200).json({
+    success: true
+  });
+})
 
 app.post("/api/group_calendar/date", group_calendar,(req, res) => {
   console.log("==================================calendar=====================================");

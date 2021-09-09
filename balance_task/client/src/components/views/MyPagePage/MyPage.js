@@ -94,9 +94,12 @@ const MyPage = (props) => {
         (<>
           <Header isLoading={isLoading}>
           
-            <div className="profile_IMG">
+            <div className="profile_IMG" onClick = {() => props.history.push({
+              pathname: '/editProfileImage',
+              state: {image: ProfileImage}
+            })} >
               {detailImageUrl ? <UserProfile url = {detailImageUrl}></UserProfile>:<img className="Profile" alt="Profile" src={ProfileImage} />}
-              <div className="EditProfile" onClick={ImgBtnClick}>
+              <div className="EditProfile">
                 <i className="fas fa-user-circle"></i>
                 <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />
               </div>

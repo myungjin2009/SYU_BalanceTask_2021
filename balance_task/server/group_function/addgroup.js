@@ -43,10 +43,6 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
     // });
     
     var time=moment().format('YYYY-MM-DD HH:mm:ss');
-    // var paramimage=fs.readFilesync('./package.json','utf8');
-    // fs.readFile('./package.json','utf8',function(err,paramimage) {
-    //   console.log(paramimage);
-    // });
 
     var data = {group_no: maxno+1,group_name:groupname, host:host , startdate:startdate, deadline: deadline, manager: manager , category:category, content:content, highlight:highlight,makedate:time, user:groupjwt,group_images:images };
     
@@ -70,7 +66,7 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
         callback(null, result);
     }
     );
-    var data2 = {group_name:groupname, user:groupjwt};
+    var data2 = {group_name:groupname, user:groupjwt, leader:1};
     var exec2 = conn.query(
       "insert into groupusers set ?",
       data2,

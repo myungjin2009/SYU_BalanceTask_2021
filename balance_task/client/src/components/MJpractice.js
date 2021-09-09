@@ -10,7 +10,7 @@ const MJPracitce = () => {
   const OnImgChange = (event) => {
   
     const formData = new FormData();
-    formData.append('file',event.target.files[0]);
+    formData.append('image',event.target.files[0]);
 
     const config = {
       headers: {

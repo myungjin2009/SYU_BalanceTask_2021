@@ -15,6 +15,7 @@ import Login from "./views/LoginPage/Login";
 import NotFound from "./views/NotFoundPage/NotFound";
 import MyPage from "./views/MyPagePage/MyPage";
 import EditProfileMessage from "./views/MyPagePage/EditProfileMessage";
+import EditProfileImage from "./views/MyPagePage/EditProfileImage";
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import Detail from "./views/GroupSearchPage/Detail";
 import CreateGroup from "./views/CreateGroupPage/CreateGroup";
@@ -42,6 +43,7 @@ const Router = (props) => {
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
         <Route exact path="/my_page/notice" component={Auth(NoticePage, true)} />
         <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
+        <Route exact path="/editProfileImage" component={Auth(EditProfileImage, true)} />
         <Route
           exact
           path="/group_search"

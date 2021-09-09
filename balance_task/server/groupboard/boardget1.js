@@ -6,14 +6,30 @@ require("dotenv").config();
 
 let boardget1 = (req, res, next) => {
   console.log("boardget 함수 호출됨");
-  const sql2="select count(board_number) from groupboard";
-    sql.pool.query(sql2,(err,rows,fields)=>{
-     var maxno=rows[0]['count(board_number)']
-    
+  var urlgroup="기능사 스터디";
+  
+  const sql2="select count(board_number) from groupboard where info_groupname=?";
+    sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
+    var maxno=rows[0]['count(board_number)']
     const array=[];
-    
+    //console.log(req.body.group);
     let paramlastnumber=req.body.last_number;
-    
+    //let urlgroup="한양대 프로젝트";
+    let mygroup=req.body.group;
+    var num=0;
+    // for(var i=0;i<mygroup.length;i++){
+    //   console.log(mygroup[i]);
+    //   if(urlgroup===mygroup[i].group){
+    //     num=1;
+    //   }
+    // }
+    // console.log(num);
+    // if(num==1){
+    //   console.log("본인이 속한 그룹입니다.");
+    // }else{
+    //   return;
+    // }
+
     console.log(paramlastnumber);
     
 
@@ -29,7 +45,7 @@ let boardget1 = (req, res, next) => {
     }
     console.log(highnumber);
     
-    const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
+    const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" and info_groupname='"+urlgroup+"'order by board_number desc;"
     //const sql2 = "SELECT * FROM vote; ";
     console.log(sql1);
     sql.pool.query(sql1,(err, rows, fields) => {
@@ -70,7 +86,7 @@ let boardget1 = (req, res, next) => {
               votes_list:null 
             });
             req.array=array;
-      
+            req.urlgroup=urlgroup;
           
           });
         
