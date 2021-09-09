@@ -21,6 +21,7 @@ import CreateGroup from "./views/CreateGroupPage/CreateGroup";
 import WorkerList from "./views/WorkerListPage/WorkerList";
 import FindingPW from "./views/FindingPWPage/FindingPW";
 // import Prac from "./practice";
+import MJPractice from './MJpractice';
 
 import Settings from "./views/SettingPage/Settings";
 import AppInfo from "./views/SettingPage/AppInfo";
@@ -36,6 +37,7 @@ const Router = (props) => {
         <Route path="/signup" component={Auth(Signup, false)} />
         <Route path="/finding_password" component={Auth(FindingPW, false)}/>
         {/* <Route path="/practice" component={Prac}/> */}
+        <Route exact path = "/MJPractice" component = {MJPractice} />
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
         <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
         <Route
