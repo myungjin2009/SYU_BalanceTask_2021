@@ -10,10 +10,19 @@ var app = express();
 // app.use('/image', express.static('./upload'));
 
 let changeimage = (req, res, next) => {
-    console.log(req.file);
+    console.log(req.body);
+    //console.log(req.file);
     let token = req.cookies.user;
-    var paramprofileimages= `/image/${req.file.filename}`;
+    let paramnull=req.body.image;
+    var paramprofileimages;
+    if(paramnull=="DEFAULT"){
+        paramprofileimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
+    }else{
+        paramprofileimages= `/image/${req.file.filename}`;
+    }
+    
     console.log("changeimage 호출");
+    
     const sql1= "update user set user_image='"+paramprofileimages+"' where jwt='"+token+"';"
     
     sql.pool.query(sql1,(err, rows, fields) => {
