@@ -11,29 +11,27 @@ import { withRouter } from 'react-router-dom';
 const OnImgChange = (dispatch, props, detailImageFile) => {
   
     const formData = new FormData();
-    formData.append('image',detailImageFile);
+    if(detailImageFile === null) {
+        formData.append('image',"DEFAULT");
+    }else{
+        formData.append('image',detailImageFile);
+    }
 
     const config = {
       headers: {
         'content-type': "multipart/form-data"
       }
     }
-
-    if(detailImageFile === null) {
-        formData.append('image',"DEFAULT");
-        dispatch(updateImage(formData, config));
-        //props.history.push('/my_page');
-    }else {
-        dispatch(updateImage(formData, config)).then((res) => {
-            if(res.payload.success) {
-              dispatch(chooseLoading(true));
-              alert('변경이 완료되었습니다.');
-              props.history.push('/my_page');
-            } else {
-              alert('변경을 실패하였습니다. 나중에 다시 시도해주세요.');
-            }
-        });
-    }
+    
+    dispatch(updateImage(formData, config)).then((res) => {
+        if(res.payload.success) {
+            dispatch(chooseLoading(true));
+            alert('변경이 완료되었습니다.');
+            props.history.push('/my_page');
+        } else {
+            alert('변경을 실패하였습니다. 나중에 다시 시도해주세요.');
+        }
+    });
 }
 /*
 const onImgDefault = (dispatch, props) => {
@@ -62,6 +60,7 @@ const EditProfileImage = (props) => {
 
     React.useEffect(()=>{
         setDetailImageUrl(location.state.image);
+        setDetailImageFile(location.state.image);
     },[]);
 
     const profileImgChange = (event) => {                         //프로필 이미지
@@ -81,18 +80,16 @@ const EditProfileImage = (props) => {
           setDetailImageFile(null);
         }
       };                                         
-
     return(
     <div>
         <Header title = "이미지 수정" message="변경된 이미지를 적용하지 않고 나가시겠습니까?"></Header>
         <Content>
               {detailImageUrl ? <UserProfile url = {detailImageUrl} onClick={ImgBtnClick}></UserProfile>:<img className="Profile" alt="Profile"/>}
-              {console.log("ReRENDER시빨!")}
               <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />
             <Button className="applyButton" variant="contained" color="primary" onClick={() => OnImgChange(dispatch, props, detailImageFile)}>
               적용하기
             </Button>
-            <Button className="DefaultButton" variant="contained" color="secondary">
+            <Button className="DefaultButton" variant="contained" color="secondary" onClick={() => OnImgChange(dispatch, props, null)}>
               기본프로필로 변경
             </Button>
         </Content>
