@@ -9,7 +9,8 @@ import {
   RECEIVE_MYPAGE,
   UPDATE_MESSAGE,
   UPDATE_IMAGE,
-  LOADING_MYPAGE
+  LOADING_MYPAGE,
+  RECEIVE_APPLICATION
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -91,6 +92,17 @@ export function receiveProjectMypage(){
     payload: request
   }
 }
+
+//다른 사용자가 그룹 리더에게 그룹 신청할 때 오는 알림 받기
+export function receiveApplication(){
+  const request = axios.get('/api/user/receive_mypage/notice')
+  .then(res=> res.data);
+  return {
+    type: RECEIVE_APPLICATION,
+    payload: request
+  }
+}
+
 //마이페이지에서 마이페이지 중 메시지만 데이터 업데이티하기
 export function updateMessage(dataToSubmit){
   const request = axios.post('/api/user/update_mypage/message', dataToSubmit)
@@ -112,7 +124,6 @@ export function updateImage(dataToSubmit, config){
     payload: request
   }
 }
-
 
 //로딩을 알려주는 함수
 export function chooseLoading(isLoading){

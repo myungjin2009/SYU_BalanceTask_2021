@@ -73,9 +73,9 @@ const PostBlock = (props) =>{
     <Container>
       <Image photo_url={photo_url} onClick = {()=>{
       if(path==="/:group/project_timeline"){
-        props.history.push('/:group/project_timeline/'+index, user_post);
+        props.history.push(`/${group}/project_timeline/`+index, user_post);
       }else if(path==="/:group/project_notice"){
-        props.history.push('/:group/project_notice/'+index, user_post);
+        props.history.push(`/${group}/project_notice/`+index, user_post);
       }
     }}></Image>
       <Content>

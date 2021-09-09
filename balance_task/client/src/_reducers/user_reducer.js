@@ -8,7 +8,8 @@ import {
   RECEIVE_MYPAGE,
   UPDATE_MESSAGE,
   UPDATE_IMAGE,
-  LOADING_MYPAGE
+  LOADING_MYPAGE,
+  RECEIVE_APPLICATION
 } from "../_actions/types";
 import hanium_logo from '../images/hanium_logo.jpg';
 import profile_default from '../images/profile_sample.jpg';
@@ -66,6 +67,11 @@ export default function (state = initialState, action) {
     case UPDATE_IMAGE: {
       return {...state, Success: action.payload.success}
     }
+
+    case RECEIVE_APPLICATION: {
+      return {...state, notice_success: action.payload.success}
+    }
+
     case LOADING_MYPAGE:{
       return {...state, isLoading: action.isLoading}
     }

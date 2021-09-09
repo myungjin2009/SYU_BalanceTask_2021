@@ -1,28 +1,16 @@
-import React from 'react'
-import Modal from './views/MyPagePage/Modal';
-import styled from 'styled-components';
+import React from 'react';
 
-function Practice() {
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+  
+  function App(){
+    const notify = () => toast("Wow so easy!");
 
-  return (
-    <Container>
-      <label className="input_file_button" for="input_file">
-        업로드
-      </label>
-      <input type="file" id="input_file" style={{display:"none"}} accept='image/*' name='file'/>
-    </Container>
-  );
-}
-// CSS
-
-const Container = styled.div`
-  & > .input_file_button {
-    padding: 6px 25px;
-    background-color:#FF6600;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
+    return (
+      <div>
+        <button onClick={notify}>Notify!</button>
+        <ToastContainer />
+      </div>
+    );
   }
-`;
-
-export default Practice
+  export default App;

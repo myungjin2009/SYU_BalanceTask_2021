@@ -20,7 +20,7 @@ import Detail from "./views/GroupSearchPage/Detail";
 import CreateGroup from "./views/CreateGroupPage/CreateGroup";
 import WorkerList from "./views/WorkerListPage/WorkerList";
 import FindingPW from "./views/FindingPWPage/FindingPW";
-// import Prac from "./practice";
+import Prac from "./practice";
 import MJPractice from './MJpractice';
 
 import Settings from "./views/SettingPage/Settings";
@@ -28,6 +28,7 @@ import AppInfo from "./views/SettingPage/AppInfo";
 import Contact from "./views/SettingPage/Contact";
 import EditAccount from "./views/SettingPage/EditAccount";
 import Withdraw from "./views/SettingPage/Withdraw";
+import NoticePage from "./views/NoticePage/NoticePage";
 
 const Router = (props) => {
   return (
@@ -36,9 +37,10 @@ const Router = (props) => {
         <Route exact path="/" component={Auth(Login, false)} />
         <Route path="/signup" component={Auth(Signup, false)} />
         <Route path="/finding_password" component={Auth(FindingPW, false)}/>
-        {/* <Route path="/practice" component={Prac}/> */}
+        <Route path="/practice" component={Prac}/>
         <Route exact path = "/MJPractice" component = {MJPractice} />
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
+        <Route exact path="/my_page/notice" component={Auth(NoticePage, true)} />
         <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
         <Route
           exact
