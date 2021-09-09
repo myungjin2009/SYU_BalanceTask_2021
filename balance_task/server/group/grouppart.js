@@ -18,13 +18,14 @@ console.log(req.body);
 
 var paramgroup_name = req.body.group;
 
-var data = {group_name:paramgroup_name,  user:groupjwt };
+var data = {group_name:paramgroup_name, user:groupjwt, leader:0 };
 
     const sql1 = "insert into groupusers set ?; ";
     //const sql2 = "SELECT * FROM vote; ";
     sql.pool.query(sql1,data, (err, rows, fields) => {
     if (err) {
     console.log(err);
+    console.log("이미 등록되어거나 리더입니다.");
     } else { 
     console.log("grouppartcome");
     }

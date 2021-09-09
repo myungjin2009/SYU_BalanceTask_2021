@@ -7,13 +7,29 @@ const { info } = require("console");
 
 let noticeget = (req, res, next) => {
   console.log("notice 함수 호출됨");
-  const sql2="select count(board_number) from groupnotice";
-  sql.pool.query(sql2,(err,rows,fields)=>{
+  let urlgroup=req.body.urlgroup;
+  
+  const sql2="select count(board_number) from groupnotice where info_groupname=? ";
+  sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
    var maxno=rows[0]['count(board_number)']
     const array=[];
     
     let paramlastnumber=req.body.last_number;
-    
+    let urlgroup=req.body.urlgroup;
+    let mygroup=req.body.group;
+    var num=0;
+    for(var i=1;i<mygroup.length;i++){
+      if(urlgroup===mygroup[i].group){
+        num=1;
+      }
+    }
+
+    if(num==1){
+      console.log("본인이 속한 그룹입니다.");
+    }else{
+      return;
+    }
+
     console.log(paramlastnumber);
     if(paramlastnumber===undefined){
       paramlastnumber = 2;
@@ -25,7 +41,7 @@ let noticeget = (req, res, next) => {
     let highnumber=maxno-paramlastnumber-1;
     console.log(highnumber);
     //const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
-    const sql1 = "SELECT * FROM groupnotice where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
+    const sql1 = "SELECT * FROM groupnotice where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" and info_groupname='"+urlgroup+"' order by board_number desc;"
     //const sql2 = "SELECT * FROM vote; ";
     console.log(sql1);
     sql.pool.query(sql1, (err, rows, fields) => {
@@ -66,7 +82,7 @@ let noticeget = (req, res, next) => {
               votes_list:null 
             });
             req.array=array;
-          
+            req.urlgroup=urlgroup;
           });
         
       }
