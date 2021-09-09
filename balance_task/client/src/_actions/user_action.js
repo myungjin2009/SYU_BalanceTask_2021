@@ -103,8 +103,8 @@ export function updateMessage(dataToSubmit){
 }
 
 //이미지 업데이터
-export function updateImage(dataToSubmit){
-  const request = axios.post('/api/user/update_mypage/photo', dataToSubmit)
+export function updateImage(dataToSubmit, config){
+  const request = axios.post('/api/user/update_mypage/photo', dataToSubmit, config)
   .then(res=> res.data);
 
   return {

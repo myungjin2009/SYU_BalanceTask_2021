@@ -15,6 +15,7 @@ export default function(SpecificComponent, option, adminRoute = null){
 
   function AuthenticationCheck(props){
     const dispatch = useDispatch();
+    const {match: {params}} = props;
     useEffect(()=>{
       dispatch(auth())
       .then(response => {
@@ -26,6 +27,21 @@ export default function(SpecificComponent, option, adminRoute = null){
         }else{
           if(option === false){
             props.history.push('/my_page');
+            return;
+          }
+          if(params.group){
+            const match_group = params.group;
+            const user_group_list = response.payload.group;
+            // console.log(user_group_list);
+            const isGroupUser = user_group_list.filter((user_group) => {
+              // console.log(user_group === match_group);
+              return match_group === user_group.group;
+            });
+            // console.log("읽어라",isGroupUser);
+            if(isGroupUser.length === 0){
+              props.history.push('/my_page');
+              return;
+            }
           }
         }
       });

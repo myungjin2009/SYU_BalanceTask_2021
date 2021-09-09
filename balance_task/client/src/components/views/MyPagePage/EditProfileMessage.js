@@ -10,7 +10,7 @@ const handleChangeText = (e, setCount, setText) => {          //프로필수정-
     setText(e.target.value);
 };
 
-const ApplyButton = (dispatch,text, props) => {
+const ApplyButton = (dispatch, text, props) => {
     const new_obj = {
         text
     }

@@ -33,18 +33,13 @@ const MyPage = (props) => {
   }                                                             //프로필 수정 버튼
   
   const {profile, project_list, userData} = state;
-  // const isMessageUpdated = props.location
-  console.log(props.location);
   
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   const [myPageData, setMyPageData] = React.useState({profile, project_list});
-  console.log(myPageData.profile);
   
   const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
-
-  console.log(myPageData.profile);
   useEffect(()=>{
     if(isLoading){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요

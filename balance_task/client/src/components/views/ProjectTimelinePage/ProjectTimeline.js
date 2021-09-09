@@ -6,11 +6,11 @@ import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
 import { withRouter, Link } from 'react-router-dom';
 
-const getTimeline = (userData, dispatch,entireTimeline, setIsCompleted) => {
+const getTimeline = (group, dispatch,entireTimeline, setIsCompleted) => {
   
     const body = {
       last_number: entireTimeline.length-1,
-      group: userData.group
+      group: group
     };
     dispatch(receiveTimeline(body)).then(res=>{
       setIsCompleted(true);
@@ -32,12 +32,12 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
 }
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, entireTimeline, userData , isLoading, dispatch, setTimeline,setIsCompleted,isCompleted)=>{
+const handleScrollEvent = (e, entireTimeline, group , isLoading, dispatch, setTimeline,setIsCompleted,isCompleted)=>{
   //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
   if(isLoading)return;
   const body = {
     last_number: entireTimeline.length-1,
-    group: userData.group
+    group: group
   };
   console.log(body);
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
@@ -73,12 +73,9 @@ const ProjectTimeline = (props) =>{
 
   useEffect(()=>{
     //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
-    // console.log(isLoading);
     if(isLoading){
-      if(userData === undefined){
-        return;
-      }
-      getTimeline(userData, dispatch,entireTimeline, setIsCompleted);
+      console.log(isLoading);      
+      getTimeline(group, dispatch,entireTimeline, setIsCompleted);
       
     }else{
       if(isCompleted){
@@ -95,12 +92,12 @@ const ProjectTimeline = (props) =>{
         searchPosts(search, timeline, setTimeline, entireTimeline);
       }
     }
-  },[search, isLoading, userData]);
+  },[search, isLoading]);
   // console.log(timeline);
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
-      <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, userData, isLoading, dispatch, setTimeline,setIsCompleted,isCompleted )}>
+      <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, group, isLoading, dispatch, setTimeline,setIsCompleted,isCompleted )}>
         {
           isLoading ? 
           <>
@@ -109,7 +106,7 @@ const ProjectTimeline = (props) =>{
           </>
           :
           timeline.map((user_post,i)=>(
-            <PostBlock key={i} index={i} user={userData.username} user_post = {user_post}/>
+            <PostBlock key={i} index={i} userData={userData} user_post = {user_post} group={group}/>
             ))
         }
       </Container>
