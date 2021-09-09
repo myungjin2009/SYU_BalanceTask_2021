@@ -106,7 +106,7 @@ const ProjectTimeline = (props) =>{
           </>
           :
           timeline.map((user_post,i)=>(
-            <PostBlock key={i} index={i} userData={userData} user_post = {user_post} group={group}/>
+            <PostBlock key={i} index={user_post.id} userData={userData} user_post = {user_post} group={group}/>
             ))
         }
       </Container>

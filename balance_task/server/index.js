@@ -442,7 +442,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   });
 });
 
-app.post("",votechange,(req,res)=>{
+app.post("/api/group/vote",votechange,(req,res)=>{
   res.status(200).json({
     success: true
   });

@@ -18,17 +18,17 @@ let noticeget = (req, res, next) => {
     let urlgroup=req.body.urlgroup;
     let mygroup=req.body.group;
     var num=0;
-    for(var i=1;i<mygroup.length;i++){
-      if(urlgroup===mygroup[i].group){
-        num=1;
-      }
-    }
+    //for(var i=1;i<mygroup.length;i++){
+    //   if(urlgroup===mygroup[i].group){
+    //    num=1;
+    //  }
+    //}
 
-    if(num==1){
-      console.log("본인이 속한 그룹입니다.");
-    }else{
-      return;
-    }
+    //if(num==1){
+    //  console.log("본인이 속한 그룹입니다.");
+    //}else{
+    //  return;
+    //}
 
     console.log(paramlastnumber);
     if(paramlastnumber===undefined){
