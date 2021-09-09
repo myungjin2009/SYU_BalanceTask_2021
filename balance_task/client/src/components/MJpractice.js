@@ -11,8 +11,14 @@ const MJPracitce = () => {
   
     const formData = new FormData();
     formData.append('file',event.target.files[0]);
+
+    const config = {
+      headers: {
+        'content-type': "multipart/form-data"
+      }
+    }
   
-    dispatch(updateImage(formData)).then((res) => {
+    dispatch(updateImage(formData, config)).then((res) => {
       if(res.payload.success) {
         console.log('업로드 된거임?');
         console.log(res.payload.success);
