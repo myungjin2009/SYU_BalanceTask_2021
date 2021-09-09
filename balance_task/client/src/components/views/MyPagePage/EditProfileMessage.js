@@ -18,11 +18,7 @@ const ApplyButton = (dispatch,text, props) => {
         if(res.payload.success){
             dispatch(chooseLoading(true));
             alert('수정 되었습니다.');
-            props.history.push({
-                pathname: '/my_page',
-                isUpdate: true
-            });
-
+            props.history.push('/my_page');
         }
 
     });

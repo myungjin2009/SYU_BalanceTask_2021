@@ -2,7 +2,7 @@ import {
   RECEIVE_GROUPS_CARD,
   LOADING,
   JOIN_GROUP,
-  // VOTE_FOR_POSTS,
+  VOTE_FOR_POSTS,
   RECEIVE_NOTICE,
   RECEIVE_TIMELINE,
   CREATE_GROUP
@@ -362,18 +362,19 @@ export default function (state = initialState, action) {
     case CREATE_GROUP:{
       return {...state, createGroupSuccess: action.payload}
     }
-    // case VOTE_FOR_POSTS:{
-    //   const {payload : {dataToSubmit:{kind, id, current_vote}}} = action;
-    //   if(kind === "timeline"){
-    //     let new_array = state.timelineList;
-    //     new_array[id].votes_list = current_vote;
-    //     return {...state, timelineList: new_array}
-    //   }else if(kind === "notice"){
-    //     let new_array = state.noticeList;
-    //     new_array[id].votes_list = current_vote;
-    //     return {...state, noticeList: new_array}
-    //   }
-    // }
+    case VOTE_FOR_POSTS:{
+      console.log(action.payload);
+      const {payload : {dataToSubmit:{kind, board_number, current_vote}}} = action;
+      if(kind === "timeline"){
+        let new_array = state.timelineList;
+        new_array[board_number].votes_list = current_vote;
+        return {...state, timelineList: new_array}
+      }else if(kind === "notice"){
+        let new_array = state.noticeList;
+        new_array[board_number].votes_list = current_vote;
+        return {...state, noticeList: new_array}
+      }
+    }
     default:
       return state;
   }
