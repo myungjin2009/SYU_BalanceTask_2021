@@ -284,7 +284,7 @@ app.post("/api/user/update_mypage/message",changeintro, (req, res) => {
   });
 });
 
-app.post("/api/user/update_mypage/photo",changeimage, (req, res) => {
+app.post("/api/user/update_mypage/photo",upload.single("image"),changeimage, (req, res) => {
   res.status(200).json({
     success: true,
   });
