@@ -8,10 +8,10 @@ import { useLocation } from "react-router";
 import { withRouter } from 'react-router-dom';
 
 
-const OnImgChange = (dispatch, props, detailImageFile) => {
+const OnImgChange = (dispatch, props, detailImageFile, defaultImage) => {
   
     const formData = new FormData();
-    if(detailImageFile === null) {
+    if(detailImageFile === "DEFAULT") {
         formData.append('image',"DEFAULT");
     }else{
         formData.append('image',detailImageFile);
@@ -22,28 +22,20 @@ const OnImgChange = (dispatch, props, detailImageFile) => {
         'content-type': "multipart/form-data"
       }
     }
-    
-    dispatch(updateImage(formData, config)).then((res) => {
-        if(res.payload.success) {
-            dispatch(chooseLoading(true));
-            alert('변경이 완료되었습니다.');
-            props.history.push('/my_page');
-        } else {
-            alert('변경을 실패하였습니다. 나중에 다시 시도해주세요.');
-        }
-    });
+    if(defaultImage === detailImageFile) {
+        alert('변경된 사항이 없습니다.');
+    } else {
+        dispatch(updateImage(formData, config)).then((res) => {
+            if(res.payload.success) {
+                dispatch(chooseLoading(true));
+                alert('변경이 완료되었습니다.');
+                props.history.push('/my_page');
+            } else {
+                alert('변경을 실패하였습니다. 나중에 다시 시도해주세요.');
+            }
+        });
+    }
 }
-/*
-const onImgDefault = (dispatch, props) => {
-    dispatch(updateImage(null, config)).then((res) => {
-        if(res.payload.success) {
-            dispatch(chooseLoading(true));
-            alert('변경이 완료되었습니다.');
-            props.history.push('/my_page');
-        }
-    });
-}
-*/
 
 
 const EditProfileImage = (props) => {
@@ -84,12 +76,12 @@ const EditProfileImage = (props) => {
     <div>
         <Header title = "이미지 수정" message="변경된 이미지를 적용하지 않고 나가시겠습니까?"></Header>
         <Content>
-              {detailImageUrl ? <UserProfile url = {detailImageUrl} onClick={ImgBtnClick}></UserProfile>:<img className="Profile" alt="Profile"/>}
+              {detailImageUrl ? <UserProfile url = {detailImageUrl} onClick={ImgBtnClick}></UserProfile>:<div style={{width:"40vh", height:"40vh" ,border:'2px solid #aaa', margin: "0 auto", fontSize: '20vh', lineHeight: "35vh"}} onClick={ImgBtnClick}>+</div>}
               <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />
-            <Button className="applyButton" variant="contained" color="primary" onClick={() => OnImgChange(dispatch, props, detailImageFile)}>
+            <Button className="applyButton" variant="contained" color="primary" onClick={() => OnImgChange(dispatch, props, detailImageFile, location.state.image)}>
               적용하기
             </Button>
-            <Button className="DefaultButton" variant="contained" color="secondary" onClick={() => OnImgChange(dispatch, props, null)}>
+            <Button className="DefaultButton" variant="contained" color="secondary" onClick={() => OnImgChange(dispatch, props, "DEFAULT", null)}>
               기본프로필로 변경
             </Button>
         </Content>
