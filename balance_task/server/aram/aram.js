@@ -7,7 +7,7 @@ var http = require('http');
 var url = require('url');
 
 
-let grouppart= (req, res, next) => {
+let arams= (req, res, next) => {
 console.log("grouppart 함수 호출됨");
 var paramjwt=req.cookies.user; 
 const sql3="select id from user where jwt=?"
@@ -16,7 +16,7 @@ sql.pool.query(sql3,paramjwt,(err,rows,fields)=>{
   var groupjwt=rows[0]['id'];
   console.log(req.body);
   let paramgroup_name = req.body.group;
-    const sql4="select count(board_number) from groupboard where info_groupname=?"
+    const sql4="select user from groups where groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
       console.log(rows);
     var no=rows[0]['count(board_number)'];
