@@ -8,6 +8,7 @@ export const FIND_PASSWORD = "find_password";
 export const CHANGE_PASSWORD = "change_password";
 export const RECEIVE_MYPAGE = "receive_mypage";
 export const UPDATE_MESSAGE = "update_message";
+export const UPDATE_IMAGE = "update_image";
 export const LOADING_MYPAGE = "loading_mypage";
 /* group */
 //group 들어가기 전에서의 액션 타입

@@ -8,6 +8,7 @@ import {
   CHANGE_PASSWORD,
   RECEIVE_MYPAGE,
   UPDATE_MESSAGE,
+  UPDATE_IMAGE,
   LOADING_MYPAGE
 } from "./types";
 //로그인 할 때
@@ -97,6 +98,17 @@ export function updateMessage(dataToSubmit){
 
   return {
     type: UPDATE_MESSAGE,
+    payload: request
+  }
+}
+
+//이미지 업데이터
+export function updateImage(dataToSubmit){
+  const request = axios.post('/api/user/update_mypage/photo', dataToSubmit)
+  .then(res=> res.data);
+
+  return {
+    type: UPDATE_IMAGE,
     payload: request
   }
 }
