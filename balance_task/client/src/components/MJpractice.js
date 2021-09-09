@@ -1,39 +1,41 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Calendar from 'react-calendar';
+import {withRouter} from 'react-router-dom';
 
-//★★★띵진 CSS 연습 공간★★★
+import { updateImage } from '../_actions/user_action';
+import { useDispatch } from "react-redux";
 
-function Prac() {
-  const [value, onChange] = useState(new Date());
+const MJPracitce = () => {
+  const dispatch = useDispatch();
+  const OnImgChange = (event) => {
+  
+    const formData = new FormData();
+    formData.append('file',event.target.files[0]);
+  
+    dispatch(updateImage(formData)).then((res) => {
+      if(res.payload.success) {
+        console.log('업로드 된거임?');
+        console.log(res.payload.success);
+      }
+      //props.history.push('/group_search');
+      // if(res.payload.success){
+      //   props.history.push('/group_search');
+      // }
+    });
+  }
+
   return (
-    <div className="Prac">
-      <Block>
-       아이~~싯팔!
-      </Block>
-
-
-    </div>
+    <Block>
+       <input type="file" accept="image/*" onChange={OnImgChange}></input> 
+    </Block>
   );
 }
-const Block = styled.div`
-  display:flex;
-  height:400px;
-  justify-content: center;
-  border: 1px solid;
-  align-items: center;
-`;
 
-const Container = styled.div`
+
+const Block = styled.div`
   width: 200px;
   height:200px;
-  margin: 10px;
-  background: lightgray;
-  font-size: 50px;
-  text-align:center;
-  &>span{
-    font-weight: 800;
-  }
 `;
 
-export default Prac;
+
+export default withRouter(MJPracitce);

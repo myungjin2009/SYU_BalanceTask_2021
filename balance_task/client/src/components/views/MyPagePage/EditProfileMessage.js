@@ -18,13 +18,8 @@ const ApplyButton = (dispatch,text, props) => {
         if(res.payload.success){
             dispatch(chooseLoading(true));
             alert('수정 되었습니다.');
-            props.history.push({
-                pathname: '/my_page',
-                isUpdate: true
-            });
-
+            props.history.push('/my_page');
         }
-
     });
 }
 
@@ -33,13 +28,10 @@ const ApplyButton = (dispatch,text, props) => {
 const EditProfileMessage = (props) => {
     console.log(props.match.params.message);
     const dispatch = useDispatch();
-    // const SetMessage = React.useRef(null);
     const[count, setCount] = React.useState(0);                  //프로필수정-글자수 세기
     const[text, setText] = React.useState(props.match.params.message);
     React.useEffect(()=>{
-        // const Message = location.state.Message;
-        // setText();
-        // SetMessage.current.value = Message;
+         setCount(text.length);
     },[]);
 
     return(
@@ -77,6 +69,5 @@ const Content = styled.div`
         width: 70%;
     }
 `;
-
 
 export default withRouter(EditProfileMessage);
