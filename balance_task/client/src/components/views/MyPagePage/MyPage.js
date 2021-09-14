@@ -12,8 +12,8 @@ import Notice from "../common/Notice";
 const receiveMyPageData = (dispatch, setMyPageData, setIstNotice) =>{
   dispatch(receiveProjectMypage()).then(res => {
     if(res.payload.success){
-      console.log('데이터 받기 성공');
-      console.log(res.payload);
+      //console.log('데이터 받기 성공');
+      //console.log(res.payload);
       setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
       dispatch(receiveApplication()).then(res=>{
         if(res.payload.success){
@@ -50,7 +50,7 @@ const MyPage = (props) => {
     if(isLoading){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
       receiveMyPageData(dispatch, setMyPageData, setIstNotice);
-      console.log(myPageData);
+      //console.log(myPageData);
       // dispatch(chooseLoading(false));
     }
   },[isLoading, userData]);

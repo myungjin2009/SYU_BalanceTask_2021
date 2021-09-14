@@ -11,6 +11,7 @@ export const UPDATE_MESSAGE = "update_message";
 export const UPDATE_IMAGE = "update_image";
 export const LOADING_MYPAGE = "loading_mypage";
 export const RECEIVE_APPLICATION = "receive_application";
+export const RECEIVE_USERLIST = "receive_userlist";
 
 /* group */
 //group 들어가기 전에서의 액션 타입
