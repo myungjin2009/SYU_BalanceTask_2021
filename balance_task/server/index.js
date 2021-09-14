@@ -478,7 +478,7 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
         })
 });
 
-app.get("/api/user/load_worker",wokerget,(req,res,next)=>{
+app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   res.status(200).json({
     array:req.array,
     success: true,
