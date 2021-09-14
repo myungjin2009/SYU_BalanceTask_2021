@@ -372,80 +372,21 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
 });
 
 app.post("/api/group/notice", noticeget, async (req, res) => {
-  console.log(
-    "====================================notice success========================================="
-  );
-  
-  if(req.array===undefined){
-    return ;
-  }
-  //notice에 해당하는 게시물을 가져와서 넘겨준다.
-  let all_array = req.array;
-  console.log(all_array);
-  let all_array2 = "";
-  // console.log (req.boa rd _number);
-  sql.pool.getConnection(function (err, conn) {
-    if (err) {
-      if (conn) {
-        conn.release(); // 반드시  해제해야 함
-      }
-
-      callback(err, null);
-      return;
+    console.log(
+      "====================================notice success========================================="
+    );
+    
+    if(req.array===undefined){
+      return ;
     }
-    console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
-
-    for (let i = 0; i < req.array.length; i++) {
-      let vote_list = [];
-      console.log(req.array[i].id);
-      conn.query(
-        "select * from `vote2` v, user u where board_number=? and u.id=v.user and v.group='"+req.urlgroup+"'",
-        req.array[i].id,
-        async function (err, rows, fields) {
-          //conn.release( ); // 반드시 해제해야 함
-          console.log("실행 대상 SQL : ");
-          await rows.forEach(async (info, index, newarray) => {
-            var discuss = "";
-            if (info.discuss === 1) {
-              discuss = "찬성";
-            } else if (info.discuss === 2) {
-              discuss = "반대";
-            } else {
-              discuss = info.discuss;
-            }
-            console.log(info.user);
-            console.log(info.group);
-            console.log(info.board_number);
-            console.log(discuss);
-
-            vote_list.push({
-              user_name: info.name,
-              vote: discuss,
-            });
-
-            all_array[i].votes_list = vote_list;
-            console.log(all_array[i]);
-          });
-          all_array2 = all_array;
-          //console.log(all_array2);
-          if (i === req.array.length - 1) {
-            res.status(200).json({
-              array: all_array2,
+    res.status(200).json({
+              array: req.array,
               success: true,
-            });
-          }
-        }
-      );
-
-      conn.on("error", function (err) {
-        console.log("데이터베이스 연결 시 에러 발생함.");
-        console.dir(err);
-
-        callback(err, null);
-      });
-    }
-  });
+    });
+        
 });
+
+      
 
 app.post("/api/group/vote",votechange,(req,res)=>{
   res.status(200).json({

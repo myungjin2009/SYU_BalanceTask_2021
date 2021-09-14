@@ -16,7 +16,7 @@ let noticeget = (req, res, next) => {
     const array=[];
     
     let paramlastnumber=req.body.last_number;
-    let urlgroup=req.body.urlgroup;
+    console.log(urlgroup);
     let mygroup=req.body.group;
     var num=0;
     //for(var i=1;i<mygroup.length;i++){
@@ -80,7 +80,7 @@ let noticeget = (req, res, next) => {
               image:req.image,
               file:req.file,
               kind:"notice",
-              votes_list:null 
+              votes_list:[]
             });
             req.array=array;
             req.urlgroup=urlgroup;
