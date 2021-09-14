@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
-import { receiveTimeline ,chooseLoading} from '../../../_actions/group_action';
+import { receiveTimeline ,chooseLoadingGroup} from '../../../_actions/group_action';
 import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
 import { withRouter, Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ const getTimeline = (group, dispatch,entireTimeline, setIsCompleted) => {
     dispatch(receiveTimeline(body)).then(res=>{
       setIsCompleted(true);
       console.log('timeline 데이터 받기 성공!');
-      dispatch(chooseLoading({timeline: false}));
+      dispatch(chooseLoadingGroup({timeline: false}));
     });
   
 }
@@ -105,9 +105,9 @@ const ProjectTimeline = (props) =>{
             <LoadingBlock></LoadingBlock>
           </>
           :
-          timeline.map((user_post,i)=>(
+          timeline.length !== 0  ? timeline.map((user_post,i)=>(
             <PostBlock key={i} index={user_post.id} userData={userData} user_post = {user_post} group={group}/>
-            ))
+            )):<div>아직 데이터 없어요</div>
         }
       </Container>
       <Button><Link to={`/${group}/project_timeline/adding_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>

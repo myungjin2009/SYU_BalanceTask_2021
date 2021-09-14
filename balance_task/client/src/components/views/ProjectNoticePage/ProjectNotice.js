@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
-import {chooseLoading, receiveNotice} from '../../../_actions/group_action';
+import {chooseLoadingGroup, receiveNotice} from '../../../_actions/group_action';
 import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
 import { withRouter, Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ const getNotice = (group, dispatch, entireNotice, setIsCompleted) => {
     dispatch(receiveNotice(body)).then(res =>{
       setIsCompleted(true);
       console.log('notice 데이터 받기 성공!');
-      dispatch(chooseLoading({notice: false}));
+      dispatch(chooseLoadingGroup({notice: false}));
     });
   
 }

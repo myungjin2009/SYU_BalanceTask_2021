@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 
 //로딩을 알려주는 함수
-export function chooseLoading(isLoading) {
+export function chooseLoadingGroup(isLoading) {
   return {
     type: LOADING,
     isLoading,
