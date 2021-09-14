@@ -59,6 +59,7 @@ var { grouppart } = require("./group/grouppart");
 var { noticeget } = require("./groupboard/noticeget");
 var { boardget1 } = require("./groupboard/boardget1");
 var { votechange }=require("./groupboard/vote");
+var { boardadd } = require("./groupboard/boardadd");
 
 //jwt auth 모듈
 var { auth } = require("./middleware/auth");
@@ -393,6 +394,12 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
       
 
 app.post("/api/group/vote",votechange,(req,res)=>{
+  res.status(200).json({
+    success: true
+  });
+});
+
+app.post("",upload.single("image"),boardadd,(req,res)=>{
   res.status(200).json({
     success: true
   });
