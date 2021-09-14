@@ -6,7 +6,7 @@ require("dotenv").config();
 
 let boardget1 = (req, res, next) => {
   console.log("boardget 함수 호출됨");
-  var urlgroup="기능사 스터디";
+  var urlgroup=req.body.group;
   
   const sql2="select count(board_number) from groupboard where info_groupname=?";
     sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{

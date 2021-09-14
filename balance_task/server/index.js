@@ -74,7 +74,9 @@ var { group_calendar } = require("./group_calendar/group_calendar");
 var { add_calendar } = require("./group_calendar/add_calendar");
 var { del_calendar } = require("./group_calendar/del_calendar");
 var { update_calendar } = require("./group_calendar/update_calendar");
-//const { isObject } = require("util");
+
+// 알림 설정
+var { arams }=require("./aram/aram");
 // 익스프레스 객체 생성
 
 
@@ -442,7 +444,7 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
   });
 });
 
-app.post("",votechange,(req,res)=>{
+app.post("/api/group/vote",votechange,(req,res)=>{
   res.status(200).json({
     success: true
   });
@@ -510,6 +512,12 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
             });
         })
 });
+
+app.post("",arams,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+})
 
 io.on("connection", (socket) => {
   socket.on("chatting", (data) => {
