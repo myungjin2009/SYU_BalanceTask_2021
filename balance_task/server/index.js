@@ -221,7 +221,7 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
             });
             console.log(userarray);
             var array=[];
-            const sql2="select * from `groups` g,groupusers i where g.group_name=i.group_name and i.user=?";
+            const sql2="select * from `groups` g,groupusers i where g.group_no=i.group_no and i.user=?";
             sql.pool.query(sql2,req.id,(err,rows,fields)=>{  
 
             rows.forEach((info) => {
