@@ -6,11 +6,11 @@ import PostBlock from '../common/PostBlock';
 import GroupHeader from '../common/GroupHeader';
 import { withRouter, Link } from 'react-router-dom';
 
-const getNotice = (userData, dispatch, entireNotice, setIsCompleted) => {
+const getNotice = (group, dispatch, entireNotice, setIsCompleted) => {
   
     const body = {
       last_number: entireNotice.length-1,
-      group: userData.group
+      group: group
     };
     dispatch(receiveNotice(body)).then(res =>{
       setIsCompleted(true);
@@ -32,12 +32,12 @@ const searchPosts = (search, posts, setPosts, entirePosts) =>{
 }
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, entireNotice, userData , isLoading, dispatch,setNotice)=>{
+const handleScrollEvent = (e, entireNotice, group , isLoading, dispatch,setNotice)=>{
   //로딩 될 때 스크롤 하면 데이터 받으면 안되니까 로딩시 바로 끝내기
   if(isLoading)return;
   const body = {
     last_number: entireNotice.length-1,
-    group: userData.group
+    group: group
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   if(Math.floor(scrollTop + clientHeight) == scrollHeight){
@@ -52,8 +52,8 @@ const handleScrollEvent = (e, entireNotice, userData , isLoading, dispatch,setNo
 }
 
 const ProjectNotice = (props) =>{
-  const isLoading = useSelector(state => state.group.isLoading.notice);
   const entireNotice = useSelector(state => state.group.noticeList);
+  const isLoading = useSelector(state => state.group.isLoading.notice);
   const userData = useSelector(state => state.user.userData);
   console.log(entireNotice);
   const dispatch = useDispatch();
@@ -67,14 +67,11 @@ const ProjectNotice = (props) =>{
   useEffect(()=>{
     //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
     if(isLoading){
-      if(userData === undefined){
-        return;
-      }
-      getNotice(userData, dispatch, entireNotice, setIsCompleted);
+      console.log(isLoading);      
+      getNotice(group, dispatch, entireNotice, setIsCompleted);
     }else{
       if(isCompleted){
         setNotice(entireNotice);
-        console.log(entireNotice);
         console.log('notice 최신화 성공!');
         return;
       }
@@ -84,12 +81,12 @@ const ProjectNotice = (props) =>{
         searchPosts(search, notice, setNotice, entireNotice);
       }
     }
-  },[search, isLoading, userData]);
+  },[search, isLoading]);
 
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
-      <Container onScroll={(e)=>handleScrollEvent(e, entireNotice, userData, isLoading, dispatch,setNotice)}>
+      <Container onScroll={(e)=>handleScrollEvent(e, entireNotice, group, isLoading, dispatch,setNotice)}>
         {
           isLoading ?
           <>
@@ -98,7 +95,7 @@ const ProjectNotice = (props) =>{
           </>
           :
           notice.map((user_post, i)=>(
-            <PostBlock key={i} index={i} user={userData.username} user_post = {user_post} />
+            <PostBlock key={i} index={i} userData={userData} user_post = {user_post} group={group} isTimeline = {false}/>
           ))
         }
       </Container>

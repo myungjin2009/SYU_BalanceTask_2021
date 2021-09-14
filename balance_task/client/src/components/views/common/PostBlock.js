@@ -62,7 +62,7 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
 }
 
 const PostBlock = (props) =>{
-  const {index, user_post ,userData, group} = props;
+  const {index, user_post ,userData, group, isTimeline} = props;
   const {photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage} = user_post;
   //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
   const [vote, setVote] = useState(votes_list);
@@ -82,25 +82,31 @@ const PostBlock = (props) =>{
         <p>{content}</p>
         <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {date}</span>
       </Content>
-      <VotingSpace>
-        <ButtonContainer>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, userData, e, kind, setVote, path, group)}>찬성</button>
-          <button onClick={(e)=>handleVote(dispatch, votes_list, index, userData, e, kind, setVote, path, group)}>반대</button>  
-        </ButtonContainer>
-        <Bar>
-          {
-            votes_list.map((el, i)=>{
-              if(el.vote === '찬성') return(<PositiveBlock key={i}></PositiveBlock>)
-              else if(el.vote === '반대') return(<NegativeBlock key={i}></NegativeBlock>)
-              else return(<WhiteBlock key={i}></WhiteBlock>)
-            })
-          }
-        </Bar>
-      </VotingSpace>
+      {isTimeline && 
+      (
+        <VotingSpace>
+          <ButtonContainer>
+            <button onClick={(e)=>handleVote(dispatch, votes_list, index, userData, e, kind, setVote, path, group)}>찬성</button>
+            <button onClick={(e)=>handleVote(dispatch, votes_list, index, userData, e, kind, setVote, path, group)}>반대</button>  
+          </ButtonContainer>
+          <Bar>
+            {
+              votes_list.map((el, i)=>{
+                if(el.vote === '찬성') return(<PositiveBlock key={i}></PositiveBlock>)
+                else if(el.vote === '반대') return(<NegativeBlock key={i}></NegativeBlock>)
+                else return(<WhiteBlock key={i}></WhiteBlock>)
+              })
+            }
+          </Bar>
+        </VotingSpace>
+      )}
+      
     </Container>
   )
 }
-
+PostBlock.defaultProps = {
+  isTimeline: true
+}
 
 const Container = styled.div`
   width: 100%;
