@@ -77,6 +77,9 @@ var { update_calendar } = require("./group_calendar/update_calendar");
 
 // 알림 설정
 var { arams }=require("./aram/aram");
+
+//워커리스트
+var { wokerget }=require("./wokerlist/wokerget");
 // 익스프레스 객체 생성
 
 
@@ -512,6 +515,13 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
             });
         })
 });
+
+app.get("/api/user/load_worker",wokerget,(req,res,next)=>{
+  res.status(200).json({
+    array:req.array,
+    success: true,
+    });
+})
 
 app.post("",arams,(req,res,next)=>{
   res.status(200).json({

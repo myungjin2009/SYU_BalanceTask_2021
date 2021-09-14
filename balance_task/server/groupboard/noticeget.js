@@ -7,10 +7,11 @@ const { info } = require("console");
 
 let noticeget = (req, res, next) => {
   console.log("notice 함수 호출됨");
-  let urlgroup=req.body.urlgroup;
+  let urlgroup=req.body.group;
   
   const sql2="select count(board_number) from groupnotice where info_groupname=? ";
   sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
+    console.log(rows);
    var maxno=rows[0]['count(board_number)']
     const array=[];
     
