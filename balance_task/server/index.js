@@ -60,7 +60,7 @@ var { noticeget } = require("./groupboard/noticeget");
 var { boardget1 } = require("./groupboard/boardget1");
 var { votechange }=require("./groupboard/vote");
 var { boardadd } = require("./groupboard/boardadd");
-
+var { noticeadd } = require("./groupboard/noticeadd");
 //jwt auth 모듈
 var { auth } = require("./middleware/auth");
 
@@ -114,7 +114,7 @@ app.use(
 
 const upload = multer({dest: './upload'}); 	
 	//var upload = multer({ storage: storage });
-	app.use('/image', express.static('./upload'));
+app.use('/image', express.static('./upload'));
 //===== 라우팅 함수 등록 =====//
 // 라우터 객체 참조//var router = express.Router();
 var router = express.Router();
@@ -396,6 +396,12 @@ app.post("/api/group/vote",votechange,(req,res)=>{
 });
 
 app.post("",upload.single("image"),boardadd,(req,res)=>{
+  res.status(200).json({
+    success: true
+  });
+});
+
+app.post("",upload.single("image"),noticeadd,(req,res)=>{
   res.status(200).json({
     success: true
   });
