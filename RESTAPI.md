@@ -53,6 +53,16 @@
   /api/user/receive_mypage => method: post
   #### 설명 : 사용자의 프로필(별명,사진,가입된 프로젝트) 보여주기 위한 정보 불러오기
   ####        사용자 정보를 서버에 보내야 하니깐
+  /api/user/update_mypage/message => method: post
+  #### 설명 : 사용자의 프로필 메시지 업데이트
+  ####        사용자의 프로필 메시지를 보냄.
+  /api/user/update_mypage/photo => method: post
+  #### 설명 : 사용자의 프로필 이미지 업데이트
+  ####        사용자의 프로필 이미지를 보냄. NULL을 보내면 / 서버에서는 기본이미지로 받아들임
+
+## 워커리스트 - 작성자: 김명진
+  /api/user/load_worker => method: post
+  #### 설명 : 사용자의 워커리스트 불러오기
   
 
 ## < GROUP >

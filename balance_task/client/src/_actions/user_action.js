@@ -10,6 +10,7 @@ import {
   UPDATE_MESSAGE,
   UPDATE_IMAGE,
   LOADING_MYPAGE,
+  RECEIVE_USERLIST,
   RECEIVE_APPLICATION
 } from "./types";
 //로그인 할 때
@@ -121,6 +122,17 @@ export function updateImage(dataToSubmit, config){
 
   return {
     type: UPDATE_IMAGE,
+    payload: request
+  }
+}
+
+//워커리스트-유저 불러오기
+export function loadWorker(dataToSubmit) {
+  const request = axios.post('/api/user/load_worker', dataToSubmit)
+  .then(res=> res.data);
+
+  return {
+    type: RECEIVE_USERLIST,
     payload: request
   }
 }
