@@ -334,6 +334,7 @@ export default function (state = initialState, action) {
       return { ...state, groups_list: new_array };
     }
     case LOADING:{
+      console.log({...state.isLoading, ...action.isLoading});
       return { ...state, isLoading: {...state.isLoading, ...action.isLoading} };
     }
     case JOIN_GROUP:{

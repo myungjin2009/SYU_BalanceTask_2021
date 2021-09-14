@@ -302,6 +302,10 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
   );
   console.log(req.array);
   if(req.array===undefined){
+    res.status(200).json({
+      array: [],
+      success: true,
+    });
     return ;
   }
   //console.log(req.urlgroup);
