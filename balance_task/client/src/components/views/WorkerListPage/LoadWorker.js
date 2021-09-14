@@ -1,6 +1,9 @@
-import styled,{keyframes} from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
-
+import {chooseLoading, loadWorker} from '../../../_actions/user_action';
+import {useSelector, useDispatch} from 'react-redux';
+/*
 const MyProfile = {                                         //REDUX 적용후 해체 예정
     ProfileName: "홍길동",                                  
     ProfileImage: profile_default,                          //REDUX 적용후 해체 예정
@@ -8,7 +11,8 @@ const MyProfile = {                                         //REDUX 적용후 �
     ContinuingPJ: 1,                                        //REDUX 적용후 해체 예정
     Score: 78,                                              //REDUX 적용후 해체 예정
     ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다.`,
-  }                                                         //REDUX 적용후 해체 예정
+  }
+*/                                                            //REDUX 적용후 해체 예정
 const TEMP_INDEX = 1;   //임시
 const WorkerProfile = [{
         ProfileName: "김지원",                               //REDUX 적용후 해체 예정
@@ -74,18 +78,31 @@ const WorkerProfile = [{
 ];
 
 const LoadWorker = (props) => {
+    const state = useSelector(state => state.user);   //내 프로필 정보 REDUX에서 불러오기 (최신은 아님)
+    const { ProfileImage,ProfileName,Score,ProfileMessage } = state.profile;    //MyProfile에서 사용됨
+
+    // const dispatch = useDispatch();
+    // dispatch(loadWorker()).then(res => {
+    //     if(res.payload.success){
+    //         console.log('데이터 받기 성공');
+    //         console.log(res.payload);
+    //         }
+    // });
+
+
     if(props.type === "MyProfile") {
         return(
             <Profile type="myProfile" color="rgb(230,247,230)">
                 <div className = "ProfileImg">
-                    <img className ="ProfileimgSource" src={MyProfile.ProfileImage} />
+                    <img className ="ProfileimgSource" src={ProfileImage} />
                 </div>
-                <div className = "ProfileName">{MyProfile.ProfileName}</div>
-                <div className = "ProfileScore">{MyProfile.Score}</div>
-                <div className = "ProfileMessage">{MyProfile.ProfileMessage}</div>
+                <div className = "ProfileName">{ProfileName}</div>
+                <div className = "ProfileScore">{Score}</div>
+                <div className = "ProfileMessage">{ProfileMessage}</div>
             </Profile>
         );
     }
+
     else if(props.type === "WorkerProfile") {
         if(TEMP_INDEX < 1) {
             return(<div>
@@ -101,7 +118,7 @@ const LoadWorker = (props) => {
             return(
                 <div>{
                     WorkerProfile.map((list,index) => {
-                            console.log(list);
+                            //console.log(list);
                             return(
                                 <Profile index={index} color="">
                                     <div className = "ProfileImg">
