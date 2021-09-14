@@ -59,6 +59,7 @@ var { grouppart } = require("./group/grouppart");
 var { noticeget } = require("./groupboard/noticeget");
 var { boardget1 } = require("./groupboard/boardget1");
 var { votechange }=require("./groupboard/vote");
+var { boardadd } = require("./groupboard/boardadd");
 
 //jwt auth 모듈
 var { auth } = require("./middleware/auth");
@@ -77,6 +78,9 @@ var { update_calendar } = require("./group_calendar/update_calendar");
 
 // 알림 설정
 var { arams }=require("./aram/aram");
+
+//워커리스트
+var { wokerget }=require("./wokerlist/wokerget");
 // 익스프레스 객체 생성
 
 
@@ -221,7 +225,7 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
             });
             console.log(userarray);
             var array=[];
-            const sql2="select * from `groups` g,groupusers i where g.group_name=i.group_name and i.user=?";
+            const sql2="select * from `groups` g,groupusers i where g.group_no=i.group_no and i.user=?";
             sql.pool.query(sql2,req.id,(err,rows,fields)=>{  
 
             rows.forEach((info) => {
@@ -369,82 +373,29 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
 });
 
 app.post("/api/group/notice", noticeget, async (req, res) => {
-  console.log(
-    "====================================notice success========================================="
-  );
-  
-  if(req.array===undefined){
-    return ;
-  }
-  //notice에 해당하는 게시물을 가져와서 넘겨준다.
-  let all_array = req.array;
-  console.log(all_array);
-  let all_array2 = "";
-  // console.log (req.boa rd _number);
-  sql.pool.getConnection(function (err, conn) {
-    if (err) {
-      if (conn) {
-        conn.release(); // 반드시  해제해야 함
-      }
-
-      callback(err, null);
-      return;
+    console.log(
+      "====================================notice success========================================="
+    );
+    
+    if(req.array===undefined){
+      return ;
     }
-    console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
-
-    for (let i = 0; i < req.array.length; i++) {
-      let vote_list = [];
-      console.log(req.array[i].id);
-      conn.query(
-        "select * from `vote2` v, user u where board_number=? and u.id=v.user and v.group='"+req.urlgroup+"'",
-        req.array[i].id,
-        async function (err, rows, fields) {
-          //conn.release( ); // 반드시 해제해야 함
-          console.log("실행 대상 SQL : ");
-          await rows.forEach(async (info, index, newarray) => {
-            var discuss = "";
-            if (info.discuss === 1) {
-              discuss = "찬성";
-            } else if (info.discuss === 2) {
-              discuss = "반대";
-            } else {
-              discuss = info.discuss;
-            }
-            console.log(info.user);
-            console.log(info.group);
-            console.log(info.board_number);
-            console.log(discuss);
-
-            vote_list.push({
-              user_name: info.name,
-              vote: discuss,
-            });
-
-            all_array[i].votes_list = vote_list;
-            console.log(all_array[i]);
-          });
-          all_array2 = all_array;
-          //console.log(all_array2);
-          if (i === req.array.length - 1) {
-            res.status(200).json({
-              array: all_array2,
+    res.status(200).json({
+              array: req.array,
               success: true,
-            });
-          }
-        }
-      );
+    });
+        
+});
 
-      conn.on("error", function (err) {
-        console.log("데이터베이스 연결 시 에러 발생함.");
-        console.dir(err);
+      
 
-        callback(err, null);
-      });
-    }
+app.post("/api/group/vote",votechange,(req,res)=>{
+  res.status(200).json({
+    success: true
   });
 });
 
-app.post("/api/group/vote",votechange,(req,res)=>{
+app.post("",upload.single("image"),boardadd,(req,res)=>{
   res.status(200).json({
     success: true
   });
@@ -512,6 +463,13 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
             });
         })
 });
+
+app.get("/api/user/load_worker",wokerget,(req,res,next)=>{
+  res.status(200).json({
+    array:req.array,
+    success: true,
+    });
+})
 
 app.post("",arams,(req,res,next)=>{
   res.status(200).json({

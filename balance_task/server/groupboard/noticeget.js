@@ -7,15 +7,16 @@ const { info } = require("console");
 
 let noticeget = (req, res, next) => {
   console.log("notice 함수 호출됨");
-  let urlgroup=req.body.urlgroup;
+  let urlgroup=req.body.group;
   
   const sql2="select count(board_number) from groupnotice where info_groupname=? ";
   sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
+    console.log(rows);
    var maxno=rows[0]['count(board_number)']
     const array=[];
     
     let paramlastnumber=req.body.last_number;
-    let urlgroup=req.body.urlgroup;
+    console.log(urlgroup);
     let mygroup=req.body.group;
     var num=0;
     //for(var i=1;i<mygroup.length;i++){
@@ -79,7 +80,7 @@ let noticeget = (req, res, next) => {
               image:req.image,
               file:req.file,
               kind:"notice",
-              votes_list:null 
+              votes_list:[]
             });
             req.array=array;
             req.urlgroup=urlgroup;
