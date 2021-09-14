@@ -73,8 +73,7 @@ const ProjectTimeline = (props) =>{
 
   useEffect(()=>{
     //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
-    if(isLoading){
-      console.log(isLoading);      
+    if(isLoading){ 
       getTimeline(group, dispatch,entireTimeline, setIsCompleted);
       
     }else{

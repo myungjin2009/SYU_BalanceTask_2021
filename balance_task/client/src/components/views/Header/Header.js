@@ -37,14 +37,15 @@ const Title = styled.header`
   box-shadow: 0 2px 4px #aaa;
   z-index: 1000;
   &>span{
-    font-size: 30px;
+    display: inline-block;
+    font-size: 18px;
     line-height: 60px;
     font-weight: 700;
   }
   &>i:first-child{
     position: absolute;
-    font-size: 30px;
-    top: 15px;
+    font-size: 20px;
+    top: 20px;
     left: 10px;
   }
 

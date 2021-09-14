@@ -45,7 +45,7 @@ const MyPage = (props) => {
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   const [myPageData, setMyPageData] = React.useState({profile, project_list});
   const [isNotice, setIstNotice] = React.useState(true);
-  const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} onClick={()=>dispatch(chooseLoadingGroup({timeline: true, notice: true}))} ProjectList = {el}/>));
+  const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
   useEffect(()=>{
     if(isLoading){

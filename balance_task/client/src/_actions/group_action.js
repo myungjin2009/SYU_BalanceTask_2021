@@ -5,7 +5,8 @@ import {
   VOTE_FOR_POSTS,
   RECEIVE_NOTICE,
   RECEIVE_TIMELINE,
-  CREATE_GROUP
+  CREATE_GROUP,
+  RESET_POSTS
 } from "./types";
 import axios from "axios";
 
@@ -57,7 +58,12 @@ export function createGroup(formData, config){
     payload: request
   }
 }
-
+export function resetPosts(dataToSubmit){
+  return {
+    type: RESET_POSTS,
+    payload:dataToSubmit
+  }
+}
 /*프로젝트 현황 페이지 */
 //timeline 게시물 데이터 받기
 export function receiveTimeline(dataToSubmit) {

@@ -18,7 +18,8 @@ function PostBlockDetail(props) {
       </UserBlock>
       <Content>{content}</Content>
       <Image photo_url={photo_url}></Image>
-      <VoteResultBlock>
+      {votes_list.length !== 0 && (
+        <VoteResultBlock>
         <AgreeList>
           <div>찬성</div>
           <ul>
@@ -56,6 +57,7 @@ function PostBlockDetail(props) {
           </ul>
         </UnmarkedList>
       </VoteResultBlock>
+      )}
     </Container>
   )
 }

@@ -382,6 +382,10 @@ app.post("/api/group/notice", noticeget, async (req, res) => {
     );
     
     if(req.array===undefined){
+      res.status(200).json({
+        array: [],
+        success: true,
+      });
       return ;
     }
     res.status(200).json({
