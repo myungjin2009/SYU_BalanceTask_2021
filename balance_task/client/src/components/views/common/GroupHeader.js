@@ -3,25 +3,6 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import HidingMenu from '../HidingMenu/HidingMenu';
 
-
-const getUsers = () =>{
-  const users_data = [
-    {
-      user_name: '장다혜',
-      group_name: '두유 개발자',
-    },
-    {
-      user_name: '박건형',
-      group_name: '두유 개발자',
-    },
-    {
-      user_name: '김명진',
-      group_name: '두유 개발자',
-    },
-  ];
-  return users_data;
-}
-
 const handleTimeline = (props, group)=>{
   props.history.push(`/${group}/project_timeline`);
   console.log(props);
@@ -89,14 +70,12 @@ const GroupHeader = (props) =>{
     }
   }, [isSearch]);
 
-  const users_data = getUsers();
-  const group_name = users_data[0].group_name;
   return(
     <Container>
       <HidingMenu menuBtn={menuBtn} isMenu={isMenu} group={group}/>
       <Header>
         <div className="menu" ref={menuBtn} onClick = {()=>handleMenu(isMenu, setIsMenu)}><i className="fas fa-bars"></i></div>
-        <p>{group_name}</p>
+        <p>{group}</p>
         <div className="search" onClick={()=>handleSearch(isSearch, setIsSearch)}><i className="fas fa-search"></i></div>
       </Header>
       <Content>

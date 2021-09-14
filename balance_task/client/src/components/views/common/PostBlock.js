@@ -100,6 +100,11 @@ const PostBlock = (props) =>{
           </Bar>
         </VotingSpace>
       )}
+      {!isTimeline && 
+        (
+          <hr style={{border: "1px solid #7D7D7D"}}/>
+        )
+      }
       
     </Container>
   )

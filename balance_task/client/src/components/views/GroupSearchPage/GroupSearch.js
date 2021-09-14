@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import GroupSearchHeader from './GroupSearchHeader';
 import GroupCard from './GroupCard';
 import Navigation from '../Navigation/Navigation';
-import { receiveGroupCard , chooseLoading} from '../../../_actions/group_action';
+import { receiveGroupCard , chooseLoadingGroup} from '../../../_actions/group_action';
 import {useDispatch, useSelector} from 'react-redux'; 
 
 //스크롤 내릴 때마다 새로운 정보 받기
@@ -55,7 +55,7 @@ const GroupSearch = (props) => {
       // if(response.payload.success){
       //   // 2.로딩 해제하고 다시 리렌더링 된다.
         console.log(response);
-        dispatch(chooseLoading({group_search: false}));
+        dispatch(chooseLoadingGroup({group_search: false}));
       // }
       });
       
