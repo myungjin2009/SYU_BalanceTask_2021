@@ -39,7 +39,7 @@ const Router = (props) => {
         <Route path="/signup" component={Auth(Signup, false)} />
         <Route path="/finding_password" component={Auth(FindingPW, false)}/>
         <Route path="/practice" component={Prac}/>
-        <Route exact path = "/MJPractice" component = {MJPractice} />
+        <Route exact path = "/MJPractice" component = {Auth(MJPractice, true)} />
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
         <Route exact path="/my_page/notice" component={Auth(NoticePage, true)} />
         <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
