@@ -503,13 +503,13 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
     });
 })
 
-app.post("/api/user/notice",aramsubmit,(req,res,next)=>{
+app.post("/api/user/notice/confirm",aramsubmit,(req,res,next)=>{
   res.status(200).json({
     success: true,
     });
 });
 
-app.post("",aramreject,(req,res,next)=>{
+app.post("/api/user/notice/reject",aramreject,(req,res,next)=>{
   res.status(200).json({
     success: true,
     });
