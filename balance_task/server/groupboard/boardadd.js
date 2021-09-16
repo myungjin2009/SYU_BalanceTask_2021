@@ -14,11 +14,11 @@ let boardadd = (req, res, next) => {
   let paramfile=req.body.file;
   let paramtext=req.body.text;
   let paramId=req.body.id;
-    // if(paramnull=="DEFAULT"){
-    //     paramimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
-    // }else{
-    //     paramimages= `/image/${req.file.filename}`;
-    // }
+    if(paramimages=== null || paramimages===undefined){
+        paramimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
+    }else{
+        paramimages= `/image/${req.file.filename}`;
+    }
     fs.readFile(paramfile, 'utf8', function(err, data){
         console.log(data);
       });

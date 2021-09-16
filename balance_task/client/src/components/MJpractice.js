@@ -1,38 +1,32 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { updateImage } from '../_actions/user_action';
 import { useDispatch } from "react-redux";
+import {chooseLoading, loadWorker} from '../_actions/user_action';
 
 const MJPracitce = () => {
   const dispatch = useDispatch();
-  const OnImgChange = (event) => {
-  
-    const formData = new FormData();
-    formData.append('image',event.target.files[0]);
+  const [data,setData] = React.useState(null);
 
-    const config = {
-      headers: {
-        'content-type': "multipart/form-data"
-      }
+  dispatch(loadWorker()).then(res => {  //유즈이팩트로 둬야지 병시나아ㅏ아아아아아앙아ㅏ아ㅏ아아아아ㅏㅏㅏㅇ아
+    if (res.payload.success) {
+      console.log('데이터 받기 성공');
+      //setData(res.payload);
     }
-  
-    dispatch(updateImage(formData, config)).then((res) => {
-      if(res.payload.success) {
-        console.log('업로드 된거임?');
-        console.log(res.payload.success);
-      }
-      //props.history.push('/group_search');
-      // if(res.payload.success){
-      //   props.history.push('/group_search');
-      // }
-    });
-  }
+  });
+
+
+  //console.log(data);
+
+
+
+
 
   return (
     <Block>
-       <input type="file" accept="image/*" onChange={OnImgChange}></input> 
+      개샛기야
     </Block>
   );
 }

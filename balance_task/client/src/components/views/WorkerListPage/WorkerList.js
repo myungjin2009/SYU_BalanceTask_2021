@@ -1,6 +1,6 @@
 import Navigation from '../Navigation/Navigation'
 import styled, {keyframes} from 'styled-components';
-import LoadWorker from './LoadWorker';
+import LoadMyProfile from './LoadMyProfile';
 import React from 'react';
 
 const Total_WorkerList = 0;
@@ -25,10 +25,12 @@ const WorkerList = () => {
         <span className="SearchIcon" ref={SearchIcon} onClick={() => {
           if (isShow === 1) {
             SearchIcon.current.style.color = "black";
+            SearchBox.current.style.display = "none";   //임시
             setIsShow(0);
           }
           else {
             SearchIcon.current.style.color = "white";
+            SearchBox.current.style.display = "block";  //임시
             SearchBox.current.focus();
             setIsShow(1);
           }
@@ -40,10 +42,9 @@ const WorkerList = () => {
 
       <List>
         <div className="brBar">내 프로필</div>
-        <LoadWorker type="MyProfile"></LoadWorker>
-        <div className="brBar">워커 프로필
-        </div>
-        <LoadWorker type="WorkerProfile"></LoadWorker>
+        <LoadMyProfile></LoadMyProfile>
+        <div className="brBar">워커 프로필</div>
+        {/* <LoadWorker type="WorkerProfile"></LoadWorker> */}
       </List>
 
       <Navigation/>
@@ -88,7 +89,7 @@ const Header = styled.div`
   & > .SearchBox {  
     position: absolute;
     left: 3vw;
-    top: -6vh;
+    top: 2vh;
     width: 80%;
     height: 6vh;
     border: none;
@@ -97,18 +98,18 @@ const Header = styled.div`
     font-size: 2.5vh;
     padding-left: 2vh;
   }
-  & > .SearchBox[active="1"] {
-    animation-name: ${SearchBox_Slide};
-    animation-duration: 0.4s;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-  }
-  & > .SearchBox[active="0"] {
-    animation-name: ${SearchBox_Slide2};
-    animation-duration: 0.4s;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-  }
+  // & > .SearchBox[active="1"] {
+  //   animation-name: ${SearchBox_Slide};
+  //   animation-duration: 0.4s;
+  //   animation-timing-function: ease;
+  //   animation-fill-mode: forwards;
+  // }
+  // & > .SearchBox[active="0"] {
+  //   animation-name: ${SearchBox_Slide2};
+  //   animation-duration: 0.4s;
+  //   animation-timing-function: ease;
+  //   animation-fill-mode: forwards;
+  // }
   & > .SearchIcon {
     color: black;
     margin-right: 3vw;
