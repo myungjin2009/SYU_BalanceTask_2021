@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { postNoticeConfirm, postNoticeReject} from '../../../_actions/user_action';
@@ -7,10 +7,11 @@ import { useDispatch } from 'react-redux';
 function InfoBlock(props) {
   const dispatch = useDispatch();
   const Container_Ref = useRef(null);
-  const {sender, content, time} = props;
+  const {aramsdata:{senduser, time, groupname}} = props;
+  
   const canceilHandler = () =>{
     const new_obj = {
-      ...props,
+      ...props.aramsdata,
       isConfirm: false
     }
     dispatch(postNoticeReject(new_obj)).then(res=>{
@@ -37,10 +38,12 @@ function InfoBlock(props) {
     <Container ref={Container_Ref}>
       <i className="fas fa-times" onClick={canceilHandler}></i>
       <NameBlock>
-        보낸사람: {sender}
+        보낸사람: {senduser}
       </NameBlock>
       <Content>
-        {content}
+        {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`}
+        {content === true && `${senduser}님이 ${groupname}에 가입 되었습니다!`}
+        {content === false && `${senduser}님이 ${groupname}에 가입이 거절 되었습니다..`}
       </Content>
       <TimeBlock>
         {time}
@@ -54,7 +57,7 @@ function InfoBlock(props) {
 }
 
 InfoBlock.defaultProps = {
-  sender: '김두유',
+  senduser: '김두유',
   content: '안녕하세요 저 두유개발자에 들어가고 싶은 두유입니다.',
   time: '2021-09-16 8시 8분'
 }
