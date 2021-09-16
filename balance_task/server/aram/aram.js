@@ -2,6 +2,7 @@ const sql = require("../database/db_connect");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
+const moment=require("moment");
 
 let arams= (req, res, next) => {
   console.log("grouppart 함수 호출됨");
@@ -19,9 +20,9 @@ let arams= (req, res, next) => {
         const sql5="select count(aram_no) from groups where groupname=?"
         sql.pool.query(sql5,paramgroup_name,(err,rows,fields)=>{
         var no=rows[0]['count(aram_no)']+1;    
-        
+        var time=moment().format('YYYY-MM-DD HH:mm:ss');
 
-        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group:paramgroup_name };
+        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group:paramgroup_name, sendtime:time };
 
         const sql1 = "insert into aram set ?; ";
         //const sql2 = "SELECT * FROM vote; ";

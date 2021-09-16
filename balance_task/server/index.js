@@ -78,7 +78,7 @@ var { update_calendar } = require("./group_calendar/update_calendar");
 
 // 알림 설정
 var { arams }=require("./aram/aram");
-
+var { receive_message }=require("./aram/aramget");
 //워커리스트
 var { wokerget }=require("./wokerlist/wokerget");
 // 익스프레스 객체 생성
@@ -209,11 +209,18 @@ app.post("/api/group/participation",grouppart,(req,res)=>{
   });
 });
 
-app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
-  console.log(
-    "==========================================mypage==========================================="
-  );
+app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message,(req,res)=>{
+            console.log(
+              "==========================================mypage==========================================="
+            );
+            req.truearam;
             console.log(req.name);
+            console.log(req.aramArray);
+            if(req.aramArray===null || req.aramArray===undefined || req.aramArray===[]){
+              req.truearam=false;
+            }else{
+              req.truearam=true;
+            }
             let userarray=[]
             userarray.push({
               ProfileName: req.name,
@@ -278,6 +285,8 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,(req,res)=>{
                 success: true,
                 profile:userarray[0],
                 project_list:req.array,
+                arams:req.truearam,
+                aramsdata:req.aramArray
               });
       });         
   
