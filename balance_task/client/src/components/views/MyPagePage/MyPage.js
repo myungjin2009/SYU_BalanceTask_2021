@@ -7,20 +7,22 @@ import {withRouter} from "react-router";
 import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage, receiveApplication } from "../../../_actions/user_action";
-import { chooseLoadingGroup } from "../../../_actions/group_action";
 import Notice from "../common/Notice";
 
-const receiveMyPageData = (dispatch, setMyPageData, setIstNotice) =>{
+const receiveMyPageData = (dispatch, setMyPageData, setIsNotice) =>{
   dispatch(receiveProjectMypage()).then(res => {
     if(res.payload.success){
       //console.log('데이터 받기 성공');
       //console.log(res.payload);
       setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
-      dispatch(receiveApplication()).then(res=>{
-        if(res.payload.success){
-          setIstNotice(true);
-        }
-      })
+      // dispatch(receiveApplication()).then(res=>{
+      //   if(res.payload.success){
+      //     setIsNotice(true);
+      //   }
+      // })
+      if(res.payload.arams){
+        setIsNotice(true);
+      }
       dispatch(chooseLoading(false));
     }
   });
@@ -44,13 +46,13 @@ const MyPage = (props) => {
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   const [myPageData, setMyPageData] = React.useState({profile, project_list});
-  const [isNotice, setIstNotice] = React.useState(true);
+  const [isNotice, setIsNotice] = React.useState(true);
   const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
   useEffect(()=>{
     if(isLoading){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
-      receiveMyPageData(dispatch, setMyPageData, setIstNotice);
+      receiveMyPageData(dispatch, setMyPageData, setIsNotice);
       //console.log(myPageData);
       // dispatch(chooseLoading(false));
     }
