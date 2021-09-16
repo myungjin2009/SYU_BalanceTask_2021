@@ -5,6 +5,7 @@ const cookie = require("cookie");
 const { info } = require("console");
 var http = require('http');
 var url = require('url');
+const moment=require("moment");
 
 
 let aramsubmit= (req, res, next) => {
@@ -12,12 +13,17 @@ console.log("grouppart 함수 호출됨");
     var paramSendId=req.body.senduser; 
     var paramgroup_name=req.body.group;
     var paramId=req.body.receiveuser;
-    
+    console.log(req.body);
     const sql4="select count(board_number) from groupboard where info_groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
     console.log(rows);
-    var no=rows[0]['count(board_number)'];
+    var no;
     
+    if(rows===undefined){
+        no=0;
+    }else{
+     no=rows[0]['count(board_number)'];
+    }
     for(var i=1;i<no+1;i++){
       console.log(i);
       data2={board_number:i, user:paramSendId, group:paramgroup_name, discuss:0}
