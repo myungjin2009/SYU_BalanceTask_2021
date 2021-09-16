@@ -202,7 +202,14 @@ app.post("/api/group/create_group", group_add,(req,res)=>{
   });
 });
 
-app.post("/api/group/participation",grouppart,(req,res)=>{
+// app.post("/api/group/participation",grouppart,(req,res)=>{
+//   res.status(200).json({
+//     success: true,
+    
+//   });
+// });
+
+app.post("/api/group/participation",arams,(req,res)=>{
   res.status(200).json({
     success: true,
     
