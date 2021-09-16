@@ -7,11 +7,12 @@ var http = require('http');
 var url = require('url');
 
 
-let grouppart= (req, res, next) => {
+let aramsubmit= (req, res, next) => {
 console.log("grouppart 함수 호출됨");
     var paramSendId=req.body.senduser; 
     var paramgroup_name=req.body.group;
     var paramId=req.body.receiveuser;
+    var isConfirm=req.body.isConfirm;
     const sql4="select count(board_number) from groupboard where info_groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
     console.log(rows);
@@ -38,9 +39,25 @@ console.log("grouppart 함수 호출됨");
           console.log(err);
           } else { 
             
-          console.log("group 등록");
+          console.log("삭제");
           }
       })
+
+      const sql7="select count(aram_no) from aram"
+      sql.pool.query(sql7,(err,rows,fields)=>{
+        var no=rows[0]['count(aram_no)']+1;    
+        var time=moment().format('YYYY-MM-DD HH:mm:ss');
+        var insertdata = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group:paramgroup_name, sendtime:time, content:1 };
+        const sql8="insert into aram set ?"
+        sql.pool.query(sql8,insertdata,(err,rows,fields)=>{
+            if (err) {
+            console.log(err);
+            } else { 
+                
+            console.log("새알림 등록");
+            }
+        })
+    })
 
     var data = {group_name:paramgroup_name, user:paramSendId, leader:0 };
 
@@ -59,4 +76,4 @@ console.log("grouppart 함수 호출됨");
     });    
 };
 
-module.exports= {grouppart};
+module.exports= {aramsubmit};
