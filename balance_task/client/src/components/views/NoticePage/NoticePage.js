@@ -19,7 +19,7 @@ function NoticePage(props) {
       <Header title="알림"/>
       <Main>
         {
-          aramsdata.map((data, index) => <InfoBlock key={index} sender={data.senduser} content={`${data.senduser}님이 ${data.groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`} time={data.sendtime}/>)
+          aramsdata.map((data, index) => <InfoBlock aramsdata={aramsdata}/>)
         }
       </Main>
     </Container>
