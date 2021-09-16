@@ -7,8 +7,8 @@ import { useDispatch } from 'react-redux';
 function InfoBlock(props) {
   const dispatch = useDispatch();
   const Container_Ref = useRef(null);
-  const {aramsdata:{senduser, time, groupname}} = props;
-  
+  const {aramsdata:{senduser, time, groupname, content}} = props;
+  console.log(props.aramsdata);
   const canceilHandler = () =>{
     const new_obj = {
       ...props.aramsdata,
@@ -24,7 +24,7 @@ function InfoBlock(props) {
 
   const confirmHandler = () =>{
     const new_obj = {
-      ...props,
+      ...props.aramsdata,
       isConfirm: true
     }
     dispatch(postNoticeConfirm(new_obj)).then(res=>{
@@ -42,8 +42,8 @@ function InfoBlock(props) {
       </NameBlock>
       <Content>
         {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`}
-        {content === true && `${senduser}님이 ${groupname}에 가입 되었습니다!`}
-        {content === false && `${senduser}님이 ${groupname}에 가입이 거절 되었습니다..`}
+        {content === 1 && `${senduser}님이 ${groupname}에 가입 되었습니다!`}
+        {content === 0 && `${senduser}님이 ${groupname}에 가입이 거절 되었습니다..`}
       </Content>
       <TimeBlock>
         {time}
@@ -73,6 +73,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 20px;
+  margin:10px 0;
   & > i{
     position: absolute;
     top: 10px;

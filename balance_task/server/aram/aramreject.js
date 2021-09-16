@@ -1,18 +1,19 @@
 const sql = require("../database/db_connect");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-
+const moment=require("moment");
 
 
 let aramreject= (req, res, next) => {
-console.log("grouppart 함수 호출됨");
+console.log("aramreject 함수 호출됨");
     var paramSendId=req.body.senduser; 
     var paramgroup_name=req.body.group;
     var paramId=req.body.receiveuser;
     var paramContent=req.body.content;
+    var paramno=req.body.no;
 
-    const sql6="delete from aram where senduser= '"+paramSendId+"' and receiveuser='"+paramId+"' and group='"+paramgroup_name+"'"
-      sql.pool.query(sql6,(err,rows,fields)=>{
+    const sql6="delete from aram where aram_no=?"
+      sql.pool.query(sql6,paramno,(err,rows,fields)=>{
         if (err) {
           console.log(err);
           } else { 
