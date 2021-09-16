@@ -10,7 +10,8 @@ import {
   UPDATE_IMAGE,
   LOADING_MYPAGE,
   RECEIVE_USERLIST,
-  RECEIVE_APPLICATION
+  POST_NOTICE_CONFIRM,
+  POST_NOTICE_REJECT
 } from "../_actions/types";
 import hanium_logo from '../images/hanium_logo.jpg';
 import profile_default from '../images/profile_sample.jpg';
@@ -73,8 +74,24 @@ export default function (state = initialState, action) {
       return {...state, Success: action.payload.success}
     }
 
-    case RECEIVE_APPLICATION: {
-      return {...state, notice_success: action.payload.success}
+    case POST_NOTICE_CONFIRM: { 
+      const new_array = state.aramsdata.filter(data =>{
+        if(data.no === action.payload.no_to_delte){
+          return '';
+        }
+        return data;
+      })
+      return {...state, notice_confirm_success: action.payload.notice_success, aramsdata: [...new_array]}
+    }
+
+    case POST_NOTICE_REJECT: { 
+      const new_array = state.aramsdata.filter(data =>{
+        if(data.no === action.payload.no_to_delte){
+          return '';
+        }
+        return data;
+      })
+      return {...state, notice_reject_success: action.payload.notice_success, aramsdata: [...new_array]}
     }
 
     case LOADING_MYPAGE:{

@@ -6,7 +6,7 @@ import Navigation from "../Navigation/Navigation";
 import {withRouter} from "react-router";
 import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
-import { chooseLoading, receiveProjectMypage, receiveApplication } from "../../../_actions/user_action";
+import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 import Notice from "../common/Notice";
 
 const receiveMyPageData = (dispatch, setMyPageData, setIsNotice) =>{
@@ -15,11 +15,7 @@ const receiveMyPageData = (dispatch, setMyPageData, setIsNotice) =>{
       //console.log('데이터 받기 성공');
       //console.log(res.payload);
       setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
-      // dispatch(receiveApplication()).then(res=>{
-      //   if(res.payload.success){
-      //     setIsNotice(true);
-      //   }
-      // })
+      console.log(res.payload);
       if(res.payload.arams){
         setIsNotice(true);
       }
@@ -46,7 +42,7 @@ const MyPage = (props) => {
   const [detailImageFile, setDetailImageFile] = React.useState(null);   //프로필 이미지
   const [detailImageUrl, setDetailImageUrl] = React.useState(null);     //프로필 이미지
   const [myPageData, setMyPageData] = React.useState({profile, project_list});
-  const [isNotice, setIsNotice] = React.useState(true);
+  const [isNotice, setIsNotice] = React.useState(false);
   const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
   useEffect(()=>{

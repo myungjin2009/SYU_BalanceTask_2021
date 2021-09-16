@@ -10,26 +10,26 @@ let receive_message = (req, res, next) => {
     var array=[];
     const sql2="SELECT * FROM aram where receiveuser=? ";
     sql.pool.query(sql2,paramId,(err,rows,fields)=>{
-            
+
             rows.forEach((info,index,newarray) => {
-            
+
             req.senduser=info.senduser;
             req.groupname=info.group;
             req.receiveuser=info.receiveuser;
-            //req.receiveuser=info.receiveuser;
+            req.time=info.sendtime;
 
             console.log(req.senduser);
             array.push({
                 senduser: req.senduser,
                 groupname: req.groupname,
                 receiveuser: req.receiveuser,
-                
+                time:req.time
             });
             req.aramArray=array;
             //next()
-    
+
             });
-            
+
             next()
         });//sql
 };

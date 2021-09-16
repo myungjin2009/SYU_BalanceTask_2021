@@ -11,7 +11,8 @@ import {
   UPDATE_IMAGE,
   LOADING_MYPAGE,
   RECEIVE_USERLIST,
-  RECEIVE_APPLICATION
+  POST_NOTICE_CONFIRM,
+  POST_NOTICE_REJECT
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -95,11 +96,20 @@ export function receiveProjectMypage(){
 }
 
 //다른 사용자가 그룹 리더에게 그룹 신청할 때 오는 알림 받기
-export function receiveApplication(){
-  const request = axios.get('/api/user/receive_mypage/notice')
-  .then(res=> res.data);
+export function postNoticeConfirm(dataToSubmit){
+  const request = axios.post('/api/user/notice/confirm', dataToSubmit)
+  .then(res=> Promise.resolve({notice_success: res.data, no_to_delte: dataToSubmit.no}));
   return {
-    type: RECEIVE_APPLICATION,
+    type: POST_NOTICE_CONFIRM,
+    payload: request
+  }
+}
+
+export function postNoticeReject(dataToSubmit){
+  const request = axios.post('/api/user/notice/reject', dataToSubmit)
+  .then(res=> Promise.resolve({notice_success: res.data, no_to_delte: dataToSubmit.no}));
+  return {
+    type: POST_NOTICE_REJECT,
     payload: request
   }
 }
