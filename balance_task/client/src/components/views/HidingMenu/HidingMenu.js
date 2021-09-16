@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 function HidingMenu({menuBtn, isMenu, group}) {
   const slideMenu = useRef(null);
-  console.log(menuBtn);
   useEffect(()=>{
     if(slideMenu === null)return;
     if(isMenu === false){

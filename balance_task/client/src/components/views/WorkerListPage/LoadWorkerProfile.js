@@ -3,83 +3,11 @@ import styled from 'styled-components';
 import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
 import {chooseLoading, loadWorker} from '../../../_actions/user_action';
 import {useSelector, useDispatch} from 'react-redux';
-/*
-const MyProfile = {                                         //REDUX 적용후 해체 예정
-    ProfileName: "홍길동",                                  
-    ProfileImage: profile_default,                          //REDUX 적용후 해체 예정
-    FinishedPJ: 3,                                          //REDUX 적용후 해체 예정
-    ContinuingPJ: 1,                                        //REDUX 적용후 해체 예정
-    Score: 78,                                              //REDUX 적용후 해체 예정
-    ProfileMessage: `프론트엔드 백엔드 둘다 하는 유니콘입니다.`,
-  }
-*/                                                            //REDUX 적용후 해체 예정
-const TEMP_INDEX = 1;   //임시
-const WorkerProfile = [{
-        ProfileName: "김지원",                               //REDUX 적용후 해체 예정
-        ProfileImage: profile_default,
-        Score: 89,
-        ProfileMessage: `맡겨만 주세요`                      //REDUX 적용후 해체 예정
-    }, {
-        ProfileName: "김디비",
-        ProfileImage: profile_default,
-        Score: 100,                                         //REDUX 적용후 해체 예정
-        ProfileMessage: `데이터베이스 잘다룹니다 관계설정 잘함`  
-    },{
-        ProfileName: "정다혜",                               //REDUX 적용후 해체 예정
-        ProfileImage: profile_default,
-        Score: 77,
-        ProfileMessage: ``  
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    },{                                                      //REDUX 적용후 해체 예정
-        ProfileName: "존문가",
-        ProfileImage: profile_default,
-        Score: 31,
-        ProfileMessage: `잠수잘타고 버스잘타요`                //REDUX 적용후 해체 예정
-    }
-];
 
-const LoadWorker = (props) => {
+const LoadWorkerProfile = (props) => {
     const state = useSelector(state => state.user);   //내 프로필 정보 REDUX에서 불러오기 (최신은 아님)
     const { ProfileImage,ProfileName,Score,ProfileMessage } = state.profile;    //MyProfile에서 사용됨
+    const TEMP_INDEX = 0;
 
     // const dispatch = useDispatch();
     // dispatch(loadWorker()).then(res => {
@@ -114,9 +42,9 @@ const LoadWorker = (props) => {
                 </NoWorker>
                 
             </div>);
-        } else if(TEMP_INDEX >= 1){
+        } else {
             return(
-                <div>{
+                <div>{/*
                     WorkerProfile.map((list,index) => {
                             //console.log(list);
                             return(
@@ -133,7 +61,7 @@ const LoadWorker = (props) => {
                                 </Profile>
                             );
                     })
-                }
+                */}
                 </div>
             );
         }
@@ -204,4 +132,4 @@ const NoWorker = styled.div`
     }
 `;
 
-export default LoadWorker;
+export default LoadWorkerProfile;

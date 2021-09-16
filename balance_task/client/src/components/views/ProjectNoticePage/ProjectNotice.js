@@ -94,9 +94,9 @@ const ProjectNotice = (props) =>{
             <LoadingBlock></LoadingBlock>
           </>
           :
-          notice.map((user_post, i)=>(
+          notice.length !==0 ? notice.map((user_post, i)=>(
             <PostBlock key={i} index={i} userData={userData} user_post = {user_post} group={group} isTimeline = {false}/>
-          ))
+          )):<div>아직 데이터 없어요</div>
         }
       </Container>
       <Button><Link to={`/${group}/project_notice/adding_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>

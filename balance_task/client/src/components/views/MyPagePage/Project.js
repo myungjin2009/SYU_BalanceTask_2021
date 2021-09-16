@@ -1,14 +1,20 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { useDispatch } from 'react-redux';
+import { chooseLoadingGroup, resetPosts } from "../../../_actions/group_action";
 
 
 const Project = (props) => {
     const {ProjectList} = props;
-    
+    const dispatch = useDispatch();
+
     return(
-        <Container ProjectList={ProjectList} onClick={() =>props.history.push(`/${ProjectList.group}/project_timeline`)}>
+        <Container ProjectList={ProjectList} onClick={() =>{
+            dispatch(resetPosts());
+            dispatch(chooseLoadingGroup({timeline: true, notice: true}));
+            props.history.push(`/${ProjectList.group}/project_timeline`);
+        }}>
             <div className="IMG_Container">
                 <img className ="project_logo" src={ProjectList.logo} />
             </div>

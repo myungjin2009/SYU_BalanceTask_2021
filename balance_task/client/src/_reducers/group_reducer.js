@@ -5,7 +5,8 @@ import {
   VOTE_FOR_POSTS,
   RECEIVE_NOTICE,
   RECEIVE_TIMELINE,
-  CREATE_GROUP
+  CREATE_GROUP,
+  RESET_POSTS
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -37,110 +38,6 @@ const initialState = {
     //   writer: "거녕",
     //   date: "2021-08-01 ~ 2021-09-01",
     //   image: img2,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
-    //   kind: "팀 프로젝트",
-    // },
-    // {
-    //   title: "키다리아저씨",
-    //   content: "재단에서 프로젝트 할 사람 모집",
-    //   writer: "키다리",
-    //   date: "2021-07-09 ~ 2021-08-03",
-    //   image: img3,
     //   kind: "팀 프로젝트",
     // },
   ],
@@ -290,33 +187,6 @@ const initialState = {
     //   ],
     //   kind: "notice",
     //   profileImage: img2
-    // },
-    // {
-    //   id:1,
-    //   group: '두유개발자',
-    //   photo_name : '멋진 사람들',
-    //   photo_url : img3,
-    //   content: '다음 주 목요일(7월 22일)에 만날까요?',
-    //   user_name: '박건형',
-    //   date: '2021.07.15 00:01',
-    //   votes_list : [
-    //     {
-    //       user_name: '박건형',
-    //       vote: 0
-    //     },
-    //     {
-    //       user_name: '하동호',
-    //       vote: '반대'
-    //     },{
-    //       user_name: '백정훈',
-    //       vote: '반대'
-    //     },{
-    //       user_name: '김명진',
-    //       vote: 0
-    //     }
-    //   ],
-    //   kind: "notice",
-    //   profileImage: img2
     // }
   ]
   ,
@@ -334,22 +204,27 @@ export default function (state = initialState, action) {
       return { ...state, groups_list: new_array };
     }
     case LOADING:{
-      console.log({...state.isLoading, ...action.isLoading});
+      console.log(action.isLoading);
       return { ...state, isLoading: {...state.isLoading, ...action.isLoading} };
     }
     case JOIN_GROUP:{
       return { ...state, joinSuccess: action.payload };
     }
+    case RESET_POSTS:{
+      return {...state, timelineList:[], noticeList:[]}
+    }
     case RECEIVE_TIMELINE:{
       const { timelineList } = state;
+      console.log(action.payload.array);
       if (action.payload === undefined) {
         return state;
+      }else{
+        //서버랑 연결되면 사용
+        let new_array = [...timelineList, ...action.payload.array];
+        console.log("1",timelineList);
+        console.log("2",action.payload.array);
+        return { ...state, timelineList: new_array };
       }
-      //서버랑 연결되면 사용
-      let new_array = [...timelineList, ...action.payload.array];
-      console.log("1",timelineList);
-      console.log("2",action.payload.array);
-      return { ...state, timelineList: new_array };
     }
     case RECEIVE_NOTICE:{
       const { noticeList } = state;
