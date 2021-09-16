@@ -503,7 +503,7 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
     });
 })
 
-app.post("",aramsubmit,(req,res,next)=>{
+app.post("/api/user/notice",aramsubmit,(req,res,next)=>{
   res.status(200).json({
     success: true,
     });

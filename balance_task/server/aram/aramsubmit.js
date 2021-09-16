@@ -12,7 +12,7 @@ console.log("grouppart 함수 호출됨");
     var paramSendId=req.body.senduser; 
     var paramgroup_name=req.body.group;
     var paramId=req.body.receiveuser;
-    var isConfirm=req.body.isConfirm;
+    
     const sql4="select count(board_number) from groupboard where info_groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
     console.log(rows);
