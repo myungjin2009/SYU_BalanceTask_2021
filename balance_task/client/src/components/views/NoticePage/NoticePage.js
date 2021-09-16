@@ -1,14 +1,21 @@
 import React from 'react'
 import { withRouter } from 'react-router';
+import { useSelector } from 'react-redux';
 import Header from '../Header/Header';
 import styled from 'styled-components';
+import InfoBlock from './InfoBlock';
 function NoticePage(props) {
-  console.log(props);
+  const user = useSelector(state => state.user);
+  const {aramsdata} = user;
+  console.log(aramsdata);
   return (
     <Container>
       <Header title="알림"/>
       <Main>
-        
+        {/* {
+          aramsdata.map(data => <InfoBlock sender={data} content={data} time={data}/>)
+        }
+         */}
       </Main>
     </Container>
   )
@@ -20,7 +27,6 @@ const Container = styled.div`
 `;
 
 const Main = styled.div`
-  margin-top: 100px;
-
+  margin-top: 65px;
 `;
 export default withRouter(NoticePage);

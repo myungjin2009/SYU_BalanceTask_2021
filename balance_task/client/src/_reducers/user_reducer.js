@@ -59,8 +59,9 @@ export default function (state = initialState, action) {
       if(action.payload === undefined || action.payload === null){
         return state;
       }
-      return { ...state, profile: action.payload.profile, 
-        project_list: action.payload.project_list};
+      // return { ...state, profile: action.payload.profile, 
+      //   project_list: action.payload.project_list};
+      return { ...state, ...action.payload};
     }
     case UPDATE_MESSAGE:{
       return {...state, updateMessageSuccess: action.payload.success}
