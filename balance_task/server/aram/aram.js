@@ -17,7 +17,7 @@ let arams= (req, res, next) => {
       sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
         console.log(rows);
         var receiveuser=rows[0]['user'];
-        const sql5="select count(aram_no) from groups where groupname=?"
+        const sql5="select count(aram_no) from aram"
         sql.pool.query(sql5,paramgroup_name,(err,rows,fields)=>{
         var no=rows[0]['count(aram_no)']+1;    
         var time=moment().format('YYYY-MM-DD HH:mm:ss');
