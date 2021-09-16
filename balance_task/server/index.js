@@ -79,6 +79,8 @@ var { update_calendar } = require("./group_calendar/update_calendar");
 // 알림 설정
 var { arams }=require("./aram/aram");
 var { receive_message }=require("./aram/aramget");
+var { aramsubmit }=require("./aram/aramsubmit");
+var { aramreject }=require("./aram/aramreject");
 //워커리스트
 var { wokerget }=require("./wokerlist/wokerget");
 // 익스프레스 객체 생성
@@ -201,6 +203,13 @@ app.post("/api/group/create_group", group_add,(req,res)=>{
     
   });
 });
+
+// app.post("/api/group/participation",grouppart,(req,res)=>{
+//   res.status(200).json({
+//     success: true,
+    
+//   });
+// });
 
 app.post("/api/group/participation",arams,(req,res)=>{
   res.status(200).json({
@@ -494,11 +503,17 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
     });
 })
 
-app.post("",arams,(req,res,next)=>{
+app.post("/api/user/notice",aramsubmit,(req,res,next)=>{
   res.status(200).json({
     success: true,
     });
-})
+});
+
+app.post("",aramreject,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+});
 
 io.on("connection", (socket) => {
   socket.on("chatting", (data) => {
