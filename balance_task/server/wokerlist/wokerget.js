@@ -40,7 +40,7 @@ let wokerget = (req, res, next) => {
                             ProfileName: req.name,
                             ProfileImage: req.user_image,
                             ProfileMessage: req.introduce,
-                            Score: req.score 
+                            Score: req.evaluation_score
                         });
                         req.array=array;
                     
