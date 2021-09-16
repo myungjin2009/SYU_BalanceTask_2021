@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styled from 'styled-components';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { receiveDate } from '../../../_actions/group_calendar_action';
 import ModalWindow from './ModalWindow';
@@ -27,13 +27,12 @@ const GroupCalendar = (props) => {
     //   props.history.push('/my_page');
     //   return;
     // }
-    console.log(props.match.params.group);
     dispatch(receiveDate(group)).then(response =>{
       //데이터를 받아서 calendarList에 넣기
       setCalendarData(response.payload.calendarList);
     });
     
-  }, [isClick]);
+  }, [isClick, group, dispatch]);
 
   const handleDateClick = (arg) =>{
     setDateInfo(arg);

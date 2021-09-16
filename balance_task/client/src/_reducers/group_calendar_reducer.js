@@ -1,6 +1,6 @@
 import {ADD_DATE, RECEIVE_DATE, DELETE_DATE, UPDATE_DATE} from '../_actions/types';
 
-export default function (state = {}, action){
+export default function reducer(state = {}, action){
   switch(action.type){
     case ADD_DATE: {
       if(state.calendarList === undefined || state.calendarList === null){

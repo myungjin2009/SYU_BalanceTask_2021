@@ -29,17 +29,6 @@ const initialState = {
     //   image: img1,
     //   kind: "학교 조별 과제",
     // },
-    // {
-    //   title: "두유개발자",
-    //   content: `열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-    // 열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-    // 열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.
-    // 열심히 안하는 사람은 안뽑아요 자랑스러운 두유들의 모임입니다.`,
-    //   writer: "거녕",
-    //   date: "2021-08-01 ~ 2021-09-01",
-    //   image: img2,
-    //   kind: "팀 프로젝트",
-    // },
   ],
   timelineList: [
     // {
@@ -61,64 +50,6 @@ const initialState = {
     //     {
     //       user_name: "하동호",
     //       vote: "찬성",
-    //     },
-    //     {
-    //       user_name: "백정훈",
-    //       vote: "반대",
-    //     },
-    //     {
-    //       user_name: "김명진",
-    //       vote: "찬성",
-    //     },
-    //   ],
-    //   kind: "timeline",
-    //   profileImage: img2
-    // },
-    // {
-    //   id:2,
-    //   group: '두유개발자',
-    //   photo_name: "저희 좀 멋지죠?",
-    //   photo_url: img2,
-    //   content: "멘토님을 만나서 프로젝트 회의했다.",
-    //   user_name: "김명진",
-    //   date: "2021.07.15 13:00",
-    //   votes_list: [
-    //     {
-    //       user_name: "박건형",
-    //       vote: 0,
-    //     },
-    //     {
-    //       user_name: "하동호",
-    //       vote: "반대",
-    //     },
-    //     {
-    //       user_name: "백정훈",
-    //       vote: "반대",
-    //     },
-    //     {
-    //       user_name: "김명진",
-    //       vote: "찬성",
-    //     },
-    //   ],
-    //   kind: "timeline",
-    //   profileImage: img2
-    // },
-    // {
-    //   id:3,
-    //   group: '두유개발자',
-    //   photo_name: "저희 좀 멋지죠?",
-    //   photo_url: img3,
-    //   content: "하동호 열심히 하자!",
-    //   user_name: "박건형",
-    //   date: "2021.07.15 13:00",
-    //   votes_list: [
-    //     {
-    //       user_name: "박건형",
-    //       vote: "찬성",
-    //     },
-    //     {
-    //       user_name: "하동호",
-    //       vote: "반대",
     //     },
     //     {
     //       user_name: "백정훈",
@@ -161,39 +92,12 @@ const initialState = {
     //   kind: "notice",
     //   profileImage: img2
     // },
-    // {
-    //   id:1,
-    //   group: '두유개발자',
-    //   photo_name : '멋진 사람들',
-    //   photo_url : img3,
-    //   content: '다음 주 목요일(7월 22일)에 만날까요?',
-    //   user_name: '박건형',
-    //   date: '2021.07.15 00:01',
-    //   votes_list : [
-    //     {
-    //       user_name: '박건형',
-    //       vote: 0
-    //     },
-    //     {
-    //       user_name: '하동호',
-    //       vote: '반대'
-    //     },{
-    //       user_name: '백정훈',
-    //       vote: '반대'
-    //     },{
-    //       user_name: '김명진',
-    //       vote: 0
-    //     }
-    //   ],
-    //   kind: "notice",
-    //   profileImage: img2
-    // }
   ]
   ,
   isLoading: {timeline: true, notice: true, group_search: true},
 };
 
-export default function (state = initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_GROUPS_CARD:{
       const { groups_list } = state;
@@ -250,6 +154,7 @@ export default function (state = initialState, action) {
         new_array[board_number].votes_list = current_vote;
         return {...state, noticeList: new_array}
       }
+      return;
     }
     default:
       return state;
