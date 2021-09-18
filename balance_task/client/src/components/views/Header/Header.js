@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 function Header(props) {
-  const {title, message} = props;
+  const {title, message, isButton, buttonName, icon, onClickHandler} = props;
   const goBack = ()=>{
     if(message){
       const data = window.confirm(message);
@@ -18,13 +18,22 @@ function Header(props) {
     <Title>
       <i className="fas fa-chevron-left" onClick={goBack}></i>
       <span>{title}</span>
+      {isButton && 
+        <div onClick={onClickHandler}>
+          { icon && <i className={icon}></i>}
+          { buttonName && <span>{buttonName}</span>}
+        </div>}
     </Title>
   )
 }
 
 Header.defaultProps = {
   title: "제목",
-  message: null
+  message: null,
+  isButton: false,
+  onClickHandler: () =>{},
+  icon: null,
+  buttonName: null
 }
 
 const Title = styled.header`
@@ -48,6 +57,19 @@ const Title = styled.header`
     top: 20px;
     left: 10px;
   }
-
+  & > div {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 20px;
+    top: 15px;
+    right: 20px;
+    &:active {
+      color: royalblue;
+    }
+    & > span {
+      font-size: 15px;
+    }
+  }
 `;
 export default withRouter(Header);

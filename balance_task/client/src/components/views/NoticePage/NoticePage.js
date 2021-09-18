@@ -19,7 +19,7 @@ function NoticePage(props) {
       <Header title="알림"/>
       <Main>
         {
-          aramsdata.map((data, index) => <InfoBlock aramsdata={data}/>)
+          aramsdata.map((data, index) => <InfoBlock key={index} aramsdata={data}/>)
         }
       </Main>
     </Container>

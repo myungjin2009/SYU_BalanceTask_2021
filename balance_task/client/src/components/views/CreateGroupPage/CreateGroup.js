@@ -7,6 +7,7 @@ import Select from "@material-ui/core/Select";
 import { createGroup } from "../../../_actions/group_action";
 import { useDispatch } from "react-redux";
 
+import Header from '../Header/Header'
 const changegroupName = (e, setGroupName) => {
   const {
     target: { value },
@@ -153,18 +154,8 @@ function CreateGroup(props) {
 
   return (
     <Conatainer>
-      <Header>
-        <i
-          className="fas fa-chevron-left"
-          onClick={() => props.history.goBack()}
-        ></i>
-        <span>그룹 만들기</span>
-        <div onClick={postHandler}>
-          <i className="fas fa-file-import"></i>
-          <span>그룹 생성</span>
-        </div>
-      </Header>
-      <Input>
+      <Header title="그룹 만들기" isButton={true} buttonName="그룹 생성" icon="fas fa-file-import" onClickHandler={postHandler}></Header>
+      <Input style={{marginTop: '80px'}}>
         <label>그룹 이름: </label>
         <input
           type="text"
@@ -273,39 +264,6 @@ const Conatainer = styled.form`
   }
   & > * > input {
     outline: none;
-  }
-`;
-
-const Header = styled.header`
-  background: white;
-  width: 100vw;
-  text-align: center;
-  border-bottom: 0.5px solid #aaa;
-  box-shadow: 0 2px 4px #aaa;
-  & > span {
-    font-size: 30px;
-    line-height: 60px;
-    font-weight: 700;
-  }
-  & > i:first-child {
-    position: absolute;
-    font-size: 30px;
-    top: 15px;
-    left: 10px;
-  }
-  & > div {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    font-size: 20px;
-    top: 15px;
-    right: 20px;
-    &:active {
-      color: royalblue;
-    }
-    & > span {
-      font-size: 15px;
-    }
   }
 `;
 

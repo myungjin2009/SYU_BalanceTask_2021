@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import GroupSearchHeader from './GroupSearchHeader';

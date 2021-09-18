@@ -2,34 +2,41 @@ import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
 
-// import AddingPosts from "../routes/AddingPosts";
 // import GroupChat from "../routes/GroupChat";
 // import ProjectTermination from "../routes/ProjectTermination";
 // import WorkerInvitation from "../routes/WorkerInvitation";
-import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
-import ProjectNotice from "./views/ProjectNoticePage/ProjectNotice";
-import PostBlockDetail from "./views/common/PostBlockDetail";
-import GroupCalendar from "./views/GroupCalendar/GroupCalendar";
+import FindingPW from "./views/FindingPWPage/FindingPW";
 import Signup from "./views/SignupPage/Signup";
 import Login from "./views/LoginPage/Login";
-import NotFound from "./views/NotFoundPage/NotFound";
+
 import MyPage from "./views/MyPagePage/MyPage";
 import EditProfileMessage from "./views/MyPagePage/EditProfileMessage";
 import EditProfileImage from "./views/MyPagePage/EditProfileImage";
+import NoticePage from "./views/NoticePage/NoticePage";
+
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import Detail from "./views/GroupSearchPage/Detail";
 import CreateGroup from "./views/CreateGroupPage/CreateGroup";
+
 import WorkerList from "./views/WorkerListPage/WorkerList";
-import FindingPW from "./views/FindingPWPage/FindingPW";
+
+import Settings from "./views/SettingPage/Settings";
+
+import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
+import ProjectNotice from "./views/ProjectNoticePage/ProjectNotice";
+import PostBlockDetail from "./views/common/PostBlockDetail";
+import CreatePost from "./views/CreatePostPage/CreatePost";
+
+import GroupCalendar from "./views/GroupCalendar/GroupCalendar";
+
 import Prac from "./practice";
 import MJPractice from './MJpractice';
 
-import Settings from "./views/SettingPage/Settings";
 import AppInfo from "./views/SettingPage/AppInfo";
 import Contact from "./views/SettingPage/Contact";
 import EditAccount from "./views/SettingPage/EditAccount";
 import Withdraw from "./views/SettingPage/Withdraw";
-import NoticePage from "./views/NoticePage/NoticePage";
+import NotFound from "./views/NotFoundPage/NotFound";
 
 const Router = (props) => {
   return (
@@ -58,11 +65,12 @@ const Router = (props) => {
         <Route exact path="/:group/project_timeline/:index" component={Auth(PostBlockDetail, true)}/>
         <Route exact path="/:group/project_notice" component={Auth(ProjectNotice, true)} />
         <Route exact path="/:group/project_notice/:index" component={Auth(PostBlockDetail, true)}/>
-        <Route path="/:group/group_calendar" component={Auth(GroupCalendar, true)} />
-        {/* <Route
-          path="/project_timeline/adding_posts"
-          component={AddingPosts}
-        /> */}
+        <Route exact path="/:group/group_calendar" component={Auth(GroupCalendar, true)} />
+        <Route
+          exact
+          path="/:group/create_post"
+          component={Auth(CreatePost, true)}
+        />
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/settings/AppInfo" component={AppInfo} />
         <Route exact path="/settings/Contact" component={Contact} />

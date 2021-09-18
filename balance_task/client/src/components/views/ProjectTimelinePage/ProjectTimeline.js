@@ -109,7 +109,7 @@ const ProjectTimeline = (props) =>{
             )):<div>아직 데이터 없어요</div>
         }
       </Container>
-      <Button><Link to={`/${group}/project_timeline/adding_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>
+      <Button><Link to={`/${group}/create_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>
     </>
   )
 }
