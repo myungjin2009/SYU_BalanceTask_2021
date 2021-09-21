@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { joinGroup } from '../../../_actions/group_action';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;

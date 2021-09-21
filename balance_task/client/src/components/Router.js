@@ -68,7 +68,7 @@ const Router = (props) => {
         <Route exact path="/:group/group_calendar" component={Auth(GroupCalendar, true)} />
         <Route
           exact
-          path="/:group/create_post"
+          path="/:group/create_posts"
           component={Auth(CreatePost, true)}
         />
         <Route exact path="/settings" component={Settings} />

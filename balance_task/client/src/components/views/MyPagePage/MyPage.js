@@ -33,9 +33,6 @@ const MyPage = (props) => {
 
   
   const ImgBtn = React.useRef();                                //프로필 수정 버튼
-  const ImgBtnClick = () => {
-    ImgBtn.current.click();
-  }                                                             //프로필 수정 버튼
   
   const {profile, project_list, userData} = state;
   

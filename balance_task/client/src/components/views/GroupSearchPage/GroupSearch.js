@@ -16,7 +16,7 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList)=>{
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   // console.log(scrollTop+clientHeight);
   // console.log(scrollHeight);
-  if(Math.floor(scrollTop + clientHeight) == scrollHeight){
+  if(Math.floor(scrollTop + clientHeight) === scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
     dispatch(receiveGroupCard(body)).then(res=>{

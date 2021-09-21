@@ -1,9 +1,8 @@
 import React, { useEffect, useState,useRef } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { updateDate, deleteDate } from '../../../_actions/group_calendar_action';
-import { computeInnerRect } from '@fullcalendar/react';
 
 function ModalWindow({dateInfo,isClick, setIsClick, modalData}) {
   // const email = useSelector(state => state.user.userData.email); 

@@ -6,14 +6,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { useDispatch } from 'react-redux';
 import { addDate } from '../../../_actions/group_calendar_action';
-//allday 생각하기
-const calculateDate = () =>{
-  const current_date = new Date();
-  const year = current_date.getFullYear();
-  const month = current_date.getMonth()+1 < 10 ? "0"+(current_date.getMonth()+1) : current_date.getMonth()+1;
-  const date = current_date.getDate() < 10 ? "0"+current_date.getDate() : current_date.getDate();
-  return `${year}-${month}-${date}`;
-}
 
 function ModalDate({group,dateInfo, isClick, setIsClick, calendarData, setCalendarData}) {
   console.log(dateInfo);

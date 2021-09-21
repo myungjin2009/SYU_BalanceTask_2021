@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
-import TextField from "@material-ui/core/TextField";
+import axios from 'axios';
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import DropZone from '../common/DropZone';
-import Header from '../Header/Header'
-function CreatePosts() {
+import Header from '../Header/Header';
+import { withRouter } from 'react-router';
+
+function CreatePosts(props) {
   const [images, setImages] = useState([]);
   const [category, setcategory] = useState("타임라인");
   const [content, setContent] = useState("");
@@ -14,8 +16,26 @@ function CreatePosts() {
     setcategory(e.target.value);
   };
 
-  const onClickHandler = () =>{
-    console.log('aaa');
+  const onClickHandler = async() =>{
+    if(images.length === 0){
+      return alert('사진을 필수적으로 올려주세요');
+    }
+    
+    const formData = new FormData();
+    formData.append('images', images);
+    formData.append('category', category);
+    formData.append('content', content);
+
+    const config = {
+      'content-type': 'multipart/form-data'
+    }
+    const response = await axios.post('/api/group/post', formData, config);
+    const data = response.data;
+    if(data.success){
+      alert('글을 성공적으로 업로드했습니다.');
+      props.history.push(`/${props.match.params.group}/project_timeline`);
+      return;
+    }
   }
 
   const changeContent = (e, setContent) => {
@@ -27,7 +47,7 @@ function CreatePosts() {
   return (
     <>
       <Header title="게시물 추가" isButton={true} buttonName="추가" icon="fas fa-plus" onClickHandler={onClickHandler}></Header>
-      <DropZone images={images} setImages={setImages}/>
+      <DropZone margin="60px 0 0 0" images={images} setImages={setImages}/>
       <Category>
         <label>카테고리: </label>
         <Select
@@ -52,34 +72,32 @@ function CreatePosts() {
 }
 
 const Category = styled.div`
-  margin: 1vh 0;
-  display: flex;
-  align-items: center;
+  width: 90%;
+  margin: 1vh auto;
   & > label {
-    margin-right: 3vw;
-    font-size: 20px;
-    flex-grow: 1;
+    display: block;
+    margin: 5px 0;
   }
-  & > span {
-    padding: 3px;
-    border-radius: 10px;
-    background: white;
+  & > div {
+    display: block;
   }
 `;
 
 const Content = styled.div`
-  margin: 1vh 0;
-  display: flex;
+  width: 90%;
+  height: 300px;
+  max-height: 400px; 
+  margin: 1vh auto;
   gap: 15px;
   & > label {
-    font-size: 24px;
-    flex-grow: 1;
+    display: block;
+    margin: 5px 0;
   }
   & > textarea {
-    width: 60%;
+    width: 100%;
     padding: 15px;
     border: 1px solid #aaa;
-    height: 200px;
+    height: 100%;
     font-size: 1rem;
     line-height: 200%;
     border-radius: 10px;
@@ -90,4 +108,4 @@ const Content = styled.div`
   }
 `;
 
-export default CreatePosts
+export default withRouter(CreatePosts);

@@ -4,8 +4,8 @@ import axios from 'axios';
 
 function DropZone(props) {
   
-  const {images, setImages} = props;
-
+  const {images, setImages, margin} = props;
+  const styles = {margin};
   const dropHandler = (files) =>{
     let formData = new FormData();
     const config = {
@@ -29,7 +29,7 @@ function DropZone(props) {
   }
 
   return (
-    <div style={{display: "flex", justifyContent: "space-between"}}>
+    <div style={{display: "flex", justifyContent: "space-between", ...styles}}>
       <Dropzone onDrop={dropHandler}>
         {({ getRootProps, getInputProps }) => (
             <div 
@@ -44,7 +44,7 @@ function DropZone(props) {
         )}
       </Dropzone>
 
-      <div style={{display: 'flex', width: '350px', height: '240px', overflowX: 'scroll'}}>
+      <div style={{display: 'flex', width: '350px', height: '240px', overflowX: 'auto'}}>
         {
           images.map((image, index) =>(
             <div onClick={() => deleteHandler(image)} key={index}>
