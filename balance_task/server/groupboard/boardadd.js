@@ -36,18 +36,20 @@ let boardadd = (req, res, next) => {
 
 
   console.log("boardadd 함수 호출됨");
-  console.log(req.body.images);
-  console.log(req.body.images[0]);
-  console.log(req.body.images[1]);
-  //console.log(req.body.category);
+  console.log('사진이야',req.files);
+  console.log(req.body.category);
   let paramcategory=req.body.category;
   let urlgroup=req.body.group;
   let paramId=req.body.id;
   let paramtitle="게시물";
-  let paramimages=req.body.images;
+  let paramimages=[];
   //let paramimages=`/image/${req.file.filename}`;
   // let paramfile=req.body.file;
   let paramtext=req.body.content;
+
+  for(i=0;i<req.files.length;i++){
+    paramimages.push(`/image/${req.files[i].filename}`);
+  }
   
     // if(paramimages=== null || paramimages===undefined){
     //     paramimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
@@ -64,7 +66,7 @@ let boardadd = (req, res, next) => {
   }
 
   console.log(sql2);
-    
+  console.log(paramimages.toString());  
   sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
     //console.log(rows);
     var maxno=rows[0]['count(board_number)']
@@ -72,7 +74,7 @@ let boardadd = (req, res, next) => {
     var num=maxno+1;
     var time=moment().format('YYYY-MM-DD HH:mm:ss');
     //
-    var data={board_number:num, title:paramtitle, image:paramimages, text:paramtext, info_user:paramId, info_groupname:urlgroup, date:time}
+    var data={board_number:num, title:paramtitle, image:paramimages.toString(), text:paramtext, info_user:paramId, info_groupname:urlgroup, date:time}
     
     let sql1 = "insert into groupboard set ?"
 
@@ -81,7 +83,7 @@ let boardadd = (req, res, next) => {
     }
     
     //const sql2 = "SELECT * FROM vote; ";
-    //console.log(sql1,data);
+    console.log(sql1,data);
     sql.pool.query(sql1,data,(err, rows, fields) => {
       if (err) {
         console.log(err);

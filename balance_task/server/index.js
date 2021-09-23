@@ -406,7 +406,7 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
   });
 });
 
-app.post("/api/group/notice",upload.any("image"), noticeget, async (req, res) => {
+app.post("/api/group/notice",upload.array("image", 12), noticeget, async (req, res) => {
     console.log(
       "====================================notice success========================================="
     );
@@ -439,7 +439,7 @@ app.post("/api/group/vote",votechange,(req,res)=>{
 //   });
 // });
 
-app.post("/api/group/post",upload.any("image"),boardadd,(req,res)=>{
+app.post("/api/group/post",upload.array("image", 12),boardadd,(req,res)=>{
   res.status(200).json({
     success: true
   });

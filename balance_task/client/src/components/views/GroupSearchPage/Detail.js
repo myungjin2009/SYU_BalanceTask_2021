@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { joinGroup } from '../../../_actions/group_action';
+import Header from '../Header/Header';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
   const {location:{state:{content, writer, date, image, kind}}} = props;
@@ -21,14 +22,7 @@ const Detail = (props)=>{
 
   return(
     <Conatainer>
-      <Header>
-        <i className="fas fa-chevron-left" onClick={()=>props.history.goBack()}></i>
-        <span>{team}</span>
-        <div onClick={postHandler}>
-          <i className="fas fa-file-import"></i>
-          <span>제출하기</span>
-        </div>
-      </Header>
+      <Header title={team} onClickHandler={postHandler} icon="fas fa-file-import" isButton={true} buttonName="제출하기"/>
       <Name><label>작성자: </label><span>{writer}</span></Name>
       <Category>
         <label>카테고리: </label>
@@ -62,42 +56,9 @@ const Conatainer = styled.div`
     width: 90%;
   }
 `;
-
-const Header = styled.header`
-  background: white;
-  width: 100vw;
-  text-align:center;
-  border-bottom: 0.5px solid #aaa;
-  box-shadow: 0 2px 4px #aaa;
-  &>span{
-    font-size: 30px;
-    line-height: 60px;
-    font-weight: 700;
-  }
-  &>i:first-child{
-    position: absolute;
-    font-size: 30px;
-    top: 15px;
-    left: 10px;
-  }
-  &>div{
-    display:flex;
-    flex-direction: column;
-    position: absolute;
-    font-size: 20px;
-    top: 15px;
-    right: 20px;
-    &:active{
-      color:royalblue;
-    }
-    &>span{
-      font-size: 15px;
-    }
-  }
-`;
 const Name = styled.div`
   margin: 1vh 0;
-  margin-top: 5vh;
+  margin-top: 70px;
   display: flex;
   align-items: center;
   &>label{
