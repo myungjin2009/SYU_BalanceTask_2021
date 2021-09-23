@@ -114,9 +114,21 @@ app.use(
   })
 );
 
-const upload = multer({dest: './upload'}); 	
+
+//const upload = multer({dest: './upload'}); 	
 	//var upload = multer({ storage: storage });
-app.use('/image', express.static('./upload'));
+//app.use('/image', express.static('./upload'));
+
+
+
+var storage = multer.diskStorage({ 
+  destination: function (req, file, cb) { cb(null, './upload')  },
+  filename: function (req, file, cb) { cb(null, file.originalname)} 
+})
+
+
+const upload = multer({ storage: storage });
+
 //===== 라우팅 함수 등록 =====//
 // 라우터 객체 참조//var router = express.Router();
 var router = express.Router();
@@ -182,7 +194,7 @@ app.get("/api/user/auth",(req, res, next) => {
   });
 });
 
-app.post("/api/group/search_card", upload.single("image"),group_search, (req, res) => {
+app.post("/api/group/search_card", upload.array('image'),group_search, (req, res) => {
   console.log("group get success");
   //console.log(req.array);
   if(req.array===undefined){
@@ -394,7 +406,7 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
   });
 });
 
-app.post("/api/group/notice", noticeget, async (req, res) => {
+app.post("/api/group/notice",upload.array("image", 12), noticeget, async (req, res) => {
     console.log(
       "====================================notice success========================================="
     );

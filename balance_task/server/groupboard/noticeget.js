@@ -60,7 +60,7 @@ let noticeget = (req, res, next) => {
             console.log(req.board_number);
             req.title = info.title;
             console.log( req.title );
-            req.image =info.image;
+            req.image =info.image.split(',');
             console.log( req.image );
             req.file =info.file;
             req.text =info.text;

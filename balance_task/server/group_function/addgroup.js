@@ -29,7 +29,7 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
 
     const sql2="select count(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
-     var maxno=rows[0]['count(group_no)']
+     let maxno=rows[0]['count(group_no)']
 
     // 데이터를 객체로 만듦
     // var storage = multer.diskStorage({
@@ -66,7 +66,8 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
         callback(null, result);
     }
     );
-    var data2 = {group_name:groupname, user:groupjwt, leader:1};
+    console.log(maxno);
+    var data2 = {group_name:groupname, user:groupjwt, leader:1, group_no: maxno+1};
     var exec2 = conn.query(
       "insert into groupusers set ?",
       data2,
