@@ -8,8 +8,8 @@ require("dotenv").config();
 
 let boardadd = (req, res, next) => {
   console.log("boardadd 함수 호출됨");
-  console.log(req.body);
-  console.log(req.body.category);
+  //console.log(req.body);
+  //console.log(req.body.category);
   let paramcategory=req.body.category;
   let urlgroup=req.body.group;
   let paramId=req.body.id;
@@ -36,7 +36,7 @@ let boardadd = (req, res, next) => {
   console.log(sql2);
     
   sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
-    console.log(rows);
+    //console.log(rows);
     var maxno=rows[0]['count(board_number)']
     const array=[]
     var num=maxno+1;
@@ -51,7 +51,7 @@ let boardadd = (req, res, next) => {
     }
     
     //const sql2 = "SELECT * FROM vote; ";
-    console.log(sql1,data);
+    //console.log(sql1,data);
     sql.pool.query(sql1,data,(err, rows, fields) => {
       if (err) {
         console.log(err);
