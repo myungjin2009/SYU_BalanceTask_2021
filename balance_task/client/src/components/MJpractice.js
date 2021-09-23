@@ -7,34 +7,25 @@ import { useDispatch } from "react-redux";
 import {chooseLoading, loadWorker} from '../_actions/user_action';
 
 const MJPracitce = () => {
-  const dispatch = useDispatch();
-  const [data,setData] = React.useState(null);
 
-  dispatch(loadWorker()).then(res => {  //유즈이팩트로 둬야지 병시나아ㅏ아아아아아앙아ㅏ아ㅏ아아아아ㅏㅏㅏㅇ아
-    if (res.payload.success) {
-      console.log('데이터 받기 성공');
-      //setData(res.payload);
-    }
-  });
-
-
-  //console.log(data);
-
-
-
-
-
+  const textValue = React.createRef();
+  console.log(textValue);
   return (
     <Block>
-      개샛기야
+      <input type="text" className="textBox" ref={textValue}></input>
     </Block>
   );
 }
 
 
 const Block = styled.div`
-  width: 200px;
-  height:200px;
+  width: 300px;
+  height:300px;
+  & > .textBox {
+    background-color: red;
+    width: 200px;
+    height: 30px;
+  }
 `;
 
 
