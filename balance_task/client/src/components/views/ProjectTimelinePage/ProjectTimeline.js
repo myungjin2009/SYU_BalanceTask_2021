@@ -109,7 +109,8 @@ const ProjectTimeline = (props) =>{
             )):<div>아직 데이터 없어요</div>
         }
       </Container>
-      <Button><Link to={`/${group}/create_posts`} className="AddButton"><i className="fas fa-plus"></i></Link></Button>
+      <Button direction="left"><Link to={`/my_page`} className="Button-type"><i class="fas fa-user"></i></Link></Button>
+      <Button direction="right"><Link to={`/${group}/create_posts`} className="Button-type"><i className="fas fa-plus"></i></Link></Button>
     </>
   )
 }
@@ -141,10 +142,10 @@ const LoadingBlock = styled.div`
 const Button = styled.div`
   position: fixed;
   bottom: 5vh;
-  right: 5vw;
+  ${(props)=>props.direction}: 5vw;
   width: 40px;
   height: 40px;
-  &>.AddButton{
+  &>.Button-type{
     display: block;
     text-align: center;
     background: #aaa;

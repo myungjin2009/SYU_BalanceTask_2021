@@ -72,15 +72,17 @@ const PostBlock = (props) =>{
   
   return(
     <Container>
-      {photo_url.map((url, index)=>(
-        <Image key={index} photo_url={url} onClick = {()=>{
-          if(path==="/:group/project_timeline"){
-            props.history.push(`/${group}/project_timeline/`+index, user_post);
-          }else if(path==="/:group/project_notice"){
-            props.history.push(`/${group}/project_notice/`+index, user_post);
-          }
-        }}></Image>
-      ))}
+      <ImageBlock>
+        {photo_url.map((url, index)=>(
+          <Image key={index} photo_url={url} onClick = {()=>{
+            if(path==="/:group/project_timeline"){
+              props.history.push(`/${group}/project_timeline/`+index, {user_post, photo_url});
+            }else if(path==="/:group/project_notice"){
+              props.history.push(`/${group}/project_notice/`+index, {user_post, photo_url});
+            }
+          }}></Image>
+        ))}
+      </ImageBlock>
       <Content>
         <p>{content}</p>
         <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {date}</span>
@@ -118,11 +120,20 @@ PostBlock.defaultProps = {
 
 const Container = styled.div`
   width: 100%;
-  height: 50vh;
+  // height: 50vh;
+  margin-bottom: 20px; 
+`;
+const ImageBlock = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 `;
 const Image = styled.div`
   width: 100%;
-  height: 60%;
+  min-width: 100%;
+  height: 100%;
+  min-height: 400px;
   background-image: url('${({photo_url})=>photo_url}');
   background-size:cover;
   background-position:center;

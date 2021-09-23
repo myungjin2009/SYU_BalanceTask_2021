@@ -4,7 +4,8 @@ import Header from '../Header/Header';
 import { withRouter } from 'react-router-dom';
 
 function PostBlockDetail(props) {
-  const {photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage} = props.location.state;
+  const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
+  const {photo_url} = props.location.state;
   console.log(photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage);
   return (
     <Container>
@@ -17,7 +18,9 @@ function PostBlockDetail(props) {
         </UserInfo>
       </UserBlock>
       <Content>{content}</Content>
-      <Image photo_url={photo_url}></Image>
+      {photo_url.map((url, index)=>(
+        <Image key={index} photo_url={url}/>
+      ))}
       {votes_list.length !== 0 && (
         <VoteResultBlock>
         <AgreeList>
