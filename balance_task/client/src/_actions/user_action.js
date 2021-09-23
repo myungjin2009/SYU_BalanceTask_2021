@@ -137,8 +137,8 @@ export function updateImage(dataToSubmit, config){
 }
 
 //워커리스트-유저 불러오기
-export function loadWorker(dataToSubmit) {
-  const request = axios.post('/api/user/load_worker', dataToSubmit)
+export function loadWorker() {
+  const request = axios.post('/api/user/load_worker')
   .then(res=> res.data);
 
   return {
