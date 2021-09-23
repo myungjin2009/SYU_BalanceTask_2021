@@ -13,7 +13,7 @@ function CreatePosts(props) {
   const [images, setImages] = useState([]);
   const [category, setcategory] = useState("타임라인");
   const [content, setContent] = useState("");
-  
+  const [detailImageFile, setDetailImageFile] = useState([]);
   const changeCategory = (e, setcategory) => {
     setcategory(e.target.value);
   };
@@ -50,7 +50,7 @@ function CreatePosts(props) {
   return (
     <>
       <Header title="게시물 추가" isButton={true} buttonName="추가" icon="fas fa-plus" onClickHandler={onClickHandler}></Header>
-      <DropZone margin="60px 0 0 0" images={images} setImages={setImages}/>
+      <DropZone margin="60px 0 0 0" images={images} detailImageFile={detailImageFile} setDetailImageFile={setDetailImageFile} setImages={setImages}/>
       <Category>
         <label>카테고리: </label>
         <Select
