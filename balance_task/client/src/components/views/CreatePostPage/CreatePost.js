@@ -19,9 +19,9 @@ function CreatePosts(props) {
   };
 
   const onClickHandler = async() =>{
-    if(images.length === 0){
-      return alert('사진을 필수적으로 올려주세요');
-    }
+     if(images.length === 0){
+       return alert('사진을 필수적으로 올려주세요');
+     }
     
     const formData = new FormData();
     formData.append('images', detailImageFile);

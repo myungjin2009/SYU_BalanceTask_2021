@@ -421,17 +421,23 @@ app.post("/api/group/vote",votechange,(req,res)=>{
   });
 });
 
-app.post("",upload.single("image"),boardadd,(req,res)=>{
+// app.post("/api/group/post/image",upload.single("image"),boardadd,(req,res)=>{
+//   res.status(200).json({
+//     success: true
+//   });
+// });
+
+app.post("/api/group/post",upload.single("image"),boardadd,(req,res)=>{
   res.status(200).json({
     success: true
   });
 });
 
-app.post("",upload.single("image"),noticeadd,(req,res)=>{
-  res.status(200).json({
-    success: true
-  });
-})
+// app.post("/api/group/post",upload.single("image"),noticeadd,(req,res)=>{
+//   res.status(200).json({
+//     success: true
+//   });
+// })
 
 app.post("/api/group_calendar/date", group_calendar,(req, res) => {
   console.log("==================================calendar=====================================");

@@ -2,31 +2,32 @@ const sql = require("../database/db_connect");
 const jwt = require("jsonwebtoken");
 const moment=require("moment");
 const fs=require("fs");
+const multer = require("multer");
 require("dotenv").config();
 
+const upload = multer({dest: './upload'}); 	
+	//var upload = multer({ storage: storage });
+app.use('/image', express.static('./upload'));
 
-
-let boardadd = (req, res, next) => {
-  console.log("boardadd 함수 호출됨");
+let dropzone = (req, res, next) => {
+  console.log("dropzone 함수 호출됨");
   console.log(req.body);
-  console.log(req.body.category);
-  let paramcategory=req.body.category;
-  let urlgroup=req.body.group;
-  let paramId=req.body.id;
-  let paramtitle="게시물";
-  let paramimages=req.body.images;
-  //let paramimages=`/image/${req.file.filename}`;
-  // let paramfile=req.body.file;
-  let paramtext=req.body.content;
-  
-    // if(paramimages=== null || paramimages===undefined){
-    //     paramimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
-    // }else{
-    //     paramimages= `/image/${req.file.filename}`;
-    // }
-    // fs.readFile(paramfile, 'utf8', function(err, data){
-    //     console.log(data);
-    //   });
+
+    //if(paramimages=== null || paramimages===undefined){
+    //    paramimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
+    //}else{
+    //    paramimages= `/image/${req.file.filename}`;
+    //}
+    //fs.readFile(paramfile, 'utf8', function(err, data){
+    //    console.log(data);
+    //});
+
+    let paramimages=[];
+
+    for(i=0;i<req.body.images.length;i++){
+        
+        paramimages.push(`/image/${req.file.filename}`);
+    }
 
   let sql2="select count(board_number) from groupboard where info_groupname=?";
   if(paramcategory==='공지사항'){
@@ -41,8 +42,8 @@ let boardadd = (req, res, next) => {
     const array=[]
     var num=maxno+1;
     var time=moment().format('YYYY-MM-DD HH:mm:ss');
-    //
-    var data={board_number:num, title:paramtitle, image:paramimages, text:paramtext, info_user:paramId, info_groupname:urlgroup, date:time}
+    //image:paramimages,
+    var data={board_number:num, title:paramtitle, text:paramtext, info_user:paramId, info_groupname:urlgroup, date:time}
     
     let sql1 = "insert into groupboard set ?"
 
@@ -56,7 +57,7 @@ let boardadd = (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("boardadd come");
+        console.log("dropzone come");
       }
       next()
       //console.log(array);
@@ -64,4 +65,4 @@ let boardadd = (req, res, next) => {
   });  
 };
 
-module.exports= {boardadd};
+module.exports= {dropzone};
