@@ -1,25 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
 function DropZone(props) {
-  
-  const {images, setImages, margin} = props;
+  const {images, setImages, margin, setDetailImageFile, detailImageFile} = props;
   const styles = {margin};
   const dropHandler = (files) =>{
-    let formData = new FormData();
-    const config = {
-      header:{'content-type': 'multipart/form-data'}
-    }
-    formData.append("file", files[0]);
-    axios.post('/api/group/post/image', formData, config)
-    .then(response => {
-      if(response.data.success){
-        setImages([...images, response.data.filePath]);
-      }else{
-        alert('저장을 하는데 실패했습니다.');
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) {
+        setImages([...images, base64.toString()]);
       }
-    });
+    };
+    if (files[0]) {
+      reader.readAsDataURL(files[0]);
+      setDetailImageFile([...detailImageFile, files[0]]);
+    }
   }
   const deleteHandler = (image) =>{
     const currentIndex = images.indexOf(image);
@@ -49,7 +46,7 @@ function DropZone(props) {
           images.map((image, index) =>(
             <div onClick={() => deleteHandler(image)} key={index}>
               <img style={{ minWidth: '300px', width: '300px', height: '240px'}} 
-              // src={`http://localhost:5000/${image}`} 
+              src={image} 
               />
             </div>
           ))  
