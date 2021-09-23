@@ -11,7 +11,7 @@ const LoadProfile = (props) => {
     const [data,setData] = React.useState(null);
     const dispatch = useDispatch();
 
-    const setMyProfileData = (setData,dispatch) => {
+    const setMyProfileData = () => {
         dispatch(receiveProjectMypage()).then(res=> {
             if(res.payload.success){
                 setData(res.payload.profile);
@@ -21,9 +21,12 @@ const LoadProfile = (props) => {
 
     const setUserProfileData = () => {
         console.log("test");
-        if(props.userData != null) {
+        if(props.userData !== null) {
             console.log("여기도 아농===");
-            dispatch(loadWorker(props.userData.id)).then(res => {
+            const body = {
+                id: props.userData.id
+            }
+            dispatch(loadWorker(body)).then(res => {
                 
                     console.log(`payload success 이후=${props.userData.id}`);
                     console.log(res.payload);
@@ -34,9 +37,9 @@ const LoadProfile = (props) => {
     
 
     React.useEffect(()=>{
-        //setMyProfileData();
+        setMyProfileData();
         setUserProfileData();
-    },[]);
+    },[props.userData]);
     
     
 

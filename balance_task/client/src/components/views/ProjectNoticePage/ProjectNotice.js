@@ -63,7 +63,7 @@ const ProjectNotice = (props) =>{
   const [isCompleted, setIsCompleted] = useState(false);
 
   const group=props.match.params.group;
-
+  
   useEffect(()=>{
     //어차피 공지사항 보려면 무조건 timeline을 넘어가야하니까 이렇게 함.
     if(isLoading){
@@ -95,7 +95,7 @@ const ProjectNotice = (props) =>{
           </>
           :
           notice.length !==0 ? notice.map((user_post, i)=>(
-            <PostBlock key={i} index={i} userData={userData} user_post = {user_post} group={group} isTimeline = {false}/>
+            <PostBlock key={i} index={i} userData={userData} user_post = {user_post} group={group} isTimeline = {false} photo_url={user_post.image}/>
           )):<div>아직 데이터 없어요</div>
         }
       </Container>

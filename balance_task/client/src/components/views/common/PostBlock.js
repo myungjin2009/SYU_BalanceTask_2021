@@ -62,8 +62,9 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
 }
 
 const PostBlock = (props) =>{
-  const {index, user_post ,userData, group, isTimeline} = props;
-  const {photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage} = user_post;
+  const {index, user_post, photo_url, userData, group, isTimeline} = props;
+  const {photo_name, content, user_name, date, votes_list, kind, profileImage} = user_post;
+  console.log(photo_url);
   //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
   const [vote, setVote] = useState(votes_list);
   const path = props.match.path;
@@ -71,13 +72,15 @@ const PostBlock = (props) =>{
   
   return(
     <Container>
-      <Image photo_url={photo_url} onClick = {()=>{
-      if(path==="/:group/project_timeline"){
-        props.history.push(`/${group}/project_timeline/`+index, user_post);
-      }else if(path==="/:group/project_notice"){
-        props.history.push(`/${group}/project_notice/`+index, user_post);
-      }
-    }}></Image>
+      {photo_url.map((url, index)=>(
+        <Image key={index} photo_url={url} onClick = {()=>{
+          if(path==="/:group/project_timeline"){
+            props.history.push(`/${group}/project_timeline/`+index, user_post);
+          }else if(path==="/:group/project_notice"){
+            props.history.push(`/${group}/project_notice/`+index, user_post);
+          }
+        }}></Image>
+      ))}
       <Content>
         <p>{content}</p>
         <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {date}</span>
