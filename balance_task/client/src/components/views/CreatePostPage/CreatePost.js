@@ -19,12 +19,17 @@ function CreatePosts(props) {
   };
 
   const onClickHandler = async() =>{
-     if(images.length === 0){
-       return alert('사진을 필수적으로 올려주세요');
-     }
+    if(images.length === 0){
+      return alert('사진을 필수적으로 올려주세요');
+    }
     
     const formData = new FormData();
-    formData.append('images', detailImageFile);
+    //사진을 여러 개로 보낼 때는 같은 이름으로 for문 써서 보내기
+    //서버에서는 multer를 이용해서 .array()함수를 써야 req.files로 받을 수 있다.
+    for(let i = 0; i<detailImageFile.length; i++){
+      console.log(detailImageFile[i]);
+      formData.append('image', detailImageFile[i]);
+    }
     formData.append('category', category);
     formData.append('content', content);
     formData.append('id', userData.id);

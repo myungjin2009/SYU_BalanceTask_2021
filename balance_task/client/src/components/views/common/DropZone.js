@@ -1,6 +1,5 @@
 import React from "react";
 import Dropzone from 'react-dropzone';
-import axios from 'axios';
 
 function DropZone(props) {
   const {images, setImages, margin, setDetailImageFile, detailImageFile} = props;
@@ -15,6 +14,7 @@ function DropZone(props) {
     };
     if (files[0]) {
       reader.readAsDataURL(files[0]);
+      console.log(files[0]);
       setDetailImageFile([...detailImageFile, files[0]]);
     }
   }

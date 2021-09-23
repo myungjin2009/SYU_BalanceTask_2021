@@ -427,7 +427,7 @@ app.post("/api/group/vote",votechange,(req,res)=>{
 //   });
 // });
 
-app.post("/api/group/post",upload.single("image"),boardadd,(req,res)=>{
+app.post("/api/group/post",upload.array("image", 12),boardadd,(req,res)=>{
   res.status(200).json({
     success: true
   });

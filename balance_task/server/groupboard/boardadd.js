@@ -8,7 +8,7 @@ require("dotenv").config();
 
 let boardadd = (req, res, next) => {
   console.log("boardadd 함수 호출됨");
-  console.log(req.body);
+  console.log('사진이야',req.files);
   console.log(req.body.category);
   let paramcategory=req.body.category;
   let urlgroup=req.body.group;
