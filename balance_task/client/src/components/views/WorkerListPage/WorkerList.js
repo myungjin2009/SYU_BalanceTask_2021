@@ -43,7 +43,7 @@ const WorkerList = (props) => {
         <div className="brBar">내 프로필</div>
         <LoadProfile profile="MyProfile" userData={props.userData}></LoadProfile>
         <div className="brBar">워커 프로필</div>
-        {/* <LoadWorker type="WorkerProfile"></LoadWorker> */}
+        <LoadProfile profile="WorkerProfile" userData={props.userData}></LoadProfile>
       </List>
 
       <Navigation/>
