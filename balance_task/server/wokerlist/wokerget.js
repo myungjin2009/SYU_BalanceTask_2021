@@ -6,6 +6,7 @@ require("dotenv").config();
 
 let wokerget = (req, res, next) => {
     console.log("friends함수 호출됨");
+    console.log(req.body);
     let paramId= req.body.id //req.body.id;
     var array=[];
     const sql2="SELECT * FROM friends where user=? ";

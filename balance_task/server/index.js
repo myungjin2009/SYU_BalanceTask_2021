@@ -115,19 +115,19 @@ app.use(
 );
 
 
-//const upload = multer({dest: './upload'}); 	
+const upload = multer({dest: './upload'}); 	
 	//var upload = multer({ storage: storage });
-//app.use('/image', express.static('./upload'));
+app.use('/image', express.static('./upload'));
 
 
 
-var storage = multer.diskStorage({ 
-  destination: function (req, file, cb) { cb(null, './upload')  },
-  filename: function (req, file, cb) { cb(null, file.originalname)} 
-})
+// var storage = multer.diskStorage({ 
+//   destination: function (req, file, cb) { cb(null, './upload')  },
+//   filename: function (req, file, cb) { cb(null, file.originalname)} 
+// })
 
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 //===== 라우팅 함수 등록 =====//
 // 라우터 객체 참조//var router = express.Router();
@@ -516,8 +516,8 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
 
 app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   res.status(200).json({
-    array:req.array,
     success: true,
+    array:req.array,
     });
 })
 

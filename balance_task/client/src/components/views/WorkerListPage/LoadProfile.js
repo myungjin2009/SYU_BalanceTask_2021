@@ -20,13 +20,14 @@ const LoadProfile = (props) => {
     }
 
     const setUserProfileData = () => {
+        console.log("test");
         if(props.userData != null) {
-            console.log(props.userData);
+            console.log("여기도 아농===");
             dispatch(loadWorker(props.userData.id)).then(res => {
-                if(res.payload.success){
+                
                     console.log(`payload success 이후=${props.userData.id}`);
                     console.log(res.payload);
-                }
+                
             })
         }
     }
