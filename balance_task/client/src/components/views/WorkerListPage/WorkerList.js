@@ -1,15 +1,14 @@
 import Navigation from '../Navigation/Navigation'
 import styled, {keyframes} from 'styled-components';
-import LoadMyProfile from './LoadMyProfile';
+import LoadProfile from './LoadProfile';
 import React from 'react';
 
 const Total_WorkerList = 0;
 
-const WorkerList = () => {
+const WorkerList = (props) => {
   const SearchBox = React.useRef(null);
   const SearchIcon = React.useRef(null);
   const [isShow, setIsShow] = React.useState(0);
-  
 
   React.useEffect(() => {
     setIsShow(-1);
@@ -20,29 +19,29 @@ const WorkerList = () => {
       <Header>
         나의 워커 목록 <span className="WorkerCount">{Total_WorkerList}</span>
 
-        <input type="text" className="SearchBox" active={isShow} ref={SearchBox} placeholder="검색"></input>
+        <input type="text" className="SearchBox" /*active={isShow}*/ ref={SearchBox} placeholder="검색"></input>
       
         <span className="SearchIcon" ref={SearchIcon} onClick={() => {
           if (isShow === 1) {
             SearchIcon.current.style.color = "black";
-            SearchBox.current.style.display = "none";   //임시
+            SearchBox.current.style.top = "-6vh";
             setIsShow(0);
           }
           else {
             SearchIcon.current.style.color = "white";
-            SearchBox.current.style.display = "block";  //임시
+            SearchBox.current.style.top = "2vh";
             SearchBox.current.focus();
             setIsShow(1);
           }
         }} >
-          <i class="fas fa-search" />
+          <i className="fas fa-search" />
         </span>
 
       </Header>
 
       <List>
         <div className="brBar">내 프로필</div>
-        <LoadMyProfile></LoadMyProfile>
+        <LoadProfile profile="MyProfile" userData={props.userData}></LoadProfile>
         <div className="brBar">워커 프로필</div>
         {/* <LoadWorker type="WorkerProfile"></LoadWorker> */}
       </List>
@@ -51,23 +50,6 @@ const WorkerList = () => {
     </Container>
   )
 }
-
-const SearchBox_Slide = keyframes`
-  0% {
-    top: -6vh;
-  }
-  100% {
-    top: 2.0vh;
-  }
-`;
-const SearchBox_Slide2 = keyframes`
-  0% {
-    top: 2vh;
-  }
-  100% {
-    top: -6vh;
-  }
-`;
 
 const Container = styled.div`
   width: 100vw;
@@ -89,7 +71,7 @@ const Header = styled.div`
   & > .SearchBox {  
     position: absolute;
     left: 3vw;
-    top: 2vh;
+    top: -6vh;
     width: 80%;
     height: 6vh;
     border: none;
@@ -97,19 +79,8 @@ const Header = styled.div`
     outline: none;
     font-size: 2.5vh;
     padding-left: 2vh;
+    transition: top 0.3s ease-in-out;
   }
-  // & > .SearchBox[active="1"] {
-  //   animation-name: ${SearchBox_Slide};
-  //   animation-duration: 0.4s;
-  //   animation-timing-function: ease;
-  //   animation-fill-mode: forwards;
-  // }
-  // & > .SearchBox[active="0"] {
-  //   animation-name: ${SearchBox_Slide2};
-  //   animation-duration: 0.4s;
-  //   animation-timing-function: ease;
-  //   animation-fill-mode: forwards;
-  // }
   & > .SearchIcon {
     color: black;
     margin-right: 3vw;

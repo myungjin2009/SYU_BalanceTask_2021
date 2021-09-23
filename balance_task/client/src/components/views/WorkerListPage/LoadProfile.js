@@ -3,31 +3,62 @@ import styled from 'styled-components';
 import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
 import {chooseLoading, receiveProjectMypage, loadWorker} from '../../../_actions/user_action';
 import {useSelector, useDispatch} from 'react-redux';
+import {withRouter} from "react-router-dom";
 
 
-const LoadMyProfile = (props) => {
+const LoadProfile = (props) => {
     //const state = useSelector(state => state.user);   //내 프로필 정보 REDUX에서 불러오기 (최신은 아님)
-
+    const [data,setData] = React.useState(null);
     const dispatch = useDispatch();
-    dispatch(receiveProjectMypage()).then(res=> {
-        if(res.payload.success){
-            console.log('데이터 받기를 성공했을껄');
-            //setData(res.payload.profile);
-        }
-    })
-    //console.log(data);
 
-    return(
-        <Profile type="myProfile" color="rgb(230,247,230)">
-            {/* <div className = "ProfileImg">
-                <img className ="ProfileimgSource" src={ProfileImage} />
-            </div>
-            <div className = "ProfileName">{ProfileName}</div>
-            <div className = "ProfileScore">{Score}</div>
-            <div className = "ProfileMessage">{ProfileMessage}</div> */}
-            개샛기야
-        </Profile>
-    );
+    const setMyProfileData = (setData,dispatch) => {
+        dispatch(receiveProjectMypage()).then(res=> {
+            if(res.payload.success){
+                setData(res.payload.profile);
+            }
+        })
+    }
+
+    const setUserProfileData = () => {
+        if(props.userData != null) {
+            console.log(props.userData);
+            dispatch(loadWorker(props.userData.id)).then(res => {
+                if(res.payload.success){
+                    console.log(`payload success 이후=${props.userData.id}`);
+                    console.log(res.payload);
+                }
+            })
+        }
+    }
+    
+
+    React.useEffect(()=>{
+        //setMyProfileData();
+        setUserProfileData();
+    },[]);
+    
+    
+
+    if(props.profile === "MyProfile") {
+        if(data === null) {
+            return(
+                <Profile type="myProfile" color="rgb(230,247,230)">
+                    <div className = "ProfileName">Loading</div>
+                </Profile>
+            );
+        }else {
+            return(
+                <Profile type="myProfile" color="rgb(230,247,230)">
+                <div className = "ProfileImg">
+                <img className ="ProfileimgSource" src={data.ProfileImage} />
+                </div>
+                <div className = "ProfileName">{data.ProfileName}</div>
+                <div className = "ProfileScore">{data.Score}</div>
+                <div className = "ProfileMessage">{data.ProfileMessage}</div>
+                </Profile>
+            );
+        }
+    }
     
 
 }
@@ -95,4 +126,4 @@ const NoWorker = styled.div`
     }
 `;
 
-export default LoadMyProfile;
+export default withRouter(LoadProfile);
