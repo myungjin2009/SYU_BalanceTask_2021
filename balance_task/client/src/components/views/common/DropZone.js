@@ -21,8 +21,11 @@ function DropZone(props) {
   const deleteHandler = (image) =>{
     const currentIndex = images.indexOf(image);
     let newImages = [...images];
+    let newImagesFile = [...detailImageFile];
     newImages.splice(currentIndex, 1);
+    newImagesFile.splice(currentIndex, 1);
     setImages(newImages);
+    setDetailImageFile(newImagesFile);
   }
 
   return (

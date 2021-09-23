@@ -24,7 +24,7 @@ function CreatePosts(props) {
     }
     
     const formData = new FormData();
-    formData.append('images', images);
+    formData.append('images', detailImageFile);
     formData.append('category', category);
     formData.append('content', content);
     formData.append('id', userData.id);
