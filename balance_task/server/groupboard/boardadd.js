@@ -1,14 +1,44 @@
-const sql = require("../database/db_connect");
+var express = require('express');
+var router = express.Router();
+const sql=require('../database/db_connect');
+var group = require('../group_function/addgroup');
+const bcrypt=require('bcrypt');
+const moment = require("moment");
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 const jwt = require("jsonwebtoken");
-const moment=require("moment");
-const fs=require("fs");
 require("dotenv").config();
+const cookie = require("cookie");
 
+var app = express();
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+const multer = require("multer");
+const path = require("path");
+	//const upload = multer({dest: './upload'}); 	
+	//var upload = multer({ storage: storage });
+	//app.use('/image', express.static('./upload'));
 
+	var storage = multer.diskStorage({ 
+		destination: function (req, file, cb) { cb(null, './upload')  },
+		filename: function (req, file, cb) { cb(null, file.originalname)} 
+	  })
+	  
+	  
+	  const upload = multer({ storage: storage });
+    
 let boardadd = (req, res, next) => {
+  //upload.single("image")
+ // const upload = multer({ storage: multer.diskStorage({ destination(req, file, cb) { cb(null, "uploads/"); }, filename(req, file, cb) { const ext = path.extname(file.originalname); cb(null, path.basename(file.originalname, ext) + Date.now() + ext); }, }), limits: { fileSize: 5 * 1024 * 1024 }, });
+
+
   console.log("boardadd 함수 호출됨");
-  //console.log(req.body);
+  console.log(req.body.images);
+  console.log(req.body.images[0]);
+  console.log(req.body.images[1]);
   //console.log(req.body.category);
   let paramcategory=req.body.category;
   let urlgroup=req.body.group;
