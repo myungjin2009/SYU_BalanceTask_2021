@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
 import {chooseLoading, receiveProjectMypage, loadWorker} from '../../../_actions/user_action';
 import {useSelector, useDispatch} from 'react-redux';
-
+import {withRouter} from "react-router-dom";
 
 
 const LoadProfile = (props) => {
@@ -11,25 +11,29 @@ const LoadProfile = (props) => {
     const [data,setData] = React.useState(null);
     const dispatch = useDispatch();
 
-    const setMyProfileData = () => {
+    const setMyProfileData = (setData,dispatch) => {
         dispatch(receiveProjectMypage()).then(res=> {
             if(res.payload.success){
-                console.log('데이터 받기를 성공했을껄');
                 setData(res.payload.profile);
             }
         })
     }
 
     const setUserProfileData = () => {
-        dispatch(loadWorker()).then(res => {
-            if(res.payload.success){
-                console.log(res.payload);
-            }
-        })
+        if(props.userData != null) {
+            console.log(props.userData);
+            dispatch(loadWorker(props.userData.id)).then(res => {
+                if(res.payload.success){
+                    console.log(`payload success 이후=${props.userData.id}`);
+                    console.log(res.payload);
+                }
+            })
+        }
     }
+    
 
     React.useEffect(()=>{
-        setMyProfileData();
+        //setMyProfileData();
         setUserProfileData();
     },[]);
     
@@ -122,4 +126,4 @@ const NoWorker = styled.div`
     }
 `;
 
-export default LoadProfile;
+export default withRouter(LoadProfile);

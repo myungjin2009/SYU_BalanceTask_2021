@@ -5,11 +5,10 @@ import React from 'react';
 
 const Total_WorkerList = 0;
 
-const WorkerList = () => {
+const WorkerList = (props) => {
   const SearchBox = React.useRef(null);
   const SearchIcon = React.useRef(null);
   const [isShow, setIsShow] = React.useState(0);
-  
 
   React.useEffect(() => {
     setIsShow(-1);
@@ -42,7 +41,7 @@ const WorkerList = () => {
 
       <List>
         <div className="brBar">내 프로필</div>
-        <LoadProfile profile="MyProfile"></LoadProfile>
+        <LoadProfile profile="MyProfile" userData={props.userData}></LoadProfile>
         <div className="brBar">워커 프로필</div>
         {/* <LoadWorker type="WorkerProfile"></LoadWorker> */}
       </List>
