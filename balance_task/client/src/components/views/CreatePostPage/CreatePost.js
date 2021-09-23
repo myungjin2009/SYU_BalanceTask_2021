@@ -8,6 +8,8 @@ import Header from '../Header/Header';
 import { withRouter } from 'react-router';
 
 function CreatePosts(props) {
+  const {userData} = props;
+  const {match: {params: {group}}} = props;
   const [images, setImages] = useState([]);
   const [category, setcategory] = useState("타임라인");
   const [content, setContent] = useState("");
@@ -17,15 +19,16 @@ function CreatePosts(props) {
   };
 
   const onClickHandler = async() =>{
-    if(images.length === 0){
-      return alert('사진을 필수적으로 올려주세요');
-    }
+     if(images.length === 0){
+       return alert('사진을 필수적으로 올려주세요');
+     }
     
     const formData = new FormData();
     formData.append('images', images);
     formData.append('category', category);
     formData.append('content', content);
-
+    formData.append('id', userData.id);
+    formData.append('group', group);
     const config = {
       'content-type': 'multipart/form-data'
     }
