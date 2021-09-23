@@ -24,6 +24,7 @@ let noticeadd = (req, res, next) => {
       });
 
   const sql2="select count(board_number) from groupnotice where info_groupname=?";
+  
     sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
     var maxno=rows[0]['count(board_number)']
     const array=[]
@@ -39,7 +40,7 @@ let noticeadd = (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("noticeadd come");
+        console.log("notidceadd come");
       }
       next()
       //console.log(array);
