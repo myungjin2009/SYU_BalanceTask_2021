@@ -515,10 +515,53 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
 });
 
 app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
-  res.status(200).json({
-    success: true,
-    array:req.array,
-    });
+  let arrays=[]
+  console.log("==================================calendar=====================================");
+  sql.pool.getConnection(function (err, conn) {
+    if (err) {
+      if (conn) {
+        conn.release(); // 반드시 해제해야 함
+      }
+
+      callback(err, null);
+      return;
+    }
+  
+  for (let i = 0; i < req.friends.length; i++) {
+    let afriends=req.friends[i]['friends'];
+    console.log(afriends);
+    const sql1 = "SELECT * FROM user where id=?";
+    sql.pool.query(sql1,afriends,(err, rows, fields) => {
+     
+        //console.log(rows);
+        console.log("friends come");
+        rows.forEach((info,index,newarray) => {
+            req.id = info.id;
+            req.user_image = info.user_image;
+            req.name =info.name;
+            //req.introduce =info.introduce;
+            req.score=info.score;  
+            if(req.user_image===null || req.user_image===undefined){
+                req.user_image="/image/32ec1b34e27c99d038388c2828cb1bf7";
+            }
+
+            arrays.push({
+                ProfileName: req.name,
+                ProfileImage: req.user_image,
+                ProfileMessage: req.introduce,
+                Score: req.evaluation_score
+            });
+        });
+        console.log(arrays);
+      
+    })
+  }console.log(arrays);
+   res.status(200).json({
+        success: true,
+        array:arrays,
+      });
+ })
+ 
 })
 
 app.post("/api/user/notice/confirm",aramsubmit,(req,res,next)=>{
