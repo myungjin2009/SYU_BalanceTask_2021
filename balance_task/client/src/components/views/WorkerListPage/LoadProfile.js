@@ -8,13 +8,14 @@ import {withRouter} from "react-router-dom";
 
 const LoadProfile = (props) => {
     //const state = useSelector(state => state.user);   //내 프로필 정보 REDUX에서 불러오기 (최신은 아님)
-    const [data,setData] = React.useState(null);
+    const [myData, setMyData] = React.useState(null);
+    const [userData, setUserData] = React.useState(null);
     const dispatch = useDispatch();
 
     const setMyProfileData = () => {
         dispatch(receiveProjectMypage()).then(res=> {
             if(res.payload.success){
-                setData(res.payload.profile);
+                setMyData(res.payload.profile);
             }
         })
     }
@@ -26,7 +27,8 @@ const LoadProfile = (props) => {
             }
             dispatch(loadWorker(body)).then(res => {
                 if(res.payload.success){
-                    console.log(res.payload);
+                    console.log(res.payload.array);
+                    setUserData(res.payload.array);
                 }
             })
         }
@@ -41,7 +43,7 @@ const LoadProfile = (props) => {
     
 
     if(props.profile === "MyProfile") {
-        if(data === null) {
+        if(myData === null) {
             return(
                 <Profile type="myProfile" color="rgb(230,247,230)">
                     <div className = "ProfileName">Loading</div>
@@ -51,12 +53,35 @@ const LoadProfile = (props) => {
             return(
                 <Profile type="myProfile" color="rgb(230,247,230)">
                 <div className = "ProfileImg">
-                <img className ="ProfileimgSource" src={data.ProfileImage} />
+                <img className ="ProfileimgSource" src={myData.ProfileImage} />
                 </div>
-                <div className = "ProfileName">{data.ProfileName}</div>
-                <div className = "ProfileScore">{data.Score}</div>
-                <div className = "ProfileMessage">{data.ProfileMessage}</div>
+                <div className = "ProfileName">{myData.ProfileName}</div>
+                <div className = "ProfileScore">{myData.Score}</div>
+                <div className = "ProfileMessage">{myData.ProfileMessage}</div>
                 </Profile>
+            );
+        }
+    }
+
+
+
+    if(props.profile === "WorkerProfile") {
+        if(userData === null) {
+            return null;
+        } else {
+            const test1 = userData.map((val,idx) => {
+                <Profile key={idx} type="userProfile" color="rgb(230,207,200)">
+                    <div className = "ProfileImg">
+                    <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
+                    </div>
+                    <div className = "ProfileName">{userData[idx].ProfileName}</div>
+                    <div className = "ProfileScore">{userData[idx].Score}</div>
+                    <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
+                </Profile>
+            });
+            return(
+                //{test1}       //이거 아직 안됨
+                null
             );
         }
     }
