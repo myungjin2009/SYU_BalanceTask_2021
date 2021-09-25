@@ -516,16 +516,8 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
 
 app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   let arrays=[]
-  console.log("==================================calendar=====================================");
-  sql.pool.getConnection(function (err, conn) {
-    if (err) {
-      if (conn) {
-        conn.release(); // 반드시 해제해야 함
-      }
-
-      callback(err, null);
-      return;
-    }
+  let arrays2=[]
+  console.log("==================================load_worker=====================================");
   
   for (let i = 0; i < req.friends.length; i++) {
     let afriends=req.friends[i]['friends'];
@@ -553,16 +545,20 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
             });
         });
         console.log(arrays);
-      
+        
+
+        if (i === req.friends.length - 1) {
+          res.status(200).json({
+            array: arrays,
+            success: true,
+          });
+        }
     })
-  }console.log(arrays);
-   res.status(200).json({
-        success: true,
-        array:arrays,
-      });
+  }
+  
  })
  
-})
+
 
 app.post("/api/user/notice/confirm",aramsubmit,(req,res,next)=>{
   res.status(200).json({
