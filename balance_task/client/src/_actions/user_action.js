@@ -12,7 +12,9 @@ import {
   LOADING_MYPAGE,
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
-  POST_NOTICE_REJECT
+  POST_NOTICE_REJECT,
+  LOADING_WORKERLIST_MYDATA,
+  LOADING_WORKERLIST_USERDATA
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -95,6 +97,7 @@ export function receiveProjectMypage(){
   }
 }
 
+
 //다른 사용자가 그룹 리더에게 그룹 신청할 때 오는 알림 받기
 export function postNoticeConfirm(dataToSubmit){
   const request = axios.post('/api/user/notice/confirm', dataToSubmit)
@@ -152,5 +155,21 @@ export function chooseLoading(isLoading){
   return {
     type: LOADING_MYPAGE,
     isLoading
+  }
+}
+
+//워커리스트-내프로필 로딩 함수
+export function myDataLoading(isMydataLoading){
+  return {
+    type: LOADING_WORKERLIST_MYDATA,
+    isMydataLoading
+  }
+}
+
+//워커리스트-유저프로필 로딩 함수
+export function userDataLoading(isUserdataLoading){
+  return {
+    type: LOADING_WORKERLIST_USERDATA,
+    isUserdataLoading
   }
 }

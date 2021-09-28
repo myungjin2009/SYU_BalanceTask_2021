@@ -9,6 +9,8 @@ import {
   UPDATE_MESSAGE,
   UPDATE_IMAGE,
   LOADING_MYPAGE,
+  LOADING_WORKERLIST_MYDATA,
+  LOADING_WORKERLIST_USERDATA,
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT
@@ -37,7 +39,9 @@ const initialState = {
       logo: hanium_logo
     },
   ],
-  isLoading: true
+  isLoading: true,
+  isMydataLoading : true,
+  isUserdataLoading : true
 }
 
 export default function reducer(state = initialState, action) {
@@ -97,6 +101,17 @@ export default function reducer(state = initialState, action) {
     case LOADING_MYPAGE:{
       return {...state, isLoading: action.isLoading}
     }
+
+    case LOADING_WORKERLIST_MYDATA:{
+      return {...state, isMydataLoading: action.isMydataLoading}
+    }
+
+    case LOADING_WORKERLIST_USERDATA:{
+      return {...state, isUserdataLoading: action.isUserdataLoading}
+    }
+
+
+
     default:
       return state;
   }

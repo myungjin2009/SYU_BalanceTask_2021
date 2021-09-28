@@ -1,49 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
 import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
-import {chooseLoading, receiveProjectMypage, loadWorker} from '../../../_actions/user_action';
+import {myDataLoading,userDataLoading, receiveProjectMypage, loadWorker} from '../../../_actions/user_action';
 import {useSelector, useDispatch} from 'react-redux';
 import {withRouter} from "react-router-dom";
 
-
-const LoadProfile = (props) => {
-    //const state = useSelector(state => state.user);   //내 프로필 정보 REDUX에서 불러오기 (최신은 아님)
-    const [myData, setMyData] = React.useState({});
-    const [userData, setUserData] = React.useState([]);
-    const dispatch = useDispatch();
-
-    const setMyProfileData = () => {
+const setMyProfileData = (setMyData,dispatch,isMydataLoading) => {
+    if(isMydataLoading) {
         dispatch(receiveProjectMypage()).then(res=> {
+          if(res.payload.success) {
+            setMyData({profile:res.payload.profile,project_list:res.payload.project_list});
+            dispatch(myDataLoading(false));
+            console.log("dispatch(MydataLoad가 실행됨)");
+          }
+        });
+      }
+}
+
+const setUserProfileData = (setUserData,dispatch,props) => {
+    if(props.userData !== null) {
+        const body = {
+            id: props.userData.id
+        }
+        dispatch(loadWorker(body)).then(res => {
             if(res.payload.success){
-                setMyData(res.payload.profile);
+                console.log(res.payload.array);
+                setUserData(res.payload.array);
             }
         })
     }
+}
 
-    const setUserProfileData = () => {
-        if(props.userData !== null) {
-            const body = {
-                id: props.userData.id
-            }
-            dispatch(loadWorker(body)).then(res => {
-                if(res.payload.success){
-                    console.log(res.payload.array);
-                    setUserData(res.payload.array);
-                }
-            })
-        }
-    }
+const LoadProfile = (props) => {
+    const state = useSelector(state => state.user);
+    const {profile, project_list} = state;
+    const [myData, setMyData] = React.useState({profile, project_list});
+    const [userData, setUserData] = React.useState([]);
+    const dispatch = useDispatch();
+
+    const isMydataLoading = useSelector(state => state.user.isMydataLoading);
+    
+
+    
     
 
     React.useEffect(()=>{
-        setMyProfileData();
-        setUserProfileData();
-    },[props.userData]);
+        if(isMydataLoading) {
+            setMyProfileData(setMyData,dispatch,isMydataLoading);
+            //setUserProfileData(setMyData,dispatch.props);
+        }
+    },[]);
     
     
 
     if(props.profile === "MyProfile") {
-        if(myData === null) {
+        if(myData.profile.ProfileName == ``) {
             return(
                 <Profile type="myProfile" color="rgb(230,247,230)">
                     <div className = "ProfileName">Loading</div>
@@ -53,11 +64,11 @@ const LoadProfile = (props) => {
             return(
                 <Profile type="myProfile" color="rgb(230,247,230)">
                 <div className = "ProfileImg">
-                <img className ="ProfileimgSource" src={myData.ProfileImage} />
+                <img className ="ProfileimgSource" src={myData.profile.ProfileImage} />
                 </div>
-                <div className = "ProfileName">{myData.ProfileName}</div>
-                <div className = "ProfileScore">{myData.Score}</div>
-                <div className = "ProfileMessage">{myData.ProfileMessage}</div>
+                <div className = "ProfileName">{myData.profile.ProfileName}</div>
+                <div className = "ProfileScore">{myData.profile.Score}</div>
+                <div className = "ProfileMessage">{myData.profile.ProfileMessage}</div>
                 </Profile>
             );
         }
@@ -68,18 +79,26 @@ const LoadProfile = (props) => {
     if(props.profile === "WorkerProfile") {
         if(userData === null) {
             return null;
-        } else {
+        }
+        //  else if(userData === Load) {
+
+            
+
+            
+        // } 
+        else {
             return(
-                userData.map((val,idx) => (
-                    <Profile key={idx} type="userProfile" >
-                        <div className = "ProfileImg">
-                        <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
-                        </div>
-                        <div className = "ProfileName">{userData[idx].ProfileName}</div>
-                        <div className = "ProfileScore">{userData[idx].Score}</div>
-                        <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
-                    </Profile>
-                ))
+                <div>ii</div>
+                // userData.map((val,idx) => (
+                //     <Profile key={idx} type="userProfile" >
+                //         <div className = "ProfileImg">
+                //         <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
+                //         </div>
+                //         <div className = "ProfileName">{userData[idx].ProfileName}</div>
+                //         <div className = "ProfileScore">{userData[idx].Score}</div>
+                //         <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
+                //     </Profile>
+                // ))
             );
         }
     }

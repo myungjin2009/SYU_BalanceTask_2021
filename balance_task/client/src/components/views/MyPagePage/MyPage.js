@@ -12,10 +12,8 @@ import Notice from "../common/Notice";
 const receiveMyPageData = (dispatch, setMyPageData, setIsNotice) =>{
   dispatch(receiveProjectMypage()).then(res => {
     if(res.payload.success){
-      //console.log('데이터 받기 성공');
-      //console.log(res.payload);
       setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
-      console.log(res.payload);
+      //console.log(res.payload);
       if(res.payload.arams){
         setIsNotice(true);
       }
