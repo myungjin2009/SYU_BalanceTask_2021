@@ -63,8 +63,8 @@ let boardget1 = (req, res, next) => {
             console.log(req.board_number);
             req.title = info.title;
             console.log( req.title );
-            req.image =info.image;
-            console.log( req.image );
+            req.image =info.image.split(',');
+               
             req.file =info.file;
             req.text =info.text;
             console.log( req.text );
