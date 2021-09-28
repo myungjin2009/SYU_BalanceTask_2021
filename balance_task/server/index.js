@@ -531,8 +531,8 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
             req.id = info.id;
             req.user_image = info.user_image;
             req.name =info.name;
-            //req.introduce =info.introduce;
-            req.score=info.score;  
+            req.introduce =info.introduce;
+            req.score=info.evaluation_score;  
             if(req.user_image===null || req.user_image===undefined){
                 req.user_image="/image/32ec1b34e27c99d038388c2828cb1bf7";
             }
@@ -541,7 +541,7 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
                 ProfileName: req.name,
                 ProfileImage: req.user_image,
                 ProfileMessage: req.introduce,
-                Score: req.evaluation_score
+                Score: req.score
             });
         });
         console.log(arrays);
