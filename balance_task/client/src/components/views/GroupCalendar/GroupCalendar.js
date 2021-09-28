@@ -18,6 +18,7 @@ const GroupCalendar = (props) => {
   const [isWeekends, setIsWeekends] = useState(false);
   const [dateInfo, setDateInfo] = useState(null);
   const dispatch = useDispatch();
+  console.log(calendarData);
   // const user_group=useSelector(state=>state.user);
   //console.log(user_group);
   const group=props.match.params.group;
@@ -29,6 +30,9 @@ const GroupCalendar = (props) => {
     // }
     dispatch(receiveDate(group)).then(response =>{
       //데이터를 받아서 calendarList에 넣기
+      if(response.payload.calendarList === undefined){
+        return;
+      }
       setCalendarData(response.payload.calendarList);
     });
     

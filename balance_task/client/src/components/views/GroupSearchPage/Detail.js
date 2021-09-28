@@ -6,8 +6,7 @@ import { joinGroup } from '../../../_actions/group_action';
 import Header from '../Header/Header';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
-  const {location:{state:{content, writer, date, image, kind}}} = props;
-  // const userData = useSelector(state => state.user.userData);
+  const {location:{state:{content, writer, start_date, deadline, image, kind}}} = props;
   const dispatch = useDispatch();
   const new_obj = {
     group: team,
@@ -35,7 +34,7 @@ const Detail = (props)=>{
       </Img>
       <Deadline>
         <label>기간: </label> 
-        <span>{date}</span>
+        <span>{start_date} ~ {deadline}</span>
       </Deadline>
       <Content>
         <label>내용:</label>
@@ -87,7 +86,7 @@ const Category = styled.div`
   }
 `;
 const Img = styled.div`
-  background: #424242;
+  background: #000;
   border-radius: 10px;
   border: 5px solid #aaa;
   &>div{
