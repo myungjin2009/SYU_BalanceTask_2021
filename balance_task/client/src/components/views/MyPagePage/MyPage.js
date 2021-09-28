@@ -27,7 +27,7 @@ const receiveMyPageData = (dispatch, setMyPageData, setIsNotice) =>{
 const MyPage = (props) => {
   const state = useSelector(state => state.user);
   const isLoading = useSelector(state => state.user.isLoading);
-
+  console.log(state, isLoading);
   const history = useHistory();                                 //history.push
   const dispatch = useDispatch();
 

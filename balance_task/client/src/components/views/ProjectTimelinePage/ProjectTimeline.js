@@ -92,7 +92,7 @@ const ProjectTimeline = (props) =>{
       }
     }
   },[search, isLoading]);
-  // console.log(timeline);
+  console.log(timeline);
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
@@ -109,7 +109,7 @@ const ProjectTimeline = (props) =>{
             )):<div>아직 데이터 없어요</div>
         }
       </Container>
-      <Button direction="left"><Link to={`/my_page`} className="Button-type"><i class="fas fa-user"></i></Link></Button>
+      <Button direction="left"><Link to={`/my_page`} className="Button-type"><i className="fas fa-user"></i></Link></Button>
       <Button direction="right"><Link to={`/${group}/create_posts`} className="Button-type"><i className="fas fa-plus"></i></Link></Button>
     </>
   )
