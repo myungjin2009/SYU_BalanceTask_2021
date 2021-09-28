@@ -75,20 +75,6 @@ function CreateGroup(props) {
 
   const dispatch = useDispatch();
 
-  // const calculateDate = () => {
-  //   const current_date = new Date();
-  //   const year = current_date.getFullYear();
-  //   const month =
-  //     current_date.getMonth() + 1 < 10
-  //       ? "0" + (current_date.getMonth() + 1)
-  //       : current_date.getMonth() + 1;
-  //   const date =
-  //     current_date.getDate() < 10
-  //       ? "0" + current_date.getDate()
-  //       : current_date.getDate();
-  //   return `${year}-${month}-${date}`;
-  // };
-
   const postHandler = (e) => {
     e.preventDefault();
     if (
@@ -123,11 +109,10 @@ function CreateGroup(props) {
     }
 
     dispatch(createGroup(formData, config)).then((res) => {
-      console.log('굳좝맨');
-      //props.history.push('/group_search');
-      // if(res.payload.success){
-      //   props.history.push('/group_search');
-      // }
+      if(res.payload.success){
+        alert('성공적으로 그룹을 만들었습니다!😊');
+        props.history.push('/group_search');
+      }
     });
   };
 

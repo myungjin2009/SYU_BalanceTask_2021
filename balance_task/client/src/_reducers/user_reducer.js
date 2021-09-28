@@ -13,17 +13,17 @@ import {
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT
 } from "../_actions/types";
-import hanium_logo from '../images/hanium_logo.jpg';
-import profile_default from '../images/profile_sample.jpg';
+// import hanium_logo from '../images/hanium_logo.jpg';
+// import profile_default from '../images/profile_sample.jpg';
 
 const initialState = {
   profile:{
     ProfileName: '',
-    ProfileImage: profile_default,
+    ProfileImage: '',
     FinishedPJ: 0,
     ContinuingPJ: 0,
     Score: '',
-    ProfileMessage: `ㄴㄴ`,
+    ProfileMessage: `ㄴㄴ`
   },
   project_list:[
     {
@@ -34,7 +34,7 @@ const initialState = {
       project_DeadLine: 20210920,
       favoriteList: false,
       Finished: false,
-      logo: hanium_logo
+      logo: ''
     },
   ],
   isLoading: true

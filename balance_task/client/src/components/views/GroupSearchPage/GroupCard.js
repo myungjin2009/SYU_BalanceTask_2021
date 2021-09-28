@@ -1,28 +1,28 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import calculateDate from '../common/DateCalculator';
 
 const GroupCard = ({title, content, writer, date, image, props, kind}) =>{
-
+  const date_array = date.split('~');
+  const start_date = calculateDate(date_array[0]);
+  const deadline = calculateDate(date_array[1]);
   return(
     <Container onClick={()=>{
       props.history.push('/group_search/'+title, {
-        title, content, writer, date, image, kind
+        title, content, writer, start_date, deadline, image, kind
       });
     }}>
       <Main>
         <Img image={image}></Img>
         <Content>
           <Title>팀: <span>{title}</span></Title>
-          <div>
-            <div>내용: </div>
-            <p>{content}</p>
-          </div>
+          <P>{content}</P>
         </Content>
       </Main>
       <Default>
         <DefaultContent><span>작성자</span>: {writer} &nbsp;</DefaultContent>
-        <DefaultContent><span>기간</span>: {date}</DefaultContent>
+        <DefaultContent><span>기간</span>: {start_date} ~ {deadline} </DefaultContent>
       </Default>
     </Container>
   );
@@ -64,20 +64,8 @@ const Content = styled.div`
   align-items: center;
   width: 250px;
   padding: 10px;
-  &>div>p{
-    width: 100%;
-    padding: 3px;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    background: white;
-    padding: 0 10px;
-    border-radius: 10px;
-  }
   &>div{
-    margin:2px 0;
+    margin:10px 0;
   }
 `;
 
@@ -87,9 +75,21 @@ const Title = styled.div`
   &>span{
     background: white;
     padding: 0 10px;
-    border-radius: 10px;
+    border-radius: 5px;
   }
 `;
+
+const P =styled.p`
+    width: 100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    background: white;
+    padding: 8px 10px;
+    border-radius: 5px;
+`
 
 const Default = styled.div`
   font-size: 10px;
