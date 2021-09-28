@@ -83,6 +83,12 @@ var { aramsubmit }=require("./aram/aramsubmit");
 var { aramreject }=require("./aram/aramreject");
 //워커리스트
 var { wokerget }=require("./wokerlist/wokerget");
+//const { chatting } = require("./chatting/chatting");
+
+//채팅 관련 모듈
+var { chattingget }=require("./chatting/chattingget");
+var { chatting } = require("./chatting/chatting");
+
 // 익스프레스 객체 생성
 
 
@@ -278,7 +284,7 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                 array.push({
                     id:req.group_no,
                     group:req.group_name,
-                    logo_src: "",
+                    logo_src: req.image,
                     project_Hostt:req.makehost,
                     project_DeadLine:req.deadline,
                     project_StartLine:req.startdate,
@@ -516,12 +522,11 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
 
 app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   let arrays=[]
-  let arrays2=[]
   console.log("==================================load_worker=====================================");
   
   for (let i = 0; i < req.friends.length; i++) {
     let afriends=req.friends[i]['friends'];
-    console.log(afriends);
+    //console.log(afriends);
     const sql1 = "SELECT * FROM user where id=?";
     sql.pool.query(sql1,afriends,(err, rows, fields) => {
      
@@ -544,7 +549,7 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
                 Score: req.score
             });
         });
-        console.log(arrays);
+        //console.log(arrays);
         
 
         if (i === req.friends.length - 1) {
@@ -572,46 +577,62 @@ app.post("/api/user/notice/reject",aramreject,(req,res,next)=>{
     });
 });
 
-io.on("connection", (socket) => {
-  socket.on("chatting", (data) => {
-    console.log(data);
-
-    const { name, msg } = data;
-    //const savechatting = new savechat(data.name);
-    //savechatting.getchat();
-    var ds = {
-      chat_date: moment().format("hh:mm A"),
-      chat_id: data.name,
-      msg: data.msg,
-    };
-
-    sql.pool.getConnection(function (err, conn) {
-      var exec = conn.query(
-        "INSERT INTO chat set ?",
-        [ds],
-        function (err, result) {
-          conn.release(); // 반드시 해제해야 함
-          console.log("실행 대상 SQL : " + exec.sql);
-
-          if (err) {
-            console.log("SQL 실행 시 에러 발생함.");
-            console.dir(err);
-
-            return;
-          }
-        }
-      );
+//채팅
+app.post("",chattingget,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    array:req.array
     });
-    io.emit("chatting", {
-      name: name,
-      msg: msg,
-      time: moment().format("hh:mm A"),
-    });
-
-    // socket.join(room);
-    // chat.to(room).emit('rMsg', data);
-  });
 });
+
+app.post("",chatting,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+})
+
+
+
+// io.on("connection", (socket) => {
+//   socket.on("chatting", (data) => {
+//     console.log(data);
+
+//     const { name, msg } = data;
+//     //const savechatting = new savechat(data.name);
+//     //savechatting.getchat();
+//     var ds = {
+//       chat_date: moment().format("hh:mm A"),
+//       chat_id: data.name,
+//       msg: data.msg,
+//     };
+
+//     sql.pool.getConnection(function (err, conn) {
+//       var exec = conn.query(
+//         "INSERT INTO chat set ?",
+//         [ds],
+//         function (err, result) {
+//           conn.release(); // 반드시 해제해야 함
+//           console.log("실행 대상 SQL : " + exec.sql);
+
+//           if (err) {
+//             console.log("SQL 실행 시 에러 발생함.");
+//             console.dir(err);
+
+//             return;
+//           }
+//         }
+//       );
+//     });
+//     io.emit("chatting", {
+//       name: name,
+//       msg: msg,
+//       time: moment().format("hh:mm A"),
+//     });
+
+//     // socket.join(room);
+//     // chat.to(room).emit('rMsg', data);
+//   });
+// });
 
 //const chatlist=document.querySelector(".chatting-list")
 
