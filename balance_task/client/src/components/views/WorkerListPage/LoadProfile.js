@@ -8,8 +8,8 @@ import {withRouter} from "react-router-dom";
 
 const LoadProfile = (props) => {
     //const state = useSelector(state => state.user);   //내 프로필 정보 REDUX에서 불러오기 (최신은 아님)
-    const [myData, setMyData] = React.useState(null);
-    const [userData, setUserData] = React.useState(null);
+    const [myData, setMyData] = React.useState({});
+    const [userData, setUserData] = React.useState([]);
     const dispatch = useDispatch();
 
     const setMyProfileData = () => {
@@ -69,19 +69,17 @@ const LoadProfile = (props) => {
         if(userData === null) {
             return null;
         } else {
-            const test1 = userData.map((val,idx) => {
-                <Profile key={idx} type="userProfile" color="rgb(230,207,200)">
-                    <div className = "ProfileImg">
-                    <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
-                    </div>
-                    <div className = "ProfileName">{userData[idx].ProfileName}</div>
-                    <div className = "ProfileScore">{userData[idx].Score}</div>
-                    <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
-                </Profile>
-            });
             return(
-                //{test1}       //이거 아직 안됨
-                null
+                userData.map((val,idx) => (
+                    <Profile key={idx} type="userProfile" >
+                        <div className = "ProfileImg">
+                        <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
+                        </div>
+                        <div className = "ProfileName">{userData[idx].ProfileName}</div>
+                        <div className = "ProfileScore">{userData[idx].Score}</div>
+                        <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
+                    </Profile>
+                ))
             );
         }
     }
