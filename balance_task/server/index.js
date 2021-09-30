@@ -285,9 +285,9 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
                 req.complete=info.complete;
                 const today= new Date(time);
                 if(req.deadline<=today){
-                  req.complete=true;
-                }else{
                   req.complete=false;
+                }else{
+                  req.complete=true;
                 }
               
                 array.push({
