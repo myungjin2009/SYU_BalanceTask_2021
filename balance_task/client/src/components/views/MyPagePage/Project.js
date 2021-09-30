@@ -7,7 +7,15 @@ import { chooseLoadingGroup, resetPosts } from "../../../_actions/group_action";
 
 const Project = (props) => {
     const {ProjectList} = props;
+    console.log(ProjectList);
     const dispatch = useDispatch();
+    const start_date = new Date(ProjectList.project_StartLine);
+    const deadine = new Date(ProjectList.project_DeadLine);
+    const entire_time_data = deadine.getTime() - start_date.getTime();
+    console.log(entire_time_data);
+    const today_time_data = new Date().getTime() - start_date.getTime();
+    console.log(today_time_data);
+
 
     return(
         <Container ProjectList={ProjectList} onClick={() =>{
@@ -23,7 +31,7 @@ const Project = (props) => {
                 <div className="ProjectName">{ProjectList.group}</div>
                 <div className="ProjectHost">{ProjectList.project_Host}</div>
                 <div className="Contribution_Container">
-                    <div className="Contribution" />
+                    <div className="Contribution"></div>
                 </div>
             </div>
 
@@ -51,7 +59,7 @@ const Container = styled.div`
             width: 9vh;
             height: 9vh;
             border-radius: 50%;
-            
+            border: 1px solid #3788d8;
             
             overflow: hidden;
         }
