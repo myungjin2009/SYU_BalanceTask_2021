@@ -283,6 +283,7 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
                     req.enjoy=false;
                 }
                 req.complete=info.complete;
+                let time=moment().format('YYYY-MM-DD HH:mm:ss');
                 const today= new Date(time);
                 if(req.deadline<=today){
                   req.complete=false;
@@ -532,7 +533,12 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
 app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   let arrays=[]
   console.log("==================================load_worker=====================================");
-  
+  if(req.friends===null || req.friends===undefined){
+    res.status(200).json({
+      array: [],
+      success: true,
+    });
+  }
   for (let i = 0; i < req.friends.length; i++) {
     let afriends=req.friends[i]['friends'];
     //console.log(afriends);
