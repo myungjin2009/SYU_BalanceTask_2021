@@ -83,8 +83,8 @@ let group_search = (req, res, next) => {
             makehost:req.makehost,
             kind:req.category,
             content:req.content,
-            image: req.image[1]         //메인로고사진
-            //postimage:req.image[0]
+            image: req.image[1],         //메인로고사진
+            postimage:req.image[0]
             });
           
             req.array=array;
