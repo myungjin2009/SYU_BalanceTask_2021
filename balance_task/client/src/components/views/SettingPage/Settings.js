@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../Header/Header";
 
-import {Route} from "react-router-dom";
-import {withRouter} from "react-router";
+import { Route } from "react-router-dom";
+import { withRouter } from "react-router";
 import EditAccount from "./EditAccount";
-
 
 const title = "설 정";
 
@@ -20,21 +19,47 @@ class Settings extends React.Component {
       <Container>
         <Header title={title}></Header>
         <InputBox>
-          <button onClick={() => {
-            this.props.history.push('/settings/EditAccount')}}>회원정보 수정</button>
-          <button onClick={() => {
-            this.props.history.push('/settings/AppInfo')}}>앱 정보</button>
-          <button onClick={() => {
-            this.props.history.push('/settings/Contact')}}>문의하기</button>
-          <button onClick={() => {
-            this.props.history.push('/settings/Withdraw')}}>회원탈퇴</button>
+          <button
+            onClick={() => {
+              this.props.history.push("/settings/EditAccount");
+            }}
+          >
+            회원정보 수정
+          </button>
+          <button
+            onClick={() => {
+              const is_signout = window.confirm('정말로 로그아웃하시겠습니까?');
+              document.cookie = 'user=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+            }}
+          >
+            로그아웃
+          </button>
+          <button
+            onClick={() => {
+              this.props.history.push("/settings/AppInfo");
+            }}
+          >
+            앱 정보
+          </button>
+          <button
+            onClick={() => {
+              this.props.history.push("/settings/Contact");
+            }}
+          >
+            문의하기
+          </button>
+          <button
+            onClick={() => {
+              this.props.history.push("/settings/Withdraw");
+            }}
+          >
+            회원탈퇴
+          </button>
         </InputBox>
-
       </Container>
     );
   }
 }
-
 
 const Container = styled.div`
   position: relative;
@@ -47,7 +72,6 @@ const InputBox = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
 
   display: flex;
   flex-direction: column;
@@ -68,15 +92,14 @@ const InputBox = styled.div`
     margin-top: 2vh;
     margin-bottom: 2vh;
     box-shadow: 1px 1px 1px gray;
-    &:hover{
+    &:hover {
       background-color: rgb(21, 172, 253);
     }
     &:active {
       box-shadow: -1px -1px 1px gray;
-      background-color: rgb(1,83,126);
+      background-color: rgb(1, 83, 126);
     }
   }
 `;
-
 
 export default withRouter(Settings);

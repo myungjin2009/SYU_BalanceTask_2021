@@ -91,7 +91,7 @@ const Container = styled.div`
             height: 27%;
             margin-top: 0.5vh;
             & > .Contribution {
-                width: ${({group_persentage}) => group_persentage}%;
+                width: ${({group_persentage}) => group_persentage <=100 && group_persentage>=0 ? group_persentage : 100}%;
                 height: 100%;
                 background-color: ${({ProjectList}) => (ProjectList.Finished ? 'rgb(11,163,227)' : 'rgb(240,218,0)')};
             }

@@ -283,11 +283,12 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
                     req.enjoy=false;
                 }
                 req.complete=info.complete;
+                let time=moment().format('YYYY-MM-DD HH:mm:ss');
                 const today= new Date(time);
                 if(req.deadline<=today){
-                  req.complete=false;
-                }else{
                   req.complete=true;
+                }else{
+                  req.complete=false;
                 }
               
                 array.push({

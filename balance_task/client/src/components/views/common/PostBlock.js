@@ -64,7 +64,7 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
 const PostBlock = (props) =>{
   const {index, user_post, photo_url, userData, group, isTimeline} = props;
   const {content, user_name, date, votes_list, kind} = user_post;
-  console.log(kind);
+
   //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
   const [vote, setVote] = useState(votes_list);
   const path = props.match.path;

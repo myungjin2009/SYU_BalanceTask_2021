@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import { withRouter } from 'react-router-dom';
+import DateCalculator from './DateCalculator';
 
 function PostBlockDetail(props) {
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
+  console.dir(props.location.state.user_post);
   const {photo_url} = props.location.state;
-  console.log(photo_name, photo_url, content, user_name, date, votes_list, kind, profileImage);
   return (
     <Container>
       <Header title={user_name+"님의 프로젝트 현황"}/>
@@ -14,7 +15,7 @@ function PostBlockDetail(props) {
         <ProfileImage profileImage={profileImage}></ProfileImage>
         <UserInfo>
           <span>{user_name}</span>
-          <span>{date}</span>
+          <span>{DateCalculator(date)}</span>
         </UserInfo>
       </UserBlock>
       <Content>{content}</Content>
