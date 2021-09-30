@@ -13,8 +13,7 @@ import {
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT,
-  LOADING_WORKERLIST_MYDATA,
-  LOADING_WORKERLIST_USERDATA
+  LOADING_WORKERLIST_DATA
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -90,7 +89,6 @@ export function auth() {
 export function receiveProjectMypage(){
   const request = axios.get('/api/user/receive_mypage')
   .then(res => res.data);
-
   return {
     type: RECEIVE_MYPAGE,
     payload: request
@@ -158,18 +156,10 @@ export function chooseLoading(isLoading){
   }
 }
 
-//워커리스트-내프로필 로딩 함수
-export function myDataLoading(isMydataLoading){
+//워커리스트- 로딩 함수
+export function dataLoad(isDataLoading){
   return {
-    type: LOADING_WORKERLIST_MYDATA,
-    isMydataLoading
-  }
-}
-
-//워커리스트-유저프로필 로딩 함수
-export function userDataLoading(isUserdataLoading){
-  return {
-    type: LOADING_WORKERLIST_USERDATA,
-    isUserdataLoading
+    type: LOADING_WORKERLIST_DATA,
+    isDataLoading
   }
 }

@@ -533,7 +533,14 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
 app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   let arrays=[]
   console.log("==================================load_worker=====================================");
-  
+  console.log(req.friends);
+  if(req.friends.length===0){
+    console.log("친구 없잖아 왜 친구 있는 척 해");
+    res.status(200).json({
+      array: [],
+      success: true,
+    });
+  }
   for (let i = 0; i < req.friends.length; i++) {
     let afriends=req.friends[i]['friends'];
     //console.log(afriends);
@@ -570,8 +577,7 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
         }
     })
   }
-  
- })
+});
  
 
 
