@@ -1,23 +1,22 @@
 const express = require("express"),
   http = require("http"),
   path = require("path");
-const app = express();
-const server = app.listen(6000, () => {
-    console.log("=================listening on 5000!=================");
+  const app = express();
+const server = app.listen(7000, () => {
+    console.log("=================listening on 7000!=================");
 });
 const io = require("socket.io")(server);
 const sql = require("../database/db_connect");
 
-let chatting = (req, res, next) => {
+let personchat = (req, res, next) => {
     console.log(req.body);
     //console.log(req.file);
-    let paramgroup = req.body.group;
+    let param = req.body.room;
     let paramid=req.body.id;
     
-    
     console.log("chat 호출");
-    const sql2="select count(chat_no) from chat where group_name=?";
-    sql.pool.query(sql2,paramgroup,(err,rows,fields)=>{
+    const sql2="select count(chat_no) from chat where room_no=?";
+    sql.pool.query(sql2,(err,rows,fields)=>{
      let maxno=rows[0]['count(chat_no)']
     io.on("connection", (socket) => {
         socket.on("chatting", (data) => {
@@ -31,11 +30,11 @@ let chatting = (req, res, next) => {
             chat_id: paramid,
             msg: data.msg,
             chat_no: maxno+1,
-            group_name:paramgroup
+            room_no:paramroom
           };
       
           sql.pool.getConnection(function (err, conn) {
-            var exec = conn.query("INSERT INTO chat set ?",ds,function (err, result) {
+            var exec = conn.query("INSERT INTO personchat set ?",ds,function (err, result) {
                 conn.release(); // 반드시 해제해야 함
                 console.log("실행 대상 SQL : " + exec.sql);
       
@@ -60,6 +59,6 @@ let chatting = (req, res, next) => {
         });
       });
     });
-};
+}
   
-module.exports = {chatting};
+module.exports = {personchat};

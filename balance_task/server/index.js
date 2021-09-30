@@ -88,6 +88,8 @@ var { wokerget }=require("./wokerlist/wokerget");
 //채팅 관련 모듈
 var { chattingget }=require("./chatting/chattingget");
 var { chatting } = require("./chatting/chatting");
+var { makeroom } = require("./chatting/makeroom");
+var { personchat} = require("./chatting/personchatting");
 
 // 익스프레스 객체 생성
 
@@ -236,7 +238,7 @@ app.post("/api/group/participation",arams,(req,res)=>{
   });
 });
 
-app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message,(req,res)=>{
+app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_message,(req,res)=>{
             console.log(
               "==========================================mypage==========================================="
             );
@@ -272,7 +274,7 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                 req.deadline =info.deadline;
                 req.group_no=info.group_no;
                 if(info.group_images===null){
-                  info.group_images="/image/05cca3d33f925dbb576548ee6b1f93c0,/image/9611ce697042995fd88aa2cc036260da";
+                  info.group_images="/image/69277d1c49c1f304ffdae7c1f1f2d52b,/image/16592cb3ffe15694564c2fd39ac7f533";
                 }
                 req.image=info.group_images.split(',');
                 req.name=info.name;
@@ -281,9 +283,13 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                     req.enjoy=false;
                 }
                 req.complete=info.complete;
-                if(req.complete===1){
-                    req.complete=true;
+                const today= new Date(time);
+                if(req.deadline<=today){
+                  req.complete=false;
+                }else{
+                  req.complete=true;
                 }
+              
                 array.push({
                     id:req.group_no,
                     group:req.group_name,
