@@ -535,7 +535,7 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   console.log("==================================load_worker=====================================");
   if(req.friends===null || req.friends===undefined){
     res.status(200).json({
-      array: [],
+      array: [not],
       success: true,
     });
   }

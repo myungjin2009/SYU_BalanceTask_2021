@@ -10,6 +10,7 @@ let wokerget = (req, res, next) => {
     
     const sql2="SELECT friends FROM friends where user=? ";
     sql.pool.query(sql2,paramId,(err,rows,fields)=>{
+        console.log(rows);
         req.friends=rows;
         next();
         
