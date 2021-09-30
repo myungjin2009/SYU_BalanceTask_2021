@@ -31,7 +31,7 @@ let mypage = (req, res, next) => {
             req.clear_group=info.clear_group;
             req.user_image=info.user_image;
             if(req.user_image===null || req.user_image===undefined){
-                req.user_image="/image/32ec1b34e27c99d038388c2828cb1bf7";
+                req.user_image="/image/f10f68187fc57c148616fcca1536ea0f.jpg";
             }
             req.introduce=info.introduce;
             req.user_category=info.user_category;

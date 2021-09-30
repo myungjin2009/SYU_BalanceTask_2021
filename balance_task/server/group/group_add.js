@@ -31,10 +31,10 @@ const path = require("path");
 	  
 	const upload = multer({ storage: storage });
 
-router.route('/api/group/create_group').post(upload.single("image"),function(req, res) {
+router.route('/api/group/create_group').post(upload.array("image",12),function(req, res) {
 	console.log('/process/addgroup 호출됨.');
 	//multipartMiddleware;
-    console.log(req.file.filename);
+    //console.log(req.file.filename);
     var paramgroup_name = req.body.groupName || req.query.groupName;
     //var paramgroup_images= `/image/${req.file.filename}`;
 	let paramgroup_images=[];

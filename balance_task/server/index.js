@@ -284,13 +284,13 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                 array.push({
                     id:req.group_no,
                     group:req.group_name,
-                    logo_src: req.image,        //[1],
+                    logo_src: req.image,        //[0],
                     project_Hostt:req.makehost,
                     project_DeadLine:req.deadline,
                     project_StartLine:req.startdate,
                     favoriteList: req.enjoy,
                     Finished: req.complete,
-                    logo: "dd" //req.image[0]
+                    logo: "dd" //req.image[1]
                 });
                   //console.log(array);
             })

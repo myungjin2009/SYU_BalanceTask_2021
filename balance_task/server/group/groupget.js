@@ -41,7 +41,11 @@ let group_search = (req, res, next) => {
           req.content =info.content;
           req.deadline =info.deadline;
           req.group_no=info.group_no;
+          if(info.group_images===null){
+            info.group_images="/image/05cca3d33f925dbb576548ee6b1f93c0,/image/9611ce697042995fd88aa2cc036260da";
+          }
           req.image=info.group_images.split(',');
+          console.log(req.image);
           req.image0=req.image[0];
           req.image1=req.image[1];
           req.name=info.name;
@@ -79,7 +83,8 @@ let group_search = (req, res, next) => {
             makehost:req.makehost,
             kind:req.category,
             content:req.content,
-            image: req.image
+            image: req.image[1]         //메인로고사진
+            //postimage:req.image[0]
             });
           
             req.array=array;
