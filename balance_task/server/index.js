@@ -271,6 +271,9 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                 req.content =info.content;
                 req.deadline =info.deadline;
                 req.group_no=info.group_no;
+                if(info.group_images===null){
+                  info.group_images="/image/05cca3d33f925dbb576548ee6b1f93c0,/image/9611ce697042995fd88aa2cc036260da";
+                }
                 req.image=info.group_images.split(',');
                 req.name=info.name;
                 req.enjoy=info.enjoy;
