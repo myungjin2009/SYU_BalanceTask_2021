@@ -4,21 +4,25 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { chooseLoadingGroup, resetPosts } from "../../../_actions/group_action";
 
+const calculatePersentage = (startDate, deadineDate) =>{
+    const start_date = new Date(startDate);
+    const deadine = new Date(deadineDate);
+
+    const entire_time_data = deadine.getTime() - start_date.getTime();
+    const today_time_data = new Date().getTime() - start_date.getTime();
+    const data_until_today = today_time_data < 0 ? 0 : today_time_data;
+    const group_persentage = ((data_until_today / entire_time_data)*100) < 0 ? 100 : ((data_until_today / entire_time_data)*100);
+    return group_persentage;
+}
 
 const Project = (props) => {
     const {ProjectList} = props;
     console.log(ProjectList);
     const dispatch = useDispatch();
-    const start_date = new Date(ProjectList.project_StartLine);
-    const deadine = new Date(ProjectList.project_DeadLine);
-    const entire_time_data = deadine.getTime() - start_date.getTime();
-    console.log(entire_time_data);
-    const today_time_data = new Date().getTime() - start_date.getTime();
-    console.log(today_time_data);
-
-
+    const start_date = ProjectList.project_StartLine;
+    const deadine = ProjectList.project_DeadLine;
     return(
-        <Container ProjectList={ProjectList} onClick={() =>{
+        <Container ProjectList={ProjectList} group_persentage={calculatePersentage(start_date, deadine)} onClick={() =>{
             dispatch(resetPosts());
             dispatch(chooseLoadingGroup({timeline: true, notice: true}));
             props.history.push(`/${ProjectList.group}/project_timeline`);
@@ -87,7 +91,7 @@ const Container = styled.div`
             height: 27%;
             margin-top: 0.5vh;
             & > .Contribution {
-                width: ${({ProjectList}) => ProjectList.Contribution}%;
+                width: ${({group_persentage}) => group_persentage}%;
                 height: 100%;
                 background-color: ${({ProjectList}) => (ProjectList.Finished ? 'rgb(11,163,227)' : 'rgb(240,218,0)')};
             }
