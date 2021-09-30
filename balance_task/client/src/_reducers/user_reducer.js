@@ -9,8 +9,7 @@ import {
   UPDATE_MESSAGE,
   UPDATE_IMAGE,
   LOADING_MYPAGE,
-  LOADING_WORKERLIST_MYDATA,
-  LOADING_WORKERLIST_USERDATA,
+  LOADING_WORKERLIST_DATA,
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT
@@ -39,9 +38,16 @@ const initialState = {
       logo: ''
     },
   ],
+  worker_list:[
+    {
+      ProfileImage: null,
+      ProfileMessage: "Loading",
+      ProfileName: "Loading"
+    },
+  ],
   isLoading: true,
-  isMydataLoading : true,
-  isUserdataLoading : true
+  isDataLoading : true
+  
 }
 
 export default function reducer(state = initialState, action) {
@@ -66,7 +72,7 @@ export default function reducer(state = initialState, action) {
       }
       // return { ...state, profile: action.payload.profile, 
       //   project_list: action.payload.project_list};
-      return { ...state, ...action.payload};
+      return { ...state, profile: action.payload.profile, project_list: action.payload.project_list};
     }
     case UPDATE_MESSAGE:{
       return {...state, updateMessageSuccess: action.payload.success}
@@ -75,7 +81,8 @@ export default function reducer(state = initialState, action) {
       return {...state, Success: action.payload.success}
     }
     case RECEIVE_USERLIST: {
-      return {...state, Success: action.payload.success}
+      const new_array = action.payload.array;
+      return {...state, Success: action.payload.success, worker_list: new_array}
     }
 
     case POST_NOTICE_CONFIRM: { 
@@ -102,14 +109,9 @@ export default function reducer(state = initialState, action) {
       return {...state, isLoading: action.isLoading}
     }
 
-    case LOADING_WORKERLIST_MYDATA:{
-      return {...state, isMydataLoading: action.isMydataLoading}
+    case LOADING_WORKERLIST_DATA:{
+      return {...state, isDataLoading: action.isDataLoading}
     }
-
-    case LOADING_WORKERLIST_USERDATA:{
-      return {...state, isUserdataLoading: action.isUserdataLoading}
-    }
-
 
 
     default:
