@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
+//import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
 import {dataLoad, receiveProjectMypage, loadWorker} from '../../../_actions/user_action';
 import {useSelector, useDispatch} from 'react-redux';
 import {withRouter} from "react-router-dom";
@@ -28,7 +28,7 @@ const LoadProfile = (props) => {
     const state = useSelector(state => state.user);
     const {profile, project_list, worker_list} = state;
     const [myData, setMyData] = React.useState({profile, project_list});
-    const [userData, setUserData] = React.useState({worker_list});
+    const [userData, setUserData] = React.useState(worker_list);
     const dispatch = useDispatch();
 
     React.useEffect(()=>{
@@ -65,41 +65,34 @@ const LoadProfile = (props) => {
 
 
     if(props.profile === "WorkerProfile") {
-        console.log(userData);
-    //     if(userData[0].ProfileName === "Loading") {
-    //         return(<div>Loading</div>);
-    //     }
-    //     else if(userData === null) {
-    //         return(
-    //             <div>
-    //                 <NoWorker>
-    //                     <div className="NoWorkerIcon">
-    //                         <i class="fas fa-users-slash"></i>    
-    //                     </div>
-    //                     <div className="NoWorkerMessage">아직 추가된 워커가 없습니다!</div>
-    //                 </NoWorker>
-    //             </div>
-    //         );            
-    //     } 
-    //     else {
-    //         return(
-    //             <div>뭐냐</div>
-    //             // userData.map((val,idx) => (
-    //             //     <Profile key={idx} type="userProfile" >
-    //             //         <div className = "ProfileImg">
-    //             //         <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
-    //             //         </div>
-    //             //         <div className = "ProfileName">{userData[idx].ProfileName}</div>
-    //             //         <div className = "ProfileScore">{userData[idx].Score}</div>
-    //             //         <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
-    //             //     </Profile>
-    //             // ))
-    //         );
-    //     }
-        return(<div>아직 구현중 좀 기다려봐요</div>);
-     }
-    
+        if(userData.length === 0) {
+            return(
+                <div>
+                    <NoWorker>
+                        <div className="NoWorkerIcon">
+                            <i class="fas fa-users-slash"></i>    
+                        </div>
+                        <div className="NoWorkerMessage">아직 추가된 워커가 없습니다!</div>
+                    </NoWorker>
+                </div>
+            );            
+        } 
 
+        else {
+            return(
+                userData.map((val,idx) => (
+                    <Profile key={idx} type="userProfile" >
+                        <div className = "ProfileImg">
+                        <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
+                        </div>
+                        <div className = "ProfileName">{userData[idx].ProfileName}</div>
+                        <div className = "ProfileScore">{userData[idx].Score}</div>
+                        <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
+                    </Profile>
+                ))
+            );
+        }
+    }
 }
 
 const Profile = styled.div`
