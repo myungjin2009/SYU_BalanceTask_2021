@@ -88,6 +88,8 @@ var { wokerget }=require("./wokerlist/wokerget");
 //채팅 관련 모듈
 var { chattingget }=require("./chatting/chattingget");
 var { chatting } = require("./chatting/chatting");
+var { makeroom } = require("./chatting/makeroom");
+var { personchat} = require("./chatting/personchatting");
 
 // 익스프레스 객체 생성
 
@@ -236,7 +238,7 @@ app.post("/api/group/participation",arams,(req,res)=>{
   });
 });
 
-app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message,(req,res)=>{
+app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_message,(req,res)=>{
             console.log(
               "==========================================mypage==========================================="
             );

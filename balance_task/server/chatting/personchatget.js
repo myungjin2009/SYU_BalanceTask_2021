@@ -11,11 +11,11 @@ const sql = require("../database/db_connect");
 let chattingget = (req, res, next) => {
     console.log(req.body);
     //console.log(req.file);
-    let paramgroup = req.body.group;
+    let paramroom = req.body.room;
     let paramid=req.body.id;
     let array=[];
-    console.log("chatting 내역 호출");
-    const sql2="select * from chat, user where user.id=chat.chat_id chat_id='"+paramid+"' and group_name='"+paramgroup+"' order by chat_no";
+    console.log("개인chatting 내역 호출");
+    const sql2="select * from personchat, user where user.id=personchat.chat_id chat_id='"+paramid+"' and room_no='"+paramroom+"' order by chat_no";
     sql.pool.query(sql2,(err,rows,fields)=>{
         rows.forEach((info) => {
             req.msg=info.msg;                //메시지
