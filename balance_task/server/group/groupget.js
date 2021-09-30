@@ -42,7 +42,7 @@ let group_search = (req, res, next) => {
           req.deadline =info.deadline;
           req.group_no=info.group_no;
           if(info.group_images===null){
-            info.group_images="/image/05cca3d33f925dbb576548ee6b1f93c0,/image/9611ce697042995fd88aa2cc036260da";
+            info.group_images="/image/69277d1c49c1f304ffdae7c1f1f2d52b,/image/16592cb3ffe15694564c2fd39ac7f533";
           }
           req.image=info.group_images.split(',');
           console.log(req.image);

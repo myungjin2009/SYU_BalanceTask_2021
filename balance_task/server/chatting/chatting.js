@@ -3,7 +3,7 @@ const express = require("express"),
   path = require("path");
 const app = express();
 const server = app.listen(6000, () => {
-    //console.log("=================listening on 5000!=================");
+    console.log("=================listening on 5000!=================");
 });
 const io = require("socket.io")(server);
 const sql = require("../database/db_connect");
