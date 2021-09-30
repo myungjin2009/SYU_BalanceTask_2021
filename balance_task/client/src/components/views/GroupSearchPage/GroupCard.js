@@ -3,14 +3,15 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import calculateDate from '../common/DateCalculator';
 
-const GroupCard = ({title, content, writer, date, image, props, kind}) =>{
+const GroupCard = ({props, cardData}) =>{
+  const {title, content, writer, date, image, kind, postimage} = cardData;
   const date_array = date.split('~');
   const start_date = calculateDate(date_array[0]);
   const deadline = calculateDate(date_array[1]);
   return(
     <Container onClick={()=>{
       props.history.push('/group_search/'+title, {
-        title, content, writer, start_date, deadline, image, kind
+        ...cardData ,start_date, deadline
       });
     }}>
       <Main>

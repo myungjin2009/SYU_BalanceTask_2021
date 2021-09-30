@@ -6,7 +6,7 @@ import { joinGroup } from '../../../_actions/group_action';
 import Header from '../Header/Header';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
-  const {location:{state:{content, writer, start_date, deadline, image, kind}}} = props;
+  const {location:{state:{content, writer, start_date, deadline, image, kind, postimage}}} = props;
   const dispatch = useDispatch();
   const new_obj = {
     group: team,
@@ -27,8 +27,8 @@ const Detail = (props)=>{
         <label>카테고리: </label>
         <span>{kind}</span>
       </Category>
-      <Img image={image} onClick={()=>{
-        window.open(image);
+      <Img image={postimage} onClick={()=>{
+        window.open(postimage);
       }}><div>
         </div>
       </Img>
