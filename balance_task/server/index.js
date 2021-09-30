@@ -271,7 +271,7 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                 req.content =info.content;
                 req.deadline =info.deadline;
                 req.group_no=info.group_no;
-                req.image=info.group_images;
+                req.image=info.group_images  //.split(',');
                 req.name=info.name;
                 req.enjoy=info.enjoy;
                 if(req.enjoy===null || req.enjoy===0){
@@ -284,13 +284,13 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                 array.push({
                     id:req.group_no,
                     group:req.group_name,
-                    logo_src: req.image,
+                    logo_src: req.image,        //[1],
                     project_Hostt:req.makehost,
                     project_DeadLine:req.deadline,
                     project_StartLine:req.startdate,
                     favoriteList: req.enjoy,
                     Finished: req.complete,
-                    logo: "hanium_logo"
+                    logo: "dd" //req.image[0]
                 });
                   //console.log(array);
             })

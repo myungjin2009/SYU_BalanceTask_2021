@@ -41,7 +41,9 @@ let group_search = (req, res, next) => {
           req.content =info.content;
           req.deadline =info.deadline;
           req.group_no=info.group_no;
-          req.image=info.group_images;
+          req.image=info.group_images.split(',');
+          req.image0=req.image[0];
+          req.image1=req.image[1];
           req.name=info.name;
           var changeString=String(req.image);
           console.log(req.image);
