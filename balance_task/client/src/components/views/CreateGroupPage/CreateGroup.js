@@ -72,7 +72,8 @@ function CreateGroup(props) {
   const [content, setContent] = useState("");
   const [detailImageFile, setDetailImageFile] = useState(null);
   const [detailImageUrl, setDetailImageUrl] = useState(null);
-
+  const [teamLogoFile, setTeamLogoFile] = useState(null);
+  const [teamLogoUrl, setTeamLogoUrl] = useState(null);
   const dispatch = useDispatch();
 
   const postHandler = (e) => {
@@ -101,6 +102,7 @@ function CreateGroup(props) {
     formData.append('manager', manager);
     formData.append('content', content);
     formData.append('image', detailImageFile);
+    formData.append('image', teamLogoFile);
 
     const config = {
       headers: {
@@ -116,13 +118,13 @@ function CreateGroup(props) {
     });
   };
 
-  const setThumbnail = (event) => {
+  const setThumbnail = (event, setImageUrl, setImageFile) => {
     let reader = new FileReader();
 
     reader.onloadend = () => {
       const base64 = reader.result;
       if (base64) {
-        setDetailImageUrl(base64.toString());
+        setImageUrl(base64.toString());
       }
     };
     if (event.target.files[0]) {
@@ -130,10 +132,10 @@ function CreateGroup(props) {
       //이 코드가 onloadend의 트리거가 된다.
       //그 덕에 setThumbnail함수가 이 코드가 2번 실행되는 것같다.
       //그리고 reader.result 안에 base64 인코딩 된 스트링 데이터가 있게 된다.
-      setDetailImageFile(event.target.files[0]);
+      setImageFile(event.target.files[0]);
     } else {
-      setDetailImageUrl(null);
-      setDetailImageFile(null);
+      setImageUrl(null);
+      setImageFile(null);
     }
   };
 
@@ -219,17 +221,30 @@ function CreateGroup(props) {
         ></textarea>
       </Content>
       <PhotoInput>
-        <label>사진: </label>
+        <label>광고 사진: </label>
         <input
           type="file"
           name="imgFile"
           id="imgFile"
           accept="image/*"
-          onChange={setThumbnail}
+          onChange={(e) => setThumbnail(e, setDetailImageUrl, setDetailImageFile)}
         />
       </PhotoInput>
       {detailImageFile && (
         <ImageArea img src={detailImageUrl} alt={detailImageFile.name} />
+      )}
+      <PhotoInput>
+        <label>팀 대표 사진: </label>
+        <input
+          type="file"
+          name="imgFile"
+          id="imgFile"
+          accept="image/*"
+          onChange={(e) =>setThumbnail(e,setTeamLogoUrl, setTeamLogoFile)}
+        />
+      </PhotoInput>
+      {teamLogoFile && (
+        <ImageArea img src={teamLogoUrl} alt={teamLogoFile.name} />
       )}
     </Conatainer>
   );

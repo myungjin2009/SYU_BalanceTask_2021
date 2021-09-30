@@ -71,6 +71,8 @@ const Router = (props) => {
           path="/:group/create_posts"
           component={Auth(CreatePost, true)}
         />
+        {/* <Route exact path="/group_chat" component={GroupChat} /> */}
+
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/settings/AppInfo" component={AppInfo} />
         <Route exact path="/settings/Contact" component={Contact} />
@@ -78,9 +80,8 @@ const Router = (props) => {
         <Route exact path="/settings/Withdraw" component={Withdraw} />
         
         
-        {/* <Route path="/group_chat" component={GroupChat} />
-        <Route path="/worker_invitation" component={WorkerInvitation} />
-        <Route path="/project_termination" component={ProjectTermination} /> */}
+        {/* <Route path="/worker_invitation" component={WorkerInvitation} /> */}
+        {/* <Route path="/project_termination" component={ProjectTermination} /> */}
 
         <Route exact component={Auth(NotFound, null)} />
       </Switch>
