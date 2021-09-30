@@ -115,7 +115,7 @@ const GroupSearch = (props) => {
           <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading,setEntireList)}>
             {
               entireList.length !== 0 ?
-              entireList.map((el, index)=><GroupCard props={props} title={el.title} content={el.content} writer={el.writer} date={el.date} image={el.image} kind={el.kind} key={index}/>)
+              entireList.map((el, index)=><GroupCard props={props} cardData={el} key={index}/>)
               :
               <h2 style={{marginTop: "20vh"}}>아직 올린 사람이 없습니다!</h2>
             }

@@ -3,7 +3,7 @@ const express = require("express"),
   path = require("path");
 const app = express();
 const server = app.listen(6000, () => {
-    //console.log("=================listening on 5000!=================");
+    console.log("=================listening on 5000!=================");
 });
 const io = require("socket.io")(server);
 const sql = require("../database/db_connect");
@@ -14,10 +14,11 @@ let chatting = (req, res, next) => {
     let paramgroup = req.body.group;
     let paramid=req.body.id;
     
+    
     console.log("chat 호출");
-    const sql2="select count(chat_no) from chat";
-    sql.pool.query(sql2,(err,rows,fields)=>{
-     let maxno=rows[0]['count(group_no)']
+    const sql2="select count(chat_no) from chat where group_name=?";
+    sql.pool.query(sql2,paramgroup,(err,rows,fields)=>{
+     let maxno=rows[0]['count(chat_no)']
     io.on("connection", (socket) => {
         socket.on("chatting", (data) => {
           console.log(data);

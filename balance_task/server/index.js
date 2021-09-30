@@ -88,6 +88,8 @@ var { wokerget }=require("./wokerlist/wokerget");
 //채팅 관련 모듈
 var { chattingget }=require("./chatting/chattingget");
 var { chatting } = require("./chatting/chatting");
+var { makeroom } = require("./chatting/makeroom");
+var { personchat} = require("./chatting/personchatting");
 
 // 익스프레스 객체 생성
 
@@ -236,7 +238,7 @@ app.post("/api/group/participation",arams,(req,res)=>{
   });
 });
 
-app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message,(req,res)=>{
+app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_message,(req,res)=>{
             console.log(
               "==========================================mypage==========================================="
             );
@@ -271,26 +273,34 @@ app.get("/api/user/receive_mypage",upload.single("image"),mypage,receive_message
                 req.content =info.content;
                 req.deadline =info.deadline;
                 req.group_no=info.group_no;
-                req.image=info.group_images;
+                if(info.group_images===null){
+                  info.group_images="/image/69277d1c49c1f304ffdae7c1f1f2d52b,/image/16592cb3ffe15694564c2fd39ac7f533";
+                }
+                req.image=info.group_images.split(',');
                 req.name=info.name;
                 req.enjoy=info.enjoy;
                 if(req.enjoy===null || req.enjoy===0){
                     req.enjoy=false;
                 }
                 req.complete=info.complete;
-                if(req.complete===1){
-                    req.complete=true;
+                let time=moment().format('YYYY-MM-DD HH:mm:ss');
+                const today= new Date(time);
+                if(req.deadline<=today){
+                  req.complete=false;
+                }else{
+                  req.complete=true;
                 }
+              
                 array.push({
                     id:req.group_no,
                     group:req.group_name,
-                    logo_src: req.image,
+                    logo_src: req.image[0],
                     project_Hostt:req.makehost,
                     project_DeadLine:req.deadline,
                     project_StartLine:req.startdate,
                     favoriteList: req.enjoy,
                     Finished: req.complete,
-                    logo: "hanium_logo"
+                    logo: req.image[1]  //req.image[1]
                 });
                   //console.log(array);
             })
@@ -523,7 +533,12 @@ app.post("/api/group_calendar/update_date",update_calendar,(req,res)=>{
 app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
   let arrays=[]
   console.log("==================================load_worker=====================================");
-  
+  if(req.friends===null || req.friends===undefined){
+    res.status(200).json({
+      array: [],
+      success: true,
+    });
+  }
   for (let i = 0; i < req.friends.length; i++) {
     let afriends=req.friends[i]['friends'];
     //console.log(afriends);
