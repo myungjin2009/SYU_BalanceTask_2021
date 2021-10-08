@@ -157,7 +157,7 @@ app.post("/api/user/login", login,(req,res)=>{
   });
 });
 
-app.post("/api/user/logout", logout,(req,res)=>{
+app.get("/api/user/logout", logout,(req,res)=>{
 
   res.status(200).json({
     success: true,

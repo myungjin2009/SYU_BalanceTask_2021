@@ -93,11 +93,11 @@ const Router = (props) => {
         />
         <Route exact path="/:group/group_chat" component={Auth(GroupChat, true)} />
 
-        <Route exact path="/settings" component={Settings} />
-        <Route exact path="/settings/AppInfo" component={AppInfo} />
-        <Route exact path="/settings/Contact" component={Contact} />
-        <Route exact path="/settings/EditAccount" component={EditAccount} />
-        <Route exact path="/settings/Withdraw" component={Withdraw} />
+        <Route exact path="/settings" component={Auth(Settings, true)} />
+        <Route exact path="/settings/AppInfo" component={Auth(AppInfo, true)} />
+        <Route exact path="/settings/Contact" component={Auth(Contact, true)} />
+        <Route exact path="/settings/EditAccount" component={Auth(EditAccount, true)} />
+        <Route exact path="/settings/Withdraw" component={Auth(Withdraw, true)} />
         
         
         {/* <Route path="/worker_invitation" component={WorkerInvitation} /> */}

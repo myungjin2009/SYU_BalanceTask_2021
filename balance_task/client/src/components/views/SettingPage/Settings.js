@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Header/Header";
-
+import axios from "axios";
 import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import EditAccount from "./EditAccount";
@@ -13,6 +13,18 @@ class Settings extends React.Component {
     super(props);
     //this.state={};
   }
+
+  signoutHandler = () =>{
+    const is_signout = window.confirm('정말로 로그아웃하시겠습니까?');
+    is_signout && axios.get('/api/user/logout').then((response)=>{
+      if(response.data.success){
+        this.props.history.push('/');
+      }else{
+        alert('오류 발생!');
+      }
+    })
+  }
+  
 
   render() {
     return (
@@ -27,10 +39,7 @@ class Settings extends React.Component {
             회원정보 수정
           </button>
           <button
-            onClick={() => {
-              const is_signout = window.confirm('정말로 로그아웃하시겠습니까?');
-              document.cookie = 'user=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
-            }}
+            onClick={this.signoutHandler}
           >
             로그아웃
           </button>
