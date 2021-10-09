@@ -18,6 +18,7 @@ let chattingget = (req, res, next) => {
     const sql2="select * from chat, user where user.id=chat.chat_id chat_id='"+paramid+"' and group_name='"+paramgroup+"' order by chat_no";
     sql.pool.query(sql2,(err,rows,fields)=>{
         rows.forEach((info) => {
+            req.no=info.chat_no;
             req.msg=info.msg;                //메시지
             req.date=info.chat_date;         //보낸 날짜
             req.id=info.chat_id;            //보낸 사람
@@ -29,12 +30,14 @@ let chattingget = (req, res, next) => {
                 req.my=true;
             }
             array.push({
-                msg:req.msg,
-                name:req.group_name,
+                message:req.msg,
+                user_name:req.group_name,
+                user_id:req.id,
                 group:req.group,
                 date:req.date,
                 my:req.my,
-                profile:req.profile
+                profile:req.profile,
+                id:req.no
             });
             
         });

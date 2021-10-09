@@ -47,7 +47,7 @@ const cookie = require("cookie");
 var user = require("./user/adduser");
 var signup = require("./router/signup");
 var login = require("./router/login");
-var logout = require("./router/logout");
+var {logout} = require("./router/logout");
 var { node__mailer } = require("./router/node-mailer");
 
 //그룹 관련 모듈
@@ -690,14 +690,12 @@ app.post("",chatting,(req,res,next)=>{
 // }
 
 // //로그아웃 토큰 지우기
-// app.get("/api/users/logout", auth, (req, res) => {
-//   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
-//     if (err) return res.json({ success: false, err });
-//     return res.status(200).send({
-//       success: true,
-//     });
-//   });
-// });
+app.get("/api/users/logout", logout, (req, res) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({
+      success: true,
+    });
+});
 // 라우터 객체 등록
 
 app.use("/", router);
