@@ -5,10 +5,15 @@ import React from 'react';
 
 const Total_WorkerList = 0;
 
+const SearchBoxUpdate = (search, setSearch, SearchBox) => {
+  setSearch(SearchBox.current.value);
+}
+
 const WorkerList = (props) => {
-  const SearchBox = React.useRef(null);
+  const SearchBox = React.useRef("");
   const SearchIcon = React.useRef(null);
   const [isShow, setIsShow] = React.useState(0);
+  const [search, setSearch] = React.useState("");
 
   React.useEffect(() => {
     setIsShow(-1);
@@ -18,8 +23,7 @@ const WorkerList = (props) => {
     <Container>
       <Header>
         나의 워커 목록 <span className="WorkerCount">{Total_WorkerList}</span>
-
-        <input type="text" className="SearchBox" /*active={isShow}*/ ref={SearchBox} placeholder="검색"></input>
+        <input type="text" className="SearchBox" /*active={isShow}*/ ref={SearchBox} placeholder="검색" onChange={() => SearchBoxUpdate(search,setSearch,SearchBox)}></input>
       
         <span className="SearchIcon" ref={SearchIcon} onClick={() => {
           if (isShow === 1) {
@@ -43,7 +47,7 @@ const WorkerList = (props) => {
         <div className="brBar">내 프로필</div>
         <LoadProfile profile="MyProfile" userData={props.userData}></LoadProfile>
         <div className="brBar">워커 프로필</div>
-        <LoadProfile profile="WorkerProfile" userData={props.userData}></LoadProfile>
+        <LoadProfile profile="WorkerProfile" userData={props.userData} searchValue={search}></LoadProfile>
       </List>
 
       <Navigation/>

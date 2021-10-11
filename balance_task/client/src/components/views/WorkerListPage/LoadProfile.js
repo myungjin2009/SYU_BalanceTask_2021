@@ -24,6 +24,13 @@ const setUserProfileData = (setUserData,dispatch,props) => {
     })
 }
 
+//검색 조건에 따른 배열 필터링(쿼리)
+// const filterItems = (userData, query) => {
+//     return userData.filter((el) =>
+//         el.name.toString().toLowerCase().indexOf(query.toString().toLowerCase()) > -1
+// );
+// }
+
 const LoadProfile = (props) => {
     const state = useSelector(state => state.user);
     const {profile, project_list, worker_list} = state;
@@ -62,6 +69,23 @@ const LoadProfile = (props) => {
         }
     }
 
+    // 유저 검색 필터링하여 다시 map돌림
+    const filterUsers = userData.map((val,idx) => {
+        if(userData != undefined) {
+            if(val.ProfileName.indexOf(props.searchValue) != -1) {
+                // filterResults.ProfileImage = val.ProfileImage;
+                // filterResults.ProfileName = val.ProfileName;
+                // filterResults.ProfileMessage = val.ProfileMessage;
+                // filterResults.Score = val.Score;
+                return (val);
+            }
+        }
+    });
+    // 그냥 map돌리면 undefined 남아있는데, 그거 제거해서 새로운 배열에 집어넣음
+    const SortFilterUsers = 
+      filterUsers.filter(
+        (element, i) => element !== undefined
+      );
 
 
     if(props.profile === "WorkerProfile") {
@@ -80,14 +104,14 @@ const LoadProfile = (props) => {
 
         else {
             return(
-                userData.map((val,idx) => (
+                SortFilterUsers.map((val,idx) => (
                     <Profile key={idx} type="userProfile" >
                         <div className = "ProfileImg">
-                        <img className ="ProfileimgSource" src={userData[idx].ProfileImage} />
+                        <img className ="ProfileimgSource" src={val.ProfileImage} />
                         </div>
-                        <div className = "ProfileName">{userData[idx].ProfileName}</div>
-                        <div className = "ProfileScore">{userData[idx].Score}</div>
-                        <div className = "ProfileMessage">{userData[idx].ProfileMessage}</div>
+                        <div className = "ProfileName">{val.ProfileName}</div>
+                        <div className = "ProfileScore">{val.Score}</div>
+                        <div className = "ProfileMessage">{val.ProfileMessage}</div>
                     </Profile>
                 ))
             );
