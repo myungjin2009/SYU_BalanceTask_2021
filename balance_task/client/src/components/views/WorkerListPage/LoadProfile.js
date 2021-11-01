@@ -94,7 +94,7 @@ const LoadProfile = (props) => {
                 <div>
                     <NoWorker>
                         <div className="NoWorkerIcon">
-                            <i class="fas fa-users-slash"></i>    
+                            <i className="fas fa-users-slash"></i>    
                         </div>
                         <div className="NoWorkerMessage">아직 추가된 워커가 없습니다!</div>
                     </NoWorker>
