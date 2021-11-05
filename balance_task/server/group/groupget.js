@@ -13,15 +13,20 @@ let group_search = (req, res, next) => {
   const sql2="select count(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
      var maxno=rows[0]['count(group_no)']
-
+      console.log(maxno);
 
     let paramlastnumber=req.body.last_number || req.query.last_number;   //last_number의 값을 받는다.
-    console.log(paramlastnumber);
+    if(maxno === 0){
+      req.body.array_status = false;
+    }else{
+      req.body.array_status = true;
+    }
+    console.log('클라이언트에서 보낸 번호',paramlastnumber);
     //lownumber째 부터 highnumber째까지 데이터를 보내준다.
     let lownumber= maxno-paramlastnumber-5;                      
-    console.log(lownumber);
+    console.log('제일 작은 번호', lownumber);
     let highnumber= maxno-paramlastnumber-1;
-    console.log(highnumber);
+    console.log('제일 큰 번호',highnumber);
     
     const sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
     

@@ -22,7 +22,7 @@ function HidingMenu({menuBtn, isMenu, group}) {
       <SlideMenu>
         <li><Link to={`/${group}/group_chat`}>채팅방</Link></li>
         <li><Link to={`/${group}/group_calendar`}>워커 캘린더</Link></li>
-        <li><Link to={`/${group}/worker_invitation`}>워커 초대</Link></li>
+        <li><Link to={`/${group}/worker_addition`}>워커 추가</Link></li>
         <li><Link to={`/${group}/project_termination`}>프로젝트 종료</Link></li>
       </SlideMenu>
     </SlideMenuContainer>
