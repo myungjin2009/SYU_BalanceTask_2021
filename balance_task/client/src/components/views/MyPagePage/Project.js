@@ -17,7 +17,7 @@ const calculatePersentage = (startDate, deadineDate) =>{
 
 const Project = (props) => {
     const {ProjectList} = props;
-    console.log(ProjectList);
+    // console.log(ProjectList);
     const dispatch = useDispatch();
     const start_date = ProjectList.project_StartLine;
     const deadine = ProjectList.project_DeadLine;

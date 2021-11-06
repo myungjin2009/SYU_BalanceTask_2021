@@ -16,7 +16,7 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList)=>{
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   // console.log(scrollTop+clientHeight);
   // console.log(scrollHeight);
-  if(Math.floor(scrollTop + clientHeight) === scrollHeight){
+  if(Math.ceil(scrollTop + clientHeight) === scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
     dispatch(receiveGroupCard(body)).then(res=>{
@@ -43,6 +43,7 @@ const GroupSearch = (props) => {
 
 
   useEffect(()=>{
+    let mounted = true;
     if(isLoading){
       //1. 데이터 가져오고 redux의 store에 저장됨
       //7. 새로운 데이터를 다시 가져오고 redux의 store에 저장됨 그리고 다시 3번과정으로 돌아감. 이과정은 이벤트 발동시 반복됨
@@ -52,11 +53,11 @@ const GroupSearch = (props) => {
       dispatch(receiveGroupCard(body))
       .then(response =>{
       //   // 백엔드 애들이 주석 풀어주기
-      // if(response.payload.success){
+      if(response.payload.success && mounted){ // 오류 있으면 지우자
       //   // 2.로딩 해제하고 다시 리렌더링 된다.
         console.log(response);
         dispatch(chooseLoadingGroup({group_search: false}));
-      // }
+      }
       });
       
 
@@ -78,6 +79,7 @@ const GroupSearch = (props) => {
     //5.  ref로 등록된 버튼을 누르면 다시 isLoading이 true가 된다.
     //버튼을 누를 때마다 데이터 가져옴
     //스크롤 이벤트 넣으면서 사라진 버튼 이벤트
+    return () =>(mounted = false);
   },[isLoading, search]);
 
   const onClickHandler = (kind) =>{

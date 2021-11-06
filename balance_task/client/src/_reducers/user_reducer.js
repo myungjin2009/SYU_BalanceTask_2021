@@ -70,9 +70,10 @@ export default function reducer(state = initialState, action) {
       if(action.payload === undefined || action.payload === null){
         return state;
       }
+      console.log(action.payload);
       // return { ...state, profile: action.payload.profile, 
       //   project_list: action.payload.project_list};
-      return { ...state, profile: action.payload.profile, project_list: action.payload.project_list};
+      return { ...state, profile: action.payload.profile, project_list: action.payload.project_list,aramsdata: action.payload.aramsdata};
     }
     case UPDATE_MESSAGE:{
       return {...state, updateMessageSuccess: action.payload.success}
