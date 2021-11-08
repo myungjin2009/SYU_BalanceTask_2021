@@ -1,4 +1,4 @@
-const calculateDate = (data) => {
+const calculateDate = (data, isTime) => {
   let current_date = new Date();
   if(data){
     current_date = new Date(data);
@@ -12,6 +12,12 @@ const calculateDate = (data) => {
     current_date.getDate() < 10
       ? "0" + current_date.getDate()
       : current_date.getDate();
-  return `${year}-${month}-${date}`;
+  if(!isTime){
+    return `${year}-${month}-${date}`;
+  }else{
+    const hours = current_date.getHours() >12 ? current_date.getHours()%12 :current_date.getHours();
+    const minutes = current_date.getMinutes();
+    return `${year}-${month}-${date} ${hours}:${minutes}`;
+  }
 };
 export default calculateDate;
