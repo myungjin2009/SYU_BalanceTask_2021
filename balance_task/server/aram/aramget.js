@@ -19,7 +19,7 @@ let receive_message = (req, res, next) => {
             req.content=info.content;
             req.time=info.sendtime;
 
-            console.log(req.senduser);
+            console.log('그룹 가입하려는 자',req.senduser);
             array.push({
                 no:req.aram_no,
                 senduser: req.senduser,

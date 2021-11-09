@@ -206,6 +206,14 @@ app.get("/api/user/auth",(req, res, next) => {
 app.post("/api/group/search_card", upload.array('image'),group_search, (req, res) => {
   console.log("group get success");
   //console.log(req.array);
+  if(!req.body.array_status){
+    res.status(200).json({
+      success: true,
+      array_status: req.body.array_status
+    });
+    return;
+  }
+
   if(req.array===undefined){
     return ;
   }
@@ -213,6 +221,7 @@ app.post("/api/group/search_card", upload.array('image'),group_search, (req, res
   res.status(200).json({
     array: req.array,
     success: true,
+    array_status: req.body.array_status
   });
   
 });

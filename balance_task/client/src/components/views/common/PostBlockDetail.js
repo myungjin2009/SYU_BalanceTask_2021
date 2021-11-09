@@ -6,7 +6,7 @@ import DateCalculator from './DateCalculator';
 
 function PostBlockDetail(props) {
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
-  console.dir(props.location.state.user_post);
+  console.log(profileImage);
   const {photo_url} = props.location.state;
   return (
     <Container>

@@ -24,7 +24,7 @@
 
 
 ## 로그인페이지 - 작성자: 박건형
-  /api/user => method: post
+  /api/user/login => method: post
   #### 설명: 회원정보 비교하기, post로 한 이유는 중요한 정보니까
   /api/kakao_user => method: post 
   #### 설명: 카카오 회원 정보 가져오기, post로 한 이유는 중요한 정보니까
@@ -45,9 +45,13 @@
   ####       그 이메일 사용자에게 인증번호를 보내야하니까
   /api/user/check_id => method: post
   #### 설명: 이메일로 회원 아이디 찾기, 회원 아이디 찾는 거니 회원 이름, 이메일, 아이디를 서버로 보내야함
-  /api/user/change_password => method: post
+  /api/user/changing_password => method: post
   #### 설명: 바뀐 비밀번호를 서버로 보낸다. 서버에서는 데이터베이스 업데이트 해야함
 
+## 설정 페이지 - 작성자: 박건형
+  /api/user/logout => method: get
+  #### 설명: 사용자 로그아웃 서버에 요청
+  #### 위치: views/SettingPage/Setting.js
 
 ## 마이페이지 - 작성자: 김명진
   /api/user/receive_mypage => method: post
@@ -58,12 +62,17 @@
   ####        사용자의 프로필 메시지를 보냄.
   /api/user/update_mypage/photo => method: post
   #### 설명 : 사용자의 프로필 이미지 업데이트
-  ####        사용자의 프로필 이미지를 보냄. NULL을 보내면 / 서버에서는 기본이미지로 받아들임
-
+  ####        사용자의 프로필 이미지를 보냄. NULL을 보내면 서버에서는 기본이미지로 받아들임
+  
 ## 워커리스트 - 작성자: 김명진
   /api/user/load_worker => method: post
   #### 설명 : 사용자의 워커리스트 불러오기
   
+## 알림페이지 - 작성자: 박건형
+  /api/user/notice/confirm => method: post
+  #### 설명 : 사용자가 알림 요청을 확인한다는 것
+  /api/user/notice/reject => method: post
+  #### 설명 : 사용자가 알림 요청에 대해 거절한다는 것
 
 ## < GROUP >
 
@@ -92,6 +101,10 @@
   #### 설명: 그룹 만들기에 필요한 양식을 작성 후 서버에 요청
   #### 위치: views/CreateGroupPage/CreateGroup.js
 
+## 그룹 게시물 추가 페이지 - 작성자: 박건형
+  /api/group/post => method: post
+  #### 설명: 그룹 게시물을 올리기에 필요한 양식을 작성후 서버에 요청
+  #### 위치: views/CreatePostPage/CreatePost.js
 
 ## < GROUP CALENDAR >
 
@@ -105,5 +118,7 @@
   /api/group_calendar/delete_date => method: post
   #### 설명: 해당 그룹 캘린더에서 할 일 삭제하기
   #### 위치: views/GroupCalendar/
+
+## <>
 
 

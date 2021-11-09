@@ -113,7 +113,8 @@ function CreateGroup(props) {
     dispatch(createGroup(formData, config)).then((res) => {
       if(res.payload.success){
         alert('성공적으로 그룹을 만들었습니다!😊');
-        props.history.push('/group_search');
+        // props.history.push('/group_search');
+        window.location.replace("/group_search")
       }
     });
   };

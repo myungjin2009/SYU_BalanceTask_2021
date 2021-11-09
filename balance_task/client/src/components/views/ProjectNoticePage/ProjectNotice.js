@@ -73,6 +73,7 @@ const ProjectNotice = (props) =>{
       if(isCompleted){
         setNotice(entireNotice);
         console.log('notice 최신화 성공!');
+        console.log(entireNotice);
         return;
       }
       if(search ==='' || search === null){
