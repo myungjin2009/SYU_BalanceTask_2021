@@ -73,10 +73,6 @@ const LoadProfile = (props) => {
     const filterUsers = userData.map((val,idx) => {
         if(userData != undefined) {
             if(val.ProfileName.indexOf(props.searchValue) != -1) {
-                // filterResults.ProfileImage = val.ProfileImage;
-                // filterResults.ProfileName = val.ProfileName;
-                // filterResults.ProfileMessage = val.ProfileMessage;
-                // filterResults.Score = val.Score;
                 return (val);
             }
         }
