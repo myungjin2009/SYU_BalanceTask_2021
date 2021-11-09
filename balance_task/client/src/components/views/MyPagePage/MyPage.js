@@ -13,7 +13,6 @@ const receiveMyPageData = (dispatch, setMyPageData, setIsNotice, mounted) =>{
   dispatch(receiveProjectMypage()).then(res => {
     if(res.payload.success && mounted){
       setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
-      //console.log(res.payload);
       if(res.payload.arams){
         console.log(res.payload.arams);
         setIsNotice(true);
@@ -26,7 +25,7 @@ const receiveMyPageData = (dispatch, setMyPageData, setIsNotice, mounted) =>{
 const MyPage = (props) => {
   const state = useSelector(state => state.user);
   const isLoading = useSelector(state => state.user.isLoading);
-  console.log(state, isLoading);
+  //console.log(state, isLoading);
   const history = useHistory();                                 //history.push
   const dispatch = useDispatch();
 
@@ -41,6 +40,7 @@ const MyPage = (props) => {
   const [isNotice, setIsNotice] = React.useState(false);
   const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
+ 
   useEffect(()=>{
     let mounted = true;
     if(isLoading){
@@ -89,7 +89,7 @@ const MyPage = (props) => {
               pathname: '/editProfileImage',
               state: {image: ProfileImage}
             })} >
-              {detailImageUrl ? <UserProfile url = {detailImageUrl}></UserProfile>:<img className="Profile" alt="Profile" src={ProfileImage} />}
+              {detailImageUrl ? <UserProfile url = {detailImageUrl}></UserProfile>:<img className="Profile" alt="Image" src={ProfileImage} />}
               <div className="EditProfile">
                 <i className="fas fa-user-circle"></i>
                 <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />

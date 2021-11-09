@@ -28,7 +28,7 @@ const OnImgChange = (dispatch, props, detailImageFile, defaultImage) => {
         dispatch(updateImage(formData, config)).then((res) => {
             if(res.payload.success) {
                 dispatch(chooseLoading(true));
-                alert('변경이 완료되었습니다.');
+                alert('변경이 완료되었습니다');
                 props.history.push('/my_page');
             } else {
                 alert('변경을 실패하였습니다. 나중에 다시 시도해주세요.');
@@ -74,7 +74,7 @@ const EditProfileImage = (props) => {
       };                                         
     return(
     <div>
-        <Header title = "이미지 수정" message="변경된 이미지를 적용하지 않고 나가시겠습니까?"></Header>
+        <Header title = "이미지 수정" message="적용하지 않고 나가시겠습니까?"></Header>
         <Content>
               {detailImageUrl ? <UserProfile url = {detailImageUrl} onClick={ImgBtnClick}></UserProfile>:<div style={{width:"40vh", height:"40vh" ,border:'2px solid #aaa', margin: "0 auto", fontSize: '20vh', lineHeight: "35vh"}} onClick={ImgBtnClick}>+</div>}
               <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />

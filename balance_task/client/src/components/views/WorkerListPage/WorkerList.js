@@ -15,6 +15,10 @@ const WorkerList = (props) => {
   const [isShow, setIsShow] = React.useState(0);
   const [search, setSearch] = React.useState("");
 
+
+  
+  
+
   React.useEffect(() => {
     setIsShow(-1);
   },[]);
@@ -49,8 +53,9 @@ const WorkerList = (props) => {
         <div className="brBar">워커 프로필</div>
         <LoadProfile profile="WorkerProfile" userData={props.userData} searchValue={search}></LoadProfile>
       </List>
-
       <Navigation/>
+
+      
     </Container>
   )
 }

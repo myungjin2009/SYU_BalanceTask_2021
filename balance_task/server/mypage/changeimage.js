@@ -16,7 +16,8 @@ let changeimage = (req, res, next) => {
     let paramnull=req.body.image;
     var paramprofileimages;
     if(paramnull=="DEFAULT"){
-        paramprofileimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
+        //paramprofileimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
+        paramprofileimages="DEFAULT";
     }else{
         paramprofileimages= `/image/${req.file.filename}`;
     }
