@@ -49,7 +49,7 @@ let votechange = (req, res, next) => {
         console.log(err);
     } else {
         console.log(rows);
-        if(rows.affectedRows==0){
+        //if(rows.affectedRows==0){
             sql.pool.query(sql2,data,(err,rows)=>{
                 if (err) {
                     console.log(err);
@@ -57,7 +57,7 @@ let votechange = (req, res, next) => {
                     console.log("추가됨");
                 }
             })
-        }
+        //}
         console.log("vote true");
         next();
         }
