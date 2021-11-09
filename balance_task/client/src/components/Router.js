@@ -98,9 +98,7 @@ const Router = (props) => {
         <Route exact path="/settings/Contact" component={Auth(Contact, true)} />
         <Route exact path="/settings/EditAccount" component={Auth(EditAccount, true)} />
         <Route exact path="/settings/Withdraw" component={Auth(Withdraw, true)} />
-        
-        
-        {/* <Route path="/worker_invitation" component={WorkerInvitation} /> */}
+      
         {/* <Route path="/project_termination" component={ProjectTermination} /> */}
 
         <Route exact component={Auth(NotFound, null)} />
