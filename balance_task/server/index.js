@@ -69,6 +69,8 @@ var { auth } = require("./middleware/auth");
 var {mypage}=require("./mypage/mypage");
 var {changeimage}=require("./mypage/changeimage");
 var {changeintro}=require("./mypage/changeintro");
+var {findpassword}=require("./router/findpassword");
+var {findId}=require("./router/findId");
 
 //그룹 캘린더 관련 모듈
 var { group_calendar } = require("./group_calendar/group_calendar");
@@ -205,6 +207,14 @@ app.get("/api/user/auth",(req, res, next) => {
 app.post("/api/group/search_card", upload.array('image'),group_search, (req, res) => {
   console.log("group get success");
   //console.log(req.array);
+  if(!req.body.array_status){
+    res.status(200).json({
+      success: true,
+      array_status: req.body.array_status
+    });
+    return;
+  }
+
   if(req.array===undefined){
     return ;
   }
@@ -212,6 +222,7 @@ app.post("/api/group/search_card", upload.array('image'),group_search, (req, res
   res.status(200).json({
     array: req.array,
     success: true,
+    array_status: req.body.array_status
   });
   
 });
@@ -224,6 +235,17 @@ app.post("/api/group/create_group", group_add,(req,res)=>{
   });
 });
 
+app.post("/api/user/check_id",findId,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+});
+
+app.post("/api/user/changing_password",findpassword,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+});
 // app.post("/api/group/participation",grouppart,(req,res)=>{
 //   res.status(200).json({
 //     success: true,

@@ -70,12 +70,16 @@ export default function reducer(state = initialState, action) {
       if(action.payload === undefined || action.payload === null){
         return state;
       }
+<<<<<<< HEAD
       if(action.payload.profile.ProfileImage == "DEFAULT"){       //프로필 이미지가 DEFAULT일 경우, 기본프로필로 강제 변경
         action.payload.profile.ProfileImage = Default_Profile;
       }
+=======
+      console.log(action.payload);
+>>>>>>> 0b6a6eba15f0054f695376d8ea76e1f332a58855
       // return { ...state, profile: action.payload.profile, 
       //   project_list: action.payload.project_list};
-      return { ...state, profile: action.payload.profile, project_list: action.payload.project_list};
+      return { ...state, profile: action.payload.profile, project_list: action.payload.project_list,aramsdata: action.payload.aramsdata};
     }
     case UPDATE_MESSAGE:{
       return {...state, updateMessageSuccess: action.payload.success}

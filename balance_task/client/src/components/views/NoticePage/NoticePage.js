@@ -7,7 +7,7 @@ import InfoBlock from './InfoBlock';
 function NoticePage(props) {
   const user = useSelector(state => state.user);
   const {aramsdata} = user;
-  console.log(aramsdata);
+  console.log(user);
   if(aramsdata===undefined || aramsdata === null){
     props.history.push('/my_page');
     return <>

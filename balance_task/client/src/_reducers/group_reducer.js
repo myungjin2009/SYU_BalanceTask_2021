@@ -104,6 +104,10 @@ export default function reducer(state = initialState, action) {
       if (action.payload === undefined) {
         return state;
       }
+      console.log(action.payload.array_status);
+      if(!action.payload.array_status){
+        return state;
+      }
       let new_array = [...groups_list, ...action.payload.array];
       return { ...state, groups_list: new_array };
     }

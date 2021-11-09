@@ -41,7 +41,12 @@ function CreatePosts(props) {
     const data = response.data;
     if(data.success){
       alert('글을 성공적으로 업로드했습니다.');
-      props.history.push(`/${props.match.params.group}/project_timeline`);
+      if(category=== '타임라인'){
+        window.location.replace(`/${props.match.params.group}/project_timeline`);
+      }else if(category=== '공지사항'){
+        window.location.replace(`/${props.match.params.group}/project_notice`);
+      }
+      // props.history.push(`/${props.match.params.group}/project_timeline`);
       return;
     }
   }

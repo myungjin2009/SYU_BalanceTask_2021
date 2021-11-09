@@ -14,6 +14,8 @@ console.log("arma 허락 함수 호출됨");
     var paramgroup_name=req.body.groupname;
     var paramId=req.body.receiveuser;
     var paramno=req.body.no;
+    var paramnotsend=req.body.notsend;
+    
     console.log(req.body.no);
     const sql4="select count(board_number) from groupboard where info_groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
@@ -50,11 +52,13 @@ console.log("arma 허락 함수 호출됨");
           }
       })
 
+      if(paramnotsend===0){
       const sql7="select count(aram_no) from aram"
         sql.pool.query(sql7,(err,rows,fields)=>{
             var no=rows[0]['count(aram_no)']+1;    
             var time=moment().format('YYYY-MM-DD HH:mm:ss');
-            var insertdata = {aram_no:no, senduser:paramId, receiveuser:paramSendId, group:paramgroup_name, sendtime:time, content:1 };
+            
+            var insertdata = {aram_no:no, senduser:paramId, receiveuser:paramSendId, group:paramgroup_name, sendtime:time, content:1, notsend:1 };
             const sql8="insert into aram set ?"
             sql.pool.query(sql8,insertdata,(err,rows,fields)=>{
                 if (err) {
@@ -65,6 +69,7 @@ console.log("arma 허락 함수 호출됨");
                 }
             })
         })
+      }
         
     const sql8="select group_no from `groups` where group_name=?"
     sql.pool.query(sql8,paramgroup_name,(err,rows,fieds)=>{

@@ -9,11 +9,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 import Notice from "../common/Notice";
 
-const receiveMyPageData = (dispatch, setMyPageData, setIsNotice) =>{
+const receiveMyPageData = (dispatch, setMyPageData, setIsNotice, mounted) =>{
   dispatch(receiveProjectMypage()).then(res => {
-    if(res.payload.success){
+    if(res.payload.success && mounted){
       setMyPageData({profile:res.payload.profile,project_list:res.payload.project_list});
       if(res.payload.arams){
+        console.log(res.payload.arams);
         setIsNotice(true);
       }
       dispatch(chooseLoading(false));
@@ -41,12 +42,14 @@ const MyPage = (props) => {
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
  
   useEffect(()=>{
+    let mounted = true;
     if(isLoading){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
-      receiveMyPageData(dispatch, setMyPageData, setIsNotice);
+      receiveMyPageData(dispatch, setMyPageData, setIsNotice, mounted);
       //console.log(myPageData);
       // dispatch(chooseLoading(false));
     }
+    return () =>(mounted= false);
   },[isLoading, userData]);
 
   const profileImgChange = (event) => {                         //프로필 이미지
@@ -74,15 +77,9 @@ const MyPage = (props) => {
     <Container>
       {
         isLoading ? <>
-          <Header style={{background: "#eee", borderRadius: "15px"}} isLoading={isLoading}>
-
-          </Header>
-          <Introduce style={{background: "#eee"}} isLoading={isLoading}>
-
-          </Introduce>
-          <WorkingBlock>
-
-          </WorkingBlock>
+          <Header style={{background: "#eee", borderRadius: "15px"}} isLoading={isLoading}/>
+          <Introduce style={{background: "#eee"}} isLoading={isLoading}/>
+          <WorkingBlock/>
 
         </>:
         (<>

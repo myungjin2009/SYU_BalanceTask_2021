@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Header/Header";
@@ -66,6 +66,7 @@ const handleAuthorize = (e, dispatch, email_input, setMinutes) => {
 
 function FindingPW(props) {
   //InputBox에 대한 것
+  const emailAuth = useSelector(state => state.user.emailAuth);
   const [isClick, setIsClick] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -94,21 +95,27 @@ function FindingPW(props) {
       props.history.push("/");
       return;
     }
-    const body = {
-      name,
-      email,
-      authNumber,
-    };
-    dispatch(findPassword(body)).then((response) => {
-      if (response.payload.success) {
-        //만약 인증번호와 이름, 이메일이 맞다면
-        setIsClick(true);
-        email_input.current.disabled = true;
-        name_input.current.disabled = true;
-      } else {
-        alert("맞지 않습니다.");
+    if(emailAuth !==undefined){
+      if(authNumber !== emailAuth.okNumber){
+        alert('인증번호 틀리셨습니다!');
+        return;
       }
-    });
+      const body = {
+        name,
+        email,
+      };
+      dispatch(findPassword(body)).then((response) => {
+        if (response.payload.success) {
+          //만약 인증번호와 이름, 이메일이 맞다면
+          setIsClick(true);
+          email_input.current.disabled = true;
+          name_input.current.disabled = true;
+        } else {
+          alert("맞지 않습니다.");
+        }
+      });
+    }
+    
   };
   //비밀번호 바꾸기 함수
   const changePasswordHandler = (e) => {

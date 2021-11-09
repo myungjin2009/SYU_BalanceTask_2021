@@ -18,16 +18,26 @@ let receive_message = (req, res, next) => {
             req.receiveuser=info.receiveuser;
             req.content=info.content;
             req.time=info.sendtime;
+            req.notsend=info.notsend;
 
-            console.log(req.senduser);
+            // if(req.notsend==1){
+            //     return;
+            // }
+
+
+            console.log('그룹 가입하려는 자',req.senduser);
+            
+                
             array.push({
                 no:req.aram_no,
                 senduser: req.senduser,
                 groupname: req.groupname,
                 receiveuser: req.receiveuser,
                 content:req.content,
-                time:req.time
+                time:req.time,
+                notsend:req.notsend
             });
+            
             req.aramArray=array;
             //next()
 

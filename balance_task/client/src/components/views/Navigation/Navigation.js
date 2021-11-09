@@ -19,16 +19,23 @@ const Navigation = (props) => {
   return (
     <Container>
       <Li>
-        <i ref={workerList_link} className="fas fa-user-friends"></i>
-        <Link to="/worker_list">워커목록</Link>
+        <Link to="/worker_list">
+          <i ref={workerList_link} className="fas fa-user-friends"></i>
+          <div>워커목록</div>
+        </Link>
       </Li>
       <Li>
-        <i ref={groupSearch_link} className="fas fa-users"></i>
-        <Link to="/group_search">그룹찾기</Link>
+        <Link to="/group_search">
+          <i ref={groupSearch_link} className="fas fa-users"></i>
+          <div>그룹찾기</div>
+        </Link>
       </Li>
       <Li>
-        <i ref={myPage_link} className="far fa-user"></i>
-        <Link to="/my_page">마이페이지</Link>
+        
+        <Link to="/my_page">
+          <i ref={myPage_link} className="far fa-user"></i>
+          <div>마이페이지</div>
+        </Link>
       </Li>
     </Container>
   );
@@ -46,11 +53,11 @@ const Container = styled.div`
 `;
 
 const Li = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   & > a {
     color: #555;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   & > i {
     color: #555;
