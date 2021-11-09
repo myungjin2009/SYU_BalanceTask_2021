@@ -18,6 +18,11 @@ router.route('/api/signup').post(function(req, res) {
 	console.log(paramauthNumber);
 	console.log(sendNumber);
 
+	// if(!paramId.contains("naver.com")){
+	// 	console.log("이메일에 맞는 형식을 써주세요");
+	// 	return;
+	// }
+
 	if(paramauthNumber == sendNumber){ 
 			console.log("인증번호 맞다");
 	}else{
@@ -53,7 +58,7 @@ router.route('/api/signup').post(function(req, res) {
 				res.status(200).json({
 					
 					success:false
-					   });
+					});
 				
 			}
 		});
