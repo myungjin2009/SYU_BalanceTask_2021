@@ -88,7 +88,8 @@ export function auth() {
 //마이페이지에서 마이페이지 데이터 받기
 export function receiveProjectMypage(){
   const request = axios.get('/api/user/receive_mypage')
-  .then(res => res.data);
+  .then(res => {return res.data;});
+  
   return {
     type: RECEIVE_MYPAGE,
     payload: request
@@ -126,7 +127,7 @@ export function updateMessage(dataToSubmit){
   }
 }
 
-//이미지 업데이터
+//마이페이지 프로필 이미지 업데이터
 export function updateImage(dataToSubmit, config){
   const request = axios.post('/api/user/update_mypage/photo', dataToSubmit, config)
   .then(res=> res.data);

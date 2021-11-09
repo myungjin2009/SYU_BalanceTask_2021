@@ -14,8 +14,8 @@ import {
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT
 } from "../_actions/types";
+import Default_Profile from "../images/profile_sample.jpg";   //기본 프사
 // import hanium_logo from '../images/hanium_logo.jpg';
-// import profile_default from '../images/profile_sample.jpg';
 
 const initialState = {
   profile:{
@@ -69,6 +69,9 @@ export default function reducer(state = initialState, action) {
     case RECEIVE_MYPAGE:{
       if(action.payload === undefined || action.payload === null){
         return state;
+      }
+      if(action.payload.profile.ProfileImage == "DEFAULT"){       //프로필 이미지가 DEFAULT일 경우, 기본프로필로 강제 변경
+        action.payload.profile.ProfileImage = Default_Profile;
       }
       // return { ...state, profile: action.payload.profile, 
       //   project_list: action.payload.project_list};
