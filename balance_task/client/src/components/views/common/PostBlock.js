@@ -3,6 +3,7 @@ import { voteForPosts} from '../../../_actions/group_action';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
+import calculateDate from './DateCalculator';
 
 const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, group) => {
   if(votes === null) return;
@@ -85,7 +86,7 @@ const PostBlock = (props) =>{
       </ImageBlock>
       <Content>
         <p>{content}</p>
-        <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {date}</span>
+        <span><b>작성자</b>: {user_name} &nbsp;&nbsp;&nbsp;&nbsp;<b>보낸 시간</b>: {calculateDate(date, true)}</span>
       </Content>
       {isTimeline && 
       (
