@@ -80,11 +80,21 @@ let boardadd = (req, res, next) => {
     console.log(paramcategory);
     if(paramcategory==="타임라인"){
       console.log("vote로 들어왔습니다.");
-      let sql3="select user from groupusers where group_name=?";
+      let sql10="select count(vote_no) from vote";
+      //let sql11="select count(user) from groupusers where group_name=?";
+      let sql3="select user  from groupusers where group_name=?";
       sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
+        console.log(rows);
+        var groupusers_no=rows[0]['count(board_number)']
         rows.forEach((info,index,newarray) => {
+          sql.pool.query(sql10,(err,row,fields)=>{
+          console.log(row);
+          var voteno=row[0]['count(vote_no)'];
+          vno=voteno+1;
+          console.log(vno);
           req.users= info.user;
-          var votedata={board_number:num, discuss:0, user:req.users, group:urlgroup}
+          //for(i=voteno ; i<voteno+rows[0]['count(user)'] ; i++){
+          var votedata={vote_no:i+1, board_number:num, discuss:0, user:req.users, group:urlgroup}
           sql4="insert into vote set ?"
           sql.pool.query(sql4,votedata,(err,rows,fields)=>{
             if (err) {
@@ -93,36 +103,39 @@ let boardadd = (req, res, next) => {
               console.log("voteadd come");
             }
           })
+        //}
         })
       })
+    })
     }
 
     if(paramcategory==="공지사항"){
       sql1="insert into groupnotice set ?";
     }
 
-    if(paramcategory==="타임라임"){
-      console.log("vote로 들어왔습니다.");
-      let sql3="select user from groupusers where group_name=?";
-      sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
-        rows.forEach((info,index,newarray) => {
-          req.users= info.user;
-          var votedata={board_number:num, discuss:0, user:req.users, group:urlgroup}
-          sql4="insert into vote set ?"
-          sql.pool.query(sql4,votedata,(err,rows,fields)=>{
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("voteadd come");
-            }
-          })
-        })
-      })
-    }
+    // if(paramcategory==="타임라임"){
+    //   console.log("vote로 들어왔습니다.");
+    //   let sql3="select user from groupusers where group_name=?";
+    //   sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
+    //     rows.forEach((info,index,newarray) => {
+    //       req.users= info.user;
+    //       var votedata={board_number:num, discuss:0, user:req.users, group:urlgroup}
+    //       sql4="insert into vote set ?";
+    //       sql.pool.query(sql4,votedata,(err,rows,fields)=>{
+    //         if (err) {
+    //           console.log(err);
+    //         } else {
+    //           console.log("voteadd come");
+    //         }
+    //       })
+    //     })
+    //   })
+    // }
     
     //const sql2 = "SELECT * FROM vote; ";
     console.log(sql1,data);
     sql.pool.query(sql1,data,(err, rows, fields) => {
+      console.log(sql1);
       if (err) {
         console.log(err);
       } else {

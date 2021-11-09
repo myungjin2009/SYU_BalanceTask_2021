@@ -29,8 +29,7 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
     }
     dispatch(voteForPosts(body));
     if(path==="/project_timeline"){
-      setVote(current_vote);
-    }else if(path === "/project_notice"){
+      window.location.replace('/${group}/project_timeline');
       setVote(current_vote);
     }
   }else if(button_text==="반대"){
@@ -54,8 +53,7 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
     }
     dispatch(voteForPosts(body));
     if(path==="/:group/project_timeline"){
-      setVote(current_vote);
-    }else if(path==="/:group/project_notice"){
+      window.location.replace('/${group}/project_timeline');
       setVote(current_vote);
     }
   }
