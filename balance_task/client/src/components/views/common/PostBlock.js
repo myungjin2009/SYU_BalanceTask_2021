@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect, useRef} from 'react';
 import { voteForPosts} from '../../../_actions/group_action';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -27,12 +27,13 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
       group,
       kind,
     }
-    dispatch(voteForPosts(body));
-    if(path==="/project_timeline"){
-      setVote(current_vote);
-    }else if(path === "/project_notice"){
-      setVote(current_vote);
-    }
+    dispatch(voteForPosts(body)).then(()=>{
+      if(path==="/:group/project_timeline"){
+        console.log('a');
+        setVote(current_vote);
+      }
+    });
+    
   }else if(button_text==="반대"){
     const current_vote = votes.map((el)=>{
       if(el.user_name===userData.name && el.vote === '찬성'){
@@ -52,12 +53,13 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
       group,
       kind,
     }
-    dispatch(voteForPosts(body));
-    if(path==="/:group/project_timeline"){
-      setVote(current_vote);
-    }else if(path==="/:group/project_notice"){
-      setVote(current_vote);
-    }
+    dispatch(voteForPosts(body)).then(()=>{
+      if(path==="/:group/project_timeline"){
+        console.log('b');
+        setVote(current_vote);
+      }
+    });
+    
   }
   // api 호출
 }
@@ -65,12 +67,31 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
 const PostBlock = (props) =>{
   const {index, user_post, photo_url, userData, group, isTimeline} = props;
   const {content, user_name, date, votes_list, kind} = user_post;
-
+  const vote_div = useRef(new Array(votes_list.length));
+  
+  console.log(index, vote_div);
   //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
   const [vote, setVote] = useState(votes_list);
   const path = props.match.path;
   const dispatch = useDispatch();
   
+  useEffect(()=>{
+    if(vote_div.current===null||vote_div.current === undefined){
+      return;
+    }
+    votes_list.map((el,i)=>{
+      if(el.vote === '찬성') {
+        console.log(el);
+        console.log(vote_div.current[i]);
+      }
+      else if(el.vote === '반대') {
+        console.log(el);
+        console.log(vote_div.current[i]);
+      }
+      else return;
+    })
+  },[]);
+
   return(
     <Container>
       <ImageBlock>
@@ -96,12 +117,16 @@ const PostBlock = (props) =>{
             <button onClick={(e)=>handleVote(dispatch, votes_list, index, userData, e, kind, setVote, path, group)}>반대</button>  
           </ButtonContainer>
           <Bar>
-            {
+            {/* {
               votes_list.map((el, i)=>{
+                console.log(el);
                 if(el.vote === '찬성') return(<PositiveBlock key={i}></PositiveBlock>)
                 else if(el.vote === '반대') return(<NegativeBlock key={i}></NegativeBlock>)
                 else return(<WhiteBlock key={i}></WhiteBlock>)
               })
+            } */}
+            {
+              votes_list.map((el, i)=><div key={i} ref={vote_div[i]}></div>)
             }
           </Bar>
         </VotingSpace>

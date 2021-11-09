@@ -75,10 +75,7 @@ export function receiveTimeline(dataToSubmit) {
   //다른 것도 자세히 알고싶다면, receiveTimeline같은 action creator함수를 ctrl + 왼쪽 클릭하면 이 함수를 어디에서 썼는지 볼 수 있다.
   const request = axios
     .post("/api/group/timeline", dataToSubmit)
-    .then((response) => {
-      console.log(dataToSubmit);
-      return response.data;
-    })
+    .then((response) => response.data)
     .catch((err) => console.log(err));
   return {
     type: RECEIVE_TIMELINE,

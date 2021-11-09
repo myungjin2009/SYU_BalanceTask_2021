@@ -39,7 +39,6 @@ const handleScrollEvent = (e, entireTimeline, group , isLoading, dispatch, setTi
     last_number: entireTimeline.length-1,
     group: group
   };
-  console.log(body);
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   if(Math.ceil(scrollTop + clientHeight) == scrollHeight){
     console.log('됐다');
@@ -66,6 +65,7 @@ const ProjectTimeline = (props) =>{
   const dispatch = useDispatch();
 
   const [timeline, setTimeline] = useState(entireTimeline);
+  console.log(timeline);
   const [search, setSearch] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
   // console.log(props);
@@ -80,7 +80,6 @@ const ProjectTimeline = (props) =>{
       if(isCompleted){
         // console.log(isCompleted);
         setTimeline(entireTimeline);
-        // console.log(entireTimeline);
         //setIsCompleted(false);
         console.log('timeline 최신화 성공!');
         return;
@@ -92,7 +91,6 @@ const ProjectTimeline = (props) =>{
       }
     }
   },[search, isLoading]);
-  console.log(timeline);
   return(
     <>
       <GroupHeader setSearch={setSearch} group={group}/>
