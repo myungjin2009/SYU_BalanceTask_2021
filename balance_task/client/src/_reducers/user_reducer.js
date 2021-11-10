@@ -70,13 +70,9 @@ export default function reducer(state = initialState, action) {
       if(action.payload === undefined || action.payload === null){
         return state;
       }
-<<<<<<< HEAD
       if(action.payload.profile.ProfileImage == "DEFAULT"){       //프로필 이미지가 DEFAULT일 경우, 기본프로필로 강제 변경
         action.payload.profile.ProfileImage = Default_Profile;
       }
-=======
-      console.log(action.payload);
->>>>>>> 0b6a6eba15f0054f695376d8ea76e1f332a58855
       // return { ...state, profile: action.payload.profile, 
       //   project_list: action.payload.project_list};
       return { ...state, profile: action.payload.profile, project_list: action.payload.project_list,aramsdata: action.payload.aramsdata};
@@ -88,7 +84,14 @@ export default function reducer(state = initialState, action) {
       return {...state, Success: action.payload.success}
     }
     case RECEIVE_USERLIST: {
-      const new_array = action.payload.array;
+      const new_array = action.payload.array.map((val) => {     
+        if(val.ProfileImage == "DEFAULT") {                       //프로필 이미지가 DEFAULT일 경우, 기본프로필로 강제 변경
+          val.ProfileImage = Default_Profile;
+          return(val);
+        } else {
+          return(val);
+        }
+      });
       return {...state, Success: action.payload.success, worker_list: new_array}
     }
 

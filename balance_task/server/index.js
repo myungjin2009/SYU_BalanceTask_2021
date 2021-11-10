@@ -577,8 +577,8 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
             req.name =info.name;
             req.introduce =info.introduce;
             req.score=info.evaluation_score;  
-            if(req.user_image===null || req.user_image===undefined){
-                req.user_image="/image/32ec1b34e27c99d038388c2828cb1bf7";
+            if(req.user_image===null || req.user_image===undefined || req.user_image==="DEFAULT"){
+                req.user_image="DEFAULT";
             }
 
             arrays.push({
