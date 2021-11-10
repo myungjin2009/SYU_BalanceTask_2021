@@ -38,8 +38,8 @@ let votechange = (req, res, next) => {
         sql2= "insert into vote set ?;"
         sql1= "update vote set discuss="+discuss+" where user='"+paramid+"' and board_number="+paramnumber+";"
     }else{
-        sql2= "insert into vote2 set ?;"
-        sql1= "update vote2 set discuss="+discuss+" where user='"+paramid+"' and board_number="+paramnumber+";"
+        //sql2= "insert into vote2 set ?;"
+        //sql1= "update vote2 set discuss="+discuss+" where user='"+paramid+"' and board_number="+paramnumber+";"
     }
     
     var data={user:paramid, discuss:discuss, board_number:paramnumber, group:paramgroup}
@@ -48,15 +48,15 @@ let votechange = (req, res, next) => {
     if (err) {
         console.log(err);
     } else {
-        console.log(rows);
+        //console.log(rows);
         //if(rows.affectedRows==0){
-            sql.pool.query(sql2,data,(err,rows)=>{
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("추가됨");
-                }
-            })
+            // sql.pool.query(sql2,data,(err,rows)=>{
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         console.log("추가됨");
+            //     }
+            // })
         //}
         console.log("vote true");
         next();

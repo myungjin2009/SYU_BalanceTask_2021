@@ -147,11 +147,15 @@ export default function reducer(state = initialState, action) {
       return {...state, createGroupSuccess: action.payload}
     }
     case VOTE_FOR_POSTS:{
-      console.log(action.payload);
-      const {payload : {dataToSubmit:{board_number, current_vote}}} = action;
-      let new_array = state.timelineList;
-      new_array[board_number].votes_list = current_vote;
-      return {...state, timelineList: new_array}
+      if(action.payload.dataToSubmit){
+        const {payload : {dataToSubmit:{board_number, current_vote}}} = action;
+        let new_array = state.timelineList;
+        console.log(board_number);
+        console.log(new_array);
+        new_array[board_number-1].votes_list = current_vote;
+        return {...state, timelineList: new_array}
+      }
+      return state;
     }
     default:
       return state;

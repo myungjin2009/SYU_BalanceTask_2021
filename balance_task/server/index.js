@@ -1,7 +1,6 @@
 // Express 기본 모듈 불러오기
 "use strict";
 const express = require("express"),
-  http = require("http"),
   path = require("path");
 
 const multer = require("multer");
@@ -21,10 +20,11 @@ var expressErrorHandler = require("express-error-handler");
 // Session 미들웨어 불러오기
 var expressSession = require("express-session");
 //채팅
+
 const server = app.listen(5000, () => {
   console.log("=================listening on 5000!=================");
 });
-const io = require("socket.io")(server);
+
 //const server=http.createServer(app);
 // const socketIO=require("socket.io");
 // const io=socketIO(server);
@@ -42,6 +42,39 @@ const sql = require("./database/db_connect");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cookie = require("cookie");
+
+//건형이 채팅
+const httpServer = require("http").createServer();
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", function(socket){
+  console.log("connection");
+  socket.on('room', function(user_info) { 
+    var {name, id, group} = user_info;
+    console.log(name);
+    socket.join(name);
+    io.to('some room').emit('some event');
+      // ()=>{
+      // console.log('aaaa');
+      // console.log(name+'방입장');
+    // });
+  });
+
+  
+  socket.on("send message", (item) => {
+    console.log(item.name + " : " + item.message);
+    io.emit("receive message", { name: item.name, message: item.message, id: item.id, date: item.date });
+    //클라이언트에 이벤트를 보냄
+  });
+});
+
+httpServer.listen(80);
+//건형이 채팅
 
 //로그인 , 유저 관련 모듈
 var user = require("./user/adduser");
