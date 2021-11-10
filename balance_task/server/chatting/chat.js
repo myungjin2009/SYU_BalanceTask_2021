@@ -23,6 +23,7 @@ io.on("connection", (socket) => {
 });
 
 httpServer.listen(80);
+//======================================건형이================================= 
 
 let chatting = (req, res, next) => {
     console.log(req.body);
