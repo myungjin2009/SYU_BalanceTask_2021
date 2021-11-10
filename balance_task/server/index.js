@@ -52,17 +52,17 @@ const io = require("socket.io")(httpServer, {
   },
 });
 
-io.on("connection", (socket) => {
+io.on("connection", function(socket){
   console.log("connection");
-  socket.on("init", (payload) => {
-    console.log(payload);
-    let inname=payload.name;
-    socket.on('room', (inname) => { 
-
-      socket.join(inname,()=>{
-          console.log(inname+'방입장');
-      });
-    });
+  socket.on('room', function(user_info) { 
+    var {name, id, group} = user_info;
+    console.log(name);
+    socket.join(name);
+    io.to('some room').emit('some event');
+      // ()=>{
+      // console.log('aaaa');
+      // console.log(name+'방입장');
+    // });
   });
 
   

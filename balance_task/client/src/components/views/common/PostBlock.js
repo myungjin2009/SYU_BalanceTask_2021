@@ -71,7 +71,7 @@ const PostBlock = (props) =>{
 
   //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
   const [vote, setVote] = useState(votes_list);
-  console.log(vote);
+  console.log(index, vote, content);
   const path = props.match.path;
   const dispatch = useDispatch();
   
@@ -91,7 +91,6 @@ const PostBlock = (props) =>{
   //     else return;
   //   })
   // },[]);
-
   return(
     <Container>
       <ImageBlock>
