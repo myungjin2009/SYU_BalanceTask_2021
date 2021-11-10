@@ -56,17 +56,17 @@ io.on("connection", (socket) => {
   console.log("connection");
   socket.on("init", (payload) => {
     console.log(payload);
+    let inname=payload.name;
+    socket.on('room', (inname) => { 
+
+      socket.join(inname,()=>{
+          console.log(inname+'방입장');
+      });
+    });
   });
-  socket.on("send message", (item) => {//send message 이벤트 발생
-    var sqlchat="select user from groupusers where group_name=?"
-    // console.log(payload);
-    // sql.pool.query(sqlchat,payload.group,(err,rows,fields)=>{
-    //       rows.forEach((info,index,newarray) => { 
-            
-          
-          
-    //       })  
-    // })
+
+  
+  socket.on("send message", (item) => {
     console.log(item.name + " : " + item.message);
     io.emit("receive message", { name: item.name, message: item.message, id: item.id, date: item.date });
     //클라이언트에 이벤트를 보냄
