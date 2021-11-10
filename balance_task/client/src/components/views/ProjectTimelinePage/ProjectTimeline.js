@@ -103,7 +103,7 @@ const ProjectTimeline = (props) =>{
           </>
           :
           timeline.length !== 0  ? timeline.map((user_post,i)=>(
-            <PostBlock key={i} index={user_post.id} userData={userData} user_post = {user_post} group={group} photo_url={user_post.image}/>
+            <PostBlock key={i} index={i} board_no={user_post.id} userData={userData} user_post = {user_post} group={group} photo_url={user_post.image}/>
             )):<div>아직 데이터 없어요</div>
         }
       </Container>

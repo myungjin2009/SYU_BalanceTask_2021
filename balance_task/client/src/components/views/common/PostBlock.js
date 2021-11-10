@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import calculateDate from './DateCalculator';
 
-const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, group) => {
+const handleVote = (dispatch, votes, board_no, userData, e, kind, setVote, path, group, index) => {
   if(votes === null) return;
   const button_text = e.target.textContent;
   if(button_text==="찬성") {
@@ -21,16 +21,17 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
       }
     });
     let body = {
-      board_number: index,
+      board_number: board_no,
       id:userData.id,
       current_vote,
       group,
       kind,
+      timeline_no: index
     }
     dispatch(voteForPosts(body)).then(()=>{
       if(path==="/:group/project_timeline"){
-        console.log('a');
         setVote(current_vote);
+        // setStatus('찬성');
       }
     });
     
@@ -47,16 +48,17 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
       }
     });
     let body = {
-      board_number: index,
+      board_number: board_no,
       id:userData.id,
       current_vote,
       group,
       kind,
+      timeline_no: index
     }
     dispatch(voteForPosts(body)).then(()=>{
       if(path==="/:group/project_timeline"){
-        console.log('b');
         setVote(current_vote);
+        // setStatus('반대');
       }
     });
     
@@ -65,32 +67,37 @@ const handleVote = (dispatch, votes, index, userData, e, kind, setVote, path, gr
 }
 
 const PostBlock = (props) =>{
-  const {index, user_post, photo_url, userData, group, isTimeline} = props;
+  const {index, board_no, user_post, photo_url, userData, group, isTimeline} = props;
   const {content, user_name, date, votes_list, kind} = user_post;
-  // const vote_div = useRef(new Array(votes_list.length));
+  const vote_div = useRef([]);
 
   //vote는 사용하지 않음 votes_list로 매핑하므로 vote는 사용하지 않지만, 리렌더링 하기 위해 setVote는 사용
   const [vote, setVote] = useState(votes_list);
-  console.log(index, vote, content);
+  const [status, setStatus] = useState('');
+  console.log(board_no, vote, content);
   const path = props.match.path;
   const dispatch = useDispatch();
   
-  // useEffect(()=>{
-  //   if(vote_div.current===null||vote_div.current === undefined){
-  //     return;
-  //   }
-  //   votes_list.map((el,i)=>{
-  //     if(el.vote === '찬성') {
-  //       console.log(el);
-  //       console.log(vote_div.current[i]);
-  //     }
-  //     else if(el.vote === '반대') {
-  //       console.log(el);
-  //       console.log(vote_div.current[i]);
-  //     }
-  //     else return;
-  //   })
-  // },[]);
+  useEffect(()=>{
+    if(vote_div.current===null||vote_div.current === undefined){
+      return;
+    }
+    console.log(vote_div);
+    vote.forEach((el,i)=>{
+      if(el.vote === '찬성') {
+        console.log(vote_div.current[i].style.background);
+        vote_div.current[i].style.background = 'royalblue';
+      }
+      else if(el.vote === '반대') {
+        console.log(vote_div.current[i].style.background);
+        vote_div.current[i].style.background = '#ef5350';
+      }
+      else{
+        console.log(vote_div.current[i].style.background);
+        vote_div.current[i].style.background = 'white';
+      };
+    })
+  },[vote]);
   return(
     <Container>
       <ImageBlock>
@@ -112,21 +119,13 @@ const PostBlock = (props) =>{
       (
         <VotingSpace>
           <ButtonContainer>
-            <button onClick={(e)=>handleVote(dispatch, votes_list, index, userData, e, kind, setVote, path, group)}>찬성</button>
-            <button onClick={(e)=>handleVote(dispatch, votes_list, index, userData, e, kind, setVote, path, group)}>반대</button>  
+            <button onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>찬성</button>
+            <button onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>반대</button>  
           </ButtonContainer>
           <Bar>
             {
-              votes_list.map((el, i)=>{
-                console.log(el);
-                if(el.vote === '찬성') return(<PositiveBlock key={i}></PositiveBlock>)
-                else if(el.vote === '반대') return(<NegativeBlock key={i}></NegativeBlock>)
-                else return(<WhiteBlock key={i}></WhiteBlock>)
-              })
+              votes_list.map((data, i)=><VoteBlock key={i} ref={(el)=>(vote_div.current[i]=el)}></VoteBlock>)
             }
-            {/* {
-              votes_list.map((el, i)=><div key={i} ref={vote_div[i]}></div>)
-            } */}
           </Bar>
         </VotingSpace>
       )}
@@ -214,19 +213,8 @@ const Bar = styled.div`
   border-radius: 15px;
   overflow: hidden; 
 `;
-const PositiveBlock = styled.div`
+const VoteBlock = styled.div`
   width: 100%;
   height: 100%;
-  background: royalblue;
-`;
-const NegativeBlock = styled.div`
-  width: 100%;
-  height: 100%;
-  background: #ef5350;
-`;
-const WhiteBlock = styled.div`
-  width: 100%;
-  height: 100%;
-  background: white;
 `;
 export default withRouter(PostBlock);

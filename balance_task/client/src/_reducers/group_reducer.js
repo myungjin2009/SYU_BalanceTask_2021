@@ -148,11 +148,11 @@ export default function reducer(state = initialState, action) {
     }
     case VOTE_FOR_POSTS:{
       if(action.payload.dataToSubmit){
-        const {payload : {dataToSubmit:{board_number, current_vote}}} = action;
+        const {payload : {dataToSubmit:{current_vote, timeline_no}}} = action;
         let new_array = state.timelineList;
-        console.log(board_number);
+        console.log(timeline_no);
         console.log(new_array);
-        new_array[board_number-1].votes_list = current_vote;
+        new_array[timeline_no].votes_list = current_vote;
         return {...state, timelineList: new_array}
       }
       return state;
