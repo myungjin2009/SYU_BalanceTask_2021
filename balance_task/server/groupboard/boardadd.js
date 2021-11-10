@@ -85,16 +85,18 @@ let boardadd = (req, res, next) => {
       let sql3="select user  from groupusers where group_name=?";
       sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
         console.log(rows);
-        var groupusers_no=rows[0]['count(board_number)']
-        rows.forEach((info,index,newarray) => {
-          sql.pool.query(sql10,(err,row,fields)=>{
-          console.log(row);
-          var voteno=row[0]['count(vote_no)'];
-          vno=voteno+1;
-          console.log(vno);
+        sql.pool.query(sql10,(err,row,fields)=>{
+        console.log(row);
+        let voteno=row[0]['count(vote_no)'];
+        let groupusers_no=rows[0]['count(board_number)'];
+        rows.forEach((info,index,newarray) => {  
+          vno=voteno++;
+          console.log("vno:"+vno);
           req.users= info.user;
-          //for(i=voteno ; i<voteno+rows[0]['count(user)'] ; i++){
-          var votedata={vote_no:i+1, board_number:num, discuss:0, user:req.users, group:urlgroup}
+          //for(i=voteno ; i<voteno+rows.length; i++){
+          console.log("i:"+i);  
+          console.log("rows.length:"+rows.length); 
+          var votedata={vote_no:vno, board_number:num, discuss:0, user:req.users, group:urlgroup}
           sql4="insert into vote set ?"
           sql.pool.query(sql4,votedata,(err,rows,fields)=>{
             if (err) {
@@ -103,7 +105,7 @@ let boardadd = (req, res, next) => {
               console.log("voteadd come");
             }
           })
-        //}
+          //}
         })
       })
     })
