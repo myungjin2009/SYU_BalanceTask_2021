@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import {useDispatch} from 'react-redux';
+
 import HidingMenu from '../HidingMenu/HidingMenu';
+import { receiveMember } from '../../../_actions/group_action';
 
 const handleTimeline = (props, group)=>{
   props.history.push(`/${group}/project_timeline`);
@@ -18,7 +21,6 @@ const handleMenu = (isMenu, setIsMenu) =>{
     setIsMenu(true);
   }
 }
-
 const handleSearch = (isSearch, setIsSearch) => {
   if(isSearch === true){
     setIsSearch(false);
@@ -38,6 +40,7 @@ const searchTimeline = (input, setSearch) =>{
 
 const GroupHeader = (props) =>{
   const {setSearch, group} = props;
+  const dispatch = useDispatch();
   const timeline = useRef(null);
   const notice = useRef(null);
   const menuBtn = useRef(null);
@@ -46,6 +49,9 @@ const GroupHeader = (props) =>{
 
   const [isMenu, setIsMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  // const [MemberList, setMemberList] = useState([]);
+
+
 
   useEffect(() => {
     if(timeline===null ||notice===null){
@@ -70,6 +76,17 @@ const GroupHeader = (props) =>{
     }
   }, [isSearch]);
 
+  useEffect(() => {
+    const body = {
+      group
+    }
+    dispatch(receiveMember(body)).then((response)=>{
+      if(response.payload.success){
+        // setMemberList(response.payload.groupMembers);
+        console.log('성공');
+      }
+    });
+  }, [])
   return(
     <Container>
       <HidingMenu menuBtn={menuBtn} isMenu={isMenu} group={group}/>
@@ -86,7 +103,6 @@ const GroupHeader = (props) =>{
         <div ref={timeline} className="blueBtn" onClick={()=>handleTimeline(props,group)}><i className="far fa-clock"></i>타임라인</div>
         <div ref={notice} className="grayBtn" onClick={()=>handleNotice(props,group)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
       </Content>
-      
     </Container>
   )
 }

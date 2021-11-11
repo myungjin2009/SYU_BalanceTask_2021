@@ -97,7 +97,7 @@ const ProjectNotice = (props) =>{
           :
           notice.length !==0 ? notice.map((user_post, i)=>(
             <PostBlock key={i} index={i} userData={userData} user_post = {user_post} group={group} isTimeline = {false} photo_url={user_post.image}/>
-          )):<div>아직 데이터 없어요</div>
+          )):<h2 style={{marginTop: "20vh", textAlign: "center"}}>아직 올린 사람이 없습니다!</h2>
         }
       </Container>
       <Button direction="left"><Link to={`/my_page`} className="Button-type"><i className="fas fa-user"></i></Link></Button>

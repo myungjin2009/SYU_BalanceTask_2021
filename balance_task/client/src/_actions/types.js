@@ -26,7 +26,7 @@ export const RESET_POSTS = "reset_posts";
 export const RECEIVE_TIMELINE = "receive_timeline";
 export const RECEIVE_NOTICE = "receive_notice";
 export const VOTE_FOR_POSTS = "vote_for_posts";
-
+export const RECEIVE_GROUP_MEMBER = "receive_group_member";
 
 /* group_calendar */
 export const ADD_DATE = 'add_date';
