@@ -74,7 +74,7 @@
   /api/user/notice/reject => method: post
   #### 설명 : 사용자가 알림 요청에 대해 거절한다는 것
 
-## < GROUP >
+## < GROUP SEARCH >
 
 ## 그룹 찾기 페이지 - 작성자: 박건형
   /api/group/search_card => method: post
@@ -86,6 +86,12 @@
   #### 설명: 해당 그룹에 참여 요청하기
   #### 위치: views/GroupSearchPage/Detail.js
 
+## 그룹 만들기 페이지 - 작성자: 박건형
+  /api/group/create_group => method: post
+  #### 설명: 그룹 만들기에 필요한 양식을 작성 후 서버에 요청
+  #### 위치: views/CreateGroupPage/CreateGroup.js
+
+## < PROJECT POSTS >
 
 ## 프로젝트 현황페이지 - 작성자: 박건형
   /api/group/timeline => method: post
@@ -95,11 +101,6 @@
   /api/group/vote =>method: post
   #### 설명:  게시물 투표하기
   #### 위치: views/GroupSearchPage/
-
-## 그룹 만들기 페이지 - 작성자: 박건형
-  /api/group/create_group => method: post
-  #### 설명: 그룹 만들기에 필요한 양식을 작성 후 서버에 요청
-  #### 위치: views/CreateGroupPage/CreateGroup.js
 
 ## 그룹 게시물 추가 페이지 - 작성자: 박건형
   /api/group/post => method: post
@@ -119,6 +120,20 @@
   #### 설명: 해당 그룹 캘린더에서 할 일 삭제하기
   #### 위치: views/GroupCalendar/
 
-## <>
+## < WOKER INVITATION >
+
+## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨
+  /api/group/member => method: post
+  #### 요청 페이로드: {group}
+  #### group은 그룹이름이다.
+  #### 설명: 해당 그룹에 누가 있는지 데이터를 받아온다.
+  #### 위치: [GroupHeader](/balance_task/client/src/components/views/common/GroupHeader.js)
+  
+##  이 api는 GroupHeader에서의 api가 먼저 실행이 된 후 사용자가 워커 추가 이벤트를 발생시기키면 실행된다.
+  /api/user/add_worker => method: post
+  #### 요청 페이로드: {id, name}
+  #### group은 그룹이름이다.
+  #### 설명: 해당 그룹에서 같이 계속 작업하고 싶은 사람을 워커 리스트에 추가할 수 있다.
+  #### 위치: [AddWorker](/balance_task/client/src/components/views/HidingMenu/AddWorker.js)
 
 

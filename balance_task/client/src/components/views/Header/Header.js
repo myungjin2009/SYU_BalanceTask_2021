@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-function Header(props) {
+const Header = (props) => {
   const {title, message, isButton, buttonName, icon, onClickHandler} = props;
   const goBack = ()=>{
     if(message){

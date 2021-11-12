@@ -6,7 +6,9 @@ import {
   RECEIVE_NOTICE,
   RECEIVE_TIMELINE,
   CREATE_GROUP,
-  RESET_POSTS
+  RESET_POSTS,
+  RECEIVE_GROUP_MEMBER,
+  ADD_WORKER_IN_GROUP
 } from "./types";
 import axios from "axios";
 
@@ -110,4 +112,14 @@ export function voteForPosts(dataToSubmit) {
     type: VOTE_FOR_POSTS,
     payload: request,
   };
+}
+
+export function receiveMember(dataToSubmit){
+  const request = axios.post('/api/group/member', dataToSubmit)
+  .then(response => response.data)
+  .catch((err) => console.log(err));
+  return {
+    type: RECEIVE_GROUP_MEMBER,
+    payload: request
+  }
 }

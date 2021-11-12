@@ -5,22 +5,6 @@ import {dataLoad, receiveProjectMypage, loadWorker} from '../../../_actions/user
 import {useSelector, useDispatch} from 'react-redux';
 import {withRouter} from "react-router-dom";
 
-const Profile_Detail_Show = (Profile_Detail_Cover,SortFilterUsers,idx,setProfile_Detail_Data) => {
-    if(idx === -1) {
-        console.log(Profile_Detail_Cover);
-    }else {
-        setProfile_Detail_Data(SortFilterUsers[idx]);
-        //console.log(SortFilterUsers[idx]); 
-        Profile_Detail_Cover.current.style.display="block";
-        console.log(Profile_Detail_Cover);
-    }
-    
-}
-
-const Profile_Detail_Close = (Profile_Detail_Cover) => {
-    Profile_Detail_Cover.current.style.display="none";
-  }
-
 const setMyProfileData = (setMyData,dispatch) => {
     dispatch(receiveProjectMypage()).then(res=> {
         if(res.payload.success) {
@@ -53,10 +37,13 @@ const LoadProfile = (props) => {
     const [myData, setMyData] = React.useState({profile, project_list});
     const [userData, setUserData] = React.useState(worker_list);
     const dispatch = useDispatch();
-    const Profile_Detail_Cover = React.useRef(null);
-    const Profile_Detail_Greenbox = React.useRef("");
-    const Profile_Detail_Background = React.useRef("");
-    const [Profile_Detail_Data, setProfile_Detail_Data] = React.useState({ProfileName:null,ProfileImage:null,ProfileMessage:null,Score:null});
+
+    const setCountWorker = (num) => {       //내 워커들이 총 몇 명인지 구해서 부모 컴포넌트로 보내주는 함수
+        props.howManyWorker(num);
+    }
+    const setWhoClicked = (data) => {     //프로필 목록에서 클릭했을 때, 프로필 상세보기 데이터를 부모 컴포넌트로
+        props.whoClicked(data);
+    }
 
     React.useEffect(()=>{
         if(state.isDataLoading) {
@@ -77,7 +64,7 @@ const LoadProfile = (props) => {
             );
         }else {
             return(
-                <Profile type="myProfile" color="rgb(230,247,230)" onClick={()=>{Profile_Detail_Show(Profile_Detail_Cover,myData.profile,-1,setProfile_Detail_Data)}}>
+                <Profile type="myProfile" color="rgb(230,247,230)">
                 <div className = "ProfileImg">
                 <img className ="ProfileimgSource" src={myData.profile.ProfileImage} />
                 </div>
@@ -101,8 +88,9 @@ const LoadProfile = (props) => {
     const SortFilterUsers = 
       filterUsers.filter(
         (element, i) => element !== undefined
-      );
-
+    );
+    
+    setCountWorker(SortFilterUsers.length);
 
     if(props.profile === "WorkerProfile") {
         if(userData.length === 0) {
@@ -122,7 +110,7 @@ const LoadProfile = (props) => {
             return(
                 <div>
                 {SortFilterUsers.map((val,idx) => (
-                    <Profile key={idx} type="userProfile" onClick={()=>{Profile_Detail_Show(Profile_Detail_Cover,SortFilterUsers,idx,setProfile_Detail_Data)}}>
+                    <Profile key={idx} type="userProfile" onClick={() => setWhoClicked(val)}>
                         <div className = "ProfileImg">
                             <img className ="ProfileimgSource" src={val.ProfileImage} />
                         </div>
@@ -131,19 +119,6 @@ const LoadProfile = (props) => {
                         <div className = "ProfileMessage">{val.ProfileMessage}</div>
                     </Profile>
                 ))}
-                <Profile_Detail ref={Profile_Detail_Cover}>
-                    <div className="background" ref={Profile_Detail_Background}></div>
-                    <div className="profile_background" ref={Profile_Detail_Greenbox}>
-                        <div className="close_button">
-                            <i class="fas fa-times" onClick={()=>{Profile_Detail_Close(Profile_Detail_Cover)}}></i>
-                        </div>
-
-                        <div className="profile_image">
-                            <img className ="profile_image_source" alt="Image" src={Profile_Detail_Data.ProfileImage} />
-                        </div>
-                        <div className="profile_message">{Profile_Detail_Data.ProfileMessage}</div>
-                    </div>
-                </Profile_Detail>
                 </div>
             );
         }
@@ -213,44 +188,5 @@ const NoWorker = styled.div`
     }
 `;
 
-const Profile_Detail = styled.div`
-    display: none;
-  & > .background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    background-color: rgba(0,0,0,0.4);
-    transition: 1s;
-  }
-  & > .profile_background {
-    position: fixed;
-    width: 100%;
-    height: 35%;
-    bottom: 8vh;
-    border-radius: 20px 20px 0px 0px;
-    background-color: rgb(170,228,169);
-    & > .close_button {
-      font-size: 25px;
-      text-align: right;
-      padding-right: 3vw;
-    }
-    & > .profile_image{
-        text-align: center;
-        width: 80vw;
-        height: 15vh;
-        transform:translate(0%, -12vh);
-        background-color: rgba(0,0,0,0.4);
-        & > .profile_image_source{
-            display: inline-block;
-            width: 15vh;
-            height: 15vh;
-            
-        }
-    }
-  }
-  
-  
-`;
 
 export default withRouter(LoadProfile);

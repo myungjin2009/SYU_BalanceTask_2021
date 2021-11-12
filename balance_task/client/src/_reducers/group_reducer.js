@@ -6,7 +6,8 @@ import {
   RECEIVE_NOTICE,
   RECEIVE_TIMELINE,
   CREATE_GROUP,
-  RESET_POSTS
+  RESET_POSTS,
+  RECEIVE_GROUP_MEMBER,
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -148,15 +149,22 @@ export default function reducer(state = initialState, action) {
     }
     case VOTE_FOR_POSTS:{
       if(action.payload.dataToSubmit){
-        const {payload : {dataToSubmit:{board_number, current_vote}}} = action;
+        const {payload : {dataToSubmit:{current_vote, timeline_no}}} = action;
         let new_array = state.timelineList;
-        console.log(board_number);
-        console.log(new_array);
-        new_array[board_number-1].votes_list = current_vote;
+        new_array[timeline_no].votes_list = current_vote;
         return {...state, timelineList: new_array}
       }
       return state;
     }
+    case RECEIVE_GROUP_MEMBER:{
+      const {success, group_members} = action.payload;
+      if(group_members){
+        console.log("팀원 리스트",success);
+        return {...state, group_members};
+      }
+      return {...state, group_members:[]};
+    }
+    
     default:
       return state;
   }

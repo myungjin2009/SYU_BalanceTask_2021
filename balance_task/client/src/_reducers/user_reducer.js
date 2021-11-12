@@ -12,7 +12,8 @@ import {
   LOADING_WORKERLIST_DATA,
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
-  POST_NOTICE_REJECT
+  POST_NOTICE_REJECT,
+  ADD_WORKER_IN_GROUP
 } from "../_actions/types";
 import Default_Profile from "../images/profile_sample.jpg";   //기본 프사
 // import hanium_logo from '../images/hanium_logo.jpg';
@@ -84,7 +85,14 @@ export default function reducer(state = initialState, action) {
       return {...state, Success: action.payload.success}
     }
     case RECEIVE_USERLIST: {
-      const new_array = action.payload.array;
+      const new_array = action.payload.array.map((val) => {     
+        if(val.ProfileImage == "DEFAULT") {                       //프로필 이미지가 DEFAULT일 경우, 기본프로필로 강제 변경
+          val.ProfileImage = Default_Profile;
+          return(val);
+        } else {
+          return(val);
+        }
+      });
       return {...state, Success: action.payload.success, worker_list: new_array}
     }
 
@@ -116,6 +124,11 @@ export default function reducer(state = initialState, action) {
       return {...state, isDataLoading: action.isDataLoading}
     }
 
+    case ADD_WORKER_IN_GROUP:{
+      const {success} = action.payload;
+      console.log("그룹에서 워커 추가:",success);
+      return state;
+    }
 
     default:
       return state;

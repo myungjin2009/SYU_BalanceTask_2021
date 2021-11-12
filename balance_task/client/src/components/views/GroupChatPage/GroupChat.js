@@ -27,7 +27,7 @@ const GroupChat = (props) => {
     console.log(user);
     
       
-    socket.emit("init", {name: user.name, id: user.id});
+    socket.emit("room", {name: user.name, id: user.id, group});
     return () => {
       socket.close();
     };

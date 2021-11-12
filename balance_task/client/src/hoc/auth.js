@@ -32,7 +32,7 @@ export default function(SpecificComponent, option, adminRoute = null){
             props.history.push('/my_page');
             return;
           }
-          console.log(params.group);
+
           //그룹이 같을 때만 그룹 전용 페이지 갈 수 있게 하기
           if(params.group){
             const match_group = params.group;

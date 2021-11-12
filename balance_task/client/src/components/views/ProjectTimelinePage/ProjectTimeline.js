@@ -40,7 +40,7 @@ const handleScrollEvent = (e, entireTimeline, group , isLoading, dispatch, setTi
     group: group
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-  if(Math.ceil(scrollTop + clientHeight) == scrollHeight){
+  if(Math.ceil(scrollTop + clientHeight) === scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
     //setIsCompleted(false);
@@ -103,8 +103,8 @@ const ProjectTimeline = (props) =>{
           </>
           :
           timeline.length !== 0  ? timeline.map((user_post,i)=>(
-            <PostBlock key={i} index={user_post.id} userData={userData} user_post = {user_post} group={group} photo_url={user_post.image}/>
-            )):<div>아직 데이터 없어요</div>
+            <PostBlock key={i} index={i} board_no={user_post.id} userData={userData} user_post = {user_post} group={group} photo_url={user_post.image}/>
+            )):<h2 style={{marginTop: "20vh", textAlign: "center"}}>아직 올린 사람이 없습니다!</h2>
         }
       </Container>
       <Button direction="left"><Link to={`/my_page`} className="Button-type"><i className="fas fa-user"></i></Link></Button>

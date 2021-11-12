@@ -52,17 +52,17 @@ const io = require("socket.io")(httpServer, {
   },
 });
 
-io.on("connection", (socket) => {
+io.on("connection", function(socket){
   console.log("connection");
-  socket.on("init", (payload) => {
-    console.log(payload);
-    let inname=payload.name;
-    socket.on('room', (inname) => { 
-
-      socket.join(inname,()=>{
-          console.log(inname+'방입장');
-      });
-    });
+  socket.on('room', function(user_info) { 
+    var {name, id, group} = user_info;
+    console.log(name);
+    socket.join(name);
+    io.to('some room').emit('some event');
+      // ()=>{
+      // console.log('aaaa');
+      // console.log(name+'방입장');
+    // });
   });
 
   
@@ -611,8 +611,8 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
             req.name =info.name;
             req.introduce =info.introduce;
             req.score=info.evaluation_score;  
-            if(req.user_image===null || req.user_image===undefined){
-                req.user_image="/image/32ec1b34e27c99d038388c2828cb1bf7";
+            if(req.user_image===null || req.user_image===undefined || req.user_image==="DEFAULT"){
+                req.user_image="DEFAULT";
             }
 
             arrays.push({
