@@ -87,6 +87,7 @@ var { node__mailer } = require("./router/node-mailer");
 var { group_search } = require("./group/groupget");
 var group_add = require("./group/group_add");
 var { grouppart } = require("./group/grouppart");
+var { groupclose } = require("./group/groupclose");
 
 //타임라인, 공지 관련 모듈
 var { noticeget } = require("./groupboard/noticeget");
@@ -94,11 +95,11 @@ var { boardget1 } = require("./groupboard/boardget1");
 var { votechange }=require("./groupboard/vote");
 var { boardadd } = require("./groupboard/boardadd");
 var { noticeadd } = require("./groupboard/noticeadd");
+
 //jwt auth 모듈
 var { auth } = require("./middleware/auth");
 
 //mypage 모듈
-
 var {mypage}=require("./mypage/mypage");
 var {changeimage}=require("./mypage/changeimage");
 var {changeintro}=require("./mypage/changeintro");
