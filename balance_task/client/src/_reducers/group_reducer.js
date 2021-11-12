@@ -7,7 +7,7 @@ import {
   RECEIVE_TIMELINE,
   CREATE_GROUP,
   RESET_POSTS,
-  RECEIVE_GROUP_MEMBER
+  RECEIVE_GROUP_MEMBER,
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -164,6 +164,7 @@ export default function reducer(state = initialState, action) {
       }
       return {...state, group_members:[]};
     }
+    
     default:
       return state;
   }

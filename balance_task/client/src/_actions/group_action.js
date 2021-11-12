@@ -7,7 +7,8 @@ import {
   RECEIVE_TIMELINE,
   CREATE_GROUP,
   RESET_POSTS,
-  RECEIVE_GROUP_MEMBER
+  RECEIVE_GROUP_MEMBER,
+  ADD_WORKER_IN_GROUP
 } from "./types";
 import axios from "axios";
 

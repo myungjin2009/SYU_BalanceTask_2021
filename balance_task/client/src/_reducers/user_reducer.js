@@ -12,7 +12,8 @@ import {
   LOADING_WORKERLIST_DATA,
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
-  POST_NOTICE_REJECT
+  POST_NOTICE_REJECT,
+  ADD_WORKER_IN_GROUP
 } from "../_actions/types";
 import Default_Profile from "../images/profile_sample.jpg";   //기본 프사
 // import hanium_logo from '../images/hanium_logo.jpg';
@@ -123,6 +124,11 @@ export default function reducer(state = initialState, action) {
       return {...state, isDataLoading: action.isDataLoading}
     }
 
+    case ADD_WORKER_IN_GROUP:{
+      const {success} = action.payload;
+      console.log("그룹에서 워커 추가:",success);
+      return state;
+    }
 
     default:
       return state;

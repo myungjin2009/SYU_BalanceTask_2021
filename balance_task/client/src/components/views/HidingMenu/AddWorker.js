@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { addWorker } from '../../../_actions/user_action';
 const closeModal = (setIsModal) =>{
   setIsModal(false);
 }
@@ -31,16 +31,22 @@ const AddWorker = (props) => {
 
   // const group_members = useSelector(state=>state.group.group_members);
   const [checked, setChecked] = useState(new Array(group_members.length).fill(false));
-
+  const [checkedMembers,setCheckedMembers] = useState(group_members);
   const handleChange = (e, i) => {
     const updatedCheckedState = checked.map((el, index)=>i===index? !el: el);
+    const updateMemberState = group_members.filter((el, index)=>updatedCheckedState[index]===true);
+    console.log(updateMemberState);
     setChecked(updatedCheckedState);
+    setCheckedMembers(updateMemberState);
   };
 
-  const submitHandler = () =>{
-
+  const addHandler = () =>{
+    dispatch(addWorker(checkedMembers));
   }
 
+  // useEffect(()=>{
+  //   setCheckedMembers([]);
+  // },[]);
   return (
     <>
       <Container>
@@ -51,7 +57,7 @@ const AddWorker = (props) => {
           {group_members.length !== 0 && group_members.map((el, i)=>(<li key={i}><Checkbox {...label} color="primary" checked={checked[i]} onChange={(e)=>handleChange(e, i)}/>{el.name}</li>))}       
         </MemberList>
         <ButtonContent>
-          <Button variant="contained" color="primary" onClick={submitHandler}>추가하기</Button>
+          <Button variant="contained" color="primary" onClick={addHandler}>추가하기</Button>
           <Button variant="contained" onClick={()=> closeModal(setIsModal)}>취소하기</Button>
         </ButtonContent>
       </Container>

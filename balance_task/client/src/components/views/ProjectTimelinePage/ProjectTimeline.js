@@ -40,7 +40,7 @@ const handleScrollEvent = (e, entireTimeline, group , isLoading, dispatch, setTi
     group: group
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
-  if(Math.ceil(scrollTop + clientHeight) == scrollHeight){
+  if(Math.ceil(scrollTop + clientHeight) === scrollHeight){
     console.log('됐다');
     //바로 로딩 true로 설정
     //setIsCompleted(false);
