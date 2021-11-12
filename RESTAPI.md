@@ -127,13 +127,13 @@
   #### 요청 페이로드: {group}
   #### group은 그룹이름이다.
   #### 설명: 해당 그룹에 누가 있는지 데이터를 받아온다.
-  #### 위치: views/common/GroupHeader.js
-
+  #### 위치: [GroupHeader](/balance_task/client/src/components/views/common/GroupHeader.js)
+  
 ##  이 api는 GroupHeader에서의 api가 먼저 실행이 된 후 사용자가 워커 추가 이벤트를 발생시기키면 실행된다.
   /api/user/add_worker => method: post
   #### 요청 페이로드: {id, name}
   #### group은 그룹이름이다.
   #### 설명: 해당 그룹에서 같이 계속 작업하고 싶은 사람을 워커 리스트에 추가할 수 있다.
-  #### 위치: views/HidingMenu/AddWorker 
+  #### 위치: [AddWorker](/balance_task/client/src/components/views/HidingMenu/AddWorker.js)
 
 

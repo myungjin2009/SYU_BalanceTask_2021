@@ -2,9 +2,6 @@ import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
 
-// import ProjectTermination from "../routes/ProjectTermination";
-// import WorkerInvitation from "../routes/WorkerInvitation";
-
 // 회원이 아닐 때
 import FindingPW from "./views/FindingPWPage/FindingPW";
 import Signup from "./views/SignupPage/Signup";
@@ -33,7 +30,7 @@ import Contact from "./views/SettingPage/Contact";
 import EditAccount from "./views/SettingPage/EditAccount";
 import Withdraw from "./views/SettingPage/Withdraw";
 
-//여기서부터는 자기가 속한 그룹만 들어갈 수 있음
+/*여기서부터는 자기가 속한 그룹만 들어갈 수 있음*/
 
 //프로젝트 타임라인페이지
 import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
@@ -48,9 +45,12 @@ import CreatePost from "./views/CreatePostPage/CreatePost";
 //그룹캘린더 페이지
 import GroupCalendar from "./views/GroupCalendar/GroupCalendar";
 
+// 프로젝트 종료 페이지
+import ProjectEnd from "./views/ProjectEndPage/ProjectEnd";
 
 //그룹챗 페이지
 import GroupChat from './views/GroupChatPage/GroupChat';
+
 //프론트엔드 개발 공간
 import Prac from "./practice";
 import MJPractice from './MJpractice';
@@ -92,6 +92,7 @@ const Router = (props) => {
           component={Auth(CreatePost, true)}
         />
         <Route exact path="/:group/group_chat" component={Auth(GroupChat, true)} />
+        <Route exact path="/:group/project_end" component={Auth(ProjectEnd, true)} />
 
         <Route exact path="/settings" component={Auth(Settings, true)} />
         <Route exact path="/settings/AppInfo" component={Auth(AppInfo, true)} />
@@ -99,7 +100,6 @@ const Router = (props) => {
         <Route exact path="/settings/EditAccount" component={Auth(EditAccount, true)} />
         <Route exact path="/settings/Withdraw" component={Auth(Withdraw, true)} />
       
-        {/* <Route path="/project_termination" component={ProjectTermination} /> */}
 
         <Route exact component={Auth(NotFound, null)} />
       </Switch>

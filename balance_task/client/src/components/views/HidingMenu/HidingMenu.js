@@ -30,7 +30,7 @@ function HidingMenu({menuBtn, isMenu, group}) {
         <li><Link to={`/${group}/group_chat`}>채팅방</Link></li>
         <li><Link to={`/${group}/group_calendar`}>워커 캘린더</Link></li>
         <li><span style={{color:"white"}} onClick={(e)=>clickHandler(e,setIsModal)}>워커 추가</span></li>
-        <li><Link to={`/${group}/project_termination`}>프로젝트 종료</Link></li>
+        <li><Link to={`/${group}/project_end`}>프로젝트 종료</Link></li>
       </SlideMenu>
       { isModal && <AddWorker isModal={isModal} setIsModal={setIsModal}/>}
     </SlideMenuContainer>
