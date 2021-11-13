@@ -8,6 +8,7 @@ import {
   CREATE_GROUP,
   RESET_POSTS,
   RECEIVE_GROUP_MEMBER,
+  SEND_EVALUATION
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -163,6 +164,9 @@ export default function reducer(state = initialState, action) {
         return {...state, group_members};
       }
       return {...state, group_members:[]};
+    }
+    case SEND_EVALUATION:{
+      return state;
     }
     
     default:

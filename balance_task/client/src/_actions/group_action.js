@@ -8,7 +8,7 @@ import {
   CREATE_GROUP,
   RESET_POSTS,
   RECEIVE_GROUP_MEMBER,
-  ADD_WORKER_IN_GROUP
+  SEND_EVALUATION
 } from "./types";
 import axios from "axios";
 
@@ -120,6 +120,17 @@ export function receiveMember(dataToSubmit){
   .catch((err) => console.log(err));
   return {
     type: RECEIVE_GROUP_MEMBER,
+    payload: request
+  }
+}
+
+export function sendEvaluation(dataToSubmit){
+  console.log(dataToSubmit);
+  const request = axios.post('/api/group/evaluation', dataToSubmit)
+  .then(response => response.data)
+  .catch((err) => console.log(err));
+  return {
+    type: SEND_EVALUATION,
     payload: request
   }
 }
