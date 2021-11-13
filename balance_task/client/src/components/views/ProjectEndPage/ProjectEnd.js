@@ -1,13 +1,37 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router';
 import { useSelector, useDispatch} from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Box from '@material-ui/core/Box';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import Header from '../Header/Header';
+
+
+const appEvaluationHandler = (e, setAppEvaluation) =>{
+  setAppEvaluation(e.target.value);
+}
+
+const membersEvaluationHandler = (e, setMembersEvaluation, i, membersEvaluation) =>{
+  const new_array = membersEvaluation.map((el, index)=>(index===i ? e.target.value: el));
+
+  console.log(new_array);
+  setMembersEvaluation(new_array);
+}
+
+const changeScoreForApp = (e, newValue, setPointForApp) =>{
+  console.log(newValue);
+  setPointForApp(newValue);
+}
+
+const changeScoreForMembers = (e, newValue, setPointForMembers, i, pointForMembers) =>{
+  const new_array = pointForMembers.map((el, index)=>(index===i ? newValue: el));
+  console.log(new_array);
+  setPointForMembers(new_array);
+}
+
+
 const ProjectEnd = (props) => {
   const group = props.match.params.group;
   const header_obj = {
@@ -15,12 +39,13 @@ const ProjectEnd = (props) => {
     isButton:true,
     buttonName: "제출하기",
     icon: "fas fa-file-import",
-    onClickHandler:"함수"
+    onClickHandler:()=>{}
   }
   const dispatch = useDispatch();
   // 완성하면 주석풀기
-  // const group_member = useSelector(state => state.group.group_members);
-  const group_member = [
+  // const group_members = useSelector(state => state.group.group_members);
+
+  const group_members = [
     {
       id: "bjh@naver.com",
       name: '백정훈'
@@ -34,9 +59,15 @@ const ProjectEnd = (props) => {
       name: '박건형'
     },
   ]
+
+  const [pointForApp, setPointForApp] = useState(50);
+  const [pointForMembers, setPointForMembers] = useState(new Array(group_members.length).fill(50));
+  const [appEvaluation, setAppEvaluation] = useState('');
+  const [membersEvaluation, setMembersEvaluation] = useState(new Array(group_members.length).fill(''));
+
   useEffect(() => {
     //완성하면 주석풀기
-    // if(group_member=== null || group_member === undefined){
+    // if(group_members=== null || group_members === undefined){
     //   props.history.goBack();
     // }
   }, []);
@@ -46,13 +77,14 @@ const ProjectEnd = (props) => {
       <Header {...header_obj}/>
       <AppEvaluation>
         <Typography id="app-evaluation-slider" variant="h5" align="center" gutterBottom>
-          Balance Task를 평가해주세요.
+          1. Balance Task를 평가해주세요.
         </Typography>
-        <Box m={3}>
+        <Box margin="10px 30px">
           <Slider
             defaultValue={50}
             aria-labelledby="app-evaluation-slider"
             valueLabelDisplay="auto"
+            onChange={(e, newValue)=>changeScoreForApp(e, newValue, setPointForApp)}
             step={10}
             marks
             min={0}
@@ -60,61 +92,79 @@ const ProjectEnd = (props) => {
           />
         </Box>
         <Box m={3}>
-          <textarea style={{width: "100%", minHeight: "60px", resize: "none" }}>
-          </textarea>
+          <TextArea placeholder="Balance Task 어떠셨나요?😊" onChange={(e)=>appEvaluationHandler(e, setAppEvaluation)}>
+          </TextArea>
         </Box>
       </AppEvaluation>
-      <MemberEvaluation>
+      <MembersEvaluation>
         <Typography id="discrete-slider" variant="h5" align="center" gutterBottom>
-          팀원을 평가해주세요.
+          2. 팀원을 평가해주세요.
         </Typography>
         {
-          group_member.map((el, i) => (
+          group_members.map((el, i) => (
             <MemberBlock key={i}>
-              <div>{el.name}</div>
-              <div>
-                <label>점수</label>
-                <Box m={3}>
+              <NameBox>{el.name}</NameBox>
+              <Box>
+                <Typography align="center" variant="h6">점수</Typography>
+                <Box margin="0 30px">
                   <Slider
                     defaultValue={50}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
+                    onChange={(e, newValue)=>changeScoreForMembers(e, newValue, setPointForMembers, i, pointForMembers)}
                     step={10}
                     marks
                     min={0}
                     max={100}
                   />
                 </Box>
-              </div>
-              <div>
-                <label>내용</label>
+              </Box>
+              <Box>
                 <Box m={3}>
-                  <textarea style={{width: "100%", minHeight: "60px", resize: "none" }}>
-                  </textarea>
+                  <TextArea placeholder="팀원에게 이 점수를 매겨준 이유가 무엇일까요?" onChange={(e)=>membersEvaluationHandler(e, setMembersEvaluation, i, membersEvaluation)} value={membersEvaluation[i]}>
+                  </TextArea>
                 </Box>
-              </div>
+              </Box>
             </MemberBlock>
           ))
         }
-      </MemberEvaluation>
-      
+      </MembersEvaluation>
     </Container>
   )
 }
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 `;
 const AppEvaluation = styled.div`
   margin-top: 100px;
 `;
 
-const MemberEvaluation = styled.div`
+const MembersEvaluation = styled.div`
+  margin-top: 50px;
+`;
 
+const TextArea = styled.textarea`
+  width: 100%; 
+  min-height: 60px;
+  resize: none; 
+  padding: 5px; 
+  border-radius: 5px; 
+  font-size: 16px;
+`;
+
+const NameBox = styled.div`
+  text-align: center;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 50px;
+  margin: 10px auto;
 `;
 
 const MemberBlock = styled.div`
-
+  &:last-of-type{
+    margin-bottom: 100px;
+  }
 `;
 export default withRouter(ProjectEnd);
