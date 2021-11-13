@@ -41,6 +41,7 @@ const ProjectEnd = (props) => {
   // 완성하면 주석풀기
   // const group_members = useSelector(state => state.group.group_members);
 
+  //그룹 맴버 필터링이 필요하긴함
   const group_members = [
     {
       id: "bjh@naver.com",
