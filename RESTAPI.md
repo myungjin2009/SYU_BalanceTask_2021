@@ -145,6 +145,6 @@
   #### members_evaluation = {evaluation, point, id, name} 이 api를 보낸 유저가 다른 유저를 평가한 데이터
   #### group는 그룹
   #### 설명: 해당 그룹에서 프로젝트가 끝났을 때 유저들 간에 평가 할 수 있다.
-  #### 위치: [AddWorker](/balance_task/client/src/components/views/ProjectEndPage/ProjectEnd.js)
+  #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEndPage/ProjectEnd.js)
 
 
