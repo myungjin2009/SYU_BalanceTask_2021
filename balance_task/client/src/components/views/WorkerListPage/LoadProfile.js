@@ -43,6 +43,7 @@ const LoadProfile = (props) => {
     }
     const setWhoClicked = (data) => {     //프로필 목록에서 클릭했을 때, 프로필 상세보기 데이터를 부모 컴포넌트로
         props.whoClicked(data);
+        props.setWindow(true);
     }
 
     React.useEffect(()=>{
