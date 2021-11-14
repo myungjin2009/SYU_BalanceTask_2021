@@ -22,12 +22,12 @@ const WorkerList = (props) => {
   const [clicked, setClicked] = React.useState(0);      //워커리스트 클릭했을 때 정보 받기
   const whoClicked = (data) => {
     setClicked(data);
-    //console.log(clicked);
+    console.log(clicked);
   }
 
-  const [detailShow,setDetailShow] = React.useState(false);   //Detail 창 띄우기
-  const isDetailShow = (data) => {
-    setDetailShow(data);
+  const [windowStatus,setWindowStatus] = React.useState(false);   //Detail 창 띄우기
+  const setWindow = (data) => {
+    setWindowStatus(data);
   }
   
 
@@ -64,11 +64,11 @@ const WorkerList = (props) => {
         <LoadProfile profile="MyProfile" userData={props.userData}></LoadProfile>
         <div className="brBar">워커 프로필</div>
         <LoadProfile profile="WorkerProfile" userData={props.userData} searchValue={search}
-          countList={countList} howManyWorker={howManyWorker} clicked={clicked} whoClicked={whoClicked}></LoadProfile>
+          countList={countList} howManyWorker={howManyWorker} clicked={clicked} whoClicked={whoClicked} setWindow={setWindow}></LoadProfile>
       </List>
       <Navigation/>
 
-      <ProfileDetail data={clicked} detailShow={detailShow} isDetailShow={isDetailShow}></ProfileDetail>
+      <ProfileDetail data={clicked} windowStatus={windowStatus} setWindow={setWindow}></ProfileDetail>
     </Container>
   )
 }
