@@ -125,7 +125,9 @@
 ## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨 - 작성자 박건형
   /api/group/member => method: post
   #### 요청 페이로드: {group}
+  #### 응답 페이로드: {success, group_members, isLeader}
   #### group은 그룹이름이다.
+  #### group_members:[{id, name} .... ], isLeader:boolean isLeader를 통해서 그룹에 들어가 있는 나 자신이 리더인지 리더가 아닌지 판별
   #### 설명: 해당 그룹에 누가 있는지 데이터를 받아온다.
   #### 위치: [GroupHeader](/balance_task/client/src/components/views/common/GroupHeader.js)
   
@@ -138,13 +140,19 @@
 
 ## < PROJECT END(PROJECT EVALUATION) >
   
-## 프로젝트 종료 페이지 - 작성자 박건형
+## 그룹 평가 페이지 - 작성자 박건형
   /api/group/evaluation => method: post
   #### 요청 페이로드: {app_evaluatuon, members_evaluation, group}
   #### app_evaluatuon = {evalutation, point} 이 api를 보낸 유저가 이 웹앱을 평가한 데이터
   #### members_evaluation = {evaluation, point, id, name} 이 api를 보낸 유저가 다른 유저를 평가한 데이터
   #### group는 그룹
-  #### 설명: 해당 그룹에서 프로젝트가 끝났을 때 유저들 간에 평가 할 수 있다.
-  #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEndPage/ProjectEnd.js)
+  #### 설명: 해당 그룹에서 프로젝트가 끝났을 때 유저들 간에 평가 할 수 있고, 알림을 통해 들어가서 평가 가능하다.
+  /api/group/completion => method: post 
+  #### 요청 페이로드: {group}
+  #### 응답 페이로드: {success, isComplete} 
+  #### success, isComplete는 boolean / isComplete는 프로젝트 종료했다는 것을 알려준다.
+  #### 설명: 방장이 프로젝트 완료했다고 누르면 그 팀원들 모두에게 알림이 가서 프로젝트 종료 페이지로 갈 수 있도록 도와준다.
+  #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEvaluationPage/ProjectEvaluation.js)
+
 
 

@@ -8,18 +8,20 @@ function NoticePage(props) {
   const user = useSelector(state => state.user);
   const {aramsdata} = user;
   console.log(user);
-  if(aramsdata===undefined || aramsdata === null){
-    props.history.push('/my_page');
-    return <>
+  // if(aramsdata===undefined || aramsdata === null){
+  //   props.history.push('/my_page');
+  //   return <>
     
-    </>;
-  }
+  //   </>;
+  // }
   return (
     <Container>
       <Header title="알림"/>
       <Main>
         {
-          aramsdata.map((data, index) => <InfoBlock key={index} aramsdata={data}/>)
+          aramsdata ? aramsdata.map((data, index) => <InfoBlock key={index} aramsdata={data}/>) : (
+            <div style={{textAlign: "center", fontSize: "20px", marginTop: "300px"}}>아직 올라온 알림이 없습니다.</div>
+          )
         }
       </Main>
     </Container>

@@ -8,7 +8,8 @@ import {
   CREATE_GROUP,
   RESET_POSTS,
   RECEIVE_GROUP_MEMBER,
-  SEND_EVALUATION
+  SEND_EVALUATION,
+  END_PROJECT
 } from "./types";
 import axios from "axios";
 
@@ -131,6 +132,16 @@ export function sendEvaluation(dataToSubmit){
   .catch((err) => console.log(err));
   return {
     type: SEND_EVALUATION,
+    payload: request
+  }
+}
+
+export function endProject(dataToSubmit){
+  const request = axios.post('/api/group/completion', dataToSubmit)
+  .then(res => Promise.resolve({project_end_data: res.data, group: dataToSubmit.group}))
+  .catch((err) => console.log(err));
+  return {
+    type: END_PROJECT, 
     payload: request
   }
 }

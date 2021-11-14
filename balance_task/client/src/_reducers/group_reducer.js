@@ -8,7 +8,8 @@ import {
   CREATE_GROUP,
   RESET_POSTS,
   RECEIVE_GROUP_MEMBER,
-  SEND_EVALUATION
+  SEND_EVALUATION,
+  END_PROJECT
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -158,7 +159,7 @@ export default function reducer(state = initialState, action) {
       return state;
     }
     case RECEIVE_GROUP_MEMBER:{
-      const {success, group_members} = action.payload;
+      const {success, group_members, isLeader} = action.payload;
       if(group_members){
         console.log("팀원 리스트",success);
         return {...state, group_members};
@@ -168,7 +169,14 @@ export default function reducer(state = initialState, action) {
     case SEND_EVALUATION:{
       return state;
     }
-    
+    case END_PROJECT:{
+      const {group, project_end_data} = action.payload;
+      const new_obj = {
+        group,
+        isComplete: project_end_data.isComplete
+      }
+      return {...state, group_end_data: [...new_obj]}
+    }
     default:
       return state;
   }

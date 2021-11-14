@@ -3,6 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import {useDispatch} from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
+import logo from './balance_task.png';
+
 const changeId = (e, setId) =>{
   const {target: {value}} = e;
   setId(value);
@@ -45,6 +47,9 @@ const Login = (props) => {
 
   return (
     <Container>
+      <div style={{width:"50px", position:"absolute"}} onClick={()=>window.open(logo)}>
+        <img src={logo} style={{width:"100%"}}/>
+      </div>
       <Header>
         <h1>Balance</h1>
         <h1>Task</h1>

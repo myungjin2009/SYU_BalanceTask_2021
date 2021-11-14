@@ -112,11 +112,13 @@ const MyPage = (props) => {
               </div>
             </div>
     
-            <div className="settings">
-              <div className="Settings_icon">
+            <div className="icon_container">
+              <div className="icons">
+                <i className="fas fa-bell" onClick={()=>{props.history.push('/my_page/notice')}}></i>
                 <i className="fas fa-cog" onClick={()=>{props.history.push('/settings')}}></i>
               </div>
             </div>
+            
           
           </Header>
           <Introduce>
@@ -249,22 +251,25 @@ const Header = styled.div`
       }
     }
   }
-  & > .settings {
+  & > .icon_container {
     position: relative;
     width: 8%;
     height: 100%;
     float: left;
-    & > .Settings_icon {
+    & > .icons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       position: absolute;
-      
       font-size: 4vh;
       top: 100%;
       left: 100%;
       transform:translate(-100%, -100%);
+      & > i:active{
+        color: white;
+      }
     }
-    & > .Settings_icon:active{
-      color: white;
-    }
+    
   }
 `;
 

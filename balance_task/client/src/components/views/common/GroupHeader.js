@@ -49,6 +49,7 @@ const GroupHeader = (props) =>{
 
   const [isMenu, setIsMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [isLeader, setIsLeader] = useState(false);
   // const [MemberList, setMemberList] = useState([]);
 
 
@@ -84,12 +85,15 @@ const GroupHeader = (props) =>{
       if(response.payload.success){
         // setMemberList(response.payload.groupMembers);
         console.log('성공');
+        //이 데이터로 리더인지 아닌지 확인해서 프로젝트 종료페이지를 보이게 할 건지 안보이게 할 건지 할 수 있다.
+        setIsLeader(response.payload.isLeader);
       }
+
     });
   }, [])
   return(
     <Container>
-      <HidingMenu menuBtn={menuBtn} isMenu={isMenu} group={group}/>
+      <HidingMenu isLeader={isLeader} menuBtn={menuBtn} isMenu={isMenu} group={group}/>
       <Header>
         <div className="menu" ref={menuBtn} onClick = {()=>handleMenu(isMenu, setIsMenu)}><i className="fas fa-bars"></i></div>
         <p>{group}</p>

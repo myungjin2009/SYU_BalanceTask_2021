@@ -30,7 +30,11 @@ import Contact from "./views/SettingPage/Contact";
 import EditAccount from "./views/SettingPage/EditAccount";
 import Withdraw from "./views/SettingPage/Withdraw";
 
+
 /*여기서부터는 자기가 속한 그룹만 들어갈 수 있음*/
+
+// 그룹 종료 페이지
+import GroupEvaluation from "./views/GroupEvaluationPage/GroupEvaluation";
 
 //프로젝트 타임라인페이지
 import ProjectTimeline from "./views/ProjectTimelinePage/ProjectTimeline";
@@ -45,8 +49,6 @@ import CreatePost from "./views/CreatePostPage/CreatePost";
 //그룹캘린더 페이지
 import GroupCalendar from "./views/GroupCalendar/GroupCalendar";
 
-// 프로젝트 종료 페이지
-import ProjectEnd from "./views/ProjectEndPage/ProjectEnd";
 
 //그룹챗 페이지
 import GroupChat from './views/GroupChatPage/GroupChat';
@@ -92,7 +94,8 @@ const Router = (props) => {
           component={Auth(CreatePost, true)}
         />
         <Route exact path="/:group/group_chat" component={Auth(GroupChat, true)} />
-        <Route exact path="/:group/project_end" component={Auth(ProjectEnd, true)} />
+        {/* 해당 그룹이 있으며 isComplete: true만 들어갈 수 있게 */}
+        <Route exact path="/my_page/evaluation/:group" component={Auth(GroupEvaluation, true)} />
 
         <Route exact path="/settings" component={Auth(Settings, true)} />
         <Route exact path="/settings/AppInfo" component={Auth(AppInfo, true)} />
