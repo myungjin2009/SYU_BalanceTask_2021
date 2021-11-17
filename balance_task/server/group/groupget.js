@@ -81,6 +81,7 @@ let group_search = (req, res, next) => {
         //console.log(instr);
           array.push({
             id:req.group_no,
+            makeuser:req.makeuser,
             title:req.group_name,
             date:req.startdate+"~"+req.deadline,
             deadline:req.deadline,

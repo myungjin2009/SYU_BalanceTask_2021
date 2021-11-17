@@ -78,8 +78,9 @@
 
 ## 그룹 찾기 페이지 - 작성자: 박건형
   /api/group/search_card => method: post
+  #### 요청페이로드: {last_number, date}
+  #### last_number는 게시물의 마지막 번호를 말함 / date는 오늘 날짜를 보내줘서 지난 것은 버리기
   #### 설명: 현재의 그룹 카드의 마지막 번호를 서버에 보내고 서버에서 가공한(몇 개의) 그룹 찾기 카드들 가져오기
-
 
 ## 그룹 찾기 페이지(Detail) - 작성자: 박건형
   /api/group/participation => method: post
@@ -124,7 +125,7 @@
 
 ## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨 - 작성자 박건형
   /api/group/member => method: post
-  #### 요청 페이로드: {group}
+  #### 요청 페이로드: {group, id}
   #### 응답 페이로드: {success, group_members, isLeader}
   #### group은 그룹이름이다.
   #### group_members:[{id, name} .... ], isLeader:boolean isLeader를 통해서 그룹에 들어가 있는 나 자신이 리더인지 리더가 아닌지 판별

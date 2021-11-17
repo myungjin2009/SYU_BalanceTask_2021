@@ -13,23 +13,24 @@ const AddWorker = (props) => {
   const {setIsModal, isModal} = props;
   const dispatch = useDispatch();
   
-  const group_members=[
-    {
-      id: "bjh@naver.com",
-      name: '백정훈'
-    },
-    {
-      id: "audwls@naver.com",
-      name: '김명진'
-    },
-    {
-      id: "pgh@naver.com",
-      name: '박건형'
-    },
-  ]
+  // const group_members=[
+  //   {
+  //     id: "bjh@naver.com",
+  //     name: '백정훈'
+  //   },
+  //   {
+  //     id: "audwls@naver.com",
+  //     name: '김명진'
+  //   },
+  //   {
+  //     id: "pgh@naver.com",
+  //     name: '박건형'
+  //   },
+  // ]
   
 
-  // const group_members = useSelector(state=>state.group.group_members);
+  const group_members = useSelector(state=>state.group.group_members);
+  const userData = useSelector(state=>state.user.userData);
   const [checked, setChecked] = useState(new Array(group_members.length).fill(false));
   const [checkedMembers,setCheckedMembers] = useState(group_members);
   const handleChange = (e, i) => {
@@ -44,9 +45,13 @@ const AddWorker = (props) => {
     dispatch(addWorker(checkedMembers));
   }
 
-  // useEffect(()=>{
-  //   setCheckedMembers([]);
-  // },[]);
+  useEffect(()=>{
+    if(group_members){
+      const new_array = group_members.filter(el => el.id !== userData.id);
+      setCheckedMembers(new_array);
+      console.log(new_array);
+    }
+  },[group_members]);
   return (
     <>
       <Container>
@@ -54,7 +59,7 @@ const AddWorker = (props) => {
           워커 초대
         </Header>
         <MemberList>
-          {group_members.length !== 0 && group_members.map((el, i)=>(<li key={i}><Checkbox {...label} color="primary" checked={checked[i]} onChange={(e)=>handleChange(e, i)}/>{el.name}</li>))}       
+          {checkedMembers.length !== 0 && group_members.map((el, i)=>(<li key={i}><Checkbox {...label} color="primary" checked={checked[i]} onChange={(e)=>handleChange(e, i)}/>{el.name}</li>))}       
         </MemberList>
         <ButtonContent>
           <Button variant="contained" color="primary" onClick={addHandler}>추가하기</Button>

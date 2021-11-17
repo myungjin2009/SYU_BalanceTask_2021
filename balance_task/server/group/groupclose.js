@@ -89,6 +89,8 @@ let groupclose= (req, res, next) => {
            
               console.log("groups "+paramgroup_name+" 삭제");
               }
+              req.groupname=paramgroup_name;
+            next();
         }); 
 };
 
