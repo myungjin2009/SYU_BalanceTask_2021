@@ -119,6 +119,7 @@ var { aramsubmit }=require("./aram/aramsubmit");
 var { aramreject }=require("./aram/aramreject");
 //워커리스트
 var { wokerget }=require("./wokerlist/wokerget");
+var { wokeradd }=require("./wokerlist/wokeradd");
 //const { chatting } = require("./chatting/chatting");
 
 //채팅 관련 모듈
@@ -633,6 +634,12 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
         }
     })
   }
+});
+
+app.post("/api/user/add_worker",wokeradd,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
 });
  
 
