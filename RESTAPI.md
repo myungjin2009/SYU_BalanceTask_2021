@@ -153,6 +153,3 @@
   #### success / group_completion=[{group}] 
   #### 설명: 방장이 프로젝트 완료했다고 누르면 그 팀원들 모두에게 알림이 가서 프로젝트 종료 페이지로 갈 수 있도록 도와준다.
   #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEvaluationPage/ProjectEvaluation.js)
-
-
-띵진 11-17 푸시테스트

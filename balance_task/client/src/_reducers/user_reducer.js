@@ -10,6 +10,7 @@ import {
   UPDATE_IMAGE,
   LOADING_MYPAGE,
   LOADING_WORKERLIST_DATA,
+  LOADING_WORKERLIST_NUM,
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT,
@@ -47,8 +48,8 @@ const initialState = {
     },
   ],
   isLoading: true,
-  isDataLoading : true
-  
+  isDataLoading : true,
+  workerNum: -1
 }
 
 export default function reducer(state = initialState, action) {
@@ -122,6 +123,10 @@ export default function reducer(state = initialState, action) {
 
     case LOADING_WORKERLIST_DATA:{
       return {...state, isDataLoading: action.isDataLoading}
+    }
+
+    case LOADING_WORKERLIST_NUM:{
+      return {workerNum: action.workerNum}
     }
 
     case ADD_WORKER_IN_GROUP:{
