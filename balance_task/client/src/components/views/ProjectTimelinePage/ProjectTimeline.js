@@ -60,7 +60,6 @@ const ProjectTimeline = (props) =>{
   const entireTimeline = useSelector(state => state.group.timelineList);
   const isLoading = useSelector(state => state.group.isLoading.timeline);
   const userData = useSelector(state => state.user.userData);
-  // console.log(entireTimeline);
 
   const dispatch = useDispatch();
 

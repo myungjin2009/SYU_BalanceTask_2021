@@ -122,18 +122,37 @@
 
 ## < WOKER INVITATION >
 
-## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨
+## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨 - 작성자 박건형
   /api/group/member => method: post
   #### 요청 페이로드: {group}
+  #### 응답 페이로드: {success, group_members, isLeader}
   #### group은 그룹이름이다.
+  #### group_members:[{id, name} .... ], isLeader:boolean isLeader를 통해서 그룹에 들어가 있는 나 자신이 리더인지 리더가 아닌지 판별
   #### 설명: 해당 그룹에 누가 있는지 데이터를 받아온다.
   #### 위치: [GroupHeader](/balance_task/client/src/components/views/common/GroupHeader.js)
   
-##  이 api는 GroupHeader에서의 api가 먼저 실행이 된 후 사용자가 워커 추가 이벤트를 발생시기키면 실행된다.
+##  이 api는 GroupHeader에서의 api가 먼저 실행이 된 후 사용자가 워커 추가 이벤트를 발생시기키면 실행된다. - 작성자: 박건형
   /api/user/add_worker => method: post
-  #### 요청 페이로드: {id, name}
-  #### group은 그룹이름이다.
+  #### 요청 페이로드: {[{id, name},{id, name},{id, name}]}
+  #### 이 api를 사용하는 유저의 토큰을 이용해서 id와 name 딕셔너리로 유저에 워커리스트에 추가하기
   #### 설명: 해당 그룹에서 같이 계속 작업하고 싶은 사람을 워커 리스트에 추가할 수 있다.
   #### 위치: [AddWorker](/balance_task/client/src/components/views/HidingMenu/AddWorker.js)
+
+## < PROJECT END(PROJECT EVALUATION) >
+  
+## 그룹 평가 페이지 - 작성자 박건형
+  /api/group/evaluation => method: post
+  #### 요청 페이로드: {app_evaluatuon, members_evaluation, group}
+  #### app_evaluatuon = {evalutation, point} 이 api를 보낸 유저가 이 웹앱을 평가한 데이터
+  #### members_evaluation = [{evaluation, point, id, name},{evaluation, point, id, name}] 이 api를 보낸 유저가 다른 유저를 평가한 데이터
+  #### group는 그룹
+  #### 설명: 해당 그룹에서 프로젝트가 끝났을 때 유저들 간에 평가 할 수 있고, 알림을 통해 들어가서 평가 가능하다.
+  /api/group/completion => method: post 
+  #### 요청 페이로드: {group}
+  #### 응답 페이로드: {success, group_completion} 
+  #### success / group_completion=[{group}] 
+  #### 설명: 방장이 프로젝트 완료했다고 누르면 그 팀원들 모두에게 알림이 가서 프로젝트 종료 페이지로 갈 수 있도록 도와준다.
+  #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEvaluationPage/ProjectEvaluation.js)
+
 
 

@@ -1,16 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import AddWorker from './AddWorker';
-
+import { endProject } from '../../../_actions/group_action';
 const clickHandler = (e, setIsModal) =>{
   setIsModal(true);
 }
 
-function HidingMenu({menuBtn, isMenu, group}) {
+const endHandler = (e, isLeader, dispatch, group) =>{
+  console.log(isLeader);
+  const body = {
+    group
+  };
+  dispatch(endProject(body)).then(res=>{
+    if(res.payload.success){
+      console.log('프로젝트 종료 성공');
+    }
+  });
+}
+
+function HidingMenu({isLeader, menuBtn, isMenu, group}) {
   const slideMenu = useRef(null);
   const [isModal, setIsModal] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(()=>{
     if(slideMenu === null)return;
     if(isMenu === false){
@@ -30,7 +43,7 @@ function HidingMenu({menuBtn, isMenu, group}) {
         <li><Link to={`/${group}/group_chat`}>채팅방</Link></li>
         <li><Link to={`/${group}/group_calendar`}>워커 캘린더</Link></li>
         <li><span style={{color:"white"}} onClick={(e)=>clickHandler(e,setIsModal)}>워커 추가</span></li>
-        <li><Link to={`/${group}/project_end`}>프로젝트 종료</Link></li>
+        {isLeader && <li><span style={{color:"white"}} onClick={(e)=>endHandler(e, isLeader, dispatch, group)}>프로젝트 종료</span></li>}
       </SlideMenu>
       { isModal && <AddWorker isModal={isModal} setIsModal={setIsModal}/>}
     </SlideMenuContainer>

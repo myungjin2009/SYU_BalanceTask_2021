@@ -28,6 +28,8 @@ export const RECEIVE_NOTICE = "receive_notice";
 export const VOTE_FOR_POSTS = "vote_for_posts";
 export const RECEIVE_GROUP_MEMBER = "receive_group_member";
 export const ADD_WORKER_IN_GROUP = "add_worker_in_group";
+export const SEND_EVALUATION = "send_evaluation"; 
+export const END_PROJECT = "end_project";
 
 /* group_calendar */
 export const ADD_DATE = 'add_date';

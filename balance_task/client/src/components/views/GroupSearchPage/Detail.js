@@ -20,27 +20,29 @@ const Detail = (props)=>{
   }
 
   return(
-    <Conatainer>
+    <>
       <Header title={team} onClickHandler={postHandler} icon="fas fa-file-import" isButton={true} buttonName="제출하기"/>
-      <Name><label>작성자: </label><span>{writer}</span></Name>
-      <Category>
-        <label>카테고리: </label>
-        <span>{kind}</span>
-      </Category>
-      <Img image={postimage} onClick={()=>{
-        window.open(postimage);
-      }}><div>
-        </div>
-      </Img>
-      <Deadline>
-        <label>기간: </label> 
-        <span>{start_date} ~ {deadline}</span>
-      </Deadline>
-      <Content>
-        <label>내용:</label>
-        <p>{content}</p>
-      </Content>
-    </Conatainer>
+      <Conatainer>
+        <Name><label>작성자: </label><span>{writer}</span></Name>
+        <Category>
+          <label>카테고리: </label>
+          <span>{kind}</span>
+        </Category>
+        <Img image={postimage} onClick={()=>{
+          window.open(postimage);
+        }}><div>
+          </div>
+        </Img>
+        <Deadline>
+          <label>기간: </label> 
+          <span>{start_date} ~ {deadline}</span>
+        </Deadline>
+        <Content>
+          <label>내용:</label>
+          <p>{content}</p>
+        </Content>
+      </Conatainer>
+    </>
   )
 }
 
@@ -49,6 +51,8 @@ const Conatainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
+  max-width: 700px;
+  margin: 0 auto;
   padding: 0 10px;
   background: #eee;
   &>div{
