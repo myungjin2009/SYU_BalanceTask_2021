@@ -43,7 +43,7 @@ function HidingMenu({isLeader, menuBtn, isMenu, group}) {
         <li><Link to={`/${group}/group_chat`}>채팅방</Link></li>
         <li><Link to={`/${group}/group_calendar`}>워커 캘린더</Link></li>
         <li><span style={{color:"white"}} onClick={(e)=>clickHandler(e,setIsModal)}>워커 추가</span></li>
-        {isLeader && <li><span style={{color:"white"}} onClick={(e)=>endHandler(e, isLeader, dispatch, group)}>프로젝트 종료</span></li>}
+        {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>endHandler(e, isLeader, dispatch, group)}>프로젝트 종료</span></li>}
       </SlideMenu>
       { isModal && <AddWorker isModal={isModal} setIsModal={setIsModal}/>}
     </SlideMenuContainer>

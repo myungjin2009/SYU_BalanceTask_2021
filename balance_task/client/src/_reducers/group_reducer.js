@@ -95,8 +95,8 @@ const initialState = {
     //   kind: "notice",
     //   profileImage: img2
     // },
-  ]
-  ,
+  ],
+  group_end_data: [],
   isLoading: {timeline: true, notice: true, group_search: true},
 };
 
@@ -170,12 +170,13 @@ export default function reducer(state = initialState, action) {
       return state;
     }
     case END_PROJECT:{
+      console.log(action.payload);
       const {group, project_end_data} = action.payload;
       const new_obj = {
         group,
-        isComplete: project_end_data.isComplete
+        isComplete: project_end_data
       }
-      return {...state, group_end_data: [...new_obj]}
+      return {...state, group_end_data: [...state.group_end_data, new_obj]}
     }
     default:
       return state;
