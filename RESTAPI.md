@@ -144,13 +144,13 @@
   /api/group/evaluation => method: post
   #### 요청 페이로드: {app_evaluatuon, members_evaluation, group}
   #### app_evaluatuon = {evalutation, point} 이 api를 보낸 유저가 이 웹앱을 평가한 데이터
-  #### members_evaluation = {evaluation, point, id, name} 이 api를 보낸 유저가 다른 유저를 평가한 데이터
+  #### members_evaluation = [{evaluation, point, id, name},{evaluation, point, id, name}] 이 api를 보낸 유저가 다른 유저를 평가한 데이터
   #### group는 그룹
   #### 설명: 해당 그룹에서 프로젝트가 끝났을 때 유저들 간에 평가 할 수 있고, 알림을 통해 들어가서 평가 가능하다.
   /api/group/completion => method: post 
   #### 요청 페이로드: {group}
-  #### 응답 페이로드: {success, isComplete} 
-  #### success, isComplete는 boolean / isComplete는 프로젝트 종료했다는 것을 알려준다.
+  #### 응답 페이로드: {success, group_completion} 
+  #### success / group_completion=[{group}] 
   #### 설명: 방장이 프로젝트 완료했다고 누르면 그 팀원들 모두에게 알림이 가서 프로젝트 종료 페이지로 갈 수 있도록 도와준다.
   #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEvaluationPage/ProjectEvaluation.js)
 
