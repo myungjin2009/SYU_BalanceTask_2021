@@ -147,12 +147,12 @@ export function endProject(dataToSubmit){
   }
 }
 
-// export function sendAlertMessage(dataToSubmit){
-//   const request = axios.post('api/group/alert_message', dataToSubmit)
-//   .then(res => res.data)
-//   .catch(err => console.log(err));
-//   return {
-//     type: SEND_ALERT_MESSAGE,
-//     payload: request
-//   }
-// }
+export function sendAlertMessage(dataToSubmit){
+  const request = axios.post('api/group/alert_message', dataToSubmit)
+  .then(res => res.data)
+  .catch(err => console.log(err));
+  return {
+    type: SEND_ALERT_MESSAGE,
+    payload: request
+  }
+}
