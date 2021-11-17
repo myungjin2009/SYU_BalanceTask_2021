@@ -40,6 +40,7 @@ const AddWorker = (props) => {
     setChecked(updatedCheckedState);
     setCheckedMembers(updateMemberState);
   };
+  console.log(checkedMembers);
 
   const addHandler = () =>{
     dispatch(addWorker(checkedMembers));
@@ -59,7 +60,7 @@ const AddWorker = (props) => {
           워커 초대
         </Header>
         <MemberList>
-          {checkedMembers.length !== 0 && group_members.map((el, i)=>(<li key={i}><Checkbox {...label} color="primary" checked={checked[i]} onChange={(e)=>handleChange(e, i)}/>{el.name}</li>))}       
+          {checkedMembers.length !== 0 && checkedMembers.map((el, i)=>(<li key={i}><Checkbox {...label} color="primary" checked={checked[i]} onChange={(e)=>handleChange(e, i)}/>{el.name}</li>))}       
         </MemberList>
         <ButtonContent>
           <Button variant="contained" color="primary" onClick={addHandler}>추가하기</Button>
