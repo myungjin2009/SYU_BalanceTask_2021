@@ -9,7 +9,8 @@ import {
   RESET_POSTS,
   RECEIVE_GROUP_MEMBER,
   SEND_EVALUATION,
-  END_PROJECT
+  END_PROJECT,
+  SEND_ALERT_MESSAGE
 } from "./types";
 import axios from "axios";
 
@@ -142,6 +143,16 @@ export function endProject(dataToSubmit){
   .catch((err) => console.log(err));
   return {
     type: END_PROJECT, 
+    payload: request
+  }
+}
+
+export function sendAlertMessage(dataToSubmit){
+  const request = axios.post('api/group/alert_message', dataToSubmit)
+  .then(res => res.data)
+  .catch(err => console.log(err));
+  return {
+    type: SEND_ALERT_MESSAGE,
     payload: request
   }
 }

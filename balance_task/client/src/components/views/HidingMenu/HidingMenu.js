@@ -1,27 +1,42 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AddWorker from './AddWorker';
-import { endProject } from '../../../_actions/group_action';
+import { endProject, sendAlertMessage } from '../../../_actions/group_action';
+
 const clickHandler = (e, setIsModal) =>{
   setIsModal(true);
 }
 
-const endHandler = (e, isLeader, dispatch, group) =>{
-  console.log(isLeader);
-  const body = {
+const endHandler = (e, isLeader, dispatch, group, group_members, userData) =>{
+  
+  const bodyForAlert = {
+    group_members,
+    send_user_id:userData.id,
     group
-  };
-  dispatch(endProject(body)).then(res=>{
+  }
+
+  dispatch(sendAlertMessage(bodyForAlert)).then(res=>{
     if(res.payload.success){
-      console.log('프로젝트 종료 성공');
+      const body = {
+        group
+      };
+      dispatch(endProject(body)).then(res=>{
+        if(res.payload.success){
+          console.log('프로젝트 종료 성공');
+        }
+      });
     }
   });
+  
 }
 
 function HidingMenu({isLeader, menuBtn, isMenu, group}) {
   const slideMenu = useRef(null);
+  const group_members = useSelector(state=>state.group.group_members);
+  const userData = useSelector(state=>state.user.userData);
+
   const [isModal, setIsModal] = useState(false);
   const dispatch = useDispatch();
   useEffect(()=>{
@@ -43,7 +58,7 @@ function HidingMenu({isLeader, menuBtn, isMenu, group}) {
         <li><Link to={`/${group}/group_chat`}>채팅방</Link></li>
         <li><Link to={`/${group}/group_calendar`}>워커 캘린더</Link></li>
         <li><span style={{color:"white"}} onClick={(e)=>clickHandler(e,setIsModal)}>워커 추가</span></li>
-        {isLeader && <li><span style={{color:"white"}} onClick={(e)=>endHandler(e, isLeader, dispatch, group)}>프로젝트 종료</span></li>}
+        {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>endHandler(e, isLeader, dispatch, group, group_members, userData)}>프로젝트 종료</span></li>}
       </SlideMenu>
       { isModal && <AddWorker isModal={isModal} setIsModal={setIsModal}/>}
     </SlideMenuContainer>

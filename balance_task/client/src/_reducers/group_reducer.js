@@ -9,7 +9,8 @@ import {
   RESET_POSTS,
   RECEIVE_GROUP_MEMBER,
   SEND_EVALUATION,
-  END_PROJECT
+  END_PROJECT,
+  SEND_ALERT_MESSAGE
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -95,8 +96,8 @@ const initialState = {
     //   kind: "notice",
     //   profileImage: img2
     // },
-  ]
-  ,
+  ],
+  group_end_data: [],
   isLoading: {timeline: true, notice: true, group_search: true},
 };
 
@@ -174,9 +175,12 @@ export default function reducer(state = initialState, action) {
       const {group, project_end_data} = action.payload;
       const new_obj = {
         group,
-        isComplete: project_end_data
+        group_completion: project_end_data.group_completion
       }
       return {...state, group_end_data: [...state.group_end_data, new_obj]}
+    }
+    case SEND_ALERT_MESSAGE: {
+      return state;
     }
     default:
       return state;
