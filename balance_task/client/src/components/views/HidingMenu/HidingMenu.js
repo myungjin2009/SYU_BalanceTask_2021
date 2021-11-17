@@ -17,18 +17,23 @@ const endHandler = (e, isLeader, dispatch, group, group_members, userData) =>{
     group
   }
 
-  dispatch(sendAlertMessage(bodyForAlert)).then(res=>{
+  dispatch(endProject(bodyForAlert)).then(res=>{
     if(res.payload.success){
-      const body = {
-        group
-      };
-      dispatch(endProject(body)).then(res=>{
-        if(res.payload.success){
-          console.log('프로젝트 종료 성공');
-        }
-      });
+      console.log('프로젝트 종료 성공');
     }
   });
+  // dispatch(sendAlertMessage(bodyForAlert)).then(res=>{
+  //   if(res.payload.success){
+  //     const body = {
+  //       group
+  //     };
+  //     dispatch(endProject(body)).then(res=>{
+  //       if(res.payload.success){
+  //         console.log('프로젝트 종료 성공');
+  //       }
+  //     });
+  //   }
+  // });
   
 }
 
