@@ -28,7 +28,7 @@ console.log("groupmember 함수 호출됨");
 
 //     });
 
-    const sql1="select * from groupusers where group_name=?"
+    const sql1="select * from groupusers g, `groups` o where g.group_no=o.group_no and g.group_name=?"
     var array=[];
     var Leader;
     sql.pool.query(sql1,paramgroup_name,(err,rows,fields)=>{
@@ -36,21 +36,15 @@ console.log("groupmember 함수 호출됨");
         console.log("true");
         console.log(info);  
         req.user = info.user;
-
         
-        const sql3="select user from `groups` where group_name=?"
-        sql.pool.query(sql3,paramgroup_name,(err,rows,fields)=>{
-            console.log("리더인지 확인한다.");
-            var groupleader=rows[0]['user'];
-            console.log(groupleader);
-            if(paramid==groupleader){
+            req.groupleader=info.user;
+            console.log(req.groupleader);
+            if(paramid==req.groupleader){
                 Leader=1;
             }else{
                 Leader=0;
             }
-            console.log(Leader);
-        });
-    
+        
         // const sql2="select * from user where id=?"
         // sql.pool.query(sql2,info.user,(err,rows,fields)=>{
         //     console.log("true2");
@@ -72,6 +66,7 @@ console.log("groupmember 함수 호출됨");
                 
         });
         req.array=array;
+        console.log(Leader);
         req.leader=Leader;
        next(); 
     });
