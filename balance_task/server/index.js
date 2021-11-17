@@ -292,7 +292,14 @@ app.post("/api/user/changing_password",findpassword,(req,res,next)=>{
 app.post("/api/group/participation",arams,(req,res)=>{
   res.status(200).json({
     success: true,
-    
+  });
+});
+
+app.post("/api/group/completion ", groupclose,(req,res)=>{
+
+  res.status(200).json({
+    success: true,
+    group_completion: req.groupname
   });
 });
 

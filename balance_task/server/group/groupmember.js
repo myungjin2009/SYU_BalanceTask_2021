@@ -28,16 +28,21 @@ console.log("groupmember 함수 호출됨");
 
 //     });
 
-    const sql1="select * from groupusers g, `groups` o where g.group_no=o.group_no and g.group_name=?"
+    const sql1="select * from groupusers where group_name=?"
     var array=[];
     var Leader;
     sql.pool.query(sql1,paramgroup_name,(err,rows,fields)=>{
+      console.log(rows);
       rows.forEach((info) => {
         console.log("true");
         console.log(info);  
         req.user = info.user;
-        
-            req.groupleader=info.user;
+            req.leader=info.leader;
+            req.groupleader;
+            if(req.leader==1){
+                req.groupleader=info.user;
+            }
+            
             console.log(req.groupleader);
             if(paramid==req.groupleader){
                 Leader=1;
