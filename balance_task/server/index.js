@@ -88,6 +88,7 @@ var { group_search } = require("./group/groupget");
 var group_add = require("./group/group_add");
 var { grouppart } = require("./group/grouppart");
 var { groupclose } = require("./group/groupclose");
+var { groupmember} = require("./group/groupmember");
 
 //타임라인, 공지 관련 모듈
 var { noticeget } = require("./groupboard/noticeget");
@@ -292,6 +293,64 @@ app.post("/api/group/participation",arams,(req,res)=>{
   res.status(200).json({
     success: true,
     
+  });
+});
+
+app.post("/api/group/member", groupmember,(req,res)=>{
+  console.log(
+    "==========================================groupmember==========================================="
+  );
+  console.log(req.array);
+  console.log(req.Leader);
+  sql.pool.getConnection(function (err, conn) {
+    if (err) {
+      if (conn) {
+        conn.release(); // 반드시 해제해야 함
+      }
+
+      callback(err, null);
+      return;
+    }
+    console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
+
+    for (let i = 0; i < req.array.length; i++) {
+      var all_array=[];
+      console.log(req.array[i].id);
+      conn.query(
+        "select * from user where id=?",
+        req.array[i].id,
+        async function (err, rows, fields) {
+          //conn.release(); // 반드시 해제해야 함
+          console.log("실행 대상 SQL : ");
+           rows.forEach(async (info, index, newarray) => {
+            
+            console.log(info.name);
+            console.log(info.id);
+
+              all_array.push({
+                id:info.id,
+                name:info.name
+              });
+              console.log(all_array);
+          });
+          //console.log (all_array2);
+          if (i === req.array.length-1 ) {
+            res.status(200).json({
+              success: true,
+              group_members : all_array,
+              isLeader : req.leader
+            });
+          }
+        }
+      );
+
+      conn.on("error", function (err) {
+        console.log("데이터베이스 연결 시 에러 발생함.");
+        console.dir(err);
+
+        callback(err, null);
+      });
+    }
   });
 });
 
