@@ -78,8 +78,9 @@
 
 ## 그룹 찾기 페이지 - 작성자: 박건형
   /api/group/search_card => method: post
+  #### 요청페이로드: {last_number, date}
+  #### last_number는 게시물의 마지막 번호를 말함 / date는 오늘 날짜를 보내줘서 지난 것은 버리기
   #### 설명: 현재의 그룹 카드의 마지막 번호를 서버에 보내고 서버에서 가공한(몇 개의) 그룹 찾기 카드들 가져오기
-
 
 ## 그룹 찾기 페이지(Detail) - 작성자: 박건형
   /api/group/participation => method: post
