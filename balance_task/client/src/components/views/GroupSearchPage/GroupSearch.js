@@ -49,6 +49,7 @@ const GroupSearch = (props) => {
       //7. 새로운 데이터를 다시 가져오고 redux의 store에 저장됨 그리고 다시 3번과정으로 돌아감. 이과정은 이벤트 발동시 반복됨
       const body = {
         last_number: groups_list.length-1,
+        date: new Date() 
       };
       dispatch(receiveGroupCard(body))
       .then(response =>{
@@ -59,7 +60,6 @@ const GroupSearch = (props) => {
         dispatch(chooseLoadingGroup({group_search: false}));
       }
       });
-      
 
     }else{
       const newArray = entireList.filter((el)=>el.title===search);
