@@ -64,10 +64,10 @@ const ProjectTimeline = (props) =>{
   const dispatch = useDispatch();
 
   const [timeline, setTimeline] = useState(entireTimeline);
-  console.log(timeline);
+
   const [search, setSearch] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
-  // console.log(props);
+
   const group=props.match.params.group;
 
   useEffect(()=>{
@@ -92,7 +92,7 @@ const ProjectTimeline = (props) =>{
   },[search, isLoading]);
   return(
     <>
-      <GroupHeader setSearch={setSearch} group={group}/>
+      <GroupHeader userData={userData} setSearch={setSearch} group={group}/>
       <Container onScroll={(e)=>handleScrollEvent(e, entireTimeline, group, isLoading, dispatch, setTimeline,setIsCompleted,isCompleted )}>
         {
           isLoading ? 

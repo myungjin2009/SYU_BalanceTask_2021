@@ -124,7 +124,7 @@
 
 ## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨 - 작성자 박건형
   /api/group/member => method: post
-  #### 요청 페이로드: {group}
+  #### 요청 페이로드: {group, id}
   #### 응답 페이로드: {success, group_members, isLeader}
   #### group은 그룹이름이다.
   #### group_members:[{id, name} .... ], isLeader:boolean isLeader를 통해서 그룹에 들어가 있는 나 자신이 리더인지 리더가 아닌지 판별
