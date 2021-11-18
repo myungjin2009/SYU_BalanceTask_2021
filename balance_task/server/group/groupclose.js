@@ -120,8 +120,20 @@ let groupclose= (req, res, next) => {
               console.log("groups "+paramgroup_name+" 삭제");
               }
               req.groupname=paramgroup_name;
-            next();
+            
         }); 
+
+        // var sql8="update `groups` set group_no=(select group_no-1 from `groups` s1 where s1.group_no>(select group_no from `groups` s2 where s2.group_name='"+paramgroup_name+"') ) where group_no >(select group_no from `groups` s3 where s3.group_name='"+paramgroup_name+"')";
+        // sql.pool.query(sql8,(err,rows,fields)=>{
+        //   if (err) {
+        //       console.log(err);
+        //       } else { 
+           
+        //       console.log("groups "+paramgroup_name+" 수정");
+        //       }
+        //       req.groupname=paramgroup_name;
+        //     next();
+        // }); 
 };
 
 module.exports= {groupclose};
