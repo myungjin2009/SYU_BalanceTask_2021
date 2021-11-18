@@ -35,6 +35,7 @@ export const ADD_WORKER_IN_GROUP = "add_worker_in_group";
 export const SEND_EVALUATION = "send_evaluation"; 
 export const END_PROJECT = "end_project";
 export const SEND_ALERT_MESSAGE = "send_alert_message";
+export const DELETE_POST = "delete_post";
 
 /* group_calendar */
 export const ADD_DATE = 'add_date';

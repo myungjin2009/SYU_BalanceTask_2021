@@ -12,7 +12,8 @@ import {
   END_PROJECT,
   SEND_ALERT_MESSAGE,
   UPDATE_GROUP_CARD,
-  DELETE_GROUP_CARD
+  DELETE_GROUP_CARD,
+  DELETE_POST
 } from "./types";
 import axios from "axios";
 
@@ -182,3 +183,14 @@ export function sendAlertMessage(dataToSubmit){
   }
 }
 
+//게시글 지우기
+export function deletePost(dataToSubmit){
+  const request = axios.delete('/api/group/post', dataToSubmit)
+  .then(response => response.data)
+  .catch((err) => console.log("게시글 삭제 오류! : " + err));
+
+  return {
+    type: DELETE_POST,
+    payload: request
+  }
+}

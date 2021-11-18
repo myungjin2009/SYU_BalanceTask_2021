@@ -12,7 +12,8 @@ import {
   END_PROJECT,
   SEND_ALERT_MESSAGE,
   UPDATE_GROUP_CARD,
-  DELETE_GROUP_CARD
+  DELETE_GROUP_CARD,
+  DELETE_POST
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -138,6 +139,7 @@ export default function reducer(state = initialState, action) {
     }
     case RECEIVE_TIMELINE:{
       const { timelineList } = state;
+      console.log("받은 내용을 출력해봅시다.");
       console.log(action.payload.array);
       if (action.payload === undefined) {
         return state;
@@ -193,6 +195,13 @@ export default function reducer(state = initialState, action) {
     case SEND_ALERT_MESSAGE: {
       return state;
     }
+
+    case DELETE_POST:{
+      const {removed_post_id} = action.payload;
+      let new_array = state.timelineList.filter(el => removed_post_id !== el); //이게 맞는건지 확인 못함
+      return { ...state, timelineList: new_array };
+    }
+
     default:
       return state;
   }
