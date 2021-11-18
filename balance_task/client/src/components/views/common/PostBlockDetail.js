@@ -20,7 +20,7 @@ function PostBlockDetail(props) {
           <span>{DateCalculator(date)}</span>
         </UserInfo>
         <UserEdit onClick={() => (userEdit) ? setUserEdit(false) : setUserEdit(true)}>
-          <i class="fas fa-ellipsis-v"></i>
+          <i className="fas fa-ellipsis-v"></i>
           {userEdit && <div className="editWindow">
             <div className="list">수 정</div>
             <div className="list">삭 제</div>

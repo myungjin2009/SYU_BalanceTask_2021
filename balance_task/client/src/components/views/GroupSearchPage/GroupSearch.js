@@ -12,6 +12,7 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList)=>{
   if(isLoading)return;
   const body = {
     last_number: groups_list.length-1,
+    date: new Date() 
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   // console.log(scrollTop+clientHeight);
@@ -80,7 +81,7 @@ const GroupSearch = (props) => {
     //버튼을 누를 때마다 데이터 가져옴
     //스크롤 이벤트 넣으면서 사라진 버튼 이벤트
     return () =>(mounted = false);
-  },[isLoading, search]);
+  },[isLoading, search, groups_list]);
 
   const onClickHandler = (kind) =>{
     if(kind==='스터디'){
