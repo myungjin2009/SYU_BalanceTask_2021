@@ -8,7 +8,7 @@ var url = require('url');
 const moment=require("moment");
 
 let groupclose= (req, res, next) => {
-    console.log("groupend 함수 호출됨");
+    console.log("====================================================groupend 함수 호출됨===================================");
     let paramgroup_name=req.body.group;
     let paramgroup_member=req.body.group_members;
     let paramleader=req.body.send_user_id;
@@ -51,15 +51,15 @@ let groupclose= (req, res, next) => {
           }
       });
 
-    var sql2="delete from chat where group_name=?";
-    sql.pool.query(sql2,paramgroup_name,(err,rows,fields)=>{
-        if (err) {
-          console.log(err);
-          } else { 
+    // var sql2="delete from chat where group_name=?";
+    // sql.pool.query(sql2,paramgroup_name,(err,rows,fields)=>{
+    //     if (err) {
+    //       console.log(err);
+    //       } else { 
             
-          console.log("vote "+paramgroup_name+" 삭제");
-          }
-      });
+    //       console.log("vote "+paramgroup_name+" 삭제");
+    //       }
+    //   });
 
     var sql2="delete from chat where group_name=?";
     sql.pool.query(sql2,paramgroup_name,(err,rows,fields)=>{
@@ -91,8 +91,8 @@ let groupclose= (req, res, next) => {
             }
         }); 
 
-        var sql4="delete from groupusers where group_name=?";
-        sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
+        var sql7="delete from groupusers where group_name=?";
+        sql.pool.query(sql7,paramgroup_name,(err,rows,fields)=>{
           if (err) {
               console.log(err);
               } else { 

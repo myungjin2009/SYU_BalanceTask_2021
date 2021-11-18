@@ -118,7 +118,7 @@ var { arams }=require("./aram/aram");
 var { receive_message }=require("./aram/aramget");
 var { aramsubmit }=require("./aram/aramsubmit");
 var { aramreject }=require("./aram/aramreject");
-var { closearam }=require("./aram/closearam");jh0608
+var { closearam }=require("./aram/closearam");
 //워커리스트
 var { wokerget }=require("./wokerlist/wokerget");
 var { wokeradd }=require("./wokerlist/wokeradd");
@@ -304,11 +304,10 @@ app.post("/api/group/completion", groupclose,(req,res)=>{
   });
 });
 
-app.post("/api/group/completion", groupclose,(req,res)=>{
+app.post("/api/group/alert_message", closearam,(req,res)=>{
 
   res.status(200).json({
-    success: true,
-    group_completion: req.groupname
+    success: true
   });
 });
 
@@ -361,12 +360,12 @@ app.post("/api/group/member", groupmember,(req,res)=>{
         }
       );
 
-      conn.on("error", function (err) {
-        console.log("데이터베이스 연결 시 에러 발생함.");
-        console.dir(err);
+      // conn.on("error", function (err) {
+      //   console.log("데이터베이스 연결 시 에러 발생함.");
+      //   console.dir(err);
 
-        callback(err, null);
-      });
+      //   callback(err, null);
+      // });
     }
   });
 });
