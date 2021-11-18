@@ -42,8 +42,9 @@ function InfoBlock(props) {
       </NameBlock>
       <Content>
         {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`}
-        {content === 1 && `${senduser}님의 ${groupname}에 가입 되었습니다!`}
         {content === 0 && `${senduser}님의 ${groupname}에 가입이 거절 되었습니다..`}
+        {content === 1 && `${senduser}님의 ${groupname}에 가입 되었습니다!`}
+        {content === 2 && `${senduser}님의 ${groupname}을 평가해주세요!`}
       </Content>
       <TimeBlock>
         {time}

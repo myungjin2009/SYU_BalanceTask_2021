@@ -295,7 +295,7 @@ app.post("/api/group/participation",arams,(req,res)=>{
   });
 });
 
-app.post("/api/group/completion ", groupclose,(req,res)=>{
+app.post("/api/group/completion", groupclose,(req,res)=>{
 
   res.status(200).json({
     success: true,

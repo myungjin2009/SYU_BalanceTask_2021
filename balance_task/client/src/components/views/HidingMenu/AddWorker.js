@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
@@ -10,48 +10,35 @@ const closeModal = (setIsModal) =>{
 
 const AddWorker = (props) => {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-  const {setIsModal, isModal} = props;
+  const {setIsModal, isModal, workerList} = props;
   const dispatch = useDispatch();
   
-  // const group_members=[
-  //   {
-  //     id: "bjh@naver.com",
-  //     name: '백정훈'
-  //   },
-  //   {
-  //     id: "audwls@naver.com",
-  //     name: '김명진'
-  //   },
-  //   {
-  //     id: "pgh@naver.com",
-  //     name: '박건형'
-  //   },
-  // ]
-  
-
-  const group_members = useSelector(state=>state.group.group_members);
   const userData = useSelector(state=>state.user.userData);
-  const [checked, setChecked] = useState(new Array(group_members.length).fill(false));
-  const [checkedMembers,setCheckedMembers] = useState(group_members);
+  const [checked, setChecked] = useState(new Array(workerList.length).fill(false));
+  const [checkedMembers,setCheckedMembers] = useState(workerList);
   const handleChange = (e, i) => {
     const updatedCheckedState = checked.map((el, index)=>i===index? !el: el);
-    const updateMemberState = group_members.filter((el, index)=>updatedCheckedState[index]===true);
-    console.log(updateMemberState);
+    const updateMemberState = workerList.filter((el, index)=>updatedCheckedState[index]===true);
     setChecked(updatedCheckedState);
     setCheckedMembers(updateMemberState);
   };
+  console.log(checkedMembers);
+
+  
 
   const addHandler = () =>{
-    dispatch(addWorker(checkedMembers));
-  }
 
-  useEffect(()=>{
-    if(group_members){
-      const new_array = group_members.filter(el => el.id !== userData.id);
-      setCheckedMembers(new_array);
-      console.log(new_array);
+    const body = {
+      workerList: checkedMembers,
+      user_id: userData.id
     }
-  },[group_members]);
+    dispatch(addWorker(body)).then(res =>{
+      if(res.payload.success){
+        console.log('워커추가 성공');
+        setIsModal(false);
+      }
+    });
+  }
   return (
     <>
       <Container>
@@ -59,7 +46,7 @@ const AddWorker = (props) => {
           워커 초대
         </Header>
         <MemberList>
-          {checkedMembers.length !== 0 && group_members.map((el, i)=>(<li key={i}><Checkbox {...label} color="primary" checked={checked[i]} onChange={(e)=>handleChange(e, i)}/>{el.name}</li>))}       
+          {workerList.length !== 0 && workerList.map((el, i)=>(<li key={i}><Checkbox {...label} color="primary" checked={checked[i]} onChange={(e)=>handleChange(e, i)}/>{el.name}</li>))}       
         </MemberList>
         <ButtonContent>
           <Button variant="contained" color="primary" onClick={addHandler}>추가하기</Button>

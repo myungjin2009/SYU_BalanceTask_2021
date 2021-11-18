@@ -23,6 +23,7 @@ export const RECEIVE_GROUPS_CARD = "receive_groups_card";
 export const LOADING = "loading";
 export const CREATE_GROUP = "create_group";
 export const RESET_POSTS = "reset_posts";
+
 //group에 들어갔을 때의 액션타입
 export const RECEIVE_TIMELINE = "receive_timeline";
 export const RECEIVE_NOTICE = "receive_notice";
@@ -31,6 +32,7 @@ export const RECEIVE_GROUP_MEMBER = "receive_group_member";
 export const ADD_WORKER_IN_GROUP = "add_worker_in_group";
 export const SEND_EVALUATION = "send_evaluation"; 
 export const END_PROJECT = "end_project";
+export const SEND_ALERT_MESSAGE = "send_alert_message";
 
 /* group_calendar */
 export const ADD_DATE = 'add_date';
