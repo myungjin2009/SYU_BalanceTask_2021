@@ -11,6 +11,7 @@ export const UPDATE_MESSAGE = "update_message";
 export const UPDATE_IMAGE = "update_image";
 export const LOADING_MYPAGE = "loading_mypage";
 export const LOADING_WORKERLIST_DATA = "loading_workerlist_data";
+export const LOADING_WORKERLIST_NUM = "loading_workerlist_num";
 export const POST_NOTICE_CONFIRM = "post_notice_confirm";
 export const POST_NOTICE_REJECT = "post_notice_reject";
 export const RECEIVE_USERLIST = "receive_userlist";

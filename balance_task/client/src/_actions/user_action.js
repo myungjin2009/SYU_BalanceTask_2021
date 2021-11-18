@@ -14,6 +14,7 @@ import {
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT,
   LOADING_WORKERLIST_DATA,
+  LOADING_WORKERLIST_NUM,
   ADD_WORKER_IN_GROUP
 } from "./types";
 //로그인 할 때
@@ -163,6 +164,13 @@ export function dataLoad(isDataLoading){
   return {
     type: LOADING_WORKERLIST_DATA,
     isDataLoading
+  }
+}
+//워커리스트- 인원 수 로딩 함수
+export function workNumLoading(workerNum){
+  return{
+    type: LOADING_WORKERLIST_NUM,
+    workerNum
   }
 }
 //project_timeline 이나 project_notice 페이지에서 워커 추가 가능한 함수
