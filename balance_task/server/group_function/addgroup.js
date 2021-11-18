@@ -27,9 +27,9 @@ var addgroup = function (groupname, host, startdate, deadline, manager, category
       var groupjwt=rows[0]['id'];
       
 
-    const sql2="select count(group_no) from `groups`";
+    const sql2="select max(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
-     let maxno=rows[0]['count(group_no)']
+     let maxno=rows[0]['max(group_no)']
 
     // 데이터를 객체로 만듦
     // var storage = multer.diskStorage({

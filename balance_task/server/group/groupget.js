@@ -10,9 +10,9 @@ const upload = multer({dest: './upload'});
 
 let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
-  const sql2="select count(group_no) from `groups`";
+  const sql2="select max(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
-     var maxno=rows[0]['count(group_no)']
+     var maxno=rows[0]['max(group_no)']
       console.log(maxno);
 
     let paramlastnumber=req.body.last_number || req.query.last_number;   //last_number의 값을 받는다.

@@ -16,10 +16,10 @@ sql.pool.query(sql3,paramjwt,(err,rows,fields)=>{
   var groupjwt=rows[0]['id'];
   console.log(req.body);
   let paramgroup_name = req.body.group;
-    const sql4="select count(board_number) from groupboard where info_groupname=?"
+    const sql4="select max(board_number) from groupboard where info_groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
       console.log(rows);
-    var no=rows[0]['count(board_number)'];
+    var no=rows[0]['max(board_number)'];
     
     for(var i=1;i<no+1;i++){
       console.log(i);
