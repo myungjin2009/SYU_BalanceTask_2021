@@ -19,6 +19,7 @@ import NoticePage from "./views/NoticePage/NoticePage";
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import Detail from "./views/GroupSearchPage/Detail";
 import CreateGroup from "./views/CreateGroupPage/CreateGroup";
+import UpdateGroup from "./views/UpdateGroupPage/UpdateGroup";
 
 //워커리스트 페이지
 import WorkerList from "./views/WorkerListPage/WorkerList";
@@ -82,6 +83,7 @@ const Router = (props) => {
         <Route exact path="/group_search/:team" component={Auth(Detail,true)}/>
 
         <Route exact path="/worker_list" component={Auth(WorkerList, true)} />
+        <Route exact path="/group_search/edit_post/:group" component={Auth(UpdateGroup, true)} />
 
         <Route exact path="/:group/project_timeline" component={Auth(ProjectTimeline, true)} />
         <Route exact path="/:group/project_timeline/:index" component={Auth(PostBlockDetail, true)}/>

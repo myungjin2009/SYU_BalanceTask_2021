@@ -25,7 +25,7 @@ const GroupCard = ({props, cardData}) =>{
 
   const handleClose = (number) => {
     if(number===1){
-      props.history.push('/group_search/edit_post/'+title);
+      handleUpdate();
     }else if(number===2){ 
       handleDelete();
     }else{
@@ -35,7 +35,9 @@ const GroupCard = ({props, cardData}) =>{
   };
 
   const handleUpdate = () =>{
-
+    props.history.push('/group_search/edit_post/'+title, {
+      cardData, start_date, deadline
+    });
   }
 
   const handleDelete = () =>{
