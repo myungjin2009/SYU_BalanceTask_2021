@@ -89,7 +89,7 @@ const ProjectTimeline = (props) =>{
         searchPosts(search, timeline, setTimeline, entireTimeline);
       }
     }
-  },[search, isLoading]);
+  },[search, isLoading, entireTimeline]);
   return(
     <>
       <GroupHeader userData={userData} setSearch={setSearch} group={group}/>

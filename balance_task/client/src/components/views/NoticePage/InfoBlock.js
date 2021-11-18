@@ -50,8 +50,13 @@ function InfoBlock(props) {
         {time}
       </TimeBlock>
       <ButtonContainer>
-        <Button variant="contained" color="primary" style={{width: "45%", margin: "2.5%"}} onClick={confirmHandler}>확인</Button>
-        <Button variant="contained" color="secondary" style={{width: "45%", margin: "2.5%"}} onClick={canceilHandler}>취소</Button>
+        {
+          content !==null && content !== 2 &&
+          <>
+            <Button variant="contained" color="primary" style={{width: "45%", margin: "2.5%"}} onClick={confirmHandler}>확인</Button>
+            <Button Button variant="contained" color="secondary" style={{width: "45%", margin: "2.5%"}} onClick={canceilHandler}>취소</Button>
+          </>  
+        }
       </ButtonContainer>
     </Container>
   )

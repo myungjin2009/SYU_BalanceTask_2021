@@ -20,6 +20,8 @@ export const RECEIVE_USERLIST = "receive_userlist";
 //group 들어가기 전에서의 액션 타입
 export const JOIN_GROUP = "join_group";
 export const RECEIVE_GROUPS_CARD = "receive_groups_card";
+export const DELETE_GROUP_CARD = "delete_group_card";
+export const UPDATE_GROUP_CARD = "update_group_card";
 export const LOADING = "loading";
 export const CREATE_GROUP = "create_group";
 export const RESET_POSTS = "reset_posts";

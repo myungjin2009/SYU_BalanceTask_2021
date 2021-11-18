@@ -10,7 +10,9 @@ import {
   RECEIVE_GROUP_MEMBER,
   SEND_EVALUATION,
   END_PROJECT,
-  SEND_ALERT_MESSAGE
+  SEND_ALERT_MESSAGE,
+  UPDATE_GROUP_CARD,
+  DELETE_GROUP_CARD
 } from "./types";
 import axios from "axios";
 
@@ -38,6 +40,29 @@ export function receiveGroupCard(dataToSubmit) {
     payload: request,
   };
 }
+
+//해당 그룹을 삭제하기
+export function deleteGroupCard(dataToSubmit){
+  const request = axios.delete('/api/group/search_card', {data:{dataToSubmit}})
+  .then(res => Promise.resolve({server_data: res.data, removed_post_id: dataToSubmit.id}))
+  .catch(err => console.log(err));
+  return {
+    type: DELETE_GROUP_CARD,
+    payload: request
+  }
+}
+
+//해당 그룹을 업데이트하기
+export function updateGroupCard(dataToSubmit){
+  const request = axios.put('/api/group/search_card', dataToSubmit)
+  .then(res => Promise.resolve({server_data: res.data, updated_post: dataToSubmit}))
+  .catch(err => console.log(err));
+  return {
+    type: UPDATE_GROUP_CARD,
+    payload: request
+  }
+}
+
 //해당 그룹에 가입신청하기
 export function joinGroup(dataToSubmit) {
   const request = axios
@@ -156,3 +181,4 @@ export function sendAlertMessage(dataToSubmit){
     payload: request
   }
 }
+
