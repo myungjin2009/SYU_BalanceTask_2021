@@ -6,8 +6,10 @@ import DateCalculator from './DateCalculator';
 
 function PostBlockDetail(props) {
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
-  console.log(profileImage);
+  console.log("프로필 이미지: " + profileImage);
   const {photo_url} = props.location.state;
+  const [userEdit, setUserEdit] = React.useState(false);
+
   return (
     <Container>
       <Header title={user_name+"님의 프로젝트 현황"}/>
@@ -17,6 +19,14 @@ function PostBlockDetail(props) {
           <span>{user_name}</span>
           <span>{DateCalculator(date)}</span>
         </UserInfo>
+        <UserEdit onClick={() => (userEdit) ? setUserEdit(false) : setUserEdit(true)}>
+          <i class="fas fa-ellipsis-v"></i>
+          {userEdit && <div className="editWindow">
+            <div className="list">수 정</div>
+            <div className="list">삭 제</div>
+            <div className="list">공 유</div>
+          </div>}
+        </UserEdit>
       </UserBlock>
       <Content>{content}</Content>
       {photo_url.map((url, index)=>(
@@ -97,6 +107,28 @@ const UserInfo = styled.div`
   flex-direction: column;
   &>span:last-child{
     font-size: 12px;
+  }
+`;
+
+const UserEdit = styled.div`
+  font-size: 20px;
+  margin-left: auto;
+  padding-top: 2.5vh;
+  padding-right: 1.5vh;
+  height: 9vh;
+  text-align: right;
+  & > .editWindow {
+    position: absolute;
+    transform:translate(-28vw, 0);
+    width: 30vw;
+    border: solid 1px black;
+    background-color: rgb(227,222,243);
+    & > .list {
+      text-align: center;
+      font-size: 2vh;
+      padding: 0.7vh 0 0.7vh 0;
+      border: solid 1px black;
+    }
   }
 `;
 
