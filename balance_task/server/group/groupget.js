@@ -10,11 +10,12 @@ const upload = multer({dest: './upload'});
 
 let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
-  const sql2="select max(group_no) from `groups`";
+  const sql2="select max(group_no),count(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
      var maxno=rows[0]['max(group_no)']
+     var countno=rows[0]['count(group_no)']
       console.log(maxno);
-
+      console.log(countno);
     let paramlastnumber=req.body.last_number || req.query.last_number;   //last_number의 값을 받는다.
     if(maxno === 0){
       req.body.array_status = false;
@@ -27,8 +28,13 @@ let group_search = (req, res, next) => {
     console.log('제일 작은 번호', lownumber);
     let highnumber= maxno-paramlastnumber-1;
     console.log('제일 큰 번호',highnumber);
-    
-    const sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
+
+    var sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
+
+    if(paramlastnumber==-1){
+      sql1="SELECT * FROM `groups` g, user u where "+countno+ "<= group_no and group_no <="+ maxno+" and g.user=u.id ORDER BY group_no DESC;";
+    }
+    //const sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
     
     console.log(sql1);
     sql.pool.query(sql1,(err, rows, fields) => {
@@ -50,12 +56,13 @@ let group_search = (req, res, next) => {
             info.group_images="/image/69277d1c49c1f304ffdae7c1f1f2d52b,/image/16592cb3ffe15694564c2fd39ac7f533";
           }
           req.image=info.group_images.split(',');
-          console.log(req.image);
+          //console.log(req.image);
           req.image0=req.image[0];
           req.image1=req.image[1];
           req.name=info.name;
+          req.highlight=info.highlight;
           var changeString=String(req.image);
-          console.log(req.image);
+          //console.log(req.image);
           //var instr=fs.readFileSync(changeString,'utf-8');
           //console.log(instr);
         //   if(changeString!=="null"){
@@ -89,6 +96,7 @@ let group_search = (req, res, next) => {
             makehost:req.makehost,
             kind:req.category,
             content:req.content,
+            highlight:req.highlight,
             image: req.image[1],         //메인로고사진
             postimage:req.image[0]
             });

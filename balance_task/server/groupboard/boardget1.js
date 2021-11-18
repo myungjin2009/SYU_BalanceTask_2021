@@ -64,7 +64,7 @@ let boardget1 = (req, res, next) => {
             req.title = info.title;
             console.log( req.title );
             req.image =info.image.split(',');
-               
+            console.log( req.image );   
             req.file =info.file;
             req.text =info.text;
             console.log( req.text );
@@ -72,6 +72,9 @@ let boardget1 = (req, res, next) => {
             req.info_groupname=info.info_groupname;
             req.date =info.date;
             req.profileimage=info.user_image;
+            if(req.profileimage=="DEFAULT"){
+              req.profileimage=['C:/Users/paikjeonghun/Desktop/21_hf052/balance_task/client/src/images/profile_sample.jpg']
+            }
            
             array.push({
               id: req.board_number,
