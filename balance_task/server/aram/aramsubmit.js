@@ -58,7 +58,7 @@ console.log("arma 허락 함수 호출됨");
             var no=rows[0]['count(aram_no)']+1;    
             var time=moment().format('YYYY-MM-DD HH:mm:ss');
             
-            var insertdata = {aram_no:no, senduser:paramId, receiveuser:paramSendId, group:paramgroup_name, sendtime:time, content:1, notsend:1 };
+            var insertdata = {aram_no:no, senduser:paramId, receiveuser:paramSendId, group_name:paramgroup_name, sendtime:time, content:1, notsend:1 };
             const sql8="insert into aram set ?"
             sql.pool.query(sql8,insertdata,(err,rows,fields)=>{
                 if (err) {

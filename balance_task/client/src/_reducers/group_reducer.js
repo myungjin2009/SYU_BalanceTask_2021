@@ -10,7 +10,9 @@ import {
   RECEIVE_GROUP_MEMBER,
   SEND_EVALUATION,
   END_PROJECT,
-  SEND_ALERT_MESSAGE
+  SEND_ALERT_MESSAGE,
+  UPDATE_GROUP_CARD,
+  DELETE_GROUP_CARD
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -108,12 +110,21 @@ export default function reducer(state = initialState, action) {
       if (action.payload === undefined) {
         return state;
       }
-      console.log(action.payload.array_status);
       if(!action.payload.array_status){
         return state;
       }
       let new_array = [...groups_list, ...action.payload.array];
       return { ...state, groups_list: new_array };
+    }
+    case UPDATE_GROUP_CARD:{
+      const {removed_post_id} = action.payload;
+      let new_array = state.groups_list.filter(el => removed_post_id !== el);
+      return state;
+    }
+    case DELETE_GROUP_CARD:{
+      const {removed_post_id} = action.payload;
+      let new_array = state.groups_list.filter(el => removed_post_id !== el);
+      return {...state, groups_list: new_array};
     }
     case LOADING:{
       console.log(action.isLoading);

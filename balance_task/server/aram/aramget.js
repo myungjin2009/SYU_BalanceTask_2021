@@ -14,7 +14,7 @@ let receive_message = (req, res, next) => {
             rows.forEach((info,index,newarray) => {
             req.aram_no=info.aram_no;
             req.senduser=info.senduser;
-            req.groupname=info.group;
+            req.groupname=info.group_name;
             req.receiveuser=info.receiveuser;
             req.content=info.content;
             req.time=info.sendtime;

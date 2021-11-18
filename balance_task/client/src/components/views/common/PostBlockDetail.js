@@ -6,23 +6,10 @@ import DateCalculator from './DateCalculator';
 
 function PostBlockDetail(props) {
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
-  const {match: {params: {group}}} = props;
   console.log("프로필 이미지: " + profileImage);
   const {photo_url} = props.location.state;
   const [userEdit, setUserEdit] = React.useState(false);
-  
-  //로그인한 id 가 게시글 작성자 id랑 동일할 경우만 수정/삭제 목록 표시. 테스트 필요 -명진-
-  const show3dots = props.userData != null ? (props.userData.id == user_name ? true : false) : false; 
-  //const show3dots = false;
-  console.log(props.userData);
-  
-  
-  const confirmDelete = async() =>{
-  
-  }
-  const shareURL = () => {
-    window.alert("URL이 복사되었습니다. 그룹에 속한 워커들만 열람이 가능합니다.");
-  }
+
   return (
     <Container>
       <Header title={user_name+"님의 프로젝트 현황"}/>
@@ -32,14 +19,14 @@ function PostBlockDetail(props) {
           <span>{user_name}</span>
           <span>{DateCalculator(date)}</span>
         </UserInfo>
-        {show3dots && <UserEdit onClick={() => (userEdit) ? setUserEdit(false) : setUserEdit(true)}>
+        <UserEdit onClick={() => (userEdit) ? setUserEdit(false) : setUserEdit(true)}>
           <i class="fas fa-ellipsis-v"></i>
           {userEdit && <div className="editWindow">
             <div className="list">수 정</div>
-            <div className="list" onClick={()=>confirmDelete()}>삭 제</div>
-            <div className="list" onClick={()=>shareURL()}>공 유</div>
+            <div className="list">삭 제</div>
+            <div className="list">공 유</div>
           </div>}
-        </UserEdit>}
+        </UserEdit>
       </UserBlock>
       <Content>{content}</Content>
       {photo_url.map((url, index)=>(

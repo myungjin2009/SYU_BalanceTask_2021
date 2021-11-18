@@ -24,7 +24,7 @@ let arams= (req, res, next) => {
         var no=rows[0]['count(aram_no)']+1;    
         var time=moment().format('YYYY-MM-DD HH:mm:ss');
 
-        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group:paramgroup_name, sendtime:time, notsend:0 };
+        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group_name:paramgroup_name, sendtime:time, notsend:0 };
 
         const sql1 = "insert into aram set ?; ";
         //const sql2 = "SELECT * FROM vote; ";
