@@ -29,7 +29,7 @@ console.log("aramreject 함수 호출됨");
               if(paramContent !== null){
                 console.log("데베에 추가 안됨 맞는거임");
               }else{
-              var insertdata = {aram_no:no, senduser:paramId, receiveuser:paramSendId, group:paramgroup_name, sendtime:time, content:0, notsend:1};
+              var insertdata = {aram_no:no, senduser:paramId, receiveuser:paramSendId, group_name:paramgroup_name, sendtime:time, content:0, notsend:1};
               const sql8="insert into aram set ?"
               sql.pool.query(sql8,insertdata,(err,rows,fields)=>{
                   if (err) {

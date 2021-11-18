@@ -38,11 +38,11 @@ const moment=require("moment");
         let Sgrouop=paramgroup_name.toString();
         let Stime=time.toString();
         
-        var data2 = ("("+no+",'"+Sparamleader +"','"+ SId +"',"+ time +",'" +Sgrouop +"',2,1)");
+        var data2 = ("('"+Sparamleader +"','"+ SId +"','"+ time +"','" +Sgrouop +"',2,1)");
         no++;
-        console.log(data2);
+        //console.log(data2);
         array.push(data2);
-        console.log(array);
+        //console.log(array);
         //var data = {aram_no:no, senduser:paramleader, receiveuser:req.id, group:paramgroup_name, sendtime:time, content:2, notsend:1 };
         //console.log(data);
         
@@ -51,7 +51,7 @@ const moment=require("moment");
         //const sql2 = "SELECT * FROM vote; ";
         var replaced = array.toString().replace(/\[.*\]/g,'');
         var str = replaced.replace(/\"/gi, "");
-        const sql9 = "INSERT INTO aram(aram_no,senduser, receiveuser, sendtime, group, content, notsend) VALUES "+str+";"
+        const sql9 = "INSERT INTO aram(senduser, receiveuser, sendtime, group_name, content, notsend) VALUES "+str+";"
         console.log(str);
         sql.pool.query(sql9, (err, rows, fields) => {
             if (err) {
