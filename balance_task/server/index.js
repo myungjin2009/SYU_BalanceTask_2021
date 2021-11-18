@@ -118,6 +118,7 @@ var { arams }=require("./aram/aram");
 var { receive_message }=require("./aram/aramget");
 var { aramsubmit }=require("./aram/aramsubmit");
 var { aramreject }=require("./aram/aramreject");
+var { closearam }=require("./aram/closearam");jh0608
 //워커리스트
 var { wokerget }=require("./wokerlist/wokerget");
 var { wokeradd }=require("./wokerlist/wokeradd");
@@ -302,6 +303,15 @@ app.post("/api/group/completion", groupclose,(req,res)=>{
     group_completion: req.groupname
   });
 });
+
+app.post("/api/group/completion", groupclose,(req,res)=>{
+
+  res.status(200).json({
+    success: true,
+    group_completion: req.groupname
+  });
+});
+
 
 app.post("/api/group/member", groupmember,(req,res)=>{
   console.log(
