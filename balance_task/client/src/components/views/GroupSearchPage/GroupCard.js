@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { deleteGroupCard } from '../../../_actions/group_action';
 
 const GroupCard = ({props, cardData}) =>{
-  const {id, title, content, writer, date, image, kind, postimage, makeuser} = cardData;
+  const {id, title, content, writer, date, image, kind, postimage, makeuser, highlight} = cardData;
   const dispatch = useDispatch();
   const userData = useSelector(state => state.user.userData);
   const date_array = date.split('~');
@@ -61,7 +61,7 @@ const GroupCard = ({props, cardData}) =>{
         <Img image={image}></Img>
         <Content>
           <Title>팀: <span>{title}</span></Title>
-          <P>{content}</P>
+          <P>{highlight}</P>
         </Content>
       </Main>
       { 
