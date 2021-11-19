@@ -13,7 +13,8 @@ import {
   SEND_ALERT_MESSAGE,
   UPDATE_GROUP_CARD,
   DELETE_GROUP_CARD,
-  DELETE_POST
+  DELETE_POST,
+  LOADING_WORKERLIST_NUM
 } from "../_actions/types";
 // import img1 from "../images/노답.jpg";
 // import img2 from "../images/멋쟁이들.jpg";
@@ -100,6 +101,7 @@ const initialState = {
     //   profileImage: img2
     // },
   ],
+  workerNum: 0,
   group_end_data: [],
   isLoading: {timeline: true, notice: true, group_search: true},
 };
@@ -206,10 +208,15 @@ export default function reducer(state = initialState, action) {
       return state;
     }
 
-    case DELETE_POST:{
+    case DELETE_POST:{  //이게 맞는건지 확인 못함
+      console.log(action.payload);
       const {removed_post_id} = action.payload;
-      let new_array = state.timelineList.filter(el => removed_post_id !== el); //이게 맞는건지 확인 못함
+      let new_array = state.timelineList.filter(el => removed_post_id !== el); 
       return { ...state, timelineList: new_array };
+    }
+
+    case LOADING_WORKERLIST_NUM:{
+      return {...state, workerNum: action.workerNum}
     }
 
     default:
