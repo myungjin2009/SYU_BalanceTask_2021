@@ -60,6 +60,7 @@ import MJPractice from './MJpractice';
 
 //NotFound 페이지
 import NotFound from "./views/NotFoundPage/NotFound";
+import Image from "./views/common/Image";
 
 const Router = (props) => {
   return (
@@ -104,7 +105,7 @@ const Router = (props) => {
         <Route exact path="/settings/Contact" component={Auth(Contact, true)} />
         <Route exact path="/settings/EditAccount" component={Auth(EditAccount, true)} />
         <Route exact path="/settings/Withdraw" component={Auth(Withdraw, true)} />
-      
+        <Route exact path="/image/:image_name" component={Auth(Image, true)} />
 
         <Route exact component={Auth(NotFound, null)} />
       </Switch>

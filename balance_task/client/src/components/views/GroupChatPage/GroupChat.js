@@ -13,6 +13,7 @@ import ChatBlock from "./ChatBlock";
 const GroupChat = (props) => {
   const socket = io.connect("http://localhost:80");
   const {match:{params:{group}}} = props;
+  console.log(group);
   // const dispatch = useDispatch();
   const user = useSelector(state => state.user.userData);
   // const isLoading = useSelector(state => state.group.isLoading.group_chat);
@@ -31,17 +32,21 @@ const GroupChat = (props) => {
     return () => {
       socket.close();
     };
-  },[props]);
+  },[user]);
 
   useEffect(() => {
     socket.on("receive message", (message) => {
       setChatArr((chatArr) => chatArr.concat(message));
     }); //receive message이벤트에 대한 콜백을 등록해줌
-  },[props]);
+
+    socket.on('roomData', ({ users }) => {
+      // setUsers(users)
+    })
+  },[user]);
 
   const buttonHandler = useCallback(() => {
     console.log(user.name, chat, user.id);
-    socket.emit("send message", { name: user.name, message: chat, date: calculateDate('', true), id: user.id }); 
+    socket.emit("send message", { name: user.name, message: chat, date: calculateDate('', true), id: user.id, group }); 
     //버튼을 클릭했을 때 send message이벤트 발생
   }, [chat]);
   const changeMessage = useCallback(

@@ -52,26 +52,33 @@ const io = require("socket.io")(httpServer, {
   },
 });
 
+const users = [];
+
 io.on("connection", function(socket){
   console.log("connection");
   socket.on('join', function(user_info) { 
     var {name, id, group} = user_info;
-    console.log(name);
     console.log("socket_id", socket.id);
+    users.push({socket_id: socket.id, name, user_id:id, group});
+    console.log("그룹이름"+group);
     // socket.emit('first message', {
     //   id: 'admin',
     //   name: '챗봇',
     //   message: `${name}, ${group}에 오신것을 환영합니다.`,
     //   date: new Date(),
     // })
+    io.to(group).emit('roomData', {
+      room: group,
+      users: users.filter(user => user.group === group)
+    });
     socket.join(group);
   });
   socket.on("send message", (user) => {
     console.log(user.name + " : " + user.message);
-    io.emit("receive message", { name: user.name, message: user.message, id: user.id, date: user.date });
+    io.to(user.group).emit("receive message", { name: user.name, message: user.message, id: user.id, date: user.date });
     //클라이언트에 이벤트를 보냄
   });
-  
+  console.log(socket.rooms);
   
 });
 

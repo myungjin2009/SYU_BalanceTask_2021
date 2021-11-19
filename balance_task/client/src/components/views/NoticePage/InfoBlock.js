@@ -21,7 +21,7 @@ function InfoBlock(props) {
       }
     });
   }
-
+  console.log(content);
   const confirmHandler = () =>{
     const new_obj = {
       ...props.aramsdata,
@@ -51,7 +51,7 @@ function InfoBlock(props) {
       </TimeBlock>
       <ButtonContainer>
         {
-          content !==null && content !== 2 &&
+          content !==undefined&& content !== 2 &&
           <>
             <Button variant="contained" color="primary" style={{width: "45%", margin: "2.5%"}} onClick={confirmHandler}>확인</Button>
             <Button Button variant="contained" color="secondary" style={{width: "45%", margin: "2.5%"}} onClick={canceilHandler}>취소</Button>
