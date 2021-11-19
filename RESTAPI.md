@@ -87,7 +87,7 @@
   #### id는 게시물 아이디를 말한다.
   #### 응답페이로드: {success}
   #### 설명: 현재 지정한 그룹카드를 삭제한다. 
-  #### 위치:[UpdateGroup](/balance_task/client/src/components/views/GroupSearchPage/GroupCard.js)
+  #### 위치:[GroupCard](/balance_task/client/src/components/views/GroupSearchPage/GroupCard.js)
 
   /api/group/search_card => method: put
   #### 요청페이로드: {board_number, groupName,category, start, end, highlight, host, manager, content, image, image} =>formdata 형식이다.
