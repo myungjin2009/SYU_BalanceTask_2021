@@ -27,17 +27,17 @@ const GroupChat = (props) => {
     console.log(user);
     
       
-    socket.emit("room", {name: user.name, id: user.id, group});
+    socket.emit("join", {name: user.name, id: user.id, group});
     return () => {
       socket.close();
     };
-  },[]);
+  },[props]);
 
   useEffect(() => {
     socket.on("receive message", (message) => {
       setChatArr((chatArr) => chatArr.concat(message));
     }); //receive message이벤트에 대한 콜백을 등록해줌
-  }, []);
+  },[props]);
 
   const buttonHandler = useCallback(() => {
     console.log(user.name, chat, user.id);
@@ -59,38 +59,6 @@ const GroupChat = (props) => {
   //     profile_image: '이미지',
   //     date: '2021.10.11'
   //   },
-  //   {
-  //     id: 2,
-  //     user_name: '박건형',
-  //     user_id: 'one0374@naver.com',
-  //     message: `안녕하세요 박건형입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   },
-  //   {
-  //     id: 3,
-  //     user_name: '김명진',
-  //     user_id: 'myungjin@naver.com',
-  //     message: `안녕하세요 김명진입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   },
-  //   {
-  //     id: 4,
-  //     user_name: '바바',
-  //     user_id: 'ㅂㅂ@naver.com',
-  //     message: `안녕하세요 바바입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   },
-  //   {
-  //     id: 5,
-  //     user_name: '오란씨',
-  //     user_id: '오란@naver.com',
-  //     message: `안녕하세요 오란씨입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   }
   // ];
   return (
     <Container>
