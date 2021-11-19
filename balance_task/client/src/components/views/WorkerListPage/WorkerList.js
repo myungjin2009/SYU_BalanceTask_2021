@@ -3,6 +3,7 @@ import styled, {keyframes} from 'styled-components';
 import LoadProfile from './LoadProfile';
 import React from 'react';
 import ProfileDetail from './ProfileDetail';
+import {useSelector} from 'react-redux';
 
 const SearchBoxUpdate = (search, setSearch, SearchBox) => {
   setSearch(SearchBox.current.value);
@@ -13,11 +14,7 @@ const WorkerList = (props) => {
   const SearchIcon = React.useRef(null);
   const [isShow, setIsShow] = React.useState(0);
   const [search, setSearch] = React.useState("");
-
-  const [countList,setCountList] = React.useState(0);   //워커리스트 몇 명인지 받아오기
-  const howManyWorker = (num) => {
-    setCountList(num);
-  }
+  const workerNum = useSelector(state=>state.group.workerNum);
 
   const [clicked, setClicked] = React.useState(0);      //워커리스트 클릭했을 때 정보 받기
   const whoClicked = (data) => {
@@ -38,7 +35,7 @@ const WorkerList = (props) => {
   return (
     <Container>
       <Header>
-        나의 워커 목록 <span className="WorkerCount">{countList}</span>
+        나의 워커 목록 <span className="WorkerCount">{workerNum}</span>
         <input type="text" className="SearchBox" /*active={isShow}*/ ref={SearchBox} placeholder="검색" onChange={() => SearchBoxUpdate(search,setSearch,SearchBox)}></input>
       
         <span className="SearchIcon" ref={SearchIcon} onClick={() => {
@@ -64,7 +61,7 @@ const WorkerList = (props) => {
         <LoadProfile profile="MyProfile" userData={props.userData}></LoadProfile>
         <div className="brBar">워커 프로필</div>
         <LoadProfile profile="WorkerProfile" userData={props.userData} searchValue={search}
-          countList={countList} howManyWorker={howManyWorker} clicked={clicked} whoClicked={whoClicked} setWindow={setWindow}></LoadProfile>
+         clicked={clicked} whoClicked={whoClicked} setWindow={setWindow}></LoadProfile>
       </List>
       <Navigation/>
 

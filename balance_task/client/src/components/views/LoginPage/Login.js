@@ -19,6 +19,10 @@ const Login = (props) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+
+  const [login, setLogin] = useState("로그인");
+  const [disable, setDisable] = useState(false);
+
   const postUser = async(e) =>{
     e.preventDefault();
     if(id===''||password===''){
@@ -28,7 +32,8 @@ const Login = (props) => {
     const body = {
       id,password
     }
-    
+    setLogin("로그인 중입니다...");
+    setDisable(true);
     dispatch(loginUser(body))
     .then(response => {
       console.log(response);
@@ -36,6 +41,8 @@ const Login = (props) => {
         window.location.replace('/my_page');
       }else{
         alert('아이디 또는 비밀번호가 맞지 않습니다!');
+        setLogin("로그인");
+        setDisable(false);
       }
     });
     
@@ -57,7 +64,7 @@ const Login = (props) => {
       <LoginBox onSubmit={postUser}>
         <input type="email" placeholder="Email" value={id} onChange={(e)=>changeId(e, setId)}/>
         <input type="password" placeholder="PASSWORD" value={password} onChange={(e)=>changePassword(e, setPassword)} autoComplete="off"/>
-        <button type="submit">로그인</button>
+        <button type="submit" disabled={disable}>{login}</button>
       </LoginBox>
       <DefaultLoginBox>
         <button type="button">
@@ -121,6 +128,9 @@ const LoginBox = styled.form`
     box-shadow: 1px 1px 1px gray;
     &:active{
       box-shadow: -1px -1px 1px gray;
+    }
+    &:disabled{
+      background-color: rgb(2,78,120);
     }
   }
 `;

@@ -65,6 +65,7 @@ const Profile_Detail = styled.div`
             height: 20vh; 
             border: solid 2px black;
             border-radius: 50%;
+            background-color: rgb(214,242,213);
         }
     }
     & > .close_button {
@@ -76,12 +77,12 @@ const Profile_Detail = styled.div`
     & > .profile_name {
         font-size: 25px;
         text-align: center;
-        transform:translate(0, 15vh);
+        transform:translate(0, 17vh);
     }
     & > .profile_message {
         font-size: 18px;
         text-align: center;
-        transform:translate(0, 16vh);
+        transform:translate(0, 18vh);
     }
   }
   

@@ -4,7 +4,8 @@ import Header from '../Header/Header';
 import { withRouter } from 'react-router-dom';
 import DateCalculator from './DateCalculator';
 
-//import { deletePost } from '../../../_actions/group_action';
+import {useDispatch} from 'react-redux';
+import { deletePost } from '../../../_actions/group_action';
 
 function PostBlockDetail(props) {
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
@@ -12,27 +13,30 @@ function PostBlockDetail(props) {
   console.log("프로필 이미지: " + profileImage);
   const {photo_url} = props.location.state;
   const [userEdit, setUserEdit] = React.useState(false);
+  const dispatch = useDispatch();
+
   
   //로그인한 id 가 게시글 작성자 id랑 동일할 경우만 수정/삭제 목록 표시. 테스트 필요 -명진-
   const show3dots = props.userData != null ? (props.userData.id == user_name ? true : false) : false; 
 
   const confirmDelete = () => {
- /*   if(window.confirm("게시글을 삭제하시겠습니까?")) {
+    if(window.confirm("게시글을 삭제하시겠습니까?")) {
       const body = {
-        id:userData.id,
+        id:props.userData.id,
         group,
-        category: null //이거 고민좀 해보자
+        category: "project_timeline" //이거 고민좀 해보자
       }
       dispatch(deletePost(body)).then(res=>{
         if(res.payload.success){
           console.log('게시글 삭제 성공');
         }
       });
-     }*/
+     }
   }
   const shareURL = () => {
     window.alert("URL이 복사되었습니다. 그룹에 속한 워커들만 열람이 가능합니다.");
   }
+  console.log(props.location.state.user_post);
   return (
     <Container>
       <Header title={user_name+"님의 프로젝트 현황"}/>
