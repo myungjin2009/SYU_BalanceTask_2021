@@ -11,6 +11,7 @@ import { deleteGroupCard } from '../../../_actions/group_action';
 
 const GroupCard = ({props, cardData}) =>{
   const {id, title, content, writer, date, image, kind, postimage, makeuser, highlight} = cardData;
+  console.log(cardData);
   const dispatch = useDispatch();
   const userData = useSelector(state => state.user.userData);
   const date_array = date.split('~');
