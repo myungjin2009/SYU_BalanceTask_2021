@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 import styled from 'styled-components';
-
+import SendIcon from '@material-ui/icons/Send';
 import calculateDate from "../common/DateCalculator";
 import Header from "../Header/Header";
 import ChatBlock from "./ChatBlock";
@@ -13,7 +13,7 @@ import ChatBlock from "./ChatBlock";
 const GroupChat = (props) => {
   const socket = io.connect("http://localhost:80");
   const {match:{params:{group}}} = props;
-  console.log(group);
+
   // const dispatch = useDispatch();
   const user = useSelector(state => state.user.userData);
   // const isLoading = useSelector(state => state.group.isLoading.group_chat);
@@ -45,7 +45,9 @@ const GroupChat = (props) => {
   },[user]);
 
   const buttonHandler = useCallback(() => {
-    console.log(user.name, chat, user.id);
+    if(chat===''){
+      return;
+    }
     socket.emit("send message", { name: user.name, message: chat, date: calculateDate('', true), id: user.id, group }); 
     //버튼을 클릭했을 때 send message이벤트 발생
   }, [chat]);
@@ -71,18 +73,51 @@ const GroupChat = (props) => {
       {chatArr.length !==0 &&  chatArr.map((chat, index)=>(
         <ChatBlock key={index} userData={user} chat_data={chat}/>
       ))}
-      <div style={{width: "100%", height: "300px", position: "fixed", bottom:"0"}}>
+      <InputBox>
         <input placeholder="내용" onChange={changeMessage}></input>
-        <button onClick={buttonHandler}>등록</button>
-      </div>
+        <button onClick={buttonHandler}><SendIcon/></button>
+      </InputBox>
     </Container>
   )
 }
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   text-align: center;
-`
+  margin-top: 100px;
+  margin-bottom: 100px;
+`;
+
+const InputBox = styled.div`
+  width: 100%;
+  display: flex;
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: 4%;
+  &>input{
+    width: 80%;
+    height: 50px;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    outline-color: #CDF0FF;
+
+  }
+  &>button{
+    width: 20%;
+    font-size: 15px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    height: 50px;
+    &:active{
+      background: #eee;
+    }
+  }
+
+`;
 
 export default withRouter(GroupChat);

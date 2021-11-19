@@ -15,8 +15,11 @@ const calculateDate = (data, isTime) => {
   if(!isTime){
     return `${year}-${month}-${date}`;
   }else{
-    const hours = current_date.getHours() >12 ? current_date.getHours()%12 :current_date.getHours();
-    const minutes = current_date.getMinutes();
+    const hours = current_date.getHours() >12 ? '오후 ' + current_date.getHours()%12 :'오전 '+current_date.getHours();
+    let minutes = current_date.getMinutes();
+    if(minutes.toString().length===1){
+      minutes = "0" + minutes;
+    }
     return `${year}-${month}-${date} ${hours}:${minutes}`;
   }
 };
