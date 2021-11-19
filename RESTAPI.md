@@ -82,6 +82,20 @@
   #### last_number는 게시물의 마지막 번호를 말함 / date는 오늘 날짜를 보내줘서 지난 것은 버리기
   #### 설명: 현재의 그룹 카드의 마지막 번호를 서버에 보내고 서버에서 가공한(몇 개의) 그룹 찾기 카드들 가져오기
 
+  /api/group/search_card => method: delete
+  #### 요청페이로드: {id}
+  #### id는 게시물 아이디를 말한다.
+  #### 응답페이로드: {success}
+  #### 설명: 현재 지정한 그룹카드를 삭제한다. 
+  #### 위치:[UpdateGroup](/balance_task/client/src/components/views/GroupSearchPage/GroupCard.js)
+
+  /api/group/search_card => method: put
+  #### 요청페이로드: {board_number, groupName,category, start, end, highlight, host, manager, content, image, image} =>formdata 형식이다.
+  #### 첫 번째 image는 광고사진을, 두 번째 image는 팀로고 사진을
+  #### 응답페이로드: {success}
+  #### 설명: 현재 지정한 그룹카드를 수정한다. 
+  #### 위치:[UpdateGroup](/balance_task/client/src/components/views/UpdateGroupPage/UpdateGroup.js)
+
 ## 그룹 찾기 페이지(Detail) - 작성자: 박건형
   /api/group/participation => method: post
   #### 설명: 해당 그룹에 참여 요청하기
@@ -144,8 +158,8 @@
   
 ## 그룹 평가 페이지 - 작성자 박건형
   /api/group/evaluation => method: post------>??
-  #### 요청 페이로드: {app_evaluatuon, members_evaluation, group}
-  #### app_evaluatuon = {evalutation, point} 이 api를 보낸 유저가 이 웹앱을 평가한 데이터
+  #### 요청 페이로드: {app_evaluation, members_evaluation, group}
+  #### app_evaluation = {evaluation, point} 이 api를 보낸 유저가 이 웹앱을 평가한 데이터
   #### members_evaluation = [{evaluation, point, id, name},{evaluation, point, id, name}] 이 api를 보낸 유저가 다른 유저를 평가한 데이터
   #### group는 그룹
   #### 설명: 해당 그룹에서 프로젝트가 끝났을 때 유저들 간에 평가 할 수 있고, 알림을 통해 들어가서 평가 가능하다.
