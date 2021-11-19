@@ -64,21 +64,20 @@ const changeContent = (e, setContent) => {
 
 function UpdateGroup(props) {
   const {cardData, start_date, deadline} = props.location.state;
-  const {title, kind, date, makehost, writer, image, postimage} = cardData;
-  console.log(cardData, start_date, deadline);
-  const date_list = date.split('~');
+  const {id, title, kind, date, makehost, writer, image, postimage} = cardData;
+  console.log(cardData);
   const [groupName, setGroupName] = useState(title);
   const [category, setcategory] = useState(kind);
-  const [start, setStart] = useState(date_list[0]);
-  const [end, setEnd] = useState(date_list[1]);
-  const [highlight, setHighlight] = useState(cardData.hightlight);
+  const [start, setStart] = useState(start_date);
+  const [end, setEnd] = useState(deadline);
+  const [highlight, setHighlight] = useState(cardData.highlight);
   const [host, setHost] = useState(makehost);
   const [manager, setManager] = useState(writer);
   const [content, setContent] = useState(cardData.content);
   const [detailImageFile, setDetailImageFile] = useState(postimage);
-  const [detailImageUrl, setDetailImageUrl] = useState(null);
+  const [detailImageUrl, setDetailImageUrl] = useState(postimage);
   const [teamLogoFile, setTeamLogoFile] = useState(image);
-  const [teamLogoUrl, setTeamLogoUrl] = useState(null);
+  const [teamLogoUrl, setTeamLogoUrl] = useState(image);
   const dispatch = useDispatch();
 
   const postHandler = (e) => {
@@ -98,6 +97,7 @@ function UpdateGroup(props) {
       return;
     }
     const formData = new FormData();
+    formData.append('board_number', id);
     formData.append('groupName', groupName);
     formData.append('category', category);
     formData.append('start', start);
@@ -108,13 +108,13 @@ function UpdateGroup(props) {
     formData.append('content', content);
     formData.append('image', detailImageFile);
     formData.append('image', teamLogoFile);
-
+    
     const config = {
       headers: {
         'content-type': "multipart/form-data"
       }
     }
-
+      
     dispatch(updateGroupCard(formData, config)).then((res) => {
       if(res.payload.success){
         alert('성공적으로 그룹을 수정하였습니다!😊');

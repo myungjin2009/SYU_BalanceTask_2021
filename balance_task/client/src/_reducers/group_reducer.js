@@ -118,13 +118,23 @@ export default function reducer(state = initialState, action) {
       return { ...state, groups_list: new_array };
     }
     case UPDATE_GROUP_CARD:{
-      const {removed_post_id} = action.payload;
-      let new_array = state.groups_list.filter(el => removed_post_id !== el);
-      return state;
+      const {updated_post} = action.payload;
+      let new_obj = {};
+      for(var pair of updated_post.entries()) {
+        new_obj[pair[0]] = pair[1];
+      }
+      let new_array = state.groups_list.map(el => {
+        if(updated_post.board_number===el.id){
+          return new_obj;
+        }
+        return el;
+      });
+      
+      return {...state, groups_list: new_array};
     }
     case DELETE_GROUP_CARD:{
       const {removed_post_id} = action.payload;
-      let new_array = state.groups_list.filter(el => removed_post_id !== el);
+      let new_array = state.groups_list.filter(el => removed_post_id !== el.id);
       return {...state, groups_list: new_array};
     }
     case LOADING:{
