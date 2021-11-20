@@ -151,8 +151,6 @@ export default function reducer(state = initialState, action) {
     }
     case RECEIVE_TIMELINE:{
       const { timelineList } = state;
-      console.log("받은 내용을 출력해봅시다.");
-      console.log(action.payload.array);
       if (action.payload === undefined) {
         return state;
       }else{
