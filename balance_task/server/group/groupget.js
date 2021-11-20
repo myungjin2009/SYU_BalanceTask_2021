@@ -12,7 +12,7 @@ let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
   const sql2="select max(group_no),count(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
-     var maxno=rows[0]['max(group_no)']
+     var maxno=rows[0]['count(group_no)']
      var countno=rows[0]['count(group_no)']
       console.log(maxno);
       console.log(countno);
@@ -31,9 +31,9 @@ let group_search = (req, res, next) => {
 
     var sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
 
-    if(paramlastnumber==-1){
-      sql1="SELECT * FROM `groups` g, user u where "+countno+ "<= group_no and group_no <="+ maxno+" and g.user=u.id ORDER BY group_no DESC;";
-    }
+    // if(paramlastnumber==-1){
+    //   sql1="SELECT * FROM `groups` g, user u where "+countno+ "<= group_no and group_no <="+ maxno+" and g.user=u.id ORDER BY group_no DESC;";
+    // }
     //const sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
     
     console.log(sql1);

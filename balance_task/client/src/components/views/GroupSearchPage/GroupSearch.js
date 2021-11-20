@@ -8,12 +8,13 @@ import { receiveGroupCard , chooseLoadingGroup} from '../../../_actions/group_ac
 import {useDispatch, useSelector} from 'react-redux'; 
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList)=>{
+const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, setNumber, number)=>{
   if(isLoading)return;
   const body = {
-    last_number: groups_list.length-1,
+    last_number: number,
     date: new Date() 
   };
+  setNumber(number+5);
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   // console.log(scrollTop+clientHeight);
   // console.log(scrollHeight);
@@ -35,7 +36,7 @@ const GroupSearch = (props) => {
   const isLoading = useSelector(state => state.group.isLoading.group_search);
   const [entireList, setEntireList] = useState(groups_list);
   const [search, setSearch] = useState('');
-
+  const [number, setNumber] = useState(-1);
   const dispatch = useDispatch();
   //0. 먼저 리덕스로부터 데이터를 받는다. 하지만 처음엔 없다.
   //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
@@ -49,9 +50,10 @@ const GroupSearch = (props) => {
       //1. 데이터 가져오고 redux의 store에 저장됨
       //7. 새로운 데이터를 다시 가져오고 redux의 store에 저장됨 그리고 다시 3번과정으로 돌아감. 이과정은 이벤트 발동시 반복됨
       const body = {
-        last_number: groups_list.length-1,
+        last_number: number,
         date: new Date() 
       };
+      setNumber(number+5);
       dispatch(receiveGroupCard(body))
       .then(response =>{
       //   // 백엔드 애들이 주석 풀어주기
@@ -115,7 +117,7 @@ const GroupSearch = (props) => {
             <LoadingBlock></LoadingBlock>
           </Main>
           :
-          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading,setEntireList)}>
+          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading,setEntireList, setNumber, number)}>
             {
               entireList.length !== 0 ?
               entireList.map((el, index)=><GroupCard props={props} cardData={el} key={index}/>)

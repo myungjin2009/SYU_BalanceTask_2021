@@ -135,9 +135,11 @@ export default function reducer(state = initialState, action) {
       return {...state, groups_list: new_array};
     }
     case DELETE_GROUP_CARD:{
-      const {removed_post_id} = action.payload;
-      let new_array = state.groups_list.filter(el => removed_post_id !== el.id);
-      return {...state, groups_list: new_array};
+      console.log(action.payload);
+      // const {removed_post_id} = action.payload;
+      // let new_array = state.groups_list.filter(el => removed_post_id !== el.id);
+      // return {...state, groups_list: new_array};
+      return state;
     }
     case LOADING:{
       console.log(action.isLoading);
