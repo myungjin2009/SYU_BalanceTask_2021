@@ -88,6 +88,10 @@ const GroupSearch = (props) => {
     return () =>(mounted = false);
   },[isLoading, search]);
 
+  useEffect(() => {
+    setEntireList(groups_list);
+  },[groups_list]);
+
   const onClickHandler = (kind) =>{
     if(kind==='스터디'){
       const newArray = groups_list.filter(el => el.kind===kind);

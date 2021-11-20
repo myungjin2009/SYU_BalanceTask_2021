@@ -46,7 +46,7 @@ export function receiveGroupCard(dataToSubmit) {
 //해당 그룹을 삭제하기
 export function deleteGroupCard(dataToSubmit){
   const request = axios.delete('/api/group/search_card', {data:{dataToSubmit}})
-  .then(res => Promise.resolve({server_data: res.data, removed_post_id: dataToSubmit.id}))
+  .then(res => Promise.resolve({success: res.data, removed_post_id: dataToSubmit.id}))
   .catch(err => console.log(err));
   return {
     type: DELETE_GROUP_CARD,

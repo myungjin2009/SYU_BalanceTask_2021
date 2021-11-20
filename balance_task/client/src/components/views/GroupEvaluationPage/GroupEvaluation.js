@@ -39,23 +39,23 @@ const ProjectEnd = (props) => {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.user.userData);
   // 완성하면 주석풀기
-  // const group_members = useSelector(state => state.group.group_members);
+  const group_members = useSelector(state => state.group.group_members);
 
   //그룹 맴버 필터링이 필요하긴함
-  const group_members = [
-    {
-      id: "bjh@naver.com",
-      name: '백정훈'
-    },
-    {
-      id: "audwls@naver.com",
-      name: '김명진'
-    },
-    {
-      id: "pgh@naver.com",
-      name: '박건형'
-    },
-  ];
+  // const group_members = [
+  //   {
+  //     id: "bjh@naver.com",
+  //     name: '백정훈'
+  //   },
+  //   {
+  //     id: "audwls@naver.com",
+  //     name: '김명진'
+  //   },
+  //   {
+  //     id: "pgh@naver.com",
+  //     name: '박건형'
+  //   },
+  // ];
   
   const [pointForApp, setPointForApp] = useState(50);
   const [pointForMembers, setPointForMembers] = useState(new Array(group_members.length).fill(50));

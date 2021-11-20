@@ -24,6 +24,6 @@ let groupdelete= (req, res, next) => {
                 }
                 req.groupname=paramdataTosubmit;
         }); 
+        next();
     }
-
     module.exports= {groupdelete};

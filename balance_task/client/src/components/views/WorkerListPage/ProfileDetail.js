@@ -22,7 +22,7 @@ const ProfileDetail = (props) => {
                             <img className ="profile_image_source" alt="Image" src={props.data.ProfileImage} />
                         </div>
                         <div className="close_button">
-                            <i class="fas fa-times" onClick={()=>closeWindow()}></i>
+                            <i className="fas fa-times" onClick={()=>closeWindow()}></i>
                         </div>
                         <div className="profile_name">{props.data.ProfileName}</div>
                         <div className="profile_message">{props.data.ProfileMessage}</div>
