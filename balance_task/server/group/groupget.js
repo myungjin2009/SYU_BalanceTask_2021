@@ -66,7 +66,7 @@ let group_search = (req, res, next) => {
           var time=new Date();
           console.log(time);
           console.log(req.startdate);
-          if(time.getTime() >= req.startdate.getTime()){
+          if(time.getTime() <= req.startdate.getTime()){
             array.push({
               id:req.group_no,
               makeuser:req.makeuser,

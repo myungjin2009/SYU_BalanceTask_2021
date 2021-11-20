@@ -6,6 +6,7 @@ require("dotenv").config();
 
 let receive_message = (req, res, next) => {
     console.log("알림 호출됨");
+    //console.log(req.body);
     let paramId=req.id //req.body.id;
     var array=[];
     var array2=[];
@@ -24,20 +25,23 @@ let receive_message = (req, res, next) => {
             // if(req.notsend==1){
             //     return;
             // }
-            var sql2="select a.receiveuser as id, u.name , a.group_name as group from aram a,user u where u.id=a.receiveuser and a.content=2 and a.group_name=?"
-            sql.pool.query(sql2,req.groupname,(err,rows,fields)=>{
+           
+            var sql2="select a.receiveuser as id, u.name , a.group_name  from aram a, user u where u.id=a.receiveuser and a.content=2 and a.group_name='"+req.groupname+"' and a.receiveuser='"+req.receiveuser+"';"
+             console.log(sql2);
+             sql.pool.query(sql2,(err,rows,fields)=>{
                 console.log(rows);
                 console.log("makemembers");
                 if(rows===undefined){
-                    req.member = '';
+                    return;
                 }else{
                     rows.forEach((info,index,newarray) => {  
                         array2.push(info);
                     })
-                    req.member=array2;
-                }
+                   
+                } 
+                
             })
-
+            req.member=array2;
             console.log(req.member);
             console.log('그룹 가입하려는 자',req.senduser);
             
