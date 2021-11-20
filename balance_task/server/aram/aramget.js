@@ -28,10 +28,14 @@ let receive_message = (req, res, next) => {
             sql.pool.query(sql2,req.groupname,(err,rows,fields)=>{
                 console.log(rows);
                 console.log("makemembers");
-                rows.forEach((info,index,newarray) => {  
-                    array2.push(info);
-                })
-                req.member=array2;
+                if(rows===undefined){
+                    req.member = '';
+                }else{
+                    rows.forEach((info,index,newarray) => {  
+                        array2.push(info);
+                    })
+                    req.member=array2;
+                }
             })
 
             console.log(req.member);
