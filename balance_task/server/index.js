@@ -257,7 +257,7 @@ app.get("/api/user/auth",(req, res, next) => {
 });
 
 app.post("/api/group/search_card", upload.array('image'),group_search, (req, res) => {
-  console.log("group get success");
+  console.log("group들 가져오기");
   //console.log(req.array);
   if(!req.body.array_status){
     res.status(200).json({
@@ -425,7 +425,7 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
               ProfileImage: req.user_image,
               FinishedPJ: 0,
               ContinuingPJ: 0,
-              Score: req.evaluation_score,
+              Score: req.score,
               ProfileMessage: req.introduce
             });
             console.log(userarray);

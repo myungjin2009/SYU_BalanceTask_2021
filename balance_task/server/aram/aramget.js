@@ -24,7 +24,7 @@ let receive_message = (req, res, next) => {
             // if(req.notsend==1){
             //     return;
             // }
-            var sql2="select a.receiveuser as id, u.name from aram a,user u where u.id=a.receiveuser and a.content=2 and a.group_name=?"
+            var sql2="select a.receiveuser as id, u.name , a.group_name as group from aram a,user u where u.id=a.receiveuser and a.content=2 and a.group_name=?"
             sql.pool.query(sql2,req.groupname,(err,rows,fields)=>{
                 console.log(rows);
                 console.log("makemembers");
