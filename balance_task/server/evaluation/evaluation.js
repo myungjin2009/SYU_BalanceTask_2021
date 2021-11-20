@@ -22,6 +22,7 @@ let evaluation= (req, res, next) => {
   //console.log('사진이야',req.files);
   //console.log(req.body.category);
   console.log(req.body);
+  let paramrater=req.body.id;
   let paramapp=req.body.app_evaluatuon;
   let paramgroup=req.body.group;
   let parammember=req.body.members_evaluation;
@@ -30,76 +31,44 @@ let evaluation= (req, res, next) => {
   let app_point=paramapp.point
   let array=[];
 
+  var data1 = ("('"+paramrater +"','"+ app_evaluation+"','"+ app_point+"')");
+
   parammember.forEach((info,index,newarray) => {
       req.id=info.id
       req.name=info.name
       req.point=info.point
       req.evaluation=info.evaluation
 
-
+      var data2 = ("('"+req.id +"','"+ req.name+"','"+ req.point+"','" +req.evaluation +"','"+paramrater+")")
+      array.push(data2);
    })
 
-  sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
-    //console.log(rows);
-    var maxno=rows[0]['count(board_number)']
-    const array=[]
-    var num=maxno+1;
-    var time=moment().format('YYYY-MM-DD HH:mm:ss');
-    //
-    var data={board_number:num, title:paramtitle, image:paramimages.toString(), text:paramtext, info_user:paramId, info_groupname:urlgroup, date:time}
+   var replaced = array.toString().replace(/\[.*\]/g,'');
+   var str = replaced.replace(/\"/gi, "");
+   const sql9 = "INSERT INTO member_app(evaluated_user,point,group,rater) VALUES "+str+";"
+   sql.pool.query(sql9, (err, rows, fields) => {
+        if (err) {
+            console.log(err);
+            console.log("오류");
+        } else { 
+            console.log("멤버 평가 종료 발신");
+            next();
+        }
+    });
+
+    const sql1 = "INSERT INTO app(user,evaluation,point) VALUES "+data1+";"
+    console.log(sql1);
+    sql.pool.query(sql1, (err, rows, fields) => {
+        if (err) {
+            console.log(err);
+            console.log("오류");
+        } else { 
+            console.log("앱 평가 종료 발신");
+            next();
+        }
+    });
+ 
     
-    let sql1 = "insert into groupboard set ?"
-    console.log(paramcategory);
-    if(paramcategory==="타임라인"){
-      console.log("vote로 들어왔습니다.");
-      let sql10="select count(vote_no) from vote";
-      //let sql11="select count(user) from groupusers where group_name=?";
-      let sql3="select user  from groupusers where group_name=?";
-      sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
-        console.log(rows);
-        sql.pool.query(sql10,(err,row,fields)=>{
-        console.log(row);
-        let voteno=row[0]['count(vote_no)'];
-        let groupusers_no=rows[0]['count(board_number)'];
-        rows.forEach((info,index,newarray) => {  
-          vno=voteno++;
-          console.log("vno:"+vno);
-          req.users= info.user;
-          //for(i=voteno ; i<voteno+rows.length; i++){
-          console.log("i:"+i);  
-          console.log("rows.length:"+rows.length); 
-          var votedata={vote_no:vno, board_number:num, discuss:0, user:req.users, group:urlgroup}
-          sql4="insert into vote set ?"
-          sql.pool.query(sql4,votedata,(err,rows,fields)=>{
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("voteadd come");
-            }
-          })
-          //}
-        })
-      })
-    })
-    }
-
-    if(paramcategory==="공지사항"){
-      sql1="insert into groupnotice set ?";
-    }
-
-    //const sql2 = "SELECT * FROM vote; ";
-    console.log(sql1,data);
-    sql.pool.query(sql1,data,(err, rows, fields) => {
-      console.log(sql1);
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("boardadd come");
-      }
-      next()
-      //console.log(array);
-    });//sql
-  });  
 };
 
 module.exports= {boardadd};
