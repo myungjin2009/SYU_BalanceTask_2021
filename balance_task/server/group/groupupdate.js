@@ -27,7 +27,8 @@ let group_update= (req, res, next) => {
 	for(i=0;i<req.files.length;i++){
 		paramgroup_images.push(`/image/${req.files[i].filename}`);
 	}
-    var sql1="update `groups` set (groups_name,category,start,end,highlight,host,manager,content,image,image)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images[0]+"','"+paramgroup_images[1]+"') where group_name='"+paramgroup_name+"');"
+    //var sql1="update `groups` set (group_name,category,startdate,deadline,highlight,host,manager,content,group_images)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images+"') where group_name='"+paramgroup_name+"');"
+    var sql1="update `groups` set group_name='"+paramgroup_name+"',category='"+paramcategory+"',startdate='"+paramstartdate+"',deadline='"+paramdeadline+"',highlight='"+paramhighlight+"',host='"+paramhost+"',manager='"+parammanger+"',content='"+paramcontent+"',group_images='"+paramgroup_images+"' where group_no='"+req.body.board_number+"';"
 
     sql.pool.query(sql1,(err,rows,fields)=>{
         if (err) {

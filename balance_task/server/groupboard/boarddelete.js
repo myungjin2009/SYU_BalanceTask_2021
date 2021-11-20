@@ -10,7 +10,7 @@ const moment=require("moment");
 
 
 
-let groupdelete= (req, res, next) => {
+let boarddelete= (req, res, next) => {
     console.log(req.body);
     console.log(req.body.dataToSubmit.id); 
     var paramdataTosubmit = req.body.dataToSubmit.id;
@@ -26,4 +26,4 @@ let groupdelete= (req, res, next) => {
         }); 
     }
 
-    module.exports= {groupdelete};
+    module.exports= {boarddelete};
