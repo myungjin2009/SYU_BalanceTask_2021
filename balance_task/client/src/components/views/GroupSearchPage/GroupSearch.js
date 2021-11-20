@@ -54,7 +54,7 @@ const GroupSearch = (props) => {
         last_number: number,
         date: new Date() 
       };
-      // setNumber(number+5);
+      //setNumber(number+5);
       dispatch(receiveGroupCard(body))
       .then(response =>{
       //   // 백엔드 애들이 주석 풀어주기
