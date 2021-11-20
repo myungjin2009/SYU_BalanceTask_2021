@@ -15,56 +15,30 @@ var app = express();
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-const multer = require("multer");
-const path = require("path");
-	//const upload = multer({dest: './upload'}); 	
-	//var upload = multer({ storage: storage });
-	//app.use('/image', express.static('./upload'));
-
-	var storage = multer.diskStorage({ 
-		destination: function (req, file, cb) { cb(null, './upload')  },
-		filename: function (req, file, cb) { cb(null, file.originalname)} 
-	  })
-	  
-	  
-	  const upload = multer({ storage: storage });
     
-let boardadd = (req, res, next) => {
-  //upload.single("image")
- // const upload = multer({ storage: multer.diskStorage({ destination(req, file, cb) { cb(null, "uploads/"); }, filename(req, file, cb) { const ext = path.extname(file.originalname); cb(null, path.basename(file.originalname, ext) + Date.now() + ext); }, }), limits: { fileSize: 5 * 1024 * 1024 }, });
+let evaluation= (req, res, next) => {
 
-
-  console.log("boardadd 함수 호출됨");
+  console.log("evaluation함수 호출됨");
   //console.log('사진이야',req.files);
   //console.log(req.body.category);
-  let paramcategory=req.body.category;
-  let urlgroup=req.body.group;
-  let paramId=req.body.id;
-  let paramtitle="게시물";
-  let paramimages=[];
-  let paramtext=req.body.content;
-
-  for(i=0;i<req.files.length;i++){
-    paramimages.push(`/image/${req.files[i].filename}`);
-  }
+  console.log(req.body);
+  let paramapp=req.body.app_evaluatuon;
+  let paramgroup=req.body.group;
+  let parammember=req.body.members_evaluation;
   
-    // if(paramimages=== null || paramimages===undefined){
-    //     paramimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
-    // }else{
-    //     paramimages= `/image/${req.file.filename}`;
-    // }
-    // fs.readFile(paramfile, 'utf8', function(err, data){
-    //     console.log(data);
-    //   });
+  let app_evaluation=paramapp.evaluation
+  let app_point=paramapp.point
+  let array=[];
 
-  let sql2="select count(board_number) from groupboard where info_groupname=?";
-  if(paramcategory==='공지사항'){
-    sql2="select count(board_number) from groupnotice where info_groupname=?";
-  }
+  parammember.forEach((info,index,newarray) => {
+      req.id=info.id
+      req.name=info.name
+      req.point=info.point
+      req.evaluation=info.evaluation
 
-  //console.log(sql2);
-  //console.log(paramimages.toString());  
+
+   })
+
   sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
     //console.log(rows);
     var maxno=rows[0]['count(board_number)']
@@ -113,25 +87,6 @@ let boardadd = (req, res, next) => {
       sql1="insert into groupnotice set ?";
     }
 
-    // if(paramcategory==="타임라임"){
-    //   console.log("vote로 들어왔습니다.");
-    //   let sql3="select user from groupusers where group_name=?";
-    //   sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
-    //     rows.forEach((info,index,newarray) => {
-    //       req.users= info.user;
-    //       var votedata={board_number:num, discuss:0, user:req.users, group:urlgroup}
-    //       sql4="insert into vote set ?";
-    //       sql.pool.query(sql4,votedata,(err,rows,fields)=>{
-    //         if (err) {
-    //           console.log(err);
-    //         } else {
-    //           console.log("voteadd come");
-    //         }
-    //       })
-    //     })
-    //   })
-    // }
-    
     //const sql2 = "SELECT * FROM vote; ";
     console.log(sql1,data);
     sql.pool.query(sql1,data,(err, rows, fields) => {

@@ -73,7 +73,7 @@ let boardget1 = (req, res, next) => {
             req.date =info.date;
             req.profileimage=info.user_image;
             if(req.profileimage=="DEFAULT"){
-              req.profileimage=['C:/Users/paikjeonghun/Desktop/21_hf052/balance_task/client/src/images/profile_sample.jpg']
+              req.profileimage=['/image/profile_sample.jpg']
             }
            
             array.push({
