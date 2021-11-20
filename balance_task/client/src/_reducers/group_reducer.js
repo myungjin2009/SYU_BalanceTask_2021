@@ -138,6 +138,8 @@ export default function reducer(state = initialState, action) {
       console.log(action.payload);
       const {removed_post_id} = action.payload;
       let new_array = state.groups_list.filter(el => removed_post_id !== el.id);
+      console.log("예전: "+ state.groups_list);
+      console.log('지금: '+new_array);
       return {...state, groups_list: new_array};
     }
     case LOADING:{

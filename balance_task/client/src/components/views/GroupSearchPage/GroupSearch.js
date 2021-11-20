@@ -17,14 +17,16 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, se
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   // console.log(scrollTop+clientHeight);
   // console.log(scrollHeight);
-  if(Math.ceil(scrollTop + clientHeight) >= scrollHeight-10){
+  if(Math.ceil(scrollTop + clientHeight) === scrollHeight){
     //바로 로딩 true로 설정
     console.log('됐다');
     dispatch(receiveGroupCard(body)).then(res=>{
-      console.log(number);
-      setNumber(number+5);
-      //console.log(entireNotice,res.payload.array)
+      // setTimeout(()=>{
+      // }, 2000);
       setEntireList([...groups_list,...res.payload.array]);
+      setNumber(number+10);
+      //console.log(entireNotice,res.payload.array)
+      
     });
     //바로 로딩 false로 바꾸자
   }
@@ -54,13 +56,13 @@ const GroupSearch = (props) => {
         last_number: number,
         date: new Date() 
       };
-      console.log(number);
       dispatch(receiveGroupCard(body))
       .then(response =>{
-      //   // 백엔드 애들이 주석 풀어주기
-      if(response.payload.success && mounted){ // 오류 있으면 지우자
-      //   // 2.로딩 해제하고 다시 리렌더링 된다.
-        console.log(response);
+        //   // 백엔드 애들이 주석 풀어주기
+        if(response.payload.success && mounted){ // 오류 있으면 지우자
+          //   // 2.로딩 해제하고 다시 리렌더링 된다.
+          console.log(response);
+          setNumber(number+10);
         dispatch(chooseLoadingGroup({group_search: false}));
       }
       });
@@ -84,7 +86,7 @@ const GroupSearch = (props) => {
     //버튼을 누를 때마다 데이터 가져옴
     //스크롤 이벤트 넣으면서 사라진 버튼 이벤트
     return () =>(mounted = false);
-  },[isLoading, search, groups_list]);
+  },[isLoading, search]);
 
   const onClickHandler = (kind) =>{
     if(kind==='스터디'){
