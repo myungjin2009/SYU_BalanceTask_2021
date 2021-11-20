@@ -10,7 +10,6 @@ const clickHandler = (e, setIsModal) =>{
 }
 
 const endHandler = (e, dispatch, group, group_members, userData) =>{
-  
   const bodyForAlert = {
     group_members,
     send_user_id:userData.id,

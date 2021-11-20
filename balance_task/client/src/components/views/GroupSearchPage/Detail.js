@@ -29,7 +29,8 @@ const Detail = (props)=>{
           <span>{kind}</span>
         </Category>
         <Img image={postimage} onClick={()=>{
-          window.open(postimage);
+          // window.open(postimage);
+          props.history.push(postimage, {postimage});
         }}><div>
           </div>
         </Img>

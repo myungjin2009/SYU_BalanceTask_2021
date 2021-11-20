@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 //import profile_default from './profile_sample.jpg'; //REDUX 적용후 해체 예정
 import {dataLoad, receiveProjectMypage, loadWorker} from '../../../_actions/user_action';
+import {workNumLoading} from '../../../_actions/group_action';
 import {useSelector, useDispatch} from 'react-redux';
 import {withRouter} from "react-router-dom";
 
@@ -38,9 +39,6 @@ const LoadProfile = (props) => {
     const [userData, setUserData] = React.useState(worker_list);
     const dispatch = useDispatch();
 
-    const setCountWorker = (num) => {       //내 워커들이 총 몇 명인지 구해서 부모 컴포넌트로 보내주는 함수
-        props.howManyWorker(num);
-    }
     const setWhoClicked = (data) => {     //프로필 목록에서 클릭했을 때, 프로필 상세보기 데이터를 부모 컴포넌트로
         props.whoClicked(data);
         props.setWindow(true);
@@ -54,7 +52,8 @@ const LoadProfile = (props) => {
                 dispatch(dataLoad(false));
             }
         }
-    },[props.userData]);
+        dispatch(workNumLoading(userData.length));  //나의 Worker친구 몇명인지 보내주는 dispatch
+    },[props.userData, userData]);
 
     if(props.profile === "MyProfile") {
         if(myData.profile.ProfileName == ``) {
@@ -90,8 +89,6 @@ const LoadProfile = (props) => {
       filterUsers.filter(
         (element, i) => element !== undefined
     );
-    
-    setCountWorker(SortFilterUsers.length);
 
     if(props.profile === "WorkerProfile") {
         if(userData.length === 0) {

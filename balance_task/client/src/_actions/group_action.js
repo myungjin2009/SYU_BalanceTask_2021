@@ -13,7 +13,8 @@ import {
   SEND_ALERT_MESSAGE,
   UPDATE_GROUP_CARD,
   DELETE_GROUP_CARD,
-  DELETE_POST
+  DELETE_POST,
+  LOADING_WORKERLIST_NUM
 } from "./types";
 import axios from "axios";
 
@@ -185,12 +186,19 @@ export function sendAlertMessage(dataToSubmit){
 
 //게시글 지우기
 export function deletePost(dataToSubmit){
-  const request = axios.delete('/api/group/post', dataToSubmit)
-  .then(response => response.data)
+  const request = axios.delete('/api/group/post', {data:{dataToSubmit}})
+  .then(res => Promise.resolve({server_data: res.data, removed_post_id: dataToSubmit.id}))
   .catch((err) => console.log("게시글 삭제 오류! : " + err));
-
   return {
     type: DELETE_POST,
     payload: request
+  }
+}
+
+//워커리스트- 인원 수 로딩 함수
+export function workNumLoading(workerNum){
+  return{
+    type: LOADING_WORKERLIST_NUM,
+    workerNum
   }
 }

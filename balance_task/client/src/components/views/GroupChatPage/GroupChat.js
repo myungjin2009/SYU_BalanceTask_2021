@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 import styled from 'styled-components';
-
+import SendIcon from '@material-ui/icons/Send';
 import calculateDate from "../common/DateCalculator";
 import Header from "../Header/Header";
 import ChatBlock from "./ChatBlock";
@@ -13,6 +13,7 @@ import ChatBlock from "./ChatBlock";
 const GroupChat = (props) => {
   const socket = io.connect("http://localhost:80");
   const {match:{params:{group}}} = props;
+
   // const dispatch = useDispatch();
   const user = useSelector(state => state.user.userData);
   // const isLoading = useSelector(state => state.group.isLoading.group_chat);
@@ -27,21 +28,27 @@ const GroupChat = (props) => {
     console.log(user);
     
       
-    socket.emit("room", {name: user.name, id: user.id, group});
+    socket.emit("join", {name: user.name, id: user.id, group});
     return () => {
       socket.close();
     };
-  },[]);
+  },[user]);
 
   useEffect(() => {
     socket.on("receive message", (message) => {
       setChatArr((chatArr) => chatArr.concat(message));
     }); //receive message이벤트에 대한 콜백을 등록해줌
-  }, []);
+
+    socket.on('roomData', ({ users }) => {
+      // setUsers(users)
+    })
+  },[user]);
 
   const buttonHandler = useCallback(() => {
-    console.log(user.name, chat, user.id);
-    socket.emit("send message", { name: user.name, message: chat, date: calculateDate('', true), id: user.id }); 
+    if(chat===''){
+      return;
+    }
+    socket.emit("send message", { name: user.name, message: chat, date: calculateDate('', true), id: user.id, group }); 
     //버튼을 클릭했을 때 send message이벤트 발생
   }, [chat]);
   const changeMessage = useCallback(
@@ -59,38 +66,6 @@ const GroupChat = (props) => {
   //     profile_image: '이미지',
   //     date: '2021.10.11'
   //   },
-  //   {
-  //     id: 2,
-  //     user_name: '박건형',
-  //     user_id: 'one0374@naver.com',
-  //     message: `안녕하세요 박건형입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   },
-  //   {
-  //     id: 3,
-  //     user_name: '김명진',
-  //     user_id: 'myungjin@naver.com',
-  //     message: `안녕하세요 김명진입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   },
-  //   {
-  //     id: 4,
-  //     user_name: '바바',
-  //     user_id: 'ㅂㅂ@naver.com',
-  //     message: `안녕하세요 바바입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   },
-  //   {
-  //     id: 5,
-  //     user_name: '오란씨',
-  //     user_id: '오란@naver.com',
-  //     message: `안녕하세요 오란씨입니다.`,
-  //     profile_image: '이미지',
-  //     date: '2021.10.11'
-  //   }
   // ];
   return (
     <Container>
@@ -98,18 +73,51 @@ const GroupChat = (props) => {
       {chatArr.length !==0 &&  chatArr.map((chat, index)=>(
         <ChatBlock key={index} userData={user} chat_data={chat}/>
       ))}
-      <div style={{width: "100%", height: "300px", position: "fixed", bottom:"0"}}>
+      <InputBox>
         <input placeholder="내용" onChange={changeMessage}></input>
-        <button onClick={buttonHandler}>등록</button>
-      </div>
+        <button onClick={buttonHandler}><SendIcon/></button>
+      </InputBox>
     </Container>
   )
 }
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   text-align: center;
-`
+  margin-top: 100px;
+  margin-bottom: 100px;
+`;
+
+const InputBox = styled.div`
+  width: 100%;
+  display: flex;
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: 4%;
+  &>input{
+    width: 80%;
+    height: 50px;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    outline-color: #CDF0FF;
+
+  }
+  &>button{
+    width: 20%;
+    font-size: 15px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    height: 50px;
+    &:active{
+      background: #eee;
+    }
+  }
+
+`;
 
 export default withRouter(GroupChat);
