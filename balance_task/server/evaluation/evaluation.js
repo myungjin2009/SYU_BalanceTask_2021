@@ -27,7 +27,7 @@ let evaluation= (req, res, next) => {
   let paramgroup=req.body.group;
   let parammember=req.body.members_evaluation;
   
-  let app_evaluation=paramapp.evaluation
+  let app_evaluation=paramapp.evalutation
   let app_point=paramapp.point
   let array=[];
 
@@ -39,20 +39,19 @@ let evaluation= (req, res, next) => {
       req.point=info.point
       req.evaluation=info.evaluation
 
-      var data2 = ("('"+req.id +"','"+ req.name+"','"+ req.point+"','" +req.evaluation +"','"+paramrater+")")
+      var data2 = ("('"+req.id +"','"+ req.name+"','"+ req.point+"','" +paramgroup+"','"+paramrater+"','"+req.evaluation+"')")
       array.push(data2);
    })
 
    var replaced = array.toString().replace(/\[.*\]/g,'');
    var str = replaced.replace(/\"/gi, "");
-   const sql9 = "INSERT INTO member_app(evaluated_user,point,group,rater) VALUES "+str+";"
+   const sql9 = "INSERT INTO member_app(evaluated_user,name,point,group_name,rater,evaluation) VALUES "+str+";"
    sql.pool.query(sql9, (err, rows, fields) => {
         if (err) {
             console.log(err);
             console.log("오류");
         } else { 
             console.log("멤버 평가 종료 발신");
-            next();
         }
     });
 
@@ -71,4 +70,4 @@ let evaluation= (req, res, next) => {
     
 };
 
-module.exports= {boardadd};
+module.exports= {evaluation};

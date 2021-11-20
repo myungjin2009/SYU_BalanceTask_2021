@@ -12,25 +12,15 @@ const moment=require("moment");
     let paramgroup_name=req.body.group;
     let paramgroup_member=req.body.group_members;
     let paramleader=req.body.send_user_id;
+    req.member=paramgroup_member;
     
     let array=[];
-    // const sql8="select max(aram_no) from aram"
-    //     sql.pool.query(sql8,(err,rows,fields)=>{
-    //         no=rows[0]['max(aram_no)']+1;
-    //         console.log(no);
-    //     })
-
+    
     console.log(req.body);
     let no=0;
     paramgroup_member.forEach((info,index,newarray) => {  
         req.id=info.id;
 
-        // const sql8="select max(aram_no) from aram"
-        // sql.pool.query(sql8,(err,rows,fields)=>{
-        //     no=rows[0]['max(aram_no)']+1;
-        //     console.log(no);
-        // })
-        
         var time=moment().format('YYYY-MM-DD HH:mm:ss');
 
         let Sparamleader=paramleader.toString();
@@ -40,12 +30,8 @@ const moment=require("moment");
         
         var data2 = ("('"+Sparamleader +"','"+ SId +"','"+ time +"','" +Sgrouop +"',2,1)");
         no++;
-        //console.log(data2);
+    
         array.push(data2);
-        //console.log(array);
-        //var data = {aram_no:no, senduser:paramleader, receiveuser:req.id, group:paramgroup_name, sendtime:time, content:2, notsend:1 };
-        //console.log(data);
-        
     })
     
         //const sql2 = "SELECT * FROM vote; ";
