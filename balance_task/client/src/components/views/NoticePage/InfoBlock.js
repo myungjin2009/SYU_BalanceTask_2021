@@ -2,14 +2,16 @@ import React, { useRef } from 'react'
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { postNoticeConfirm, postNoticeReject} from '../../../_actions/user_action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import calculateDate from '../common/DateCalculator';
 
 function InfoBlock(props) {
   const dispatch = useDispatch();
-  const Container_Ref = useRef(null);
   const {aramsdata:{senduser, time, groupname, content}} = props;
+  
+  const Container_Ref = useRef(null);
+  
   console.log(props.aramsdata);
   
   const canceilHandler = () =>{
@@ -63,7 +65,7 @@ function InfoBlock(props) {
           content !==undefined && content !== 2 &&
           <>
             <Button variant="contained" color="primary" style={{width: "45%", margin: "2.5%"}} onClick={confirmHandler}>확인</Button>
-            <Button Button variant="contained" color="secondary" style={{width: "45%", margin: "2.5%"}} onClick={canceilHandler}>취소</Button>
+            <Button variant="contained" color="secondary" style={{width: "45%", margin: "2.5%"}} onClick={canceilHandler}>취소</Button>
           </>  
         }
       </ButtonContainer>

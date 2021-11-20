@@ -36,10 +36,13 @@ const changeScoreForMembers = (e, newValue, setPointForMembers, i, pointForMembe
 
 const ProjectEnd = (props) => {
   const group = props.match.params.group;
+  console.log(props);
   const dispatch = useDispatch();
   const userData = useSelector(state => state.user.userData);
   // 완성하면 주석풀기
-  const group_members = useSelector(state => state.group.group_members);
+  const members = useSelector(state => state.user.members);
+
+  const group_members = members.filter(el => el.group_name === group);
 
   //그룹 맴버 필터링이 필요하긴함
   // const group_members = [
@@ -56,7 +59,7 @@ const ProjectEnd = (props) => {
   //     name: '박건형'
   //   },
   // ];
-  
+  //useEffect를 이용해서 조건적으로 해서 리다이랙션 안되는건 시키면 될듯
   const [pointForApp, setPointForApp] = useState(50);
   const [pointForMembers, setPointForMembers] = useState(new Array(group_members.length).fill(50));
   const [appEvaluation, setAppEvaluation] = useState('');
