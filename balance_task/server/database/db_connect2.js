@@ -2,11 +2,10 @@ var mysql = require('mysql2/promise');
  
 
       
-  var pool = mysql.createPool({
-    connectionLimit : 10, 
+  var pool = mysql.createPool({ 
      host     : 'localhost',
      user     : 'root',
-    password : 'dlwjdal1290',
+    password : '1111',
      database : 'test',
     debug    :  false,
     multipleStatements: true
