@@ -9,33 +9,34 @@ const clickHandler = (e, setIsModal) =>{
   setIsModal(true);
 }
 
-const endHandler = (e, dispatch, group, group_members, userData) =>{
+const endHandler = (props, e, dispatch, group) =>{
+  
+  const body = {
+    group
+  };
+  dispatch(endProject(body)).then(res=>{
+    if(res.payload.project_end_data.success){
+      window.location.replace('/my_page');
+      console.log('프로젝트 종료 성공');
+    }
+  });
+
+}
+const sendAramHandler = (dispatch, group, group_members, userData) =>{
   const bodyForAlert = {
     group_members,
     send_user_id:userData.id,
     group
   }
-  // dispatch(endProject(bodyForAlert)).then(res=>{
-  //   if(res.payload.success){
-  //     console.log('프로젝트 종료 성공');
-  //   }
-  // });
   dispatch(sendAlertMessage(bodyForAlert)).then(res=>{
     if(res.payload.success){
-      const body = {
-        group
-      };
-      dispatch(endProject(body)).then(res=>{
-        if(res.payload.success){
-          console.log('프로젝트 종료 성공');
-        }
-      });
+      console.log('팀원들에게 알림 보내기 성공');
     }
   });
-  
 }
 
-function HidingMenu({isLeader, menuBtn, isMenu, group}) {
+function HidingMenu(props) {
+  const {isLeader, menuBtn, isMenu, group} = props;
   const slideMenu = useRef(null);
   const group_members = useSelector(state=>state.group.group_members);
   const userData = useSelector(state=>state.user.userData);
@@ -68,7 +69,8 @@ function HidingMenu({isLeader, menuBtn, isMenu, group}) {
         <li><Link to={`/${group}/group_chat`}>채팅방</Link></li>
         <li><Link to={`/${group}/group_calendar`}>워커 캘린더</Link></li>
         <li><span style={{color:"white"}} onClick={(e)=>clickHandler(e,setIsModal)}>워커 추가</span></li>
-        {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>endHandler(e, dispatch, group, group_members, userData)}>프로젝트 종료</span></li>}
+        {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>sendAramHandler(dispatch, group, group_members, userData)}>상호평가하기</span></li>}
+        {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>endHandler(props, e, dispatch, group)}>프로젝트 종료</span></li>}
       </SlideMenu>
       { isModal && <AddWorker workerList={workerList} isModal={isModal} setIsModal={setIsModal}/>}
     </SlideMenuContainer>

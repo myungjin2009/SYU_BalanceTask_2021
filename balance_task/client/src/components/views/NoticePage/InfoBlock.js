@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { postNoticeConfirm, postNoticeReject} from '../../../_actions/user_action';
 import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router';
+import calculateDate from '../common/DateCalculator';
 
 function InfoBlock(props) {
   const dispatch = useDispatch();
   const Container_Ref = useRef(null);
   const {aramsdata:{senduser, time, groupname, content}} = props;
   console.log(props.aramsdata);
+  
   const canceilHandler = () =>{
     const new_obj = {
       ...props.aramsdata,
@@ -21,7 +24,7 @@ function InfoBlock(props) {
       }
     });
   }
-  console.log(content);
+
   const confirmHandler = () =>{
     const new_obj = {
       ...props.aramsdata,
@@ -34,24 +37,30 @@ function InfoBlock(props) {
       }
     });
   }
+
+  const movePage = () =>{
+    if(content===2){
+      props.history.push('/my_page/evaluation/'+ groupname);
+    }
+  }
   return (
     <Container ref={Container_Ref}>
       <i className="fas fa-times" onClick={canceilHandler}></i>
-      <NameBlock>
+      <NameBlock onClick={movePage}>
         보낸사람: {senduser}
       </NameBlock>
-      <Content>
+      <Content onClick={movePage}>
         {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`}
         {content === 0 && `${senduser}님의 ${groupname}에 가입이 거절 되었습니다..`}
         {content === 1 && `${senduser}님의 ${groupname}에 가입 되었습니다!`}
         {content === 2 && `${senduser}님의 ${groupname}을 평가해주세요!`}
       </Content>
       <TimeBlock>
-        {time}
+        {calculateDate(time, true)}
       </TimeBlock>
       <ButtonContainer>
         {
-          content !==undefined&& content !== 2 &&
+          content !==undefined && content !== 2 &&
           <>
             <Button variant="contained" color="primary" style={{width: "45%", margin: "2.5%"}} onClick={confirmHandler}>확인</Button>
             <Button Button variant="contained" color="secondary" style={{width: "45%", margin: "2.5%"}} onClick={canceilHandler}>취소</Button>
@@ -99,4 +108,4 @@ const TimeBlock = styled.div`
 const ButtonContainer = styled.div`
   width: 100%;
 `;
-export default InfoBlock;
+export default withRouter(InfoBlock);

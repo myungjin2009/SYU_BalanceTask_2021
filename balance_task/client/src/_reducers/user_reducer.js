@@ -76,7 +76,8 @@ export default function reducer(state = initialState, action) {
       }
       // return { ...state, profile: action.payload.profile, 
       //   project_list: action.payload.project_list};
-      return { ...state, profile: action.payload.profile, project_list: action.payload.project_list,aramsdata: action.payload.aramsdata};
+      console.log(action.payload);
+      return { ...state, profile: action.payload.profile, project_list: action.payload.project_list, aramsdata: action.payload.aramsdata, members: action.payload.members};
     }
     case UPDATE_MESSAGE:{
       return {...state, updateMessageSuccess: action.payload.success}
