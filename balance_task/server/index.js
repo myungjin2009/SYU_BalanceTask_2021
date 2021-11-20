@@ -142,6 +142,9 @@ var { chatting } = require("./chatting/chatting");
 var { makeroom } = require("./chatting/makeroom");
 var { personchat} = require("./chatting/personchatting");
 
+//평가 페이지
+var {evaluation} = require("./evaluation/evaluation");
+
 // 익스프레스 객체 생성
 
 
@@ -489,7 +492,8 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
                 profile:userarray[0],
                 project_list:req.array,
                 arams:req.truearam,
-                aramsdata:req.aramArray
+                aramsdata:req.aramArray,
+                members:req.member
               });
       });         
   
@@ -779,7 +783,12 @@ app.post("",chatting,(req,res,next)=>{
     });
 })
 
+app.post("/api/group/evaluation",evaluation,(req,res)=>{
 
+  res.status(200).json({
+    success: true
+  });
+});
 
 // io.on("connection", (socket) => {
 //   socket.on("chatting", (data) => {
