@@ -117,6 +117,7 @@ function UpdateGroup(props) {
     }
       
     dispatch(updateGroupCard(formData, config)).then((res) => {
+        console.log(res.payload.success);
       if(res.payload.success){
         alert('성공적으로 그룹을 수정하였습니다!😊');
         // props.history.push('/group_search');

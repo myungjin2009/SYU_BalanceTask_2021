@@ -57,7 +57,7 @@ export function deleteGroupCard(dataToSubmit){
 //해당 그룹을 업데이트하기
 export function updateGroupCard(formData, config){
   const request = axios.put('/api/group/search_card', formData, config)
-  .then(res => Promise.resolve({server_data: res.data, updated_post: formData}))
+  .then(res => Promise.resolve({success: res.data, updated_post: formData}))
   .catch(err => console.log(err));
   return {
     type: UPDATE_GROUP_CARD,

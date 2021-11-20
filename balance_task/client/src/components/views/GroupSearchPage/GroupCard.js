@@ -46,8 +46,11 @@ const GroupCard = ({props, cardData}) =>{
       id
     }
     dispatch(deleteGroupCard(body)).then(res=>{
+      console.log(res.payload.success);
       if(res.payload.success){
         console.log(title +'삭제 성공!');
+        alert('성공적으로 삭제했습니다!');
+        window.location.reload("/group_search");
       }
     });
   }
