@@ -12,7 +12,7 @@ let group_search = (req, res, next) => {
   console.log("group_search 함수 호출됨");
   const sql2="select max(group_no),count(group_no) from `groups`";
     sql.pool.query(sql2,(err,rows,fields)=>{
-     var maxno=rows[0]['count(group_no)']
+     var maxno=rows[0]['max(group_no)']
      var countno=rows[0]['count(group_no)']
       console.log(maxno);
       console.log(countno);

@@ -37,7 +37,7 @@ const changeScoreForMembers = (e, newValue, setPointForMembers, i, pointForMembe
 const ProjectEnd = (props) => {
   const group = props.match.params.group;
   const dispatch = useDispatch();
-
+  const userData = useSelector(state => state.user.userData);
   // 완성하면 주석풀기
   // const group_members = useSelector(state => state.group.group_members);
 
@@ -70,11 +70,14 @@ const ProjectEnd = (props) => {
     });
 
     const app_evaluatuon = { evalutation: appEvaluation, point: pointForApp}
-
+    if(userData.id === undefined || userData.id === null){
+      return;
+    }
     const body = {
       app_evaluatuon,
       members_evaluation,
-      group
+      group,
+      id:userData.id
     }
     dispatch(sendEvaluation(body)).then((res)=>{
       if(res.payload.success){
