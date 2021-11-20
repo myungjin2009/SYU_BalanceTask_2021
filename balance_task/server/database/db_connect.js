@@ -5,7 +5,7 @@ var mysql = require('mysql');
     connectionLimit : 10, 
     host     : 'localhost',
     user     : 'root',
-    password : '1111',
+    password : 'dlwjdal1290',
     database : 'test',
     debug    :  false
   });
