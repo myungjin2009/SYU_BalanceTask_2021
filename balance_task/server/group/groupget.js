@@ -31,9 +31,9 @@ let group_search = (req, res, next) => {
 
     var sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
 
-    if(paramlastnumber==-1){
-      sql1="SELECT * FROM `groups` g, user u where "+countno+ "<= group_no and group_no <="+ maxno+" and g.user=u.id ORDER BY group_no DESC;";
-    }
+    // if(paramlastnumber==-1){
+    //   sql1="SELECT * FROM `groups` g, user u where "+countno+ "<= group_no and group_no <="+ maxno+" and g.user=u.id ORDER BY group_no DESC;";
+    // }
     //const sql1 = "SELECT * FROM `groups` g, user u where "+lownumber+ "<= group_no and group_no <="+ highnumber+" and g.user=u.id ORDER BY group_no DESC;";
     
     console.log(sql1);
