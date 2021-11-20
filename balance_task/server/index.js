@@ -90,6 +90,7 @@ var { grouppart } = require("./group/grouppart");
 var { groupclose } = require("./group/groupclose");
 var { groupmember} = require("./group/groupmember");
 var { group_update} = require("./group/groupupdate");
+var { groupdelete} = require("./group/groupdelete");
 
 //타임라인, 공지 관련 모듈
 var { noticeget } = require("./groupboard/noticeget");
@@ -267,6 +268,14 @@ app.post("/api/group/search_card", upload.array('image'),group_search, (req, res
 
 app.put("/api/group/search_card", upload.array('image'),group_update, (req, res) => {
   console.log("group get success");
+  //그룸들에 대한 모든 정보를 넘겨줌
+  res.status(200).json({
+    success: true,
+  });
+});
+
+app.delete("/api/group/search_card", groupdelete,(req, res) => {
+  console.log("group delete success");
   //그룸들에 대한 모든 정보를 넘겨줌
   res.status(200).json({
     success: true,

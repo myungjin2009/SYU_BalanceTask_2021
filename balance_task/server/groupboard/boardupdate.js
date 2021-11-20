@@ -9,7 +9,7 @@ const upload = multer({dest: './upload'});
 
 
 let group_update= (req, res, next) => {
-    console.log("group_search 함수 호출됨");
+    console.log("groupboard  update함수 호출됨");
     console.log(req.body);
 
     var paramgroup_name = req.body.groupName || req.query.groupName;
@@ -40,7 +40,3 @@ let group_update= (req, res, next) => {
     })   
     next();
 }
-   
-
-
-module.exports= {group_update};
