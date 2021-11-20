@@ -5,7 +5,7 @@ var router = express.Router();
 var app = express();
 const multer = require("multer");
 const upload = multer({dest: './upload'});
-
+const moment=require("moment");
 
 
 let group_search = (req, res, next) => {
@@ -62,47 +62,27 @@ let group_search = (req, res, next) => {
           req.name=info.name;
           req.highlight=info.highlight;
           var changeString=String(req.image);
-          //console.log(req.image);
-          //var instr=fs.readFileSync(changeString,'utf-8');
-          //console.log(instr);
-        //   if(changeString!=="null"){
-
-          
-        //   fs.open(changeString,'r',function(err,fd){
-        //     if(err) throw err;
-
-        //     var buf=new Buffer.alloc(10);
-        //     console.log('버퍼타입: %s',Buffer.isBuffer(buf));
-        //     fs.read(fd,buf,0,buf.length,null,function(err,bytesRead,buffer){
-        //       if(err) throw err;
-
-        //       instr=buffer.toString('utf8',0,bytesRead);
-        //       console.log('파일에서 읽은 데이터: %s',instr);
-        //       fs.close(fd,function(){
-        //         console.log("읽고 열기 완료");
-        //       })
-        //     })
-        //   })
-        // }
-        //fs.readFile(changeString);
-        //console.log(instr);
-          array.push({
-            id:req.group_no,
-            makeuser:req.makeuser,
-            title:req.group_name,
-            date:req.startdate+"~"+req.deadline,
-            deadline:req.deadline,
-            writer:req.name,
-            makehost:req.makehost,
-            kind:req.category,
-            content:req.content,
-            highlight:req.highlight,
-            image: req.image[1],         //메인로고사진
-            postimage:req.image[0]
-            });
-          
-            req.array=array;
-            
+          //var time=moment().format('YYYY-MM-DD HH:mm:ss');
+          var time=new Date();
+          console.log(time);
+          console.log(req.startdate);
+          if(time.getTime() >= req.startdate.getTime()){
+            array.push({
+              id:req.group_no,
+              makeuser:req.makeuser,
+              title:req.group_name,
+              date:req.startdate+"~"+req.deadline,
+              deadline:req.deadline,
+              writer:req.name,
+              makehost:req.makehost,
+              kind:req.category,
+              content:req.content,
+              highlight:req.highlight,
+              image: req.image[1],         //메인로고사진
+              postimage:req.image[0]
+              });
+            }
+            req.array=array;           
         })
         
       next();
