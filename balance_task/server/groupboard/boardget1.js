@@ -8,9 +8,9 @@ let boardget1 = (req, res, next) => {
   console.log("boardget 함수 호출됨");
   var urlgroup=req.body.group;
   
-  const sql2="select count(board_number) from groupboard where info_groupname=?";
+  const sql2="select max(board_number) from groupboard where info_groupname=?";
     sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
-    var maxno=rows[0]['count(board_number)']
+    var maxno=rows[0]['max(board_number)']
     const array=[];
     //console.log(req.body.group);
     let paramlastnumber=req.body.last_number;
