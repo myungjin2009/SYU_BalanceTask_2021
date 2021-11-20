@@ -48,7 +48,7 @@ const initialState = {
   ],
   isLoading: true,
   isDataLoading : true,
-  workerNum: -1
+  workerNum: -1,
 }
 
 export default function reducer(state = initialState, action) {

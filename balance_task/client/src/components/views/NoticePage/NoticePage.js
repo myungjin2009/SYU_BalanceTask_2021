@@ -8,12 +8,12 @@ function NoticePage(props) {
   const user = useSelector(state => state.user);
   const {aramsdata} = user;
   console.log(user);
-  // if(aramsdata===undefined || aramsdata === null){
-  //   props.history.push('/my_page');
-  //   return <>
+  if(aramsdata===undefined || aramsdata === null){
+    props.history.push('/my_page');
+    return <>
     
-  //   </>;
-  // }
+    </>;
+  }
   return (
     <Container>
       <Header title="알림"/>
