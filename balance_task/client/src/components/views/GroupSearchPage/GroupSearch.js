@@ -14,8 +14,6 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, se
     last_number: number,
     date: new Date() 
   };
-  // setNumber(number+5);
-  console.log(number);
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   // console.log(scrollTop+clientHeight);
   // console.log(scrollHeight);
@@ -23,6 +21,8 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, se
     //바로 로딩 true로 설정
     console.log('됐다');
     dispatch(receiveGroupCard(body)).then(res=>{
+      console.log(number);
+      setNumber(number+5);
       //console.log(entireNotice,res.payload.array)
       setEntireList([...groups_list,...res.payload.array]);
     });
@@ -54,7 +54,7 @@ const GroupSearch = (props) => {
         last_number: number,
         date: new Date() 
       };
-      //setNumber(number+5);
+      console.log(number);
       dispatch(receiveGroupCard(body))
       .then(response =>{
       //   // 백엔드 애들이 주석 풀어주기
