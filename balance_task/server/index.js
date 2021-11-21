@@ -459,7 +459,7 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
               ProfileImage: req.user_image,
               FinishedPJ: 0,
               ContinuingPJ: 0,
-              Score: Number(req.score),
+              Score: Number(req.evaluation_score),
               ProfileMessage: req.introduce
             });
             console.log(userarray);
