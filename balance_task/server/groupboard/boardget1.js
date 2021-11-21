@@ -59,6 +59,7 @@ let boardget1 = (req, res, next) => {
           
           // if(info.notice===0){
           //console.log(newarray);  
+            req.name=info.name;
             req.board_number = info.board_number;
             console.log(req.board_number);
             req.title = info.title;
@@ -83,7 +84,7 @@ let boardget1 = (req, res, next) => {
               date:info.date,
               //deadline:req.deadline,
               profileImage:req.profileimage,
-              user_name:req.info_user,
+              user_name:req.name,
               content:req.text,
               image:req.image,
               file:req.file,
