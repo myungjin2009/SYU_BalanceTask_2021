@@ -187,7 +187,7 @@ export function sendAlertMessage(dataToSubmit){
 //게시글 지우기
 export function deletePost(dataToSubmit){
   const request = axios.delete('/api/group/post', {data:{dataToSubmit}})
-  .then(res => Promise.resolve({server_data: res.data, removed_post_id: dataToSubmit.id}))
+  .then(res => Promise.resolve({data: dataToSubmit}))
   .catch((err) => console.log("게시글 삭제 오류! : " + err));
   return {
     type: DELETE_POST,

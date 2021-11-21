@@ -123,7 +123,7 @@ const PostBlock = (props) =>{
             <button onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>반대</button>  
           </ButtonContainer>
           <Bar>
-            {
+            { 
               votes_list.map((data, i)=><VoteBlock key={i} ref={(el)=>(vote_div.current[i]=el)}></VoteBlock>)
             }
           </Bar>

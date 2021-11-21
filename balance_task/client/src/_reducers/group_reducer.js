@@ -211,9 +211,10 @@ export default function reducer(state = initialState, action) {
 
     case DELETE_POST:{  //이게 맞는건지 확인 못함
       console.log(action.payload);
-      const {removed_post_id} = action.payload;
-      let new_array = state.timelineList.filter(el => removed_post_id !== el); 
-      return { ...state, timelineList: new_array };
+      //const {removed_post_id} = action.payload;
+      //let new_array = state.timelineList.filter(el => removed_post_id !== el); 
+      //return { ...state, timelineList: new_array };
+      return { ...state };
     }
 
     case LOADING_WORKERLIST_NUM:{
