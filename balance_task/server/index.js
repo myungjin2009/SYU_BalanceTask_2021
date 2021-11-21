@@ -578,7 +578,7 @@ app.post("/api/group/timeline", boardget1, (req, res) => {
       let vote_list = [];
       console.log(req.array[i].id);
       conn.query(
-        "select * from vote v, user u where board_number=? and u.id=v.user and v.group='"+req.urlgroup+"'",
+        "select * from vote v, user u where board_number=? and u.id=v.user and v.group_name='"+req.urlgroup+"'",
         req.array[i].id,
         async function (err, rows, fields) {
           //conn.release(); // 반드시 해제해야 함
