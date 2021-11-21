@@ -13,7 +13,8 @@ import {
   RECEIVE_USERLIST,
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT,
-  ADD_WORKER_IN_GROUP
+  ADD_WORKER_IN_GROUP,
+  DELETE_WORKER
 } from "../_actions/types";
 import Default_Profile from "../images/profile_sample.jpg";   //기본 프사
 // import hanium_logo from '../images/hanium_logo.jpg';
@@ -130,7 +131,12 @@ export default function reducer(state = initialState, action) {
       console.log("그룹에서 워커 추가:",success);
       return state;
     }
-
+    case DELETE_WORKER:{
+      const {worker_list} = state;
+      const new_array = worker_list.filter(el => el.id===action.payload.deleted_worker);
+      return {...state, worker_list: new_array}
+      
+    }
     default:
       return state;
   }

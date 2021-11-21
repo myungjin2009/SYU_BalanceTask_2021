@@ -14,7 +14,8 @@ import {
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT,
   LOADING_WORKERLIST_DATA,
-  ADD_WORKER_IN_GROUP
+  ADD_WORKER_IN_GROUP,
+  DELETE_WORKER
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -149,6 +150,18 @@ export function loadWorker(dataToSubmit) {
     payload: request
   }
 }
+
+//워커 삭제하기
+export function deleteWorker(dataToSubmit) {
+  const request = axios.delete('/api/user/worker', {data:{dataToSubmit}})
+  .then(res=> Promise.resolve({deleted_worker: dataToSubmit.friend_id, server_data: res.data}));
+
+  return {
+    type: DELETE_WORKER,
+    payload: request
+  }
+}
+
 
 //로딩을 알려주는 함수
 export function chooseLoading(isLoading){

@@ -1,12 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
+import { deleteWorker } from '../../../_actions/user_action';
 const ProfileDetail = (props) => {
-
+    const {frined_id, my_id} = props;
+    const dispatch = useDispatch();
     const statusWindow = React.useRef();
     const closeWindow = () => {
         statusWindow.current.style.display = "none";
         props.setWindow(false);
+    }
+
+    const deleteWorkerHandler = () => {
+        const body = {
+            frined_id, my_id
+        }
+        dispatch(deleteWorker(body)).then(res => {
+            if(res.payload.success){
+                alert('워커 삭제 성공!');
+            }
+        });
     }
     //console.log(props.windowStatus);
     if(props.windowStatus == true) {
@@ -26,7 +40,9 @@ const ProfileDetail = (props) => {
                         </div>
                         <div className="profile_name">{props.data.ProfileName}</div>
                         <div className="profile_message">{props.data.ProfileMessage}</div>
-                        <button className="profile_button">친구 삭제하기</button>
+                        <div className="profile_button">
+                            <button onClick={deleteWorkerHandler}>워커 삭제</button>
+                        </div>
                     </div>
         </Profile_Detail>
     );
@@ -88,8 +104,18 @@ const Profile_Detail = styled.div`
     & > .profile_button{
         font-size: 18px;
         text-align: center;
-        
         transform:translate(0, 20vh);
+        &>button{
+            padding: 10px;
+            background: red;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            &:active{
+                color: black;
+                background: white;
+            }
+        }
     }
   }
   
