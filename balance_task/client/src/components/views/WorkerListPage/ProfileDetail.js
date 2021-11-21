@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { deleteWorker } from '../../../_actions/user_action';
 const ProfileDetail = (props) => {
-    const {frined_id, my_id} = props;
+    const {data:{id}, userData} = props;
     const dispatch = useDispatch();
     const statusWindow = React.useRef();
     const closeWindow = () => {
@@ -14,7 +14,7 @@ const ProfileDetail = (props) => {
 
     const deleteWorkerHandler = () => {
         const body = {
-            frined_id, my_id
+            friend_id: id, my_id: userData.id
         }
         dispatch(deleteWorker(body)).then(res => {
             if(res.payload.success){
@@ -23,10 +23,14 @@ const ProfileDetail = (props) => {
         });
     }
     //console.log(props.windowStatus);
-    if(props.windowStatus == true) {
-        statusWindow.current.style.display = "block";
-    }
-
+    React.useEffect(()=>{
+        if(statusWindow.current===null || statusWindow.current===undefined){
+            return;
+        }
+        if(props.windowStatus == true) {
+            statusWindow.current.style.display = "block";
+        }
+    },[]);
     return(
         <Profile_Detail ref={statusWindow}>
                     <div className="background"></div>

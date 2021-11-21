@@ -188,7 +188,6 @@ export default function reducer(state = initialState, action) {
     case RECEIVE_GROUP_MEMBER:{
       const {success, group_members, isLeader} = action.payload;
       if(group_members){
-        console.log("팀원 리스트",success);
         return {...state, group_members};
       }
       return {...state, group_members:[]};

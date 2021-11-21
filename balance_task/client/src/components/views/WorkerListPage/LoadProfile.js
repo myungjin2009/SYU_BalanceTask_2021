@@ -38,7 +38,7 @@ const LoadProfile = (props) => {
     const [myData, setMyData] = React.useState({profile, project_list});
     const [userData, setUserData] = React.useState(worker_list);
     const dispatch = useDispatch();
-    console.log(userData);
+
     const setWhoClicked = (data) => {     //프로필 목록에서 클릭했을 때, 프로필 상세보기 데이터를 부모 컴포넌트로
         props.whoClicked(data);
         props.setWindow(true);
@@ -54,6 +54,10 @@ const LoadProfile = (props) => {
         }
         dispatch(workNumLoading(userData.length));  //나의 Worker친구 몇명인지 보내주는 dispatch
     },[props.userData, userData]);
+
+    React.useEffect(() => {
+        setUserData(worker_list);
+    },[worker_list]);
 
     if(props.profile === "MyProfile") {
         if(myData.profile.ProfileName == ``) {
@@ -108,7 +112,7 @@ const LoadProfile = (props) => {
             return(
                 <div>
                 {SortFilterUsers.map((val,idx) => (
-                    <Profile key={idx} my_id={state.userData.id} frined_id={val.id} type="userProfile" onClick={() => setWhoClicked(val)}>
+                    <Profile key={idx} type="userProfile" onClick={() => setWhoClicked(val)}>
                         <div className = "ProfileImg">
                             <img className ="ProfileimgSource" src={val.ProfileImage} />
                         </div>

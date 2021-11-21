@@ -15,7 +15,8 @@ import {
   POST_NOTICE_REJECT,
   LOADING_WORKERLIST_DATA,
   ADD_WORKER_IN_GROUP,
-  DELETE_WORKER
+  DELETE_WORKER,
+  SET_PROJECT_LIST
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -153,6 +154,7 @@ export function loadWorker(dataToSubmit) {
 
 //워커 삭제하기
 export function deleteWorker(dataToSubmit) {
+  console.log(dataToSubmit);
   const request = axios.delete('/api/user/worker', {data:{dataToSubmit}})
   .then(res=> Promise.resolve({deleted_worker: dataToSubmit.friend_id, server_data: res.data}));
 
@@ -187,6 +189,13 @@ export function addWorker(dataToSubmit){
 
   return {
     type: ADD_WORKER_IN_GROUP,
+    payload: request
+  }
+}
+//그룹이 삭제 되면 마이페이지의 현재 진행 중인 프로젝트도 삭제 되어야해서 만듦.
+export function setProjectList(request){
+  return {
+    type: SET_PROJECT_LIST,
     payload: request
   }
 }

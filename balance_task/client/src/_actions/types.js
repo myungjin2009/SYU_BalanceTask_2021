@@ -25,6 +25,7 @@ export const LOADING = "loading";
 export const CREATE_GROUP = "create_group";
 export const RESET_POSTS = "reset_posts";
 export const DELETE_WORKER = "delete_worker";
+export const SET_PROJECT_LIST = "set_project_list";
 
 //group에 들어갔을 때의 액션타입
 export const RECEIVE_TIMELINE = "receive_timeline";

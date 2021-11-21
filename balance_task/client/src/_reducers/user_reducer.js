@@ -14,7 +14,8 @@ import {
   POST_NOTICE_CONFIRM,
   POST_NOTICE_REJECT,
   ADD_WORKER_IN_GROUP,
-  DELETE_WORKER
+  DELETE_WORKER,
+  SET_PROJECT_LIST
 } from "../_actions/types";
 import Default_Profile from "../images/profile_sample.jpg";   //기본 프사
 // import hanium_logo from '../images/hanium_logo.jpg';
@@ -87,6 +88,7 @@ export default function reducer(state = initialState, action) {
       return {...state, Success: action.payload.success}
     }
     case RECEIVE_USERLIST: {
+      console.log(action.payload.array);
       const new_array = action.payload.array.map((val) => {     
         if(val.ProfileImage == "DEFAULT") {                       //프로필 이미지가 DEFAULT일 경우, 기본프로필로 강제 변경
           val.ProfileImage = Default_Profile;
@@ -133,9 +135,14 @@ export default function reducer(state = initialState, action) {
     }
     case DELETE_WORKER:{
       const {worker_list} = state;
-      const new_array = worker_list.filter(el => el.id===action.payload.deleted_worker);
+      const new_array = worker_list.filter(el => el.id!==action.payload.deleted_worker);
       return {...state, worker_list: new_array}
-      
+    }
+    case SET_PROJECT_LIST:{
+      const {project_list} = state;
+      const new_array = project_list.filter(el => el.id!== action.payload.id);
+      console.log(action.payload.id);
+      return {...state, project_list: new_array}
     }
     default:
       return state;

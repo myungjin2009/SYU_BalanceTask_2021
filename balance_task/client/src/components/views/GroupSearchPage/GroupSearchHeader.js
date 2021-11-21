@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const onChangeHandler = (e, setSearch) => {
+  console.log(e.target.value);
   setSearch(e.target.value);
 };
 
