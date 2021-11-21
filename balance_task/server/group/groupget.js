@@ -64,8 +64,8 @@ let group_search = (req, res, next) => {
           var changeString=String(req.image);
           //var time=moment().format('YYYY-MM-DD HH:mm:ss');
           var time=new Date();
-          console.log(time);
-          console.log(req.startdate);
+          //console.log(time);
+          //console.log(req.startdate);
           if(time.getTime() <= req.startdate.getTime()){
             array.push({
               id:req.group_no,

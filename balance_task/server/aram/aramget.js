@@ -27,10 +27,10 @@ let receive_message = (req, res, next) => {
             // }
            
             var sql2="select a.receiveuser as id, u.name , a.group_name  from aram a, user u where u.id=a.receiveuser and a.content=2 and a.group_name='"+req.groupname+"';"
-             console.log(sql2);
+             //console.log(sql2);
              sql.pool.query(sql2,(err,rows,fields)=>{
-                console.log(rows);
-                console.log("makemembers");
+                //console.log(rows);
+                //console.log("makemembers");
                 if(rows===undefined){
                     return;
                 }else{
@@ -42,8 +42,8 @@ let receive_message = (req, res, next) => {
                 
             })
             req.member=array2;
-            console.log(req.member);
-            console.log('그룹 가입하려는 자',req.senduser);
+            //console.log(req.member);
+            //console.log('그룹 가입하려는 자',req.senduser);
             
                 
             array.push({

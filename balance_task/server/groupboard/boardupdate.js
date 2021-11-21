@@ -36,10 +36,14 @@ let boardupdate= (req, res, next) => {
     let paramtext=req.body.content;
     //받아야 할값
     let paramdate=req.body.date;
-    let paramdate=req.body.board_number;
+    //let paramdate=req.body.board_number;
     for(i=0;i<req.files.length;i++){
         paramimages.push(`/image/${req.files[i].filename}`);
     }
+    // console.log( paramimages);
+    // if(paramimages==null){
+    //   paramimages=req.body.image;
+    // }
     
     //var sql1="update `groups` set (group_name,category,startdate,deadline,highlight,host,manager,content,group_images)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images+"') where group_name='"+paramgroup_name+"');"
     var sql1="update groupboard set title'"+paramtitle+"',category='"+paramcategory+"',text='"+paramtext+"',image='"+paramimages+"',date='"+paramdate+"' where board_number='"+req.body.board_number+"';"
