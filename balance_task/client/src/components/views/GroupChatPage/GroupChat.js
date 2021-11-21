@@ -25,13 +25,8 @@ const GroupChat = (props) => {
       return;
     }
     //auth가 제대로 작동했을 때
-    console.log(user);
-    
-      
     socket.emit("join", {name: user.name, id: user.id, group});
-    socket.on('roomData', (chatData) =>{
-      setChatArr(chatData);
-    });
+    
     return () => {
       socket.close();
     };
@@ -44,6 +39,11 @@ const GroupChat = (props) => {
     
   },[user]);
 
+  useEffect(()=>{
+    socket.on('getchat', (chatData) =>{
+      setChatArr(chatData.chatarray);
+    });
+  },[user]);
   const buttonHandler = useCallback(() => {
     if(chat===''){
       return;
