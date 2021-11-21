@@ -68,18 +68,16 @@ io.on("connection", function(socket){
     const sqlgetchat="select * from chat where group_name='"+group+"' order by chat_no";
     sql.pool.query(sqlgetchat,(err,rows,fields)=>{
         rows.forEach((info,index,newarray) => {
-          var getchatdata={ chat_name:info.name, msg:info.message, chat_id:info.id, chat_date:info.date, group_name:info.group};
+          var getchatdata={ name:info.chat_name, message:info.msg, id:info.chat_id, date:info.chat_date, group:info.group_name};
           chatarray.push(getchatdata);
         })
-        if(err){
-            console.log(err);
-        }else{
            console.log("chat 가져왔습니다.");
-        }
+           io.to(group).emit('getchat',{chatarray});
+        
 
       });  
 
-     io.to(user.group).emit('getchat',{chatarray});
+     
 
     
 
@@ -117,6 +115,7 @@ var signup = require("./router/signup");
 var login = require("./router/login");
 var {logout} = require("./router/logout");
 var { node__mailer } = require("./router/node-mailer");
+var {userdelete} = require("./user/deleteuser");
 
 //그룹 관련 모듈
 var { group_search } = require("./group/groupget");
@@ -160,6 +159,7 @@ var { closearam }=require("./aram/closearam");
 //워커리스트
 var { wokerget }=require("./wokerlist/wokerget");
 var { wokeradd }=require("./wokerlist/wokeradd");
+var { wokerdelete }=require("./wokerlist/wokerdelete");
 //const { chatting } = require("./chatting/chatting");
 
 //채팅 관련 모듈
@@ -433,6 +433,13 @@ app.post("/api/group/member", groupmember,(req,res)=>{
   });
 });
 
+app.post("",userdelete,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+});
+ 
+
 app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_message,(req,res)=>{
             console.log(
               "==========================================mypage==========================================="
@@ -446,12 +453,13 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
               req.truearam=true;
             }
             let userarray=[]
+
             userarray.push({
               ProfileName: req.name,
               ProfileImage: req.user_image,
               FinishedPJ: 0,
               ContinuingPJ: 0,
-              Score: req.score,
+              Score: Number(req.score),
               ProfileMessage: req.introduce
             });
             console.log(userarray);
@@ -776,6 +784,12 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
 });
 
 app.post("/api/user/add_worker",wokeradd,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+});
+ 
+app.post("",wokerdelete,(req,res,next)=>{
   res.status(200).json({
     success: true,
     });
