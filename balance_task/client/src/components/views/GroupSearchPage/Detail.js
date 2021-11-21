@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
   const {location:{state:{content, writer, start_date, deadline, image, kind, postimage}}} = props;
+  //console.log(props);
   const dispatch = useDispatch();
   const new_obj = {
     group: team,
@@ -21,7 +22,7 @@ const Detail = (props)=>{
 
   return(
     <>
-      <Header title={team} onClickHandler={postHandler} icon="fas fa-file-import" isButton={true} buttonName="제출하기"/>
+      <Header title={team} onClickHandler={postHandler} icon="fas fa-file-import" isButton={true} buttonName="가입신청"/>
       <Conatainer>
         <Name><label>작성자: </label><span>{writer}</span></Name>
         <Category>

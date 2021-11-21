@@ -103,7 +103,19 @@ const ProjectTimeline = (props) =>{
           :
           timeline.length !== 0  ? timeline.map((user_post,i)=>(
             <PostBlock key={i} index={i} board_no={user_post.id} userData={userData} user_post = {user_post} group={group} photo_url={user_post.image}/>
-            )):<h2 style={{marginTop: "20vh", textAlign: "center"}}>아직 올린 사람이 없습니다!</h2>
+            )):
+            <div>
+                <NoGroup>
+                    <div className="NoWorkerIcon">
+                     <i class="fas fa-book-open"></i> 
+                    </div>
+                    <div className="NoWorkerMessage">아무런 글이 없습니다.</div>
+                    <div className="RecommendMessage">지금 바로 첫 글을 작성해보세요.</div>
+                    <div className="RecommendArrow">
+                      <i class="fas fa-sort-down"></i>
+                    </div>
+                </NoGroup>
+            </div>
         }
       </Container>
       <Button direction="left"><Link to={`/my_page`} className="Button-type"><i className="fas fa-user"></i></Link></Button>
@@ -154,4 +166,40 @@ const Button = styled.div`
     color:black;
   }
 `;
+
+const ArrowMove = keyframes`
+    0% {
+      transform:translate(0, 0);
+    }
+    100% {
+      transform:translate(0, 35%);
+    }
+`;
+
+const NoGroup = styled.div`
+    text-align: center;
+    margin-top: 12vh;
+    & > .NoWorkerIcon {
+      font-size: 8vh;
+      color: rgb(255,179,128);
+    }
+    & > .NoWorkerMessage {
+      font-size: 3vh;
+      font-weight: bold;
+    }
+    & > .RecommendMessage {
+      font-size: 2.5vh;
+      margin-top: 1.5vh;
+    }
+    & > .RecommendArrow{
+      position: fixed;
+      bottom: 15vh;
+      right: 3.3vh;
+      font-size: 5vh;
+      color: rgba(74,171,242);
+      margin-top: 5vh;
+      animation: ${ArrowMove} 0.5s 1s 10 ease alternate;
+    }
+`;
+
 export default withRouter(ProjectTimeline);

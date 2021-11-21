@@ -18,7 +18,7 @@ const GroupCard = ({props, cardData}) =>{
   const deadline = calculateDate(date_array[1]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  console.log(title);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,7 +43,7 @@ const GroupCard = ({props, cardData}) =>{
   const handleDelete = () =>{
     console.log(id);
     const body = {
-      id
+      id, group_name: title
     }
     dispatch(deleteGroupCard(body)).then(res=>{
       console.log(res.payload.success);
