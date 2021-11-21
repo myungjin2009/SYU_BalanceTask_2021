@@ -34,7 +34,7 @@ let boardget1 = (req, res, next) => {
     
 
     //lownumber째 부터 highnumber째까지 데이터를 보내준다.
-    let lownumber=maxno-paramlastnumber-2;
+    let lownumber=maxno-paramlastnumber-10;
     if(lownumber<=0){
       lownumber=0;
     }

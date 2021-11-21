@@ -12,7 +12,7 @@ const moment=require("moment");
 
 let userdelete= (req, res, next) => {
     console.log(req.body);
-    console.log(req.body.dataToSubmit.id); 
+    console.log(req.body.id); 
    
     var sql6="delete from user  where id=?";
             sql.pool.query(sql6,paramid,(err,rows,fields)=>{
