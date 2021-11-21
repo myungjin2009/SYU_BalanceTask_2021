@@ -14,10 +14,8 @@ function PostBlockDetail(props) {
   const {photo_url} = props.location.state;
   const [userEdit, setUserEdit] = React.useState(false);
   const dispatch = useDispatch();
-
-  //console.log(props.location.state.user_post);
-  //로그인한 id 가 게시글 작성자 id랑 동일할 경우만 수정/삭제 목록 표시. 테스트 필요 -명진-
-  const show3dots = props.userData != null ? (props.userData.id == user_name ? true : false) : false; 
+  //로그인한 id 가 게시글 작성자 id랑 동일할 경우만 수정/삭제 목록 표시.
+  const show3dots = props.userData != null ? (props.userData.name == user_name ? true : false) : false; 
 
   const confirmDelete = () => {
     if(window.confirm("게시글을 삭제하시겠습니까?")) {
