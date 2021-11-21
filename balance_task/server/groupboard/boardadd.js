@@ -94,7 +94,7 @@ let boardadd = (req, res, next) => {
           //for(i=voteno ; i<voteno+rows.length; i++){
           console.log("i:"+i);  
           console.log("rows.length:"+rows.length); 
-          var votedata={vote_no:vno, board_number:num, discuss:0, user:req.users, group:urlgroup}
+          var votedata={board_number:num, discuss:0, user:req.users, group:urlgroup}
           sql4="insert into vote set ?"
           sql.pool.query(sql4,votedata,(err,rows,fields)=>{
             if (err) {
