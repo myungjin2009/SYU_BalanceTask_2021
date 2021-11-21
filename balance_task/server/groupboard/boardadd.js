@@ -34,10 +34,7 @@ let boardadd = (req, res, next) => {
   //upload.single("image")
  // const upload = multer({ storage: multer.diskStorage({ destination(req, file, cb) { cb(null, "uploads/"); }, filename(req, file, cb) { const ext = path.extname(file.originalname); cb(null, path.basename(file.originalname, ext) + Date.now() + ext); }, }), limits: { fileSize: 5 * 1024 * 1024 }, });
 
-
-  console.log("boardadd 함수 호출됨");
-  //console.log('사진이야',req.files);
-  //console.log(req.body.category);
+  console.log("==========================================================boardadd 함수 호출됨===============================================");
   let paramcategory=req.body.category;
   let urlgroup=req.body.group;
   let paramId=req.body.id;
@@ -49,25 +46,17 @@ let boardadd = (req, res, next) => {
     paramimages.push(`/image/${req.files[i].filename}`);
   }
   
-    // if(paramimages=== null || paramimages===undefined){
-    //     paramimages="/image/32ec1b34e27c99d038388c2828cb1bf7";
-    // }else{
-    //     paramimages= `/image/${req.file.filename}`;
-    // }
-    // fs.readFile(paramfile, 'utf8', function(err, data){
-    //     console.log(data);
-    //   });
 
-  let sql2="select count(board_number) from groupboard where info_groupname=?";
+  let sql2="select max(board_number) from groupboard where info_groupname=?";
   if(paramcategory==='공지사항'){
-    sql2="select count(board_number) from groupnotice where info_groupname=?";
+    sql2="select  max(board_number) from groupnotice where info_groupname=?";
   }
 
   //console.log(sql2);
   //console.log(paramimages.toString());  
   sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
     //console.log(rows);
-    var maxno=rows[0]['count(board_number)']
+    var maxno=rows[0]['max(board_number)']
     const array=[]
     var num=maxno+1;
     var time=moment().format('YYYY-MM-DD HH:mm:ss');
@@ -75,43 +64,90 @@ let boardadd = (req, res, next) => {
     var data={board_number:num, title:paramtitle, image:paramimages.toString(), text:paramtext, info_user:paramId, info_groupname:urlgroup, date:time}
     
     let sql1 = "insert into groupboard set ?"
+    if(paramcategory==="공지사항"){
+      sql1="insert into groupnotice set ?";
+      console.log(sql1,data);
+      sql.pool.query(sql1,data,(err, rows, fields) => {
+        console.log(sql1);
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("boardadd come");
+        }
+        next()
+        //console.log(array);
+      });//sql
+    }
     console.log(paramcategory);
     if(paramcategory==="타임라인"){
+      sql1 = "insert into groupboard set ?"
+
+      console.log(sql1,data);
+      sql.pool.query(sql1,data,(err, rows, fields) => {
+        console.log(sql1);
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("boardadd come");
+        }
+        //next()
+        //console.log(array);
+      });//sql
+
+
       console.log("vote로 들어왔습니다.");
-      let sql10="select count(vote_no) from vote";
-      //let sql11="select count(user) from groupusers where group_name=?";
-      let sql3="select user  from groupusers where group_name=?";
+      let sql10="select  max(vote_no) from vote";
+      let sql3="select user from groupusers where group_name=?";
+
       sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
         console.log(rows);
-        sql.pool.query(sql10,(err,row,fields)=>{
-        console.log(row);
-        let voteno=row[0]['count(vote_no)'];
-        let groupusers_no=rows[0]['count(board_number)'];
+
         rows.forEach((info,index,newarray) => {  
-          vno=voteno++;
-          console.log("vno:"+vno);
+          
           req.users= info.user;
-          //for(i=voteno ; i<voteno+rows.length; i++){
-          console.log("i:"+i);  
-          console.log("rows.length:"+rows.length); 
-          var votedata={board_number:num, discuss:0, user:req.users, group:urlgroup}
-          sql4="insert into vote set ?"
-          sql.pool.query(sql4,votedata,(err,rows,fields)=>{
+          
+          var votedata=("("+num+","+ 0+",'"+ req.users +"','" +urlgroup +"')");
+          array.push(votedata);
+        })
+
+        var replaced = array.toString().replace(/\[.*\]/g,'');
+        var str = replaced.replace(/\"/gi, "");
+
+        var sql4="insert into vote(board_number,discuss,user,group_name) values "+str+";"
+        console.log(sql4);
+          sql.pool.query(sql4,(err,rows,fields)=>{
             if (err) {
               console.log(err);
             } else {
               console.log("voteadd come");
             }
-          })
-          //}
-        })
-      })
-    })
+          })//sql4
+      
+    })//sql3
     }
+    next();
+    // if(paramcategory==="공지사항"){
+    //   sql1="insert into groupnotice set ?";
+    // }
+    //const sql2 = "SELECT * FROM vote; ";
+    // console.log(sql1,data);
+    // sql.pool.query(sql1,data,(err, rows, fields) => {
+    //   console.log(sql1);
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     console.log("boardadd come");
+    //   }
+    //   next()
+    //   //console.log(array);
+    // });//sql
+  });  
+};
 
-    if(paramcategory==="공지사항"){
-      sql1="insert into groupnotice set ?";
-    }
+module.exports= {boardadd};
+
+
+
 
     // if(paramcategory==="타임라임"){
     //   console.log("vote로 들어왔습니다.");
@@ -131,20 +167,3 @@ let boardadd = (req, res, next) => {
     //     })
     //   })
     // }
-    
-    //const sql2 = "SELECT * FROM vote; ";
-    console.log(sql1,data);
-    sql.pool.query(sql1,data,(err, rows, fields) => {
-      console.log(sql1);
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("boardadd come");
-      }
-      next()
-      //console.log(array);
-    });//sql
-  });  
-};
-
-module.exports= {boardadd};
