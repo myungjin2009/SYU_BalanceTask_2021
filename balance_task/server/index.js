@@ -789,11 +789,11 @@ app.post("/api/user/add_worker",wokeradd,(req,res,next)=>{
     });
 });
  
-app.post("",wokerdelete,(req,res,next)=>{
-  res.status(200).json({
-    success: true,
-    });
-});
+// app.post("",wokerdelete,(req,res,next)=>{
+//   res.status(200).json({
+//     success: true,
+//     });
+// });
  
 
 
@@ -817,11 +817,11 @@ app.post("",chattingget,(req,res,next)=>{
     });
 });
 
-app.post("",chatting,(req,res,next)=>{
-  res.status(200).json({
-    success: true,
-    });
-})
+// app.post("",chatting,(req,res,next)=>{
+//   res.status(200).json({
+//     success: true,
+//     });
+// })
 
 app.post("/api/group/evaluation",evaluation,(req,res)=>{
 
