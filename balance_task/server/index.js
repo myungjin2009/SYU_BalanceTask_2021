@@ -453,7 +453,7 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
               req.truearam=true;
             }
             let userarray=[]
-            console.log("=====================================avg(point):"+req.score);
+            //console.log("=====================================avg(point):"+req.score);
             userarray.push({
               ProfileName: req.name,
               ProfileImage: req.user_image,
@@ -764,6 +764,7 @@ app.post("/api/user/load_worker",wokerget,(req,res,next)=>{
             }
 
             arrays.push({
+                id:req.id,
                 ProfileName: req.name,
                 ProfileImage: req.user_image,
                 ProfileMessage: req.introduce,
@@ -789,11 +790,11 @@ app.post("/api/user/add_worker",wokeradd,(req,res,next)=>{
     });
 });
  
-// app.post("",wokerdelete,(req,res,next)=>{
-//   res.status(200).json({
-//     success: true,
-//     });
-// });
+app.delete("/api/user/worker",wokerdelete,(req,res,next)=>{
+  res.status(200).json({
+    success: true,
+    });
+});
  
 
 

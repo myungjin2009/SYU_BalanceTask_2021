@@ -16,14 +16,14 @@ router.route("/api/user/login").post(function (req, res) {
   const { id, password } = req.body;
   
   var cookies = cookie.parse(req.headers.cookie);
-  console.log(cookies.user);
-  console.log(sql.pool);
+  //console.log(cookies.user);
+  //console.log(sql.pool);
   const sql1 = "SELECT id, password FROM user";
   sql.pool.query(sql1, (err, rows, fields) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(rows);
+      //console.log(rows);
       rows.forEach((info) => {
         var same = bcrypt.compareSync(password, info.password);
         if (info.id === id && same) {
