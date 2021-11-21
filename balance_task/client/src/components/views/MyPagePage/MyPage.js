@@ -40,7 +40,6 @@ const MyPage = (props) => {
   const [isNotice, setIsNotice] = React.useState(false);
   const test1 = myPageData.project_list.map((el ,i) => (<Project key={i} ProjectList = {el}/>));
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
- 
   useEffect(()=>{
     let mounted = true;
     if(isLoading){
@@ -132,7 +131,20 @@ const MyPage = (props) => {
           </Introduce>
           {isNotice && <Notice handleOnClick={() => {props.history.push('/my_page/notice')}}/>}
           <Working>참여한 프로젝트</Working>
-          {test1}
+          {(test1.length != 0) ? test1 : 
+            <div>
+              <NoGroup>
+                  <div className="NoWorkerIcon">
+                      <i className="fas fa-business-time"></i>    
+                  </div>
+                  <div className="NoWorkerMessage">현재 참여중인 프로젝트가 없습니다!</div>
+                  <div className="RecommendMessage">그룹 찾기를 통해 새로운 그룹에 가입해보세요.</div>
+                  <div className="RecommendArrow">
+                    <i class="fas fa-sort-down"></i>
+                  </div>
+              </NoGroup>
+          </div>
+          }
           <Navigation />
         </>)
       }
@@ -313,6 +325,38 @@ const Introduce = styled.form`
   & > .editIcon:active{
     color: white;
   }
+`;
+
+const ArrowMove = keyframes`
+    0% {
+      transform:translate(0, 0);
+    }
+    100% {
+      transform:translate(0, 35%);
+    }
+`;
+
+const NoGroup = styled.div`
+    text-align: center;
+    margin-top: 12vh;
+    & > .NoWorkerIcon {
+      font-size: 8vh;
+      color: rgb(255,179,128);
+    }
+    & > .NoWorkerMessage {
+      font-size: 3vh;
+      font-weight: bold;
+    }
+    & > .RecommendMessage {
+      font-size: 2.5vh;
+      margin-top: 1.5vh;
+    }
+    & > .RecommendArrow{
+      font-size: 5vh;
+      color: rgba(74,171,242);
+      margin-top: 5vh;
+      animation: ${ArrowMove} 0.5s 1s 10 ease alternate;
+    }
 `;
 
 const Working = styled.div`
