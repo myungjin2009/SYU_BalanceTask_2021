@@ -52,6 +52,8 @@ const io = require("socket.io")(httpServer, {
   },
 });
 
+
+//=========================================================chat============================================================
 const users = [];
 
 io.on("connection", function(socket){
@@ -61,29 +63,53 @@ io.on("connection", function(socket){
     console.log("socket_id", socket.id);
     users.push({socket_id: socket.id, name, user_id:id, group});
     console.log("그룹이름"+group);
-    // socket.emit('first message', {
-    //   id: 'admin',
-    //   name: '챗봇',
-    //   message: `${name}, ${group}에 오신것을 환영합니다.`,
-    //   date: new Date(),
-    // })
+
+    let chatarray=[];
+    const sqlgetchat="select * from chat where group_name='"+group+"' order by chat_no";
+    sql.pool.query(sqlgetchat,(err,rows,fields)=>{
+        rows.forEach((info,index,newarray) => {
+          var getchatdata={ chat_name:info.name, msg:info.message, chat_id:info.id, chat_date:info.date, group_name:info.group};
+          chatarray.push(getchatdata);
+        })
+        if(err){
+            console.log(err);
+        }else{
+           console.log("chat 가져왔습니다.");
+        }
+
+      });  
+
+     io.to(user.group).emit('getchat',{chatarray});
+
+    
+
     io.to(group).emit('roomData', {
       room: group,
       users: users.filter(user => user.group === group)
     });
     socket.join(group);
   });
+
   socket.on("send message", (user) => {
     console.log(user.name + " : " + user.message);
     io.to(user.group).emit("receive message", { name: user.name, message: user.message, id: user.id, date: user.date });
     //클라이언트에 이벤트를 보냄
+    var chatdata={chat_name:user.name, msg:user.message, chat_id:user.id, chat_date:user.date, group_name:user.group}
+    const sqlchat="insert into chat set ?"
+    sql.pool.query(sqlchat,chatdata,(err,rows,fields)=>{
+      if(err){
+        console.log(err);
+      }else{
+        console.log("chat 추가되었습니다.");
+      }
+    });  
   });
   console.log(socket.rooms);
   
 });
 
 httpServer.listen(80);
-//건형이 채팅
+//=========================================================chat============================================================
 
 //로그인 , 유저 관련 모듈
 var user = require("./user/adduser");

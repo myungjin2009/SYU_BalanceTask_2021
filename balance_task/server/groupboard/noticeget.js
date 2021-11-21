@@ -9,10 +9,10 @@ let noticeget = (req, res, next) => {
   console.log("notice 함수 호출됨");
   let urlgroup=req.body.group;
   
-  const sql2="select count(board_number) from groupnotice where info_groupname=? ";
+  const sql2="select max(board_number) from groupnotice where info_groupname=? ";
   sql.pool.query(sql2,urlgroup,(err,rows,fields)=>{
     console.log(rows);
-   var maxno=rows[0]['count(board_number)']
+   var maxno=rows[0]['max(board_number)']
     const array=[];
     
     let paramlastnumber=req.body.last_number;
@@ -37,7 +37,7 @@ let noticeget = (req, res, next) => {
     }
     
     console.log(maxno);
-    let lownumber=maxno-paramlastnumber-2;
+    let lownumber=maxno-paramlastnumber-10;
     console.log(lownumber);
     let highnumber=maxno-paramlastnumber-1;
     console.log(highnumber);
