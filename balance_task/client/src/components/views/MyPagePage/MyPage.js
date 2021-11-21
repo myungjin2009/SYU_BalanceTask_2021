@@ -140,7 +140,7 @@ const MyPage = (props) => {
                   <div className="NoWorkerMessage">현재 참여중인 프로젝트가 없습니다!</div>
                   <div className="RecommendMessage">그룹 찾기를 통해 새로운 그룹에 가입해보세요.</div>
                   <div className="RecommendArrow">
-                    <i class="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down"></i>
                   </div>
               </NoGroup>
           </div>

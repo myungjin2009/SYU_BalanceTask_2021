@@ -107,12 +107,12 @@ const ProjectTimeline = (props) =>{
             <div>
                 <NoGroup>
                     <div className="NoWorkerIcon">
-                     <i class="fas fa-book-open"></i> 
+                     <i className="fas fa-book-open"></i> 
                     </div>
                     <div className="NoWorkerMessage">아무런 글이 없습니다.</div>
                     <div className="RecommendMessage">지금 바로 첫 글을 작성해보세요.</div>
                     <div className="RecommendArrow">
-                      <i class="fas fa-sort-down"></i>
+                      <i className="fas fa-sort-down"></i>
                     </div>
                 </NoGroup>
             </div>

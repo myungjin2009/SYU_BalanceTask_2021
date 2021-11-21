@@ -101,11 +101,11 @@ const ProjectNotice = (props) =>{
             <div>
                 <NoGroup>
                     <div className="NoWorkerIcon">
-                      <i class="fas fa-info-circle"></i>
+                      <i className="fas fa-info-circle"></i>
                     </div>
                     <div className="NoWorkerMessage">아무런 공지사항이 없습니다.</div>
                     <div className="RecommendArrow">
-                      <i class="fas fa-sort-down"></i>
+                      <i className="fas fa-sort-down"></i>
                     </div>
                 </NoGroup>
             </div>
