@@ -6,8 +6,8 @@ import styled from "styled-components";
 function ChatBlock({ userData, chat_data }) {
   const { id, name, message, date } = chat_data;
   const myContentStyle = {
-    backgroundData: "#eee",
-    colorData: "black"
+    background: "#eee",
+    color: "black"
   };
   const otherContentStyle = {
     background: "#1565c0",
@@ -57,10 +57,10 @@ const OtherContent = styled.div`
 const ChatContent = styled.div`
   max-width: 400px;
   border-radius: 15px;
-  border: 1px solid black;
+  border: none;
   padding: 13px;
-  background: ${({backgroundData})=>backgroundData}
-  color: ${({colorData})=>colorData}
+  background: ${({background})=>`${background};`}
+  color: ${({color})=>`${color};`}
   &>.name{
     font-size: 13px;
     margin-bottom: 5px; 

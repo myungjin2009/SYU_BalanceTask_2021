@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { withRouter } from "react-router";
 import styled from 'styled-components';
 import SendIcon from '@material-ui/icons/Send';
@@ -14,19 +14,22 @@ const GroupChat = (props) => {
   const socket = io.connect("http://localhost:80");
   const {match:{params:{group}}} = props;
 
-  // const dispatch = useDispatch();
+  const container_ref = useRef(null);
+
   const user = useSelector(state => state.user.userData);
   // const isLoading = useSelector(state => state.group.isLoading.group_chat);
   const [chatArr, setChatArr] = useState([]);
   const [chat, setChat] = useState('');
-  console.log(chatArr);
+  
   useEffect(()=>{
     if(!user){
       return;
     }
     //auth가 제대로 작동했을 때
     socket.emit("join", {name: user.name, id: user.id, group});
-    
+    socket.on('getchat', (chatData) =>{
+      setChatArr(chatData.chatarray);
+    });
     return () => {
       socket.close();
     };
@@ -40,15 +43,18 @@ const GroupChat = (props) => {
   },[user]);
 
   useEffect(()=>{
-    socket.on('getchat', (chatData) =>{
-      setChatArr(chatData.chatarray);
-    });
-  },[user]);
-  const buttonHandler = useCallback(() => {
+    window.scrollTo({top: container_ref.current.offsetHeight, behavior:'smooth'});
+  },[chatArr]);
+  
+  const buttonHandler = useCallback((e) => {
+    e.preventDefault();
     if(chat===''){
       return;
     }
     socket.emit("send message", { name: user.name, message: chat, date: calculateDate('', true), id: user.id, group }); 
+    setChat('');
+    // console.log(container_ref.current.clientHeight);
+    
     //버튼을 클릭했을 때 send message이벤트 발생
   }, [chat]);
   const changeMessage = useCallback(
@@ -68,14 +74,14 @@ const GroupChat = (props) => {
   //   },
   // ];
   return (
-    <Container>
+    <Container ref={container_ref}>
       <Header title={group}/>
       {chatArr.length !==0 &&  chatArr.map((chat, index)=>(
         <ChatBlock key={index} userData={user} chat_data={chat}/>
       ))}
-      <InputBox>
-        <input placeholder="내용" onChange={changeMessage}></input>
-        <button onClick={buttonHandler}><SendIcon/></button>
+      <InputBox onSubmit={buttonHandler}>
+        <input placeholder="내용" value={chat} onChange={changeMessage}></input>
+        <button type="submit"><SendIcon/></button>
       </InputBox>
     </Container>
   )
@@ -89,7 +95,7 @@ const Container = styled.div`
   margin-bottom: 100px;
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.form`
   width: 100%;
   display: flex;
   position: fixed;
