@@ -15,7 +15,7 @@ const WorkerList = (props) => {
   const [isShow, setIsShow] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const workerNum = useSelector(state=>state.group.workerNum);
-
+  const user = useSelector(state => state.user);
   const [clicked, setClicked] = React.useState(0);      //워커리스트 클릭했을 때 정보 받기
   const whoClicked = (data) => {
     setClicked(data);
@@ -32,6 +32,9 @@ const WorkerList = (props) => {
     setIsShow(-1);
   },[]);
   
+  React.useEffect(()=> {
+    setClicked(0);
+  },[user.worker_list]);
   return (
     <Container>
       <Header>
@@ -65,7 +68,9 @@ const WorkerList = (props) => {
       </List>
       <Navigation/>
 
-      <ProfileDetail data={clicked} windowStatus={windowStatus} setWindow={setWindow}></ProfileDetail>
+      {
+        clicked!==0 && <ProfileDetail data={clicked} userData={user.userData} windowStatus={windowStatus} setWindow={setWindow}></ProfileDetail>
+      }
     </Container>
   )
 }

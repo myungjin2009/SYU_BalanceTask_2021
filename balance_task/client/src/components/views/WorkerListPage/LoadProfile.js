@@ -55,6 +55,10 @@ const LoadProfile = (props) => {
         dispatch(workNumLoading(userData.length));  //나의 Worker친구 몇명인지 보내주는 dispatch
     },[props.userData, userData]);
 
+    React.useEffect(() => {
+        setUserData(worker_list);
+    },[worker_list]);
+
     if(props.profile === "MyProfile") {
         if(myData.profile.ProfileName == ``) {
             return(

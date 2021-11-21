@@ -294,6 +294,9 @@ app.post("/api/group/search_card", upload.array('image'),group_search, (req, res
   }
 
   if(req.array===undefined){
+    res.status(200).json({
+      success: true,
+    });
     return ;
   }
   //그룸들에 대한 모든 정보를 넘겨줌

@@ -42,7 +42,7 @@ const MyPage = (props) => {
   const {ProfileName, ProfileImage, FinishedPJ, ContinuingPJ, Score, ProfileMessage} = myPageData.profile;
   useEffect(()=>{
     let mounted = true;
-    if(isLoading){
+    if(isLoading && mounted){
       //만약 백엔드 개발자와 얘기하면서 한다면 dispatch(chooseLoading(false));를 지우세요 오직 receiveMyPageData함수에서만 사용하세요
       receiveMyPageData(dispatch, setMyPageData, setIsNotice, mounted);
       //console.log(myPageData);

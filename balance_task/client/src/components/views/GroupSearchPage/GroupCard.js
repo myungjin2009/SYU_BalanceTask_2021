@@ -8,7 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { deleteGroupCard } from '../../../_actions/group_action';
-
+import { setProjectList } from '../../../_actions/user_action';
 const GroupCard = ({props, cardData}) =>{
   const {id, title, content, writer, date, image, kind, postimage, makeuser, highlight} = cardData;
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const GroupCard = ({props, cardData}) =>{
   const deadline = calculateDate(date_array[1]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  console.log(title);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,12 +43,13 @@ const GroupCard = ({props, cardData}) =>{
   const handleDelete = () =>{
     console.log(id);
     const body = {
-      id
+      id, group_name: title
     }
     dispatch(deleteGroupCard(body)).then(res=>{
       console.log(res.payload.success);
       if(res.payload.success){
         console.log(title +'삭제 성공!');
+        dispatch(setProjectList(body));
         alert('성공적으로 삭제했습니다!');
         // window.location.reload("/group_search");
       }
