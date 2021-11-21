@@ -44,9 +44,10 @@ let mypage = (req, res, next) => {
             const sql1= "SELECT avg(point) FROM member_app m, user u where m.evaluated_user=u.id and u.jwt=?";
                 sql.pool.query(sql1,token, (err, rows, fields) => {
                     if(rows === undefined){
-                        req.score = 50;
+                        req.score =00;
                     }else{
                         req.score=rows[0]['avg(point)'];
+                        console.log("=====================================avg(point):"+req.score);
                     }
                 })
             

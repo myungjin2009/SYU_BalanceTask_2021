@@ -453,7 +453,7 @@ app.get("/api/user/receive_mypage",upload.array("image",12),mypage,receive_messa
               req.truearam=true;
             }
             let userarray=[]
-
+            console.log("=====================================avg(point):"+req.score);
             userarray.push({
               ProfileName: req.name,
               ProfileImage: req.user_image,
