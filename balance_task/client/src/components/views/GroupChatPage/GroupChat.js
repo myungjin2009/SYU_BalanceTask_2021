@@ -29,6 +29,9 @@ const GroupChat = (props) => {
     
       
     socket.emit("join", {name: user.name, id: user.id, group});
+    socket.on('roomData', (chatData) =>{
+      setChatArr(chatData);
+    });
     return () => {
       socket.close();
     };
@@ -38,10 +41,7 @@ const GroupChat = (props) => {
     socket.on("receive message", (message) => {
       setChatArr((chatArr) => chatArr.concat(message));
     }); //receive message이벤트에 대한 콜백을 등록해줌
-
-    socket.on('roomData', ({ users }) => {
-      // setUsers(users)
-    })
+    
   },[user]);
 
   const buttonHandler = useCallback(() => {

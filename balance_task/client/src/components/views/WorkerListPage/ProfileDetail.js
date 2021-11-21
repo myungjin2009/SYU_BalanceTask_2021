@@ -26,6 +26,7 @@ const ProfileDetail = (props) => {
                         </div>
                         <div className="profile_name">{props.data.ProfileName}</div>
                         <div className="profile_message">{props.data.ProfileMessage}</div>
+                        <button className="profile_button">친구 삭제하기</button>
                     </div>
         </Profile_Detail>
     );
@@ -83,6 +84,12 @@ const Profile_Detail = styled.div`
         font-size: 18px;
         text-align: center;
         transform:translate(0, 18vh);
+    }
+    & > .profile_button{
+        font-size: 18px;
+        text-align: center;
+        
+        transform:translate(0, 20vh);
     }
   }
   
