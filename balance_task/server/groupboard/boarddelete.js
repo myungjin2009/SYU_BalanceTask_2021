@@ -14,7 +14,9 @@ let boarddelete= (req, res, next) => {
     console.log(req.body);
     console.log(req.body.dataToSubmit.id); 
     var paramdataTosubmit = req.body.dataToSubmit.id;
-    var sql6="delete from groupboard where board_no=?";
+    var paramgroup = req.body.group_name;
+
+    var sql6="delete from groupboard where board_no=? and group_name='"+paramgroup+"';"
             sql.pool.query(sql6,paramdataTosubmit,(err,rows,fields)=>{
             if (err) {
                 console.log(err);
