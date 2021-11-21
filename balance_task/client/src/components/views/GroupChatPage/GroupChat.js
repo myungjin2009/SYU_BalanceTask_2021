@@ -25,10 +25,8 @@ const GroupChat = (props) => {
       return;
     }
     //auth가 제대로 작동했을 때
-    console.log(user);
-    
-      
     socket.emit("join", {name: user.name, id: user.id, group});
+    
     return () => {
       socket.close();
     };
@@ -38,12 +36,14 @@ const GroupChat = (props) => {
     socket.on("receive message", (message) => {
       setChatArr((chatArr) => chatArr.concat(message));
     }); //receive message이벤트에 대한 콜백을 등록해줌
-
-    socket.on('roomData', ({ users }) => {
-      // setUsers(users)
-    })
+    
   },[user]);
 
+  useEffect(()=>{
+    socket.on('getchat', (chatData) =>{
+      setChatArr(chatData.chatarray);
+    });
+  },[user]);
   const buttonHandler = useCallback(() => {
     if(chat===''){
       return;
