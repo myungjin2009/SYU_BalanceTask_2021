@@ -41,7 +41,7 @@ let groupclose= (req, res, next) => {
     // }
     
 
-    var sql1="delete from vote where group=?";
+    var sql1="delete from vote where group_name=?";
     sql.pool.query(sql1,paramgroup_name,(err,rows,fields)=>{
         if (err) {
           console.log(err);
