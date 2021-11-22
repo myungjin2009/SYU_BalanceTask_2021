@@ -52,22 +52,25 @@ let group_update= (req, res, next) => {
     }
 
     if(paramgroup_images.length===1){
-        if(paramad_image=null){
+        if(paramad_image!=null){             //팀이미지가 바뀌었을때
         //paramgroup_images.push(paramad_image);
-        paramgroup_images.push(paramteam_image);
+        paramgroup_images[1]=paramgroup_images[0];
+        paramgroup_images[0]=paramad_image;
+        //paramgroup_images.push(paramteam_image);
         }
 
-        if(paramteam_image=null){
+        if(paramteam_image!=null){          //내부이미지가 바뀌었을때
             //paramgroup_images.push(paramad_image);
-            paramgroup_images[1]=paramgroup_images[0];
-            paramgroup_images[0]=paramad_image;
+            // paramgroup_images[1]=paramgroup_images[0];
+            // paramgroup_images[0]=paramad_image;
+            paramgroup_images.push(paramteam_image);
         }
     }
 
     // if(paramgroup_images.length===1){
     //     paramgroup_images=req.body.image;
     // }
-    
+    console.log(paramgroup_images);
     //var sql1="update `groups` set (group_name,category,startdate,deadline,highlight,host,manager,content,group_images)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images+"') where group_name='"+paramgroup_name+"');"
     var sql1="update `groups` set group_name='"+paramgroup_name+"',category='"+paramcategory+"',startdate='"+paramstartdate+"',deadline='"+paramdeadline+"',highlight='"+paramhighlight+"',host='"+paramhost+"',manager='"+parammanger+"',content='"+paramcontent+"',group_images='"+paramgroup_images+"' where group_no='"+req.body.board_number+"';"
 
