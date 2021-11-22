@@ -162,7 +162,8 @@ const Profile = styled.div`
         width: 35%;
         height: 65%;
         float: right;
-        font-size: 1.5vh;
+        font-size: 1.7vh;
+        overflow:hidden;
     }
     & > .ProfileScore {
         border-radius: 13px;
