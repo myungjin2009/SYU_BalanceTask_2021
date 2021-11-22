@@ -19,7 +19,7 @@ var addUser = function (id, name, password, agreement, callback) {
     console.log("데이터베이스 연결 스레드 아이디 : " + conn.threadId);
 
     // 데이터를 객체로 만듦
-    var data = { id: id, name: name, agreement: agreement, password: password };
+    var data = { id: id, name: name, agreement: agreement, password: password ,user_image:"DEFAULT"};
     conn.query("ALTER TABLE user convert to charset utf8");
 
     // SQL 문을 실행함
