@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import calculateDate from './DateCalculator';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
 const handleVote = (dispatch, votes, board_no, userData, e, kind, setVote, path, group, index) => {
   if(votes === null) return;
@@ -119,8 +121,13 @@ const PostBlock = (props) =>{
       (
         <VotingSpace>
           <ButtonContainer>
-            <button onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>찬성</button>
-            <button onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>반대</button>  
+            <button className="ThumbUpIcon" style={{fontSize:'0'}} onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>
+              <ThumbUpIcon/>찬성
+            </button>
+            
+            <button style={{fontSize:'0'}} onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>
+              <ThumbDownIcon/>반대
+            </button>  
           </ButtonContainer>
           <Bar>
             { 
