@@ -8,7 +8,7 @@ import calculateDate from '../common/DateCalculator';
 
 function InfoBlock(props) {
   const dispatch = useDispatch();
-  const {aramsdata:{senduser, time, groupname, content}} = props;
+  const {aramsdata:{senduser, time, groupname, content, point}} = props;
   
   const Container_Ref = useRef(null);
   
@@ -52,7 +52,7 @@ function InfoBlock(props) {
         보낸사람: {senduser}
       </NameBlock>
       <Content onClick={movePage}>
-        {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`}
+        {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. \n ${senduser}님의 평점은 ${point}입니다. 허락하시겠습니까?`}
         {content === 0 && `${senduser}님의 ${groupname}에 가입이 거절 되었습니다..`}
         {content === 1 && `${senduser}님의 ${groupname}에 가입 되었습니다!`}
         {content === 2 && `${senduser}님의 ${groupname}을 평가해주세요!`}
