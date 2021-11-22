@@ -72,6 +72,7 @@ let noticeget = (req, res, next) => {
             if(req.profileimage=="DEFAULT"){
               req.profileimage=['/image/profile_sample.jpg']
             }
+            req.name=info.name;
             //req.notice =info.notice;
             array.push({
               id: req.board_number,
@@ -79,7 +80,8 @@ let noticeget = (req, res, next) => {
               photo_name:req.title,
               date:info.date,
               //deadline:req.deadline,
-              user_name:req.profileimage,
+              profileImage:req.profileimage,
+              user_name:req.name,
               content:req.text,
               image:req.image,
               file:req.file,
