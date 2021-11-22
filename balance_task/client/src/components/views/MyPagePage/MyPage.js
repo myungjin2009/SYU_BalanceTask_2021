@@ -330,9 +330,11 @@ const Introduce = styled.form`
 const ArrowMove = keyframes`
     0% {
       transform:translate(0, 0);
+      opacity: 0.5;
     }
     100% {
       transform:translate(0, 35%);
+      opacity: 1;
     }
 `;
 
@@ -352,6 +354,7 @@ const NoGroup = styled.div`
       margin-top: 1.5vh;
     }
     & > .RecommendArrow{
+      opacity: 0.5;
       font-size: 5vh;
       color: rgba(74,171,242);
       margin-top: 5vh;
