@@ -7,10 +7,11 @@ const moment=require("moment");
 let arams= (req, res, next) => {
   console.log("grouppart 함수 호출됨");
   var paramjwt=req.cookies.user; 
-  const sql3="select id from user where jwt=?"
+  const sql3="select id,evaluation_score from user where jwt=?"
   sql.pool.query(sql3,paramjwt,(err,rows,fields)=>{
     console.log(rows)
     var senduser=rows[0]['id'];
+    var parampoint=rows[0]['evaluation_score']
     console.log(req.body);
     var paramgroup_name = req.body.group;
     console.log(req.body.group);
@@ -24,7 +25,7 @@ let arams= (req, res, next) => {
         var no=rows[0]['count(aram_no)']+1;    
         var time=moment().format('YYYY-MM-DD HH:mm:ss');
 
-        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group_name:paramgroup_name, sendtime:time, notsend:0 };
+        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group_name:paramgroup_name, sendtime:time, notsend:0, point:parampoint };
 
         const sql1 = "insert into aram set ?; ";
         //const sql2 = "SELECT * FROM vote; ";

@@ -14,7 +14,7 @@ function NoticePage(props) {
     if(mounted && aramsdata===undefined || aramsdata === null){
       setTimeout(() => {
         props.history.goBack();
-      }, 1000);
+      }, 100);
     }
     return () =>{
       mounted = false;

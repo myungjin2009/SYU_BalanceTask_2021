@@ -21,6 +21,7 @@ let receive_message = (req, res, next) => {
             req.content=info.content;
             req.time=info.sendtime;
             req.notsend=info.notsend;
+            req.point=info.point;
             req.member;    
             // if(req.notsend==1){
             //     return;
@@ -29,8 +30,8 @@ let receive_message = (req, res, next) => {
             var sql2="select a.receiveuser as id, u.name , a.group_name  from aram a, user u where u.id=a.receiveuser and a.content=2 and a.group_name='"+req.groupname+"';"
              //console.log(sql2);
              sql.pool.query(sql2,(err,rows,fields)=>{
-                //console.log(rows);
-                //console.log("makemembers");
+                console.log(rows);
+                console.log("makemembers");
                 if(rows===undefined){
                     return;
                 }else{
@@ -53,7 +54,8 @@ let receive_message = (req, res, next) => {
                 receiveuser: req.receiveuser,
                 content:req.content,
                 time:req.time,
-                notsend:req.notsend
+                notsend:req.notsend,
+                point:req.point
             });
             
             req.aramArray=array;

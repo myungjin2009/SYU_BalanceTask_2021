@@ -11,6 +11,7 @@ const upload = multer({dest: './upload'});
 let group_update= (req, res, next) => {
     console.log("groupupdate 함수 호출됨");
     console.log(req.body);
+    console.log("req.files:"+req.files);
 
     var paramgroup_name = req.body.groupName || req.query.groupName;
     //var paramgroup_images= `/image/${req.file.filename}`;
@@ -26,6 +27,7 @@ let group_update= (req, res, next) => {
 	
 	for(i=0;i<req.files.length;i++){
 		paramgroup_images.push(`/image/${req.files[i].filename}`);
+        console.log("req.files"+i+".filename:"+req.files[i].filename);
 	}
 
     console.log( paramgroup_images);
@@ -33,6 +35,10 @@ let group_update= (req, res, next) => {
     if(paramgroup_images.length===0){
         paramgroup_images=req.body.image;
     }
+
+    // if(paramgroup_images.length===1){
+    //     paramgroup_images=req.body.image;
+    // }
     
     //var sql1="update `groups` set (group_name,category,startdate,deadline,highlight,host,manager,content,group_images)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images+"') where group_name='"+paramgroup_name+"');"
     var sql1="update `groups` set group_name='"+paramgroup_name+"',category='"+paramcategory+"',startdate='"+paramstartdate+"',deadline='"+paramdeadline+"',highlight='"+paramhighlight+"',host='"+paramhost+"',manager='"+parammanger+"',content='"+paramcontent+"',group_images='"+paramgroup_images+"' where group_no='"+req.body.board_number+"';"

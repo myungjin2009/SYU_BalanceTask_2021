@@ -133,6 +133,7 @@ var { votechange }=require("./groupboard/vote");
 var { boardadd } = require("./groupboard/boardadd");
 var { noticeadd } = require("./groupboard/noticeadd");
 var { boarddelete } = require("./groupboard/boarddelete");
+var { boardupdate } = require("./groupboard/boardupdate");
 
 //jwt auth 모듈
 var { auth } = require("./middleware/auth");
@@ -377,6 +378,13 @@ app.delete("/api/group/post", boarddelete,(req,res)=>{
     success: true
   });
 });
+
+// app.put("/api/group/post", boardupdate,(req,res)=>{
+
+//   res.status(200).json({
+//     success: true
+//   });
+// });
 
 app.post("/api/group/member", groupmember,(req,res)=>{
   console.log(

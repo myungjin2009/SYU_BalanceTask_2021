@@ -51,16 +51,6 @@ let boarddelete= (req, res, next) => {
              req.groupname=paramdataTosubmit;
             }); 
 
-            var sql5="delete from vote where board_number=? and group_name='"+paramgroup+"';"
-            sql.pool.query(sql5,paramdataTosubmit,(err,rows,fields)=>{
-            if (err) {
-                console.log(err);
-                } else { 
-            
-                console.log("groups "+paramdataTosubmit+" 삭제");
-                }
-                
-            })
         }    
     
         next();
