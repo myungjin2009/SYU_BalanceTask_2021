@@ -11,7 +11,7 @@ function CreatePosts(props) {
   const {userData} = props;
   const {match: {params: {group}}} = props;
   const [images, setImages] = useState([]);
-  const [category, setcategory] = useState("타임라인");
+  const [category, setcategory] = useState("no selected");
   const [content, setContent] = useState("");
   const [detailImageFile, setDetailImageFile] = useState([]);
   const changeCategory = (e, setcategory) => {
@@ -19,7 +19,10 @@ function CreatePosts(props) {
   };
 
   const onClickHandler = async() =>{
-    if(images.length === 0){
+    if(category == "no selected") {
+      return alert('게시판을 선택하세요');
+    }
+    else if(images.length === 0){
       return alert('사진을 필수적으로 올려주세요');
     }
     
@@ -57,36 +60,44 @@ function CreatePosts(props) {
     } = e;
     setContent(value);
   };
+
   return (
     <>
-      <Header title="게시물 추가" isButton={true} buttonName="추가" icon="fas fa-plus" onClickHandler={onClickHandler}></Header>
-      <DropZone margin="60px 0 0 0" images={images} detailImageFile={detailImageFile} setDetailImageFile={setDetailImageFile} setImages={setImages}/>
-      <Category>
-        <label>카테고리: </label>
+    <Header title="게시물 추가" isButton={true} buttonName="추가" icon="fas fa-plus" onClickHandler={onClickHandler}></Header>
+    
+    <Category>
+        {/* <label>카테고리: </label> */}
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={category}
           onChange={(e) => changeCategory(e, setcategory)}
         >
+          <MenuItem value="no selected" disabled selected>게시판을 선택하세요</MenuItem>
           <MenuItem value="타임라인">타임라인</MenuItem>
           <MenuItem value="공지사항">공지사항</MenuItem>
         </Select>
       </Category>
-      <Content>
-        <label>내용:</label>
-        <textarea
-          value={content}
-          onChange={(e) => changeContent(e, setContent)}
-        ></textarea>
-      </Content>
+    
+    <DropZone margin="5vh 0 0 0" images={images} detailImageFile={detailImageFile} setDetailImageFile={setDetailImageFile} setImages={setImages}/>
+    
+    <Content>
+      <textarea
+        value={content}
+        placeholder="내용을 입력하세요"
+        style={{marginTop: "2vh", height: "50vh", resize: "none", borderTop: "2px solid black", borderRadius: "0"}}
+        onChange={(e) => changeContent(e, setContent)}
+      ></textarea>
+    </Content>
+
+      
     </>
-  )
+  );
 }
 
 const Category = styled.div`
   width: 90%;
-  margin: 1vh auto;
+  margin: 10vh auto 1vh auto;
   & > label {
     display: block;
     margin: 5px 0;

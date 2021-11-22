@@ -1,5 +1,7 @@
 import React from "react";
 import Dropzone from 'react-dropzone';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 function DropZone(props) {
   const {images, setImages, margin, setDetailImageFile, detailImageFile} = props;
@@ -29,26 +31,27 @@ function DropZone(props) {
   }
 
   return (
-    <div style={{display: "flex", justifyContent: "space-between", ...styles}}>
+    <div style={{display: "block", ...styles}}>
       <Dropzone onDrop={dropHandler}>
         {({ getRootProps, getInputProps }) => (
             <div 
-              style={{
-                width: 300, height: 240, border: "1px solid lightgray",
+              style={{margin: "0 0 1vh 5vw",
+                width: 50, height: 50, border: "1px solid lightgray",
                 display: 'flex', alignItems: 'center', justifyContent: 'center'
               }}
               {...getRootProps()}>
               <input {...getInputProps()} />
-              <i className="fas fa-plus"></i>
+              <AddAPhotoIcon/>
             </div>
         )}
       </Dropzone>
 
-      <div style={{display: 'flex', width: '350px', height: '240px', overflowX: 'auto'}}>
+      <div style={{margin: "-2vh auto 0 auto", display: 'flex', width: '90vw', height: 'auto', overflowX: 'auto'}}>
         {
           images.map((image, index) =>(
             <div onClick={() => deleteHandler(image)} key={index}>
-              <img style={{ minWidth: '300px', width: '300px', height: '240px'}} 
+              <CancelIcon style={{position: 'relative', color: 'rgb(250,80,0)', width: '3.6vh', height: '3.6vh', transform: 'translate(0, 120%)'}}/>
+              <img style={{ minWidth: '150px', width: '150px', height: 'auto', marginRight: '1vh'}} 
               src={image} 
               />
             </div>
