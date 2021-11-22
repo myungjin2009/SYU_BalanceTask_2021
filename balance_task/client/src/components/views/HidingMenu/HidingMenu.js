@@ -65,12 +65,15 @@ function HidingMenu(props) {
   
   return (
     <SlideMenuContainer ref={slideMenu}>
+      
       <SlideMenu>
         <li><Link to={`/${group}/group_chat`}>채팅방</Link></li>
         <li><Link to={`/${group}/group_calendar`}>워커 캘린더</Link></li>
         <li><span style={{color:"white"}} onClick={(e)=>clickHandler(e,setIsModal)}>워커 추가</span></li>
-        {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>sendAramHandler(dispatch, group, group_members, userData)}>상호평가하기</span></li>}
-        {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>endHandler(props, e, dispatch, group)}>프로젝트 종료</span></li>}
+        {/* <div style={{position: "fixed", top:0, width: "300px"}}> */}
+          {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>sendAramHandler(dispatch, group, group_members, userData)}>상호평가하기</span></li>}
+          {isLeader === 1 && <li><span style={{color:"white"}} onClick={(e)=>endHandler(props, e, dispatch, group)}>프로젝트 종료</span></li>}
+        {/* </div> */}
       </SlideMenu>
       { isModal && <AddWorker workerList={workerList} isModal={isModal} setIsModal={setIsModal}/>}
     </SlideMenuContainer>
@@ -88,6 +91,7 @@ const SlideMenuContainer = styled.div`
 `;
 const SlideMenu = styled.div`
   display: flex;
+  position: relative;
   justify-content: space-around;
   margin-top: 9vh;
   height: 5vh;
