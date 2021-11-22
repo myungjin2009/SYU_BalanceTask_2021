@@ -3,38 +3,47 @@ import styled from 'styled-components';
 import Header from '../Header/Header';
 import { withRouter } from 'react-router-dom';
 import DateCalculator from './DateCalculator';
-import Default_Profile from "../../../images/profile_sample.jpg";
+//import Default_Profile from "../../../images/profile_sample.jpg";
 import {useDispatch} from 'react-redux';
 import { deletePost } from '../../../_actions/group_action';
 
 function PostBlockDetail(props) {
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
   const {match: {params: {group}}} = props;
-  console.log("프로필 이미지: " + profileImage);
-  if(profileImage == undefined) {
-    profileImage = Default_Profile;
-  }
+  console.log(props.location.state.user_post);
   const {photo_url} = props.location.state;
   const [userEdit, setUserEdit] = React.useState(false);
   const dispatch = useDispatch();
   //로그인한 id 가 게시글 작성자 id랑 동일할 경우만 수정/삭제 목록 표시.
   const show3dots = props.userData != null ? (props.userData.name == user_name ? true : false) : false; 
-  console.log(props.location.state);
+
+  const shareURL = ()=> {
+    var url = '';
+    var textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    url = window.document.location.href;
+    textarea.value = url;
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    window.alert("URL이 복사되었습니다. 그룹에 속한 워커들만 열람이 가능합니다.");
+  }
+
+
   const confirmDelete = () => {
     if(window.confirm("게시글을 삭제하시겠습니까?")) {
       const body = {
         data: props.location.state.user_post
       }
       dispatch(deletePost(body)).then(res=>{
-        if(res.payload.success){
-          console.log('게시글 삭제 성공');
-        }
+        //if(res.payload.success){
+          //console.log(res.payload);
+        //}
+        props.history.goBack();
       });
      }
   }
-  const shareURL = () => {
-    window.alert("URL이 복사되었습니다. 그룹에 속한 워커들만 열람이 가능합니다.");
-  }
+
   return (
     <Container>
       <Header title={user_name+"님의 프로젝트 현황"}/>
