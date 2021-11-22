@@ -17,29 +17,31 @@ console.log("arma 허락 함수 호출됨");
     var paramnotsend=req.body.notsend;
     
     console.log(req.body.no);
-    const sql4="select count(board_number) from groupboard where info_groupname=?"
+    
+    const sql4="select max(board_number) from groupboard where info_groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
     console.log(rows);
     var no;
-    
-    if(rows===undefined){
-        no=0;
-    }else{
-     no=rows[0]['count(board_number)'];
-    }
-    for(var i=1;i<no+1;i++){
-      console.log(i);
-      data2={board_number:i, user:paramSendId, group:paramgroup_name, discuss:0}
-      console.log(data2);
-      const sql5="insert into vote set ?"
-      sql.pool.query(sql5,data2,(err,rows,fields)=>{
-        if (err) {
-          console.log(err);
-          } else { 
-            
-          console.log("vote 등록");
-          }
-      })
+    if(paramnotsend==0){
+      if(rows===undefined){
+          no=0;
+      }else{
+      no=rows[0]['max(board_number)'];
+      }
+      for(var i=1;i<no+1;i++){
+        console.log(i);
+        data2={board_number:i, user:paramSendId, group_name:paramgroup_name, discuss:0}
+        console.log(data2);
+        const sql5="insert into vote set ?"
+        sql.pool.query(sql5,data2,(err,rows,fields)=>{
+          if (err) {
+            console.log(err);
+            } else { 
+              
+            console.log("vote 등록");
+            }
+        })
+      }
     }
 
     const sql6="delete from aram where aram_no=?"
@@ -70,6 +72,28 @@ console.log("arma 허락 함수 호출됨");
             })
         })
       }
+      // var votearray=[];
+      // const sql10="select max(board_number) from groupboard where group_name=?"
+      //   sql.pool.query(sql10,paramgroup_name,(err,rows,fields)=>{
+      //       var no=rows[0]['max(board_number)'];    
+      //     for(i=1;i<=no;i++){
+      //       var insertdata = ("("+no +","+ 0 +",'"+ receiveuser +"','" +paramgroup_name +"')");
+
+      //       votearray.push(insertdata);
+      //     }
+      //       var replaced = votearray.toString().replace(/\[.*\]/g,'');
+      //       var str = replaced.replace(/\"/gi, "");
+
+      //       const sql101="insert into vote(board_number,discuss,user,group_name) values "+str+";"
+      //       sql.pool.query(sql101,(err,rows,fields)=>{
+      //           if (err) {
+      //           console.log(err);
+      //           } else { 
+                    
+      //           console.log("새알림 등록");
+      //           }
+      //       })
+      //   })
         
     const sql8="select group_no from `groups` where group_name=?"
     sql.pool.query(sql8,paramgroup_name,(err,rows,fieds)=>{
