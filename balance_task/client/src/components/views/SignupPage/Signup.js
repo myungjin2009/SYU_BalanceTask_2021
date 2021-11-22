@@ -137,6 +137,7 @@ const Signup = (props) => {
     dispatch(signupUser(body)).then((response) => {
       console.log(response);
       if (response.payload.success === true) {
+        alert('로그인창에서 로그인 해주세요!');
         props.history.push("/");
       } else {
         alert("오류!");
@@ -148,10 +149,9 @@ const Signup = (props) => {
   return (
     <Container>
       <Header title={title} />
-      <KakaoButton type="button">
-        <i className="fas fa-comment"></i>
-        <span>카카오 로그인</span>
-      </KakaoButton>
+      <NaverButton type="button" onClick={() => window.open('https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com') }>
+        <span>NAVER 메일로 이동하기</span>
+      </NaverButton>
       <EmailBox
         onSubmit={(e) =>
           handleAuthorize(e, dispatch, setIsClick, auth_input, isClick, setMinutes, setOkNumber)
@@ -244,26 +244,22 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const KakaoButton = styled.button`
+const NaverButton = styled.button`
   margin: 0 atuo;
   margin-top: 10vh;
-  hegiht: 100%;
-  width: 200px;
-  background: #ffeb3b;
+  height: 100%;
+  width: 290px;
+  background: #19ce60;
   border: none;
   border-radius: 10px;
   font-weight: bold;
   box-shadow: 1px 1px 1px gray;
+  color: white;
   &:active {
     box-shadow: -1px -1px 1px gray;
   }
-  & > i {
-    width: 20%;
-  }
   & > span {
     display: inline-block;
-    width: 60%;
-    margin-right: 20%;
     padding: 10px;
   }
 `;

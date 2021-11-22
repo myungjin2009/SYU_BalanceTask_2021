@@ -20,9 +20,10 @@ const WithDraw = (props) => {
       return;
     }
     const response = axios.delete('/api/user', {data:{password, id: userData.id}}).then(res => res.data);
-    if(response.success){
+    console.log(response);
+    if(response){
       alert("회원탈퇴 성공하였습니다.");
-      window.location.reload('/');
+      window.location.replace("/");
     }else{
       alert('알 수 없는 오류가 발생하였네요!');
       setPassword('');

@@ -180,6 +180,7 @@ function FindingPW(props) {
             required
           />
           <button rype="button">인증번호 받기</button>
+          
         </form>
         {minutes === 0 && seconds === 0 ? (
           ""
@@ -199,6 +200,9 @@ function FindingPW(props) {
           <button type="submit">확인</button>
         </form>
       </InputBox>
+      <NaverButton type="button" onClick={() => window.open('https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com') }>
+        <span>NAVER 메일로 이동하기</span>
+      </NaverButton>
       <Box ref={idBox} onSubmit={changePasswordHandler}>
         <header>
           <span>비밀번호를 바꿔보세요.</span>
@@ -313,5 +317,21 @@ const Box = styled.form`
     }
   }
 `;
-
+const NaverButton = styled.button`
+  margin: 0 atuo;
+  width: 200px;
+  background: #19ce60;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 1px 1px 1px gray;
+  color: white;
+  &:active {
+    box-shadow: -1px -1px 1px gray;
+  }
+  & > span {
+    display: inline-block;
+    padding: 10px;
+  }
+`;
 export default withRouter(FindingPW);
