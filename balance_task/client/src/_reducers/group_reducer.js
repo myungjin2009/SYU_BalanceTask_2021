@@ -209,11 +209,27 @@ export default function reducer(state = initialState, action) {
     }
 
     case DELETE_POST:{  //이게 맞는건지 확인 못함
-      console.log(action.payload);
-      //const {removed_post_id} = action.payload;
-      //let new_array = state.timelineList.filter(el => removed_post_id !== el); 
+      const removed_post_id = action.payload.data.data.id;
+      console.log(removed_post_id);
+      const removed_category = action.payload.data.data.kind;
+      console.log(removed_category);
+      if(removed_category == "timeLine") {
+        const new_array = state.timelineList.filter(val=>
+          removed_post_id !== val.id
+        );
+        return { ...state, timelineList: new_array };
+      } else if (removed_category == "notice") {
+        const new_array = state.noticeList.filter(val=>
+          removed_post_id !== val.id
+        );
+        return { ...state, noticeList: new_array };
+      }
+      
+      //let new_array = state.timelineList.filter(el => removed_category !== el); 
+      //let new_array2 = state.new_array.filter(el => removed_post_id !== el); 
       //return { ...state, timelineList: new_array };
-      return { ...state };
+
+
     }
 
     case LOADING_WORKERLIST_NUM:{
