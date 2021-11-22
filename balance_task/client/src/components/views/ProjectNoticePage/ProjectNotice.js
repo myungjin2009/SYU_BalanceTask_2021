@@ -184,9 +184,10 @@ const NoGroup = styled.div`
     }
     & > .RecommendArrow{
       position: fixed;
-      bottom: 15vh;
-      right: 3.5vh;
+      bottom: 12vh;
+      right: 5vw;
       font-size: 5vh;
+      width: 40px;
       color: rgba(74,171,242);
       margin-top: 5vh;
       animation: ${ArrowMove} 0.5s 1s 10 ease alternate;
