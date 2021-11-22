@@ -107,8 +107,24 @@ function UpdateGroup(props) {
     formData.append('host', host);
     formData.append('manager', manager);
     formData.append('content', content);
-    formData.append('image', detailImageFile);
-    formData.append('image', teamLogoFile);
+    if(typeof detailImageFile==="string" && typeof teamLogoFile === "string"){
+      //광고이미지와 팀이미지를 업데이트 안할 때
+      formData.append('ad_image', detailImageUrl);
+      formData.append('team_image', teamLogoUrl);
+    }else if(typeof detailImageFile !== "string" && typeof teamLogoFile !== "string"){
+      //광고이미지와 팀이미지를 업데이트 할 때
+      formData.append('image', detailImageFile);
+      formData.append('image', teamLogoFile);
+    }else if(typeof detailImageFile !== "string"){
+      //광고 이미지만 업데이트 할 때
+      formData.append('ad_image', detailImageFile);
+      formData.append('team_image', teamLogoUrl);
+    }else if(typeof teamLogoFile !== "string"){
+      //팀 이미지만 업데이트 할 때
+      formData.append('ad_image', detailImageUrl);
+      formData.append('team_image', teamLogoFile);
+    }
+    
     
     const config = {
       headers: {
