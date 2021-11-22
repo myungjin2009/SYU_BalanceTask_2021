@@ -444,9 +444,9 @@ app.post("/api/group/member", groupmember,(req,res)=>{
   });
 });
 
-app.post("",userdelete,(req,res,next)=>{
+app.delete("/api/user",userdelete,(req,res,next)=>{
   res.status(200).json({
-    success: true,
+    success: req.success,
     });
 });
  
