@@ -117,12 +117,12 @@ function UpdateGroup(props) {
       formData.append('image', teamLogoFile);
     }else if(typeof detailImageFile !== "string"){
       //광고 이미지만 업데이트 할 때
-      formData.append('ad_image', detailImageFile);
+      formData.append('image', detailImageFile);
       formData.append('team_image', teamLogoUrl);
     }else if(typeof teamLogoFile !== "string"){
       //팀 이미지만 업데이트 할 때
       formData.append('ad_image', detailImageUrl);
-      formData.append('team_image', teamLogoFile);
+      formData.append('image', teamLogoFile);
     }
     
     
@@ -137,7 +137,7 @@ function UpdateGroup(props) {
       if(res.payload.success){
         alert('성공적으로 그룹을 수정하였습니다!😊');
         // props.history.push('/group_search');
-        window.location.replace("/group_search")
+        // window.location.replace("/group_search");
       }
     });
   };
