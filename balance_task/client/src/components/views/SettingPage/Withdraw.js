@@ -1,33 +1,47 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import Header from "../Header/Header";
-
-import {Route} from "react-router-dom";
 import {withRouter} from "react-router";
-
+import axios from "axios";
+import { useSelector } from "react-redux";
 const title = "회원탈퇴";
 
-class Withdraw extends React.Component {
-    constructor(props) {
-      super(props);
-      //this.state={};
-    }
+const WithDraw = (props) => {
+  const userData = useSelector(state => state.user.userData);
+  const [password, setPassword] = useState('');
+  const onChangeInput = (e) =>{
+    setPassword(e.target.value);
+  }
 
-    render() {
-        return (
-          <Container>
-            <Header title={title}></Header>
-            <InputBox>
-              <h3>정말로 회원탈퇴를 하시겠습니까?</h3>
-              비밀번호를 한번 더 입력해주십시오.
-              
-              <input type="password"></input>
-              <button>회원탈퇴 확인</button>
-            </InputBox>
-    
-          </Container>
-        );
-      }
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    if(password===''){
+      alert('비밀번호를 입력해주세요!');
+      return;
+    }
+    const response = axios.delete('/api/user', {data:{password, id: userData.id}}).then(res => res.data);
+    if(response.success){
+      alert("회원탈퇴 성공하였습니다.");
+      window.location.reload('/');
+    }else{
+      alert('알 수 없는 오류가 발생하였네요!');
+      setPassword('');
+    }
+  }
+
+  return (
+    <Container onSubmit={handleOnSubmit}>
+      <Header title={title}></Header>
+      <InputBox>
+        <h3>정말로 회원탈퇴를 하시겠습니까?</h3>
+        비밀번호를 한번 더 입력해주십시오.
+        
+        <input type="password" value={password} onChange={onChangeInput}></input>
+        <button type="submit">회원탈퇴 확인</button>
+      </InputBox>
+
+    </Container>
+  );
 }
 
 const Container = styled.div`
@@ -36,7 +50,7 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.form`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -86,4 +100,4 @@ const InputBox = styled.div`
 `;
 
 
-export default withRouter(Withdraw);
+export default withRouter(WithDraw);

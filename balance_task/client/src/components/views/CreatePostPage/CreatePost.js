@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import axios from 'axios';
 import MenuItem from "@material-ui/core/MenuItem";
@@ -6,18 +6,24 @@ import Select from "@material-ui/core/Select";
 import DropZone from '../common/DropZone';
 import Header from '../Header/Header';
 import { withRouter } from 'react-router';
+import {useSelector} from 'react-redux';
 
 function CreatePosts(props) {
-  const {userData} = props;
+  const userData = useSelector(state => state.user.userData);
   const {match: {params: {group}}} = props;
   const [images, setImages] = useState([]);
   const [category, setcategory] = useState("타임라인");
   const [content, setContent] = useState("");
   const [detailImageFile, setDetailImageFile] = useState([]);
+
+  useEffect(()=>{
+    
+  },[userData]);
+
   const changeCategory = (e, setcategory) => {
     setcategory(e.target.value);
   };
-
+  
   const onClickHandler = async() =>{
     if(images.length === 0){
       return alert('사진을 필수적으로 올려주세요');
