@@ -35,6 +35,7 @@ const WorkerList = (props) => {
   React.useEffect(()=> {
     setClicked(0);
   },[user.worker_list]);
+
   return (
     <Container>
       <Header>
@@ -69,7 +70,7 @@ const WorkerList = (props) => {
       <Navigation/>
 
       {
-        clicked!==0 && <ProfileDetail data={clicked} userData={user.userData} windowStatus={windowStatus} setWindow={setWindow}></ProfileDetail>
+        clicked!==0 && <ProfileDetail data={clicked} userData={user.userData} windowStatus={windowStatus} setClicked={setClicked} setWindow={setWindow}></ProfileDetail>
       }
     </Container>
   )
