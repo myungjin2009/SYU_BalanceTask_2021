@@ -6,6 +6,18 @@ var app = express();
 const multer = require("multer");
 const upload = multer({dest: './upload'});
 
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+var storage = multer.diskStorage({ 
+    destination: function (req, file, cb) { cb(null, './upload')  },
+    filename: function (req, file, cb) { cb(null, file.originalname)} 
+  })
+  
+  
+ // const upload = multer({ storage: storage });
+
 
 
 let group_update= (req, res, next) => {
@@ -23,6 +35,8 @@ let group_update= (req, res, next) => {
     var paramcategory = req.body.category  || req.query.category ;
     var paramcontent = req.body.content || req.query.content;
 	var paramhighlight=req.body.highlight || req.query.highlight;
+    var paramad_image=req.body.ad_image || req.query.ad_image;
+    var paramteam_image=req.body.team_image || req.query.team_image;
 	var paramjwt=req.cookies.user; 
 	
 	for(i=0;i<req.files.length;i++){
@@ -33,13 +47,30 @@ let group_update= (req, res, next) => {
     console.log( paramgroup_images);
 
     if(paramgroup_images.length===0){
-        paramgroup_images=req.body.image;
+        paramgroup_images.push(paramad_image);
+        paramgroup_images.push(paramteam_image);
+    }
+
+    if(paramgroup_images.length===1){
+        if(paramad_image!=null){             //팀이미지가 바뀌었을때
+        //paramgroup_images.push(paramad_image);
+        paramgroup_images[1]=paramgroup_images[0];
+        paramgroup_images[0]=paramad_image;
+        //paramgroup_images.push(paramteam_image);
+        }
+
+        if(paramteam_image!=null){          //내부이미지가 바뀌었을때
+            //paramgroup_images.push(paramad_image);
+            // paramgroup_images[1]=paramgroup_images[0];
+            // paramgroup_images[0]=paramad_image;
+            paramgroup_images.push(paramteam_image);
+        }
     }
 
     // if(paramgroup_images.length===1){
     //     paramgroup_images=req.body.image;
     // }
-    
+    console.log(paramgroup_images);
     //var sql1="update `groups` set (group_name,category,startdate,deadline,highlight,host,manager,content,group_images)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images+"') where group_name='"+paramgroup_name+"');"
     var sql1="update `groups` set group_name='"+paramgroup_name+"',category='"+paramcategory+"',startdate='"+paramstartdate+"',deadline='"+paramdeadline+"',highlight='"+paramhighlight+"',host='"+paramhost+"',manager='"+parammanger+"',content='"+paramcontent+"',group_images='"+paramgroup_images+"' where group_no='"+req.body.board_number+"';"
 
