@@ -42,7 +42,7 @@ let noticeget = (req, res, next) => {
     let highnumber=maxno-paramlastnumber-1;
     console.log(highnumber);
     //const sql1 = "SELECT * FROM groupboard where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" order by board_number desc;"
-    const sql1 = "SELECT * FROM groupnotice where "+ lownumber+ "<= board_number and board_number<="+ highnumber+" and info_groupname='"+urlgroup+"' order by board_number desc;"
+    const sql1 = "SELECT * FROM groupnotice, user where user.id=groupnotice.info_user and "+ lownumber+ "<= groupnotice.board_number and groupnotice.board_number<="+ highnumber+" and groupnotice.info_groupname='"+urlgroup+"' order by groupnotice.board_number desc;"
     //const sql2 = "SELECT * FROM vote; ";
     console.log(sql1);
     sql.pool.query(sql1, (err, rows, fields) => {
@@ -68,6 +68,10 @@ let noticeget = (req, res, next) => {
             req.info_user =info.info_user;
             req.info_groupname=info.info_groupname;
             req.date =info.date;
+            req.profileimage=info.user_image;
+            if(req.profileimage=="DEFAULT"){
+              req.profileimage=['/image/profile_sample.jpg']
+            }
             //req.notice =info.notice;
             array.push({
               id: req.board_number,
@@ -75,7 +79,7 @@ let noticeget = (req, res, next) => {
               photo_name:req.title,
               date:info.date,
               //deadline:req.deadline,
-              user_name:req.info_user,
+              user_name:req.profileimage,
               content:req.text,
               image:req.image,
               file:req.file,
