@@ -50,9 +50,12 @@ function InfoBlock(props) {
       <i className="fas fa-times" onClick={canceilHandler}></i>
       <NameBlock onClick={movePage}>
         보낸사람: {senduser}
+        {
+          content === null && <div>평점: <span>{point}</span></div>
+        }
       </NameBlock>
       <Content onClick={movePage}>
-        {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. \n ${senduser}님의 평점은 ${point}입니다. 허락하시겠습니까?`}
+        {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`}
         {content === 0 && `${senduser}님의 ${groupname}에 가입이 거절 되었습니다..`}
         {content === 1 && `${senduser}님의 ${groupname}에 가입 되었습니다!`}
         {content === 2 && `${senduser}님의 ${groupname}을 평가해주세요!`}
@@ -98,10 +101,24 @@ const Container = styled.div`
   }
 `;
 const NameBlock = styled.div`
-
+  &>div{
+    display: inline-block;
+    border: 1px solid none;
+    margin: 0 30px;
+    padding: 6px;
+    border-radius: 50%;
+    
+    &>span{
+      display: inline-block;
+      color: orange;
+      padding: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+  }
 `;
 const Content = styled.div`
-
+  width: 300px;
 `;
 const TimeBlock = styled.div`
   font-size: 12px;
