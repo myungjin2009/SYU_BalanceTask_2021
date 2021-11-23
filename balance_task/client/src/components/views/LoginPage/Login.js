@@ -67,10 +67,10 @@ const Login = (props) => {
         <button type="submit" disabled={disable}>{login}</button>
       </LoginBox>
       <DefaultLoginBox>
-        <button type="button">
+        {/* <button type="button">
           <i className="fas fa-comment"></i>
           <span onClick = {onButtonHandler}>카카오 로그인</span>
-        </button>
+        </button> */}
         <Content>
           <Default>
             <Link to="/finding_password">비밀번호를 잊으셨습니까?</Link>
@@ -139,7 +139,6 @@ const DefaultLoginBox = styled.div`
   border-radius: 10px;
   width: 100%;
   background: #e0e0e0;
-  height: 20vh;
   display: flex;
   flex-direction: column;
   align-items:center;

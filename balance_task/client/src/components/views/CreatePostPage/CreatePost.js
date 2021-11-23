@@ -15,7 +15,6 @@ function CreatePosts(props) {
   const [category, setcategory] = useState("no selected");
   const [content, setContent] = useState("");
   const [detailImageFile, setDetailImageFile] = useState([]);
-
   useEffect(()=>{
     
   },[userData]);
@@ -91,7 +90,7 @@ function CreatePosts(props) {
       <textarea
         value={content}
         placeholder="내용을 입력하세요"
-        style={{marginTop: "2vh", height: "50vh", resize: "none", borderTop: "2px solid black", borderRadius: "0"}}
+        style={{marginTop: "2vh", height: "50vh", resize: "none"}}
         onChange={(e) => changeContent(e, setContent)}
       ></textarea>
     </Content>
