@@ -200,9 +200,6 @@ function FindingPW(props) {
           <button type="submit">확인</button>
         </form>
       </InputBox>
-      <NaverButton type="button" onClick={() => window.open('https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com') }>
-        <span>NAVER 메일로 이동하기</span>
-      </NaverButton>
       <Box ref={idBox} onSubmit={changePasswordHandler}>
         <header>
           <span>비밀번호를 바꿔보세요.</span>

@@ -75,7 +75,6 @@ function CreateGroup(props) {
   const [teamLogoFile, setTeamLogoFile] = useState(null);
   const [teamLogoUrl, setTeamLogoUrl] = useState(null);
   const dispatch = useDispatch();
-  console.log(detailImageFile);
   const postHandler = (e) => {
     e.preventDefault();
     if (

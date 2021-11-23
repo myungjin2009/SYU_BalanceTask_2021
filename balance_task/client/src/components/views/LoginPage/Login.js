@@ -75,7 +75,7 @@ const Login = (props) => {
           <Default>
             <Link to="/finding_password">비밀번호를 잊으셨습니까?</Link>
           </Default>
-          <button onClick={()=> props.history.push("/signup")}>
+          <button style={{background: "#fef01b", color: 'black'}} onClick={()=> props.history.push("/signup")}>
             회원가입
           </button>
         </Content>

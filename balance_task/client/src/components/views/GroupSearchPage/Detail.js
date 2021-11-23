@@ -6,8 +6,12 @@ import { joinGroup } from '../../../_actions/group_action';
 import Header from '../Header/Header';
 const Detail = (props)=>{
   const {match:{params:{team}}} = props;
+  if(props.location.state===undefined){
+    window.location.replace('/my_page');
+  }
   const {location:{state:{content, writer, start_date, deadline, image, kind, postimage}}} = props;
   //console.log(props);
+  
   const dispatch = useDispatch();
   const new_obj = {
     group: team,
@@ -15,6 +19,7 @@ const Detail = (props)=>{
   const postHandler = () =>{
     dispatch(joinGroup(new_obj)).then(response=>{
       if(response.payload.success){
+        alert('가입신청 되었습니다. 방장님이 확인할 때까지 기다려주세요!');
         props.history.goBack();
       }
     })

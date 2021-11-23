@@ -43,6 +43,7 @@ function InfoBlock(props) {
   const movePage = () =>{
     if(content===2){
       props.history.push('/my_page/evaluation/'+ groupname);
+      confirmHandler();
     }
   }
   return (
