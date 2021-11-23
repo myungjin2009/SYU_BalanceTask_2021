@@ -97,7 +97,7 @@ let boardadd = (req, res, next) => {
 
       console.log("vote로 들어왔습니다.");
       let sql10="select  max(vote_no) from vote";
-      let sql3="select user from groupusers where group_name=?";
+      let sql3="select user,group_no from groupusers where group_name=?";
 
       sql.pool.query(sql3,urlgroup,(err,rows,fields)=>{
         console.log(rows);
@@ -105,15 +105,16 @@ let boardadd = (req, res, next) => {
         rows.forEach((info,index,newarray) => {  
           
           req.users= info.user;
+          req.group_no=info.group_no;
           
-          var votedata=("("+num+","+ 0+",'"+ req.users +"','" +urlgroup +"')");
+          var votedata=("("+num+","+ 0+",'"+ req.users +"','" +urlgroup +"',"+req.group_no+")");
           array.push(votedata);
         })
 
         var replaced = array.toString().replace(/\[.*\]/g,'');
         var str = replaced.replace(/\"/gi, "");
 
-        var sql4="insert into vote(board_number,discuss,user,group_name) values "+str+";"
+        var sql4="insert into vote(board_number,discuss,user,group_name,group_no) values "+str+";"
         console.log(sql4);
           sql.pool.query(sql4,(err,rows,fields)=>{
             if (err) {

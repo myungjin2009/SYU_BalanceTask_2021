@@ -28,6 +28,7 @@ let group_update= (req, res, next) => {
     var paramgroup_name = req.body.groupName || req.query.groupName;
     //var paramgroup_images= `/image/${req.file.filename}`;
 	let paramgroup_images=[];
+    var paramgroup_no=req.body.board_number;
     var paramhost = req.body.host || req.query.host;
     var paramstartdate = req.body.start || req.query.start;
     var paramdeadline = req.body.end || req.query.end;
@@ -81,7 +82,17 @@ let group_update= (req, res, next) => {
             console.log("성공");
 
           }
-    })   
+    })
+    
+    var sql13="update vote set group_name='"+paramgroup_name+"' where group_no="+paramgroup_no+";"
+    sql.pool.query(sql13,(err,rows,fields)=>{
+        if (err) {
+            console.log(err);
+          } else {
+            console.log("vote 성공");
+
+          }
+    })
     next();
 }
    

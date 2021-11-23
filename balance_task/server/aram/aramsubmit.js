@@ -18,19 +18,22 @@ console.log("arma 허락 함수 호출됨");
     
     console.log(req.body.no);
     
-    const sql4="select max(board_number) from groupboard where info_groupname=?"
+    const sql4="select max(board_number), s.group_no from groupboard g, `groups` s where g.info_groupname=s.group_name and g.info_groupname=?"
     sql.pool.query(sql4,paramgroup_name,(err,rows,fields)=>{
     console.log(rows);
     var no;
+    var paramgroup_no;
+    console.log(rows[0]['group_no']);
     if(paramnotsend==0){
       if(rows===undefined){
           no=0;
       }else{
-      no=rows[0]['max(board_number)'];
+          no=rows[0]['max(board_number)'];
+          paramgroup_no=rows[0]['group_no'];
       }
       for(var i=1;i<no+1;i++){
         console.log(i);
-        data2={board_number:i, user:paramSendId, group_name:paramgroup_name, discuss:0}
+        data2={board_number:i, user:paramSendId, group_name:paramgroup_name, discuss:0, group_no:paramgroup_no}
         console.log(data2);
         const sql5="insert into vote set ?"
         sql.pool.query(sql5,data2,(err,rows,fields)=>{
