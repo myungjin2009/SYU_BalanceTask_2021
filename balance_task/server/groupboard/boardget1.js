@@ -45,7 +45,7 @@ let boardget1 = (req, res, next) => {
     }
     console.log(highnumber);
     
-    const sql1 = "SELECT * FROM groupboard, user where user.id=groupboard.info_user and "+ lownumber+ "<= groupboard.board_number and groupboard.board_number<="+ highnumber+" and groupboard.info_groupname='"+urlgroup+"'order by groupboard.board_number desc;"
+    const sql1 = "SELECT * FROM groupboard, user where user.id=groupboard.info_user and "+ lownumber+ "<= groupboard.board_number and groupboard.board_number<="+ highnumber+" and groupboard.info_groupname='"+urlgroup+"' order by groupboard.board_number desc;"
     //const sql2 = "SELECT * FROM vote; ";
     console.log(sql1);
     sql.pool.query(sql1,(err, rows, fields) => {
