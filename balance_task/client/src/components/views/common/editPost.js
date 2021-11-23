@@ -17,6 +17,7 @@ function EditPost(props) {
   const [category, setcategory] = useState((location.state.data.kind == "timeLine") ? "타임라인" : "공지사항");
   const [content, setContent] = useState(location.state.data.content);
   const [detailImageFile, setDetailImageFile] = useState([]);
+  console.log(location.state.data);
   useEffect(()=>{
   },[userData]);
 
