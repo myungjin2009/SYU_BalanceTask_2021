@@ -67,14 +67,17 @@ io.on("connection", function(socket){
     let chatarray=[];
     const sqlgetchat="select * from chat where group_name='"+group+"' order by chat_no";
     sql.pool.query(sqlgetchat,(err,rows,fields)=>{
-        rows.forEach((info,index,newarray) => {
+      if(rows==undefined){
+        return;
+      }else{
+         rows.forEach((info,index,newarray) => {
           var getchatdata={ name:info.chat_name, message:info.msg, id:info.chat_id, date:info.chat_date, group:info.group_name};
           chatarray.push(getchatdata);
-        })
+         })
            console.log("chat 가져왔습니다.");
            io.to(group).emit('getchat',{chatarray});
         
-
+         }
       });  
 
      

@@ -28,6 +28,7 @@ var storage = multer.diskStorage({
 let boardupdate= (req, res, next) => {
     console.log("================================groupboardupdate함수 호출됨=======================================");
     console.log(req.body);
+    console.log(req.body.historyData);
     //console.log("req.files:"+req.files);
     
     let urlgroup=req.body.group;
