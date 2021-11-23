@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import Header from '../Header/Header';
+import {useHistory} from 'react-router';
 import { withRouter } from 'react-router-dom';
 import DateCalculator from './DateCalculator';
 //import Default_Profile from "../../../images/profile_sample.jpg";
@@ -13,12 +14,15 @@ function PostBlockDetail(props) {
   }
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
   const {match: {params: {group}}} = props;
-  console.log(props.location.state.user_post);
+  //console.log(props.location.state.user_post);
   const {photo_url} = props.location.state;
   const [userEdit, setUserEdit] = React.useState(false);
   const dispatch = useDispatch();
   //로그인한 id 가 게시글 작성자 id랑 동일할 경우만 수정/삭제 목록 표시.
   const show3dots = props.userData != null ? (props.userData.name == user_name ? true : false) : false; 
+  const history = useHistory();
+  const addressPath = props.match.path;
+  const addressUrl = props.match.url;
 
   const confirmDelete = () => {
     if(window.confirm("게시글을 삭제하시겠습니까?")) {
@@ -34,6 +38,15 @@ function PostBlockDetail(props) {
      }
   }
 
+  const editPost = () => {
+    props.history.push(`${addressUrl}`+`/editPost`, {data: props.location.state.user_post});
+    // if(addressPath==="/:group/project_timeline/:index"){
+    //   props.history.push(`${addressUrl}`+`/editPost`);
+    // }else if(addressPath==="/:group/project_notice/:index"){
+    //   props.history.push(`${addressUrl}`+`/editPost`);
+    // }
+  }
+
   return (
     <Container>
       <Header title={user_name+"님의 프로젝트 현황"}/>
@@ -44,9 +57,9 @@ function PostBlockDetail(props) {
           <span>{DateCalculator(date)}</span>
         </UserInfo>
         {show3dots && <UserEdit onClick={() => (userEdit) ? setUserEdit(false) : setUserEdit(true)}>
-          <i class="fas fa-ellipsis-v"></i>
+          <i className="fas fa-ellipsis-v"></i>
           {userEdit && <div className="editWindow">
-            <div className="list">수 정</div>
+            <div className="list" onClick={()=>editPost()}>수 정</div>
             <div className="list" onClick={()=>confirmDelete()}>삭 제</div>
           </div>}
         </UserEdit>}

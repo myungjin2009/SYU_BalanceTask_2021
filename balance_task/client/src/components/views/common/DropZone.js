@@ -6,7 +6,6 @@ function DropZone(props) {
   const {images, setImages, margin, setDetailImageFile, detailImageFile} = props;
   const styles = {margin};
   const [imgAdvice, setImgAdvice] = React.useState(false);
-
   const dropHandler = (files) =>{
     let reader = new FileReader();
     reader.onloadend = () => {
@@ -17,7 +16,7 @@ function DropZone(props) {
     };
     if (files[0]) {
       reader.readAsDataURL(files[0]);
-      console.log(files[0]);
+      //console.log(files[0]);
       setDetailImageFile([...detailImageFile, files[0]]);
     }
     (images) ? setImgAdvice(true) : setImgAdvice(false);

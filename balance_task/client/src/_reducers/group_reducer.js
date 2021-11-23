@@ -208,7 +208,7 @@ export default function reducer(state = initialState, action) {
       return state;
     }
 
-    case DELETE_POST:{  //이게 맞는건지 확인 못함
+    case DELETE_POST:{  
       const removed_post_id = action.payload.data.data.id;
       console.log(removed_post_id);
       const removed_category = action.payload.data.data.kind;

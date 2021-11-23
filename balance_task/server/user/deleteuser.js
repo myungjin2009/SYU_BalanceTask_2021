@@ -49,6 +49,16 @@ let userdelete= (req, res, next) => {
                             }
                         }); 
 
+                        var sql99="delete from chat where chat_id=?";
+                        sql.pool.query(sql99,req.body.id,(err,rows,fields)=>{
+                        if (err) {
+                            console.log(err);
+                            } else { 
+                        
+                            console.log("chat "+req.body.id+" 삭제");
+                            }
+                        }); 
+
                         var sql77="delete from aram where receiveuser=?";
                         sql.pool.query(sql77,req.body.id,(err,rows,fields)=>{
                         if (err) {
