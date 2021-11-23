@@ -15,6 +15,9 @@ import EditProfileMessage from "./views/MyPagePage/EditProfileMessage";
 import EditProfileImage from "./views/MyPagePage/EditProfileImage";
 import NoticePage from "./views/NoticePage/NoticePage";
 
+//점수(evaluation score) 페이지
+import ScorePage from "../components/views/ScorePage/Score";
+
 //그룹검색 페이지
 import GroupSearch from "./views/GroupSearchPage/GroupSearch";
 import Detail from "./views/GroupSearchPage/Detail";
@@ -78,6 +81,7 @@ const Router = (props) => {
         <Route exact path="/my_page/notice" component={Auth(NoticePage, true)} />
         <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
         <Route exact path="/editProfileImage" component={Auth(EditProfileImage, true)} />
+        <Route exact path="/Score" component={Auth(ScorePage, true)} />
         <Route
           exact
           path="/group_search"
