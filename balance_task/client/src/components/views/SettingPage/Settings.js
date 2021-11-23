@@ -18,7 +18,7 @@ class Settings extends React.Component {
     const is_signout = window.confirm('정말로 로그아웃하시겠습니까?');
     is_signout && axios.get('/api/user/logout').then((response)=>{
       if(response.data.success){
-        window.location.replace("/")
+        window.location.replace("/");
       }else{
         alert('오류 발생!');
       }

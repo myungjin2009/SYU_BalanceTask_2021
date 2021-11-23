@@ -10,6 +10,7 @@ const ProfileDetail = (props) => {
     const closeWindow = () => {
         statusWindow.current.style.display = "none";
         props.setWindow(false);
+        props.setClicked(0);
     }
 
     const deleteWorkerHandler = () => {
