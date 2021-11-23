@@ -43,6 +43,7 @@ function EditPost(props) {
     formData.append('content', content);
     formData.append('id', userData.id);
     formData.append('group', group);
+    formData.append('historyData',location.state.data);
     const config = {
       'content-type': 'multipart/form-data'
     }
@@ -50,7 +51,7 @@ function EditPost(props) {
     //props.history.push(`/${group}/project`);
     const data = response.data;
     if(data.success){
-      alert('글을 성공적으로 업로드했습니다.');
+      alert('글을 성공적으로 업데이트 했습니다.');
       if(category=== '타임라인'){
         window.location.replace(`/${props.match.params.group}/project_timeline`);
       }else if(category=== '공지사항'){
