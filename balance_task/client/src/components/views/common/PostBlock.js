@@ -106,9 +106,9 @@ const PostBlock = (props) =>{
         {photo_url.map((url, index)=>(
           <Image key={index} photo_url={url} onClick = {()=>{
             if(path==="/:group/project_timeline"){
-              props.history.push(`/${group}/project_timeline/`+index, {user_post, photo_url});
+              props.history.push(`/${group}/project_timeline/`+index, {user_post, photo_url, index});
             }else if(path==="/:group/project_notice"){
-              props.history.push(`/${group}/project_notice/`+index, {user_post, photo_url});
+              props.history.push(`/${group}/project_notice/`+index, {user_post, photo_url, index});
             }
           }}></Image>
         ))}
@@ -151,7 +151,7 @@ PostBlock.defaultProps = {
 
 const Container = styled.div`
   width: 100%;
-  // height: 50vh;
+  height: auto;
   margin-bottom: 20px; 
 `;
 const ImageBlock = styled.div`
