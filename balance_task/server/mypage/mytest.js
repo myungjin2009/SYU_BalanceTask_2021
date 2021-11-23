@@ -41,25 +41,20 @@ let mytest = (req, res, next) => {
         rows.forEach((info) => {
           req.member_name = info.rater;
           req.id =info.member_no;
-          req.evaluated =info.evaluated_user;
+          req.evaluate_user=info.evaluated_user;
           req.point =info.point ;
           req.group_name =info.group_name;
           req.content =info.evaluation;
-      
+          //req.rater=info.rater;
           
             array.push({
               id:req.id,
               membername:req.member_name,
               group_name:req.group_name,
               point:req.point,
-              deadline:req.deadline,
-              writer:req.name,
-              makehost:req.makehost,
-              kind:req.category,
+              rater:req.rater,
               content:req.content,
-              highlight:req.highlight,
-              image: req.image[1],         //메인로고사진
-              postimage:req.image[0]
+              myname: req.req.evaluate_user
               });
             
             req.array=array;           

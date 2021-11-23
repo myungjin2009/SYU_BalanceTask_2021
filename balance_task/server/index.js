@@ -144,6 +144,7 @@ var {changeimage}=require("./mypage/changeimage");
 var {changeintro}=require("./mypage/changeintro");
 var {findpassword}=require("./router/findpassword");
 var {findId}=require("./router/findId");
+var {mytest}=require("./mypage/mytest");
 
 //그룹 캘린더 관련 모듈
 var { group_calendar } = require("./group_calendar/group_calendar");
@@ -841,6 +842,14 @@ app.post("/api/group/evaluation",evaluation,(req,res)=>{
 
   res.status(200).json({
     success: true
+  });
+});
+
+app.post("",mytest,(req,res)=>{
+
+  res.status(200).json({
+    success: true,
+    array:req.array
   });
 });
 
