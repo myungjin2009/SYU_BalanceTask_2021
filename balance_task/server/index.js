@@ -310,6 +310,14 @@ app.post("/api/group/search_card", upload.array('image'),group_search, (req, res
   
 });
 
+app.put("/api/group/post",upload.array('image'),boardupdate,(req,res)=>{
+
+  res.status(200).json({
+    success: true
+  });
+});
+
+
 app.put("/api/group/search_card", upload.array('image'),group_update, (req, res) => {
   console.log("group get success");
   //그룸들에 대한 모든 정보를 넘겨줌
@@ -380,7 +388,7 @@ app.delete("/api/group/post", boarddelete,(req,res)=>{
   });
 });
 
-// app.put("/api/group/post", boardupdate,(req,res)=>{
+// app.put("/api/group/post",upload.array('image'),boardupdate,(req,res)=>{
 
 //   res.status(200).json({
 //     success: true
@@ -389,7 +397,7 @@ app.delete("/api/group/post", boarddelete,(req,res)=>{
 
 app.post("/api/group/member", groupmember,(req,res)=>{
   console.log(
-    "==========================================groupmember==========================================="
+    "========================================== groupmember==========================================="
   );
   console.log(req.array);
   console.log(req.Leader);

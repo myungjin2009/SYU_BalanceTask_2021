@@ -30,14 +30,14 @@ let boardupdate= (req, res, next) => {
     console.log(req.body);
     //console.log("req.files:"+req.files);
     
-    let urlgroup=req.body.dataToSubmit.group;
-    let paramId=req.body.dataToSubmit.id;
-    let paramcategory=req.body.dataToSubmit.category;
-    let paramtitle=req.bodydataToSubmit.photo_name;
+    let urlgroup=req.body.group;
+    let paramId=req.body.id;
+    let paramcategory=req.body.category;
+    let paramtitle="게시판";
     let paramimages=[];
-    let paramcontent=req.body.dataToSubmit.content;
-    let paramkind=req.body.dataToSubmit.kind;    //받아야 할값
-    let paramdate=req.body.dataToSubmit.date;
+    let paramcontent=req.body.content;
+    let paramkind=req.body.kind;    //받아야 할값
+    let paramdate=req.body.date;
     //let paramdate=req.body.board_number;
     for(i=0;i<req.files.length;i++){
         paramimages.push(`/image/${req.files[i].filename}`);
@@ -49,7 +49,7 @@ let boardupdate= (req, res, next) => {
     }
     
     //var sql1="update `groups` set (group_name,category,startdate,deadline,highlight,host,manager,content,group_images)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images+"') where group_name='"+paramgroup_name+"');"
-    if(paramkind=='timeLine'){
+    if(paramcategory=='타임라인'){
     var sql1="update groupboard set title'"+paramtitle+"',category='"+paramcategory+"',text='"+paramcontent+"',image='"+paramimages+"',date='"+paramdate+"' where board_number='"+req.body.board_number+"' and info_groupname='"+urlgroup+"';"
       sql.pool.query(sql1,(err,rows,fields)=>{
           if (err) {
@@ -61,7 +61,7 @@ let boardupdate= (req, res, next) => {
       })   
   }
 
-  if(paramkind=='notice'){
+  if(paramcategory=='공지사항'){
     var sql1="update groupnotice set title'"+paramtitle+"',category='"+paramcategory+"',text='"+paramcontent+"',image='"+paramimages+"',date='"+paramdate+"' where board_number='"+req.body.board_number+"' and info_groupname='"+urlgroup+"';"
       sql.pool.query(sql1,(err,rows,fields)=>{
           if (err) {
@@ -75,3 +75,4 @@ let boardupdate= (req, res, next) => {
     
     next();
 }
+module.exports= {boardupdate};
