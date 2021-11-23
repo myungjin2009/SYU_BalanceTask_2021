@@ -43,6 +43,7 @@ function EditPost(props) {
     formData.append('content', content);
     formData.append('id', userData.id);
     formData.append('group', group);
+    formData.append('historyData',location.state.data);
     const config = {
       'content-type': 'multipart/form-data'
     }

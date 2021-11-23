@@ -67,7 +67,7 @@ function PostBlockDetail(props) {
           <span>{DateCalculator(date)}</span>
         </UserInfo>
         {show3dots && <UserEdit onClick={() => (userEdit) ? setUserEdit(false) : setUserEdit(true)}>
-          <i class="fas fa-ellipsis-v"></i>
+          <i className="fas fa-ellipsis-v"></i>
           {userEdit && <div className="editWindow">
             <div className="list" onClick={()=>editPost()}>수 정</div>
             <div className="list" onClick={()=>confirmDelete()}>삭 제</div>
