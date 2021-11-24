@@ -14,6 +14,9 @@ export const LOADING_WORKERLIST_DATA = "loading_workerlist_data";
 export const POST_NOTICE_CONFIRM = "post_notice_confirm";
 export const POST_NOTICE_REJECT = "post_notice_reject";
 export const RECEIVE_USERLIST = "receive_userlist";
+export const DELETE_WORKER = "delete_worker";
+export const SEND_EVALUATION = "send_evaluation"; 
+export const GET_EVALUATION = "get_evaluation";
 
 /* group */
 //group 들어가기 전에서의 액션 타입
@@ -24,7 +27,6 @@ export const UPDATE_GROUP_CARD = "update_group_card";
 export const LOADING = "loading";
 export const CREATE_GROUP = "create_group";
 export const RESET_POSTS = "reset_posts";
-export const DELETE_WORKER = "delete_worker";
 export const SET_PROJECT_LIST = "set_project_list";
 
 //group에 들어갔을 때의 액션타입
@@ -33,7 +35,6 @@ export const RECEIVE_NOTICE = "receive_notice";
 export const VOTE_FOR_POSTS = "vote_for_posts";
 export const RECEIVE_GROUP_MEMBER = "receive_group_member";
 export const ADD_WORKER_IN_GROUP = "add_worker_in_group";
-export const SEND_EVALUATION = "send_evaluation"; 
 export const END_PROJECT = "end_project";
 export const SEND_ALERT_MESSAGE = "send_alert_message";
 export const DELETE_POST = "delete_post";

@@ -11,11 +11,11 @@ function ScoreBlock({el}) {
           <span>{name}</span>
         </NameBlock>
         <ContentBlock>
-          <span>그룹: </span>
+          <span>그룹: &nbsp;</span>
           <span>{group}</span>
         </ContentBlock>
         <ContentBlock>
-          <span style={{width: "40px"}}>내용: </span>
+          <span >내용: &nbsp;</span>
           <span>{content}</span>
         </ContentBlock>
       </BlockContainer>
@@ -32,6 +32,7 @@ const Container = styled.div`
   margin: 10px 0;
   padding: 10px;
   display: flex;
+  border-radius: 10px;
 `;
 
 const BlockContainer = styled.div`
@@ -45,7 +46,6 @@ const NameBlock = styled.div`
 
 const ContentBlock = styled.div`
   display: flex;
-  gap: 5px;
 `;
 
 const PointBlock = styled.div`
@@ -55,5 +55,7 @@ const PointBlock = styled.div`
   width: 20%;
   color: orange;
   border-left: 2px solid white;
+  font-size: 25px;
+  font-weight: 700;
 `;
 export default ScoreBlock;

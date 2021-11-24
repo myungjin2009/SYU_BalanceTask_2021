@@ -175,6 +175,8 @@
   #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEvaluationPage/ProjectEvaluation.js)
 
 ## 유저 평가 조회 페이지 - 작성자: 박건형
-  /api/user/my_evalueation => method: post
-  #### 요청 페이로드: {}
-  #### 응답 페이로드: {}
+  /api/user/user_evalueation => method: post
+  #### 요청 페이로드: {id} => id는 user의 id
+  #### 응답 페이로드: {success, evaluation_list} => evaluation_list의 값은 [{name, group, content, point}...]
+  #### 위치: [Score](/balance_task/client/src/components/views/ScorePage/Score.js)
+  

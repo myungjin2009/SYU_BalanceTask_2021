@@ -103,7 +103,7 @@ const MyPage = (props) => {
             </div>
             
             <div className="profile_REPUTATION">
-              <div className="circle" onClick={()=>props.history.push('/Score')}>
+              <div className="circle" onClick={()=>props.history.push('/score')}>
                 <div className="Score_color"></div>
                   평점
                 <div className="Score_display">{Score}

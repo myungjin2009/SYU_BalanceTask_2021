@@ -15,7 +15,8 @@ import {
   POST_NOTICE_REJECT,
   ADD_WORKER_IN_GROUP,
   DELETE_WORKER,
-  SET_PROJECT_LIST
+  SET_PROJECT_LIST,
+  GET_EVALUATION
 } from "../_actions/types";
 import Default_Profile from "../images/profile_sample.jpg";   //기본 프사
 // import hanium_logo from '../images/hanium_logo.jpg';
@@ -144,6 +145,10 @@ export default function reducer(state = initialState, action) {
       const new_array = project_list.filter(el => el.id!== action.payload.id);
       console.log(action.payload.id);
       return {...state, project_list: new_array}
+    }
+    case GET_EVALUATION: {
+      return state;
+      // id, membername, group_name, point, content, myname   
     }
     default:
       return state;
