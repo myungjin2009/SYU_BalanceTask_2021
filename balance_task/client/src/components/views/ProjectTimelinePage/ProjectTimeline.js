@@ -65,7 +65,7 @@ const ProjectTimeline = (props) =>{
 
   const [timeline, setTimeline] = useState(entireTimeline);
 
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
 
   const group=props.match.params.group;
@@ -79,9 +79,7 @@ const ProjectTimeline = (props) =>{
       if(isCompleted){
         // console.log(isCompleted);
         setTimeline(entireTimeline);
-        //setIsCompleted(false);
         console.log('timeline 최신화 성공!');
-        return;
       }
       if(search ==='' || search === null){
         setTimeline(entireTimeline);
