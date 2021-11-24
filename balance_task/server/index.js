@@ -116,7 +116,7 @@ io.on("connection", function(socket){
   
 });
 
-httpServer.listen(80);
+httpServer.listen(3110);
 //=========================================================chat============================================================
 
 //로그인 , 유저 관련 모듈
@@ -845,12 +845,12 @@ app.post("/api/user/notice/reject",aramreject,(req,res,next)=>{
 });
 
 //채팅
-app.post("",chattingget,(req,res,next)=>{
-  res.status(200).json({
-    success: true,
-    array:req.array
-    });
-});
+// app.post("",chattingget,(req,res,next)=>{
+//   res.status(200).json({
+//     success: true,
+//     array:req.array
+//     });
+// });
 
 
 app.post("/api/group/evaluation",evaluation,(req,res)=>{
