@@ -38,6 +38,9 @@ let mytest = (req, res, next) => {
         console.log(err);
       } else {
         var array=[];
+        if(rows==undefined){
+          next();
+        }
         rows.forEach((info) => {
           req.rater = info.rater;
           req.id =info.member_no;
