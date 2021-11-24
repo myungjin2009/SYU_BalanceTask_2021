@@ -5,14 +5,15 @@ import { postNoticeConfirm, postNoticeReject} from '../../../_actions/user_actio
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import calculateDate from '../common/DateCalculator';
+import { Link } from 'react-router-dom';
 
 function InfoBlock(props) {
   const dispatch = useDispatch();
-  const {aramsdata:{senduser, time, groupname, content, point}} = props;
+  const {aramsdata:{senduser, time, groupname, content, point, sendname}} = props;
   
   const Container_Ref = useRef(null);
   
-  console.log(props.aramsdata);
+  console.log(sendname);
   
   const canceilHandler = () =>{
     const new_obj = {
@@ -50,19 +51,29 @@ function InfoBlock(props) {
     <Container ref={Container_Ref}>
       <i className="fas fa-times" onClick={canceilHandler}></i>
       <NameBlock onClick={movePage}>
-        보낸사람: {senduser}
+        {content !== null && <span>보낸사람: {sendname}</span>}
         {
-          content === null && <div>평점: <span>{point}</span></div>
+          content === null && <>
+            <span>보낸사람: &nbsp;</span><Link to={{
+              pathname: "/score",
+              state:{
+                name: sendname,
+                id: senduser
+              }
+            }}>{sendname}</Link>
+            <div>평점: <span>{point}</span></div>
+          </>
         }
       </NameBlock>
       <Content onClick={movePage}>
-        {content === null && `${senduser}님이 ${groupname}에 들어오고 싶어합니다. 허락하시겠습니까?`}
-        {content === 0 && `${senduser}님의 ${groupname}에 가입이 거절 되었습니다..`}
-        {content === 1 && `${senduser}님의 ${groupname}에 가입 되었습니다!`}
-        {content === 2 && `${senduser}님의 ${groupname}을 평가해주세요!`}
+        {content === null && <p>{sendname}님이 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 들어오고 싶어합니다. 허락하시겠습니까?</p>}
+        {content === 0 && <p>{sendname}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 가입이 거절 되었습니다..</p>}
+        {content === 1 && <p>{sendname}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 가입 되었습니다!</p>}
+        {content === 2 && <p>{sendname}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>을 평가해주세요!</p>}
       </Content>
+      <span style={{fontSize: "12px"}}>※보낸사람의 평가 히스토리 보시려면 보낸 사람의 이름을 클릭해주세요.</span>
       <TimeBlock>
-        {calculateDate(time, true)}
+        <span style={{fontSize:"10px",fontWeight:"700"}}>{calculateDate(time, true)}</span>
       </TimeBlock>
       <ButtonContainer>
         {
@@ -86,8 +97,8 @@ InfoBlock.defaultProps = {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: 200px;
-  background: rgb(214,214,214);
+  height: 300px;
+  background: #bcaaa4;
   border-radius: 5px;
   display: flex;
   gap: 10px;
@@ -102,6 +113,13 @@ const Container = styled.div`
   }
 `;
 const NameBlock = styled.div`
+  padding: 3px;
+  background: white;
+  border-radius: 10px;
+  border: none;
+  &>span{
+    font-weight: 700;
+  }
   &>div{
     display: inline-block;
     border: 1px solid none;
@@ -112,14 +130,15 @@ const NameBlock = styled.div`
     &>span{
       display: inline-block;
       color: orange;
-      padding: 6px;
       background: white;
-      border-radius: 50%;
     }
   }
 `;
 const Content = styled.div`
-  width: 300px;
+  width: 100%;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
 `;
 const TimeBlock = styled.div`
   font-size: 12px;

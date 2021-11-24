@@ -66,7 +66,9 @@ function PostBlockDetail(props) {
       </UserBlock>
       <Content>{content}</Content>
       {photo_url.map((url, index)=>(
-        <Image key={index} photo_url={url}/>
+        <Image key={index} photo_url={url} onClick={()=>{
+          props.history.push(url, {postimage:url});
+        }}/>
       ))}
       {votes_list.length !== 0 && (
         <VoteResultBlock>

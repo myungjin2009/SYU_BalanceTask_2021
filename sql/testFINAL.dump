@@ -1,0 +1,466 @@
+-- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
+--
+-- Host: localhost    Database: test
+-- ------------------------------------------------------
+-- Server version	8.0.26
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `app`
+--
+
+DROP TABLE IF EXISTS `app`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `app` (
+  `test_no` int NOT NULL AUTO_INCREMENT,
+  `user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `evaluation` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `point` int DEFAULT NULL,
+  PRIMARY KEY (`test_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `app`
+--
+
+LOCK TABLES `app` WRITE;
+/*!40000 ALTER TABLE `app` DISABLE KEYS */;
+INSERT INTO `app` VALUES (1,'one0374@naver.com','undefined',90),(2,'one0374@naver.com','좆 별로임',10),(3,'one0374@naver.com','쓸만해요',30),(4,'one0374@naver.com','213',70),(5,'one0374@naver.com','ㅇㄴ',20),(6,'one0374@naver.com','sad',20),(7,'one0374@naver.com','',50),(8,'one0374@naver.com','123',20),(9,'bjh9807@naver.com','4',50),(10,'cdsd@dd.com','asd',50),(11,'one0374@naver.com','',50),(12,'bjh9807@naver.com','40',40);
+/*!40000 ALTER TABLE `app` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `aram`
+--
+
+DROP TABLE IF EXISTS `aram`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `aram` (
+  `aram_no` int NOT NULL AUTO_INCREMENT,
+  `senduser` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `receiveuser` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `sendtime` datetime DEFAULT NULL,
+  `group_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `content` tinyint DEFAULT NULL,
+  `notsend` tinyint DEFAULT NULL,
+  `point` int DEFAULT NULL,
+  `msg` varchar(750) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`aram_no`),
+  KEY `FK_aram_user` (`senduser`),
+  CONSTRAINT `FK_aram_user` FOREIGN KEY (`senduser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `aram`
+--
+
+LOCK TABLES `aram` WRITE;
+/*!40000 ALTER TABLE `aram` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aram` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `chat`
+--
+
+DROP TABLE IF EXISTS `chat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `chat` (
+  `chat_no` int NOT NULL AUTO_INCREMENT,
+  `chat_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `group_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `chat_date` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `msg` varchar(750) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `chat_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`chat_no`) USING BTREE,
+  KEY `group_name` (`group_name`),
+  CONSTRAINT `FK_chat_groups` FOREIGN KEY (`group_name`) REFERENCES `groups` (`group_name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chat`
+--
+
+LOCK TABLES `chat` WRITE;
+/*!40000 ALTER TABLE `chat` DISABLE KEYS */;
+INSERT INTO `chat` VALUES (15,'bjh9807@naver.com','토익 900점','2021-11-24 오후 11:54','312546','백정훈'),(16,'bjh9807@naver.com','토익 900점','2021-11-25 오전 0:10','ㄴㅇㄴㄹㄴㅇㄹ','백정훈'),(17,'bjh9807@naver.com','토익 900점','2021-11-25 오전 0:10','123','백정훈'),(18,'bjh9807@naver.com','토익 900점','2021-11-25 오전 0:10','213ㅁㄴㅇ','백정훈');
+/*!40000 ALTER TABLE `chat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `friends`
+--
+
+DROP TABLE IF EXISTS `friends`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `friends` (
+  `user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `friends` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  PRIMARY KEY (`user`,`friends`),
+  KEY `FK_friends_user_2` (`friends`),
+  CONSTRAINT `FK_friends_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_friends_user_2` FOREIGN KEY (`friends`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `friends`
+--
+
+LOCK TABLES `friends` WRITE;
+/*!40000 ALTER TABLE `friends` DISABLE KEYS */;
+INSERT INTO `friends` VALUES ('myungjin2009@naver.com','aj9807@naver.comsdf'),('myungjin2009@naver.com','bjh9807'),('bjh9807@naver.com','myungjin2009@naver.com'),('myungjin2009@naver.com','one0374@naver.com');
+/*!40000 ALTER TABLE `friends` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groupboard`
+--
+
+DROP TABLE IF EXISTS `groupboard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `groupboard` (
+  `board_number` int NOT NULL,
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `image` varchar(8192) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `file` varchar(8192) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `text` varchar(3000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `info_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `info_groupname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`board_number`,`info_groupname`) USING BTREE,
+  KEY `FK_groupboard_groups` (`info_groupname`),
+  KEY `FK_groupboard_user` (`info_user`),
+  CONSTRAINT `FK_groupboard_groups` FOREIGN KEY (`info_groupname`) REFERENCES `groups` (`group_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_groupboard_user` FOREIGN KEY (`info_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groupboard`
+--
+
+LOCK TABLES `groupboard` WRITE;
+/*!40000 ALTER TABLE `groupboard` DISABLE KEYS */;
+INSERT INTO `groupboard` VALUES (1,'게시물','/image/13f1ed1fcfbadbf2ef6585624165c769',NULL,'ㅇㄹ','bjh9807@naver.com','삼육대 코딩 조별과제','2021-11-24 23:35:56'),(1,'게시물','/image/cb918fd38cad3d633813766be433f31c',NULL,'1','one0374@naver.com','토익 900점','2021-11-22 22:02:19'),(2,'게시물','/image/1b4dbb893f3434c979210dc761595794',NULL,'2','one0374@naver.com','토익 900점','2021-11-22 22:02:30'),(3,'게시물','/image/34207ab0b788f62ac254056959ff0ea5',NULL,'3','one0374@naver.com','토익 900점','2021-11-22 22:02:42'),(4,'게시물','/image/e70f65789c5b42f8fb210ee5324db0c1',NULL,'4','one0374@naver.com','토익 900점','2021-11-22 22:02:58'),(5,'게시물','/image/3688f5248676a4e89f75a0314dc0725f',NULL,'ㅇㄴㅇㄴ','one0374@naver.com','토익 900점','2021-11-22 22:17:30'),(6,'게시물','/image/da619fa1d88de047553714f76ec2bc8b',NULL,'66666','one0374@naver.com','토익 900점','2021-11-23 15:51:22'),(7,'게시판','/image/bae1f731ed0ae4d90ec5ed7801363ab5',NULL,'12345677','bjh9807@naver.com','토익 900점','2021-11-24 12:17:39'),(8,'게시물','/image/e08f8e412ee188aa4a172dc80057cd56',NULL,'8','one0374@naver.com','토익 900점','2021-11-24 23:17:00'),(9,'게시물','/image/fb723992f7911bc8b3cc93fc46affd47',NULL,'9','one0374@naver.com','토익 900점','2021-11-24 23:17:18'),(10,'게시물','/image/fc8c07071d6e34b6e2ab31cbc4f41162',NULL,'10','one0374@naver.com','토익 900점','2021-11-24 23:17:33'),(11,'게시물','/image/44d6013f085fdf076bdcf6ee3afa5218',NULL,'11','one0374@naver.com','토익 900점','2021-11-24 23:17:51');
+/*!40000 ALTER TABLE `groupboard` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groupcalendar`
+--
+
+DROP TABLE IF EXISTS `groupcalendar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `groupcalendar` (
+  `process` int NOT NULL DEFAULT '1',
+  `group_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `start` varchar(50) CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
+  `do_text` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `writer` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `end` varchar(50) CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`process`,`group_name`) USING BTREE,
+  KEY `FK_groupcalendar_groups` (`group_name`),
+  KEY `FK_groupcalendar_user` (`writer`),
+  CONSTRAINT `FK_groupcalendar_groups` FOREIGN KEY (`group_name`) REFERENCES `groups` (`group_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_groupcalendar_user` FOREIGN KEY (`writer`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groupcalendar`
+--
+
+LOCK TABLES `groupcalendar` WRITE;
+/*!40000 ALTER TABLE `groupcalendar` DISABLE KEYS */;
+INSERT INTO `groupcalendar` VALUES (1,'토익 900점','2021-12-09','voca 700단어 외우기','one0374@naver.com','2021-12-16','voca 700단어 외우기');
+/*!40000 ALTER TABLE `groupcalendar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groupnotice`
+--
+
+DROP TABLE IF EXISTS `groupnotice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `groupnotice` (
+  `board_number` int NOT NULL,
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `image` varchar(8192) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `file` varchar(8192) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `text` varchar(3000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `info_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `info_groupname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`board_number`,`info_groupname`) USING BTREE,
+  KEY `FK_groupboard_user` (`info_user`) USING BTREE,
+  KEY `FK_groupboard_groups` (`info_groupname`) USING BTREE,
+  CONSTRAINT `groupnotice_ibfk_1` FOREIGN KEY (`info_groupname`) REFERENCES `groups` (`group_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `groupnotice_ibfk_2` FOREIGN KEY (`info_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groupnotice`
+--
+
+LOCK TABLES `groupnotice` WRITE;
+/*!40000 ALTER TABLE `groupnotice` DISABLE KEYS */;
+INSERT INTO `groupnotice` VALUES (1,'게시물','/image/3f469129b5258604b659d77569f80831',NULL,'공지사항','bjh9807@naver.com','토익 900점','2021-11-24 12:18:25');
+/*!40000 ALTER TABLE `groupnotice` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groups`
+--
+
+DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `groups` (
+  `group_no` int NOT NULL,
+  `user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `group_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `group_images` varchar(8192) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `startdate` datetime DEFAULT NULL,
+  `percentage` float(4,3) DEFAULT NULL,
+  `group_chatting` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `group_calendar` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `host` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `manager` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `complete` blob,
+  `category` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `host_images` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `deadline` datetime DEFAULT NULL,
+  `makedate` datetime DEFAULT NULL,
+  `highlight` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `score` int DEFAULT NULL,
+  PRIMARY KEY (`user`,`group_no`) USING BTREE,
+  UNIQUE KEY `group_name` (`group_name`),
+  UNIQUE KEY `group_no` (`group_no`),
+  CONSTRAINT `FK_groups_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groups`
+--
+
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` VALUES (2,'one0374@naver.com','토익 900점','/image/ba33431d4076533b6b7b05292d5911fb,/image/b4be476d233b4d225531bb41ac04e21b','2021-12-08 00:00:00',NULL,NULL,NULL,'박건형','박건형',NULL,'스터디','토익에 대한 열정이 있는 사람',NULL,'2021-12-11 00:00:00','2021-11-22 20:35:31','광진구 토익 인원모집',NULL),(3,'one0374@naver.com','삼육대 코딩 조별과제','/image/fe8003559a6290cd6b5d92f91f49a4c7,/image/fb80b7225dcd831acdec66af0a24e2a7','2021-12-01 00:00:00',NULL,NULL,NULL,'삼육대학교','박건형',NULL,'학교 조별 과제','프론트엔드 2명과 백엔드 1명 구합니다.',NULL,'2021-12-09 00:00:00','2021-11-23 15:07:20','코딩 모르는 사람은 노노',NULL),(4,'one0374@naver.com','ㄴㄱㅁㅇ','/image/삼육대 로고.jpg,/image/삼육대 로고.jpg','2021-11-26 00:00:00',NULL,NULL,NULL,'ㄴㅇ','ㄴㅁㅇ',NULL,'학교 조별 과제','ㅂㅈㄷ',NULL,'2021-12-04 00:00:00','2021-11-24 17:52:19','ㄴㅁㅇㅁ',NULL);
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groupusers`
+--
+
+DROP TABLE IF EXISTS `groupusers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `groupusers` (
+  `group_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `enjoy` blob,
+  `leader` blob,
+  `group_no` int NOT NULL,
+  PRIMARY KEY (`group_name`,`user`,`group_no`) USING BTREE,
+  KEY `FK_groupusers_groups_2` (`group_no`),
+  KEY `FK_groupusers_user` (`user`),
+  CONSTRAINT `FK_groupusers_groups` FOREIGN KEY (`group_name`) REFERENCES `groups` (`group_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_groupusers_groups_2` FOREIGN KEY (`group_no`) REFERENCES `groups` (`group_no`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_groupusers_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groupusers`
+--
+
+LOCK TABLES `groupusers` WRITE;
+/*!40000 ALTER TABLE `groupusers` DISABLE KEYS */;
+INSERT INTO `groupusers` VALUES ('ㄴㄱㅁㅇ','bjh9807@naver.com',NULL,_binary '0',4),('ㄴㄱㅁㅇ','one0374@naver.com',NULL,_binary '1',4),('삼육대 코딩 조별과제','bjh9807@naver.com',NULL,_binary '0',3),('삼육대 코딩 조별과제','one0374@naver.com',NULL,_binary '1',3),('토익 900점','123123123@naver.com',NULL,_binary '0',2),('토익 900점','bjh9807@naver.com',NULL,_binary '0',2),('토익 900점','cdsd@dd.com',NULL,_binary '0',2),('토익 900점','dds@gami.com',NULL,_binary '0',2),('토익 900점','ds@naver.com',NULL,_binary '0',2),('토익 900점','one0374@naver.com',NULL,_binary '1',2);
+/*!40000 ALTER TABLE `groupusers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `member_app`
+--
+
+DROP TABLE IF EXISTS `member_app`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `member_app` (
+  `member_no` int NOT NULL AUTO_INCREMENT,
+  `evaluated_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `point` int DEFAULT '50',
+  `group_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `rater` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `evaluation` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `rater_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`member_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `member_app`
+--
+
+LOCK TABLES `member_app` WRITE;
+/*!40000 ALTER TABLE `member_app` DISABLE KEYS */;
+INSERT INTO `member_app` VALUES (1,'one0374@naver.com','박건형',30,'111','bjh9807@naver.com','3','백'),(2,'one0374@naver.com','박건형',60,'111','bjh9807@naver.com','3','백정'),(3,'one0374@naver.com','박건형',77,'111','bjh9807@naver.com','3','백정훈'),(9,'bjh9807@naver.com','백정훈',60,'삼육대 코딩 조별과제','one0374@naver.com','sasdasdasdas',NULL),(10,'123123123@naver.com','34567890-',60,'토익 700점 이상','cdsd@dd.com','asd','익명67'),(11,'dds@gami.com','Cindy',30,'토익 700점 이상','cdsd@dd.com','sd','익명67'),(12,'one0374@naver.com','박건형',100,'토익 700점 이상','cdsd@dd.com','sad','익명67'),(13,'bjh9807@naver.com','백정훈',80,'삼육대 코딩 조별과제','one0374@naver.com','이게 사람 새끼인가요?\n','박건형'),(14,'one0374@naver.com','박건형',50,'삼육대 코딩 조별과제','bjh9807@naver.com','굿입니다','백정훈');
+/*!40000 ALTER TABLE `member_app` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `personchat`
+--
+
+DROP TABLE IF EXISTS `personchat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `personchat` (
+  `chat_no` int NOT NULL,
+  `chat_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `room_no` int NOT NULL,
+  `chat_date` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `msg` varchar(750) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`chat_no`,`chat_id`,`room_no`) USING BTREE,
+  KEY `FK__user` (`chat_id`),
+  CONSTRAINT `FK__user` FOREIGN KEY (`chat_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `personchat`
+--
+
+LOCK TABLES `personchat` WRITE;
+/*!40000 ALTER TABLE `personchat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `personchat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `personchatin`
+--
+
+DROP TABLE IF EXISTS `personchatin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `personchatin` (
+  `room_no` int NOT NULL,
+  `user1` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`room_no`),
+  KEY `FK_personchatin_user` (`user1`),
+  KEY `FK_personchatin_user_2` (`user2`),
+  CONSTRAINT `FK_personchatin_user` FOREIGN KEY (`user1`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_personchatin_user_2` FOREIGN KEY (`user2`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `personchatin`
+--
+
+LOCK TABLES `personchatin` WRITE;
+/*!40000 ALTER TABLE `personchatin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `personchatin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `phone` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `evaluation_score` int DEFAULT NULL,
+  `agreement` blob NOT NULL,
+  `evaluation_text` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `clear_group` int DEFAULT NULL,
+  `user_image` varchar(750) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `introduce` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user_category` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `jwt` varchar(750) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('121a23123123@naver.com','sdfsdf','$2b$10$QDwi0irJkrCJIW4rTf2E1uA2vqLFck0jbxeY6skx.u14HcRMKjd2.',NULL,4,_binary '1',NULL,NULL,NULL,NULL,NULL,NULL),('123123123@naver.com','34567890-','$2b$10$MtxUXjwzW0veQdPjeHXYQeIGE9Jxe0JJ79z2yO2Rort9uzyUXkrbu',NULL,0,_binary '1',NULL,NULL,NULL,NULL,NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzEyMzEyM0BuYXZlci5jb20iLCJpYXQiOjE2Mzc2NTA1MzQsImV4cCI6MTYzNzY1NDEzNH0.rKnkD8oN4_pyM1VV4j8flawjfJKYm4E0IALOJPKdG2w'),('123@naver.com','asdyte','$2b$10$nj4wZ3MzXy8TsF1UVokhIO.aOoBco2wSP10oYMAMW8YE0cKQTgzvS',NULL,4,_binary '1',NULL,NULL,NULL,NULL,NULL,NULL),('aj9807@naver.com','qweert','$2b$10$nw1AbWh5ASxGPk3KxFuPW.YOhioRHmZlfhRZos1kONAN5uGhar0hG',NULL,7,_binary '1',NULL,NULL,NULL,NULL,NULL,NULL),('aj9807@naver.comsdf','12@','$2b$10$DmU.hJ0rqtp/k4V2SOeFse2BxIsGRDufr/XD14U5/wQiOoGN4Ti/6',NULL,44,_binary '1',NULL,NULL,NULL,NULL,NULL,NULL),('bjh9807','sdfghjklkjresasdfghjkjhgf','$2b$10$5YfxMN71GRduWrThY0eTN.dPLik7eOoP5HNsw69xYGbXXfYcWa0NC',NULL,33,_binary '1',NULL,NULL,NULL,NULL,NULL,NULL),('bjh9807@naver.com','백정훈','$2b$10$rPKSfXmj6p81cxkyh9pUS.hk9vZQf2/pBlb8/mqkrBm8TVkTz8zmq',NULL,70,_binary '1',NULL,NULL,'DEFAULT','이것은 테스트 입니다 동해물과 백두산이 마르고',NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJqaDk4MDdAbmF2ZXIuY29tIiwiaWF0IjoxNjM3NzY0NDk1LCJleHAiOjE2Mzc3NjgwOTV9.ipKf5xkZ61MbcFX3Ai7VBUTQ2wAexgJoEH_Zn69pfwY'),('bjhbjhbjh99999@naver.com','바바바','$2b$10$Tqc5W4F.Il/VulOyksCgnuuPG9G6LpUyspAxcALnrRkMXxHwGtL/e',NULL,55,_binary '1',NULL,NULL,NULL,NULL,NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJqaGJqaGJqaDk5OTk5QG5hdmVyLmNvbSIsImlhdCI6MTYzMTE2NzM1MSwiZXhwIjoxNjMxMTcwOTUxfQ.8C4uKHMzopPMyueP9247gJEagVZisgsoBx4bAFwA6v8'),('cdsd@dd.com','익명67','$2b$10$S3dmLM8/qiHknGtULIt31uxWQpGy11qDQq88RrGXHmAGSren8KDIO',NULL,0,_binary '1',NULL,NULL,NULL,'쪽지할사람 여자만^^',NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNkc2RAZGQuY29tIiwiaWF0IjoxNjM3NzIyNzQ1LCJleHAiOjE2Mzc3MjYzNDV9.Ov-lbVFqhTwl7dD1VLHisXbPWXVJ9K_e6cd0d5fiTjk'),('cxc@naver.codddddd','21584','$2b$10$DlRqZDZmPTKZSBmXFiMSyO/WUeXgdgPThOdE1cVPaJEePLoF3rhZO',NULL,44,_binary '1',NULL,NULL,NULL,NULL,NULL,NULL),('dds@gami.com','Cindy','$2b$10$Hd8uvRkVYSkrTSUErYLXZellLVgFYTAKSS8wXumV3RNx9hm6PAe/.',NULL,0,_binary '1',NULL,NULL,'/image/662bbe35400abf1cedc67e1cf9ec087e','모두들 잘해주셔서 제가 할 게 없군요',NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRkc0BnYW1pLmNvbSIsImlhdCI6MTYzNzY1MTA2NywiZXhwIjoxNjM3NjU0NjY3fQ.uZqX7YUjMWwrnOWvbP0D1fECuxHqsBDY4Dg8eekwYyM'),('ds@naver.com','1q1','$2b$10$kXoBmd7HI5xAFW.CUts3Q.Tuegf3PM397M5bunKbI7NgtC5A3bmbi',NULL,0,_binary '1',NULL,NULL,NULL,NULL,NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRzQG5hdmVyLmNvbSIsImlhdCI6MTYzNzY1MDk2MiwiZXhwIjoxNjM3NjU0NTYyfQ.9FBHuXSEo6AdhcVpzwejNiBMfcWj3orcW8PG3jHPk6E'),('myungjin2009@naver.com','띵진이얌','$2b$10$n6VISwLkG1FZ9MTkJjE62OLBVeeRsVgdF8ZCcPATbBEOcN3QTxM.y',NULL,999,_binary '1',NULL,NULL,'/image/8260a38cb7438f4b56a5a30cc90ccc40','아무것도 할 줄 몰라요 오지네',NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im15dW5namluMjAwOUBuYXZlci5jb20iLCJpYXQiOjE2MzcyOTk0NjEsImV4cCI6MTYzNzMwMzA2MX0.BAhp6JcW-NbCYV1FMctbj8y67zpWhgwESPSZFYE-e2k'),('one0374@naver.com','박건형','$2b$10$pLr3dxVV8vhpDaxRSWnrMuymV0OwcOyXJdvu0uy6v1m/Z/YukhWC6',NULL,63,_binary '1',NULL,NULL,'/image/e5255fa578a4e2b72b082d218c637754','아뵤',NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im9uZTAzNzRAbmF2ZXIuY29tIiwiaWF0IjoxNjM3NzY2Njc0LCJleHAiOjE2Mzc3NzAyNzR9.hLFaSGzpDxQZ0_y_LmZX3TwraJe8uoeJ1bGJ2y4jAgs'),('saadsda@naver.com','4fs`','$2b$10$HKnExSVWnmR33.b77J9E4eLPPEBOmAB1v8IJ7OXvWdmp/.iG3oiPm',NULL,11,_binary '1',NULL,NULL,NULL,NULL,NULL,NULL),('_12312312@naver.codddddd','@21584','$2b$10$9Fl0IrYgInEH1JU2kRd77ewmfxn45VkyVaOK4RDOnjQNq390/GdDu',NULL,44,_binary '1',NULL,NULL,NULL,NULL,NULL,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Il8xMjMxMjMxMkBuYXZlci5jb2RkZGRkZCIsImlhdCI6MTYyODY2OTM5NSwiZXhwIjoxNjI4NjcyOTk1fQ.A_hdNdY9HDOTJ5blntmB70bBq1zCWqBvhnyc607aWAM');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vote`
+--
+
+DROP TABLE IF EXISTS `vote`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `vote` (
+  `vote_no` int NOT NULL AUTO_INCREMENT,
+  `board_number` int NOT NULL,
+  `discuss` int DEFAULT NULL,
+  `user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `group_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11',
+  `group_no` int DEFAULT NULL,
+  PRIMARY KEY (`vote_no`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vote`
+--
+
+LOCK TABLES `vote` WRITE;
+/*!40000 ALTER TABLE `vote` DISABLE KEYS */;
+INSERT INTO `vote` VALUES (21,1,2,'one0374@naver.com','토익 900점',2),(22,2,2,'one0374@naver.com','토익 900점',2),(23,3,1,'one0374@naver.com','토익 900점',2),(24,4,2,'one0374@naver.com','토익 900점',2),(27,5,1,'one0374@naver.com','토익 900점',2),(38,1,1,'bjh9807@naver.com','토익 900점',2),(39,2,1,'bjh9807@naver.com','토익 900점',2),(40,3,1,'bjh9807@naver.com','토익 900점',2),(41,4,2,'bjh9807@naver.com','토익 900점',2),(42,5,2,'bjh9807@naver.com','토익 900점',2),(44,6,0,'bjh9807@naver.com','토익 900점',2),(45,6,2,'one0374@naver.com','토익 900점',2),(46,1,0,'123123123@naver.com','토익 900점',2),(47,2,0,'123123123@naver.com','토익 900점',2),(48,3,0,'123123123@naver.com','토익 900점',2),(49,4,0,'123123123@naver.com','토익 900점',2),(50,5,0,'123123123@naver.com','토익 900점',2),(51,6,0,'123123123@naver.com','토익 900점',2),(52,1,0,'cdsd@dd.com','토익 900점',2),(53,2,0,'cdsd@dd.com','토익 900점',2),(54,3,0,'cdsd@dd.com','토익 900점',2),(55,4,0,'cdsd@dd.com','토익 900점',2),(56,6,0,'cdsd@dd.com','토익 900점',2),(57,5,0,'cdsd@dd.com','토익 900점',2),(58,1,0,'ds@naver.com','토익 900점',2),(59,2,0,'ds@naver.com','토익 900점',2),(60,3,0,'ds@naver.com','토익 900점',2),(61,4,0,'ds@naver.com','토익 900점',2),(62,5,0,'ds@naver.com','토익 900점',2),(63,6,0,'ds@naver.com','토익 900점',2),(64,1,0,'dds@gami.com','토익 900점',2),(65,2,0,'dds@gami.com','토익 900점',2),(66,3,0,'dds@gami.com','토익 900점',2),(67,4,0,'dds@gami.com','토익 900점',2),(68,5,0,'dds@gami.com','토익 900점',2),(69,6,0,'dds@gami.com','토익 900점',2),(70,7,0,'123123123@naver.com','토익 900점',2),(71,7,0,'bjh9807@naver.com','토익 900점',2),(72,7,0,'cdsd@dd.com','토익 900점',2),(73,7,0,'dds@gami.com','토익 900점',2),(74,7,0,'ds@naver.com','토익 900점',2),(75,7,2,'one0374@naver.com','토익 900점',2),(76,8,0,'123123123@naver.com','토익 900점',2),(77,8,0,'bjh9807@naver.com','토익 900점',2),(78,8,0,'cdsd@dd.com','토익 900점',2),(79,8,0,'dds@gami.com','토익 900점',2),(80,8,0,'ds@naver.com','토익 900점',2),(81,8,0,'one0374@naver.com','토익 900점',2),(82,9,0,'123123123@naver.com','토익 900점',2),(83,9,0,'bjh9807@naver.com','토익 900점',2),(84,9,0,'cdsd@dd.com','토익 900점',2),(85,9,0,'dds@gami.com','토익 900점',2),(86,9,0,'ds@naver.com','토익 900점',2),(87,9,0,'one0374@naver.com','토익 900점',2),(88,10,0,'123123123@naver.com','토익 900점',2),(89,10,0,'bjh9807@naver.com','토익 900점',2),(90,10,0,'cdsd@dd.com','토익 900점',2),(91,10,0,'dds@gami.com','토익 900점',2),(92,10,0,'ds@naver.com','토익 900점',2),(93,10,0,'one0374@naver.com','토익 900점',2),(94,11,0,'123123123@naver.com','토익 900점',2),(95,11,0,'bjh9807@naver.com','토익 900점',2),(96,11,0,'cdsd@dd.com','토익 900점',2),(97,11,0,'dds@gami.com','토익 900점',2),(98,11,0,'ds@naver.com','토익 900점',2),(99,11,0,'one0374@naver.com','토익 900점',2),(100,1,0,'bjh9807@naver.com','삼육대 코딩 조별과제',3),(101,1,0,'one0374@naver.com','삼육대 코딩 조별과제',3);
+/*!40000 ALTER TABLE `vote` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-11-25  1:25:17
