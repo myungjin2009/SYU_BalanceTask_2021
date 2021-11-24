@@ -8,29 +8,31 @@ import { getEvaluation } from '../../../_actions/user_action';
 
 const Score = (props) => {
   const userData = useSelector(state => state.user.userData);
+  // const {name, id} = props.location.state;
+  console.log(props.location);
   const dispatch = useDispatch();
   const [list, setList] = useState([]);
   
   useEffect(()=>{
-    if(userData===undefined){
+    if(props.location.state===undefined){
       return;
     }
     const body = {
-      id: userData.id
+      id: props.location.state.id
     }
     dispatch(getEvaluation(body)).then(res=>{
       if(res.payload.success){
         setList(res.payload.array);
       }
     });
-  },[userData]);
-  
-  if(userData===undefined){
+  },[props.location.state]);
+  console.log(props.location.state);
+  if(props.location.state===undefined){
     props.history.push('/my_page');
     return <React.Fragment></React.Fragment>
   }
   const header_obj = {
-    title: `${userData.name}님의 평가 히스토리`,
+    title: `${props.location.state.name}님의 평가 히스토리`,
   }
   
   return(
