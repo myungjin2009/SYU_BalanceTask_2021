@@ -32,41 +32,56 @@ let evaluation= (req, res, next) => {
   let array=[];
 
   var data1 = ("('"+paramrater +"','"+ app_evaluation+"','"+ app_point+"')");
-
-  parammember.forEach((info,index,newarray) => {
-      req.id=info.id
-      req.name=info.name
-      req.point=info.point
-      req.evaluation=info.evaluation
-
-      var data2 = ("('"+req.id +"','"+ req.name+"','"+ req.point+"','" +paramgroup+"','"+paramrater+"','"+req.evaluation+"')")
-      array.push(data2);
-   })
-
-   var replaced = array.toString().replace(/\[.*\]/g,'');
-   var str = replaced.replace(/\"/gi, "");
-   const sql9 = "INSERT INTO member_app(evaluated_user,name,point,group_name,rater,evaluation) VALUES "+str+";"
-   sql.pool.query(sql9, (err, rows, fields) => {
+  
+   req.ratername;
+  const sql99 = "select name from user where id=?"
+  sql.pool.query(sql99, paramrater,(err, rows, fields) => {
         if (err) {
             console.log(err);
             console.log("오류");
         } else { 
-            console.log("멤버 평가 종료 발신");
+            //req.ratername=rows[0]['name']
+            console.log("이름 가져오기 종료 발신");
         }
-    });
+    
+        req.ratername=rows[0]['name']
+        console.log(req.ratername);
 
-    const sql1 = "INSERT INTO app(user,evaluation,point) VALUES "+data1+";"
-    console.log(sql1);
-    sql.pool.query(sql1, (err, rows, fields) => {
-        if (err) {
-            console.log(err);
-            console.log("오류");
-        } else { 
-            console.log("앱 평가 종료 발신");
-            next();
-        }
+    parammember.forEach((info,index,newarray) => {
+        req.id=info.id
+        req.name=info.name
+        req.point=info.point
+        req.evaluation=info.evaluation
+
+        var data2 = ("('"+req.id +"','"+ req.name+"','"+ req.point+"','" +paramgroup+"','"+paramrater+"','"+req.evaluation+"','"+req.ratername+"')")
+        array.push(data2);
+    })
+
+    var replaced = array.toString().replace(/\[.*\]/g,'');
+    var str = replaced.replace(/\"/gi, "");
+    const sql9 = "INSERT INTO member_app(evaluated_user,name,point,group_name,rater,evaluation,rater_name) VALUES "+str+";"
+    sql.pool.query(sql9, (err, rows, fields) => {
+            if (err) {
+                console.log(err);
+                console.log("오류");
+            } else { 
+                console.log("멤버 평가 종료 발신");
+            }
     });
- 
+    
+
+        const sql1 = "INSERT INTO app(user,evaluation,point) VALUES "+data1+";"
+        console.log(sql1);
+        sql.pool.query(sql1, (err, rows, fields) => {
+            if (err) {
+                console.log(err);
+                console.log("오류");
+            } else { 
+                console.log("앱 평가 종료 발신");
+                next();
+            }
+        });
+});
     
 };
 
