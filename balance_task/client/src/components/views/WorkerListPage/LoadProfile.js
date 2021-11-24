@@ -117,8 +117,9 @@ const LoadProfile = (props) => {
                             <img className ="ProfileimgSource" src={val.ProfileImage} />
                         </div>
                         <div className = "ProfileName">{val.ProfileName}</div>
-                        <div className = "ProfileScore">{val.Score}</div>
                         <div className = "ProfileMessage">{val.ProfileMessage}</div>
+                        <div className = "ProfileScore">{val.Score}</div>
+                        
                     </Profile>
                 ))}
                 </div>
@@ -137,44 +138,45 @@ const Profile = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 0.5vh;
+        margin-left: 1.5vh;
         float: left;
         & > .ProfileimgSource {
             border: 1.5px solid black;
             overflow: hidden;
-            width: 6.5vh;
-            height: 6.5vh;
+            width: 5.5vh;
+            height: 5.5vh;
             border-radius: 50%;
         }
     }
     & > .ProfileName {
-        line-height: 9vh;
-        width: 20%;
-        text-align: center;
+        width: 25%;
+        height: 100%;
+        padding: 2.6vh 0 2.5vh 0;
         float: left;
-        font-size: 2.5vh;
+        font-size: 2vh;
     }
     & > .ProfileMessage {
         border-radius: 13px;
         transform: translate(-8%, 27%);         //메시지박스 가운데 정렬하기 위한 코드
         padding: 4px 8px 4px 8px;
         background-color: rgb(170,231,253);
-        width: 35%;
+        width: 38%;
         height: 65%;
         float: right;
-        font-size: 1.7vh;
+        font-size: 1.65vh;
         overflow:hidden;
     }
     & > .ProfileScore {
         border-radius: 13px;
         transform: translate(-8%, 27%);         //메시지박스 가운데 정렬하기 위한 코드
         text-align: center;
-        line-height: 5.85vh;
+        line-height: 5.5vh;
         background-color: rgb(153,204,153);
         width: 10%;
         height: 65%;
         float: right;
-        font-size: 2.5vh;
+        margin-right: 1.5vh;
+        font-size: 2.0vh;
     }
 `;
 

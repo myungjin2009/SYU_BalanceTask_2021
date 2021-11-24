@@ -125,7 +125,7 @@ const GroupSearch = (props) => {
       <GroupSearchHeader search={search} setSearch = {setSearch} />
       <Category>
         <Block index={0} selectIndex={selectIndex} onClick={() => onClickHandler('')}>전체</Block>
-        <Block index={1} selectIndex={selectIndex} onClick={() => onClickHandler('학교 조별 과제')}>학교 조별 과제</Block>
+        <Block index={1} selectIndex={selectIndex} onClick={() => onClickHandler('학교 조별 과제')}>조별 과제</Block>
         <Block index={2} selectIndex={selectIndex} onClick={() => onClickHandler('팀 프로젝트')}>팀 프로젝트</Block>
         <Block index={3} selectIndex={selectIndex} onClick={() => onClickHandler('스터디')}>스터디</Block>
       </Category>
@@ -162,7 +162,7 @@ const blink_effect = keyframes`
 
 const Container = styled.div`
   width: 100vw;
-  padding: 2vh;
+  padding: 2vh 2vh 0 2vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,9 +173,10 @@ const Category = styled.div`
   width: 100%;
   height: 4.5vh;
   display: flex;
-  
   border-radius: 1.5vh;
   overflow: hidden;
+  font-weight: bold;
+  color: rgb(82,82,82);
 `;
 
 const Block = styled.div`
@@ -192,8 +193,8 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 70vh;
-  padding: 3vh 0;
+  height: 72vh;
+  margin: 2vh 0 0 0;
   overflow-y: auto;
 `;
 
