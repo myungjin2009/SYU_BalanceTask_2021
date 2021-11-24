@@ -1,16 +1,29 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React,{useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import ScoreBlock from './ScoreBlock';
+import { getEvaluation } from '../../../_actions/user_action';
 
 const Score = (props) => {
   const userData = useSelector(state => state.user.userData);
-  if(userData===undefined){
-    props.history.push('/my_page');
-    return <React.Fragment></React.Fragment>
-  }
+  const dispatch = useDispatch();
+
+  // if(userData===undefined){
+  //   props.history.push('/my_page');
+  //   return <React.Fragment></React.Fragment>
+  // }
+  
+  useEffect(()=>{
+    const body = {
+      id: userData.id
+    }
+    dispatch(getEvaluation(body)).then(res=>{
+      
+    });
+  },[]);
+
   const {list} = props;
 
   const header_obj = {
