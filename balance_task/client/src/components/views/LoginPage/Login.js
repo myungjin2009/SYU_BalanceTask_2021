@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {useDispatch} from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import logo from './balance_task.png';
+import { Dot, LoadingWrapper, BounceAnimation } from './LoadingStyles'
 
 const changeId = (e, setId) =>{
   const {target: {value}} = e;
@@ -20,8 +21,8 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const [login, setLogin] = useState("로그인");
-  const [disable, setDisable] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [disable, setDisable] = useState(false);      //임시, 기본값: false 필수 凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸
 
   const postUser = async(e) =>{
     e.preventDefault();
@@ -32,7 +33,7 @@ const Login = (props) => {
     const body = {
       id,password
     }
-    setLogin("로그인 중입니다...");
+    setLogin(true);
     setDisable(true);
     dispatch(loginUser(body))
     .then(response => {
@@ -41,7 +42,7 @@ const Login = (props) => {
         window.location.replace('/my_page');
       }else{
         alert('아이디 또는 비밀번호가 맞지 않습니다!');
-        setLogin("로그인");
+        setLogin(false);
         setDisable(false);
       }
     });
@@ -64,7 +65,7 @@ const Login = (props) => {
       <LoginBox onSubmit={postUser}>
         <input type="email" placeholder="Email" value={id} onChange={(e)=>changeId(e, setId)}/>
         <input type="password" placeholder="PASSWORD" value={password} onChange={(e)=>changePassword(e, setPassword)} autoComplete="off"/>
-        <button type="submit" disabled={disable}>{login}</button>
+        <button type="submit" disabled={disable}>{(login == true) ? "로그인 중입니다...2" : "로그인"}</button>
       </LoginBox>
       <DefaultLoginBox>
         {/* <button type="button">
@@ -80,6 +81,18 @@ const Login = (props) => {
           </button>
         </Content>
       </DefaultLoginBox>
+      {login && <LoadingDiv>
+        <div className="LoadingBox">
+          <div className="AnimationBox">
+            <LoadingWrapper>
+              <Dot delay="0s" />
+              <Dot delay="0.1s" />
+              <Dot delay="0.2s" />
+            </LoadingWrapper>
+          </div>
+          불러오는 중..
+        </div>
+      </LoadingDiv>}
     </Container>
   );
 }
@@ -182,6 +195,33 @@ const Content = styled.div`
       box-shadow: -1px -1px 1px gray;
     }
     color: white;  
+`;
+
+const LoadingDiv = styled.div`
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > .LoadingBox {
+      width: 15vh;
+      height: 15vh;
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 3vh;
+      font-size: 1.8vh;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+      & > .AnimationBox {
+        width: 100%;
+        height: 70%;
+        top: 0;
+      }
+    }
 `;
 
 const Default = styled.div`
