@@ -17,6 +17,7 @@ export const RECEIVE_USERLIST = "receive_userlist";
 export const DELETE_WORKER = "delete_worker";
 export const SEND_EVALUATION = "send_evaluation"; 
 export const GET_EVALUATION = "get_evaluation";
+export const SET_NUMBER = "set_number";
 
 /* group */
 //group 들어가기 전에서의 액션 타입
