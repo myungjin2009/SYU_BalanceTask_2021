@@ -47,10 +47,17 @@ const cookie = require("cookie");
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "*",
+    origins: "*",
     methods: ["GET", "POST"],
   },
 });
+
+// const httpServer = require("http").createServer();
+// const io = require("socket.io")(httpServer, {
+  
+//     origins: "*",
+    
+// });
 
 
 //=========================================================chat============================================================
