@@ -45,16 +45,19 @@ let mytest = (req, res, next) => {
           req.point =info.point ;
           req.group_name =info.group_name;
           req.content =info.evaluation;
-          req.ratername=info.name;
+          req.ratername=info.rater_name;
+          req.myname=info.name;
           //req.rater=info.rater;
           
             array.push({
               id:req.id,
-              membername:req.ratername,
+              myname:req.myname,
               group_name:req.group_name,
               point:req.point,
               content:req.content,
-              myname: req.req.evaluate_user
+              myid:req.evaluate_user,
+              ratername: req.ratername,
+              raterid:req.rater
               });
             
             req.array=array;           
