@@ -59,7 +59,6 @@ const handleAuthorize = (e, dispatch, email_input, setMinutes) => {
         alert("오류!");
         return;
       }
-      console.log(response);
     });
   }
 };
