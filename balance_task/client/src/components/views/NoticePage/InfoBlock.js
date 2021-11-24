@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom';
 
 function InfoBlock(props) {
   const dispatch = useDispatch();
-  const {aramsdata:{senduser, time, groupname, content, point}} = props;
+  const {aramsdata:{senduser, time, groupname, content, point, sendname}} = props;
   
   const Container_Ref = useRef(null);
   
-  console.log(props.aramsdata);
+  console.log(sendname);
   
   const canceilHandler = () =>{
     const new_obj = {
@@ -51,26 +51,27 @@ function InfoBlock(props) {
     <Container ref={Container_Ref}>
       <i className="fas fa-times" onClick={canceilHandler}></i>
       <NameBlock onClick={movePage}>
-        {content !== null && <span>보낸사람: {senduser}</span>}
+        {content !== null && <span>보낸사람: {sendname}</span>}
         {
           content === null && <>
-            <span>보낸사람:</span><Link to={{
+            <span>보낸사람: &nbsp;</span><Link to={{
               pathname: "/score",
               state:{
-                name: senduser,
+                name: sendname,
                 id: senduser
               }
-            }}>{senduser}</Link>
+            }}>{sendname}</Link>
             <div>평점: <span>{point}</span></div>
           </>
         }
       </NameBlock>
       <Content onClick={movePage}>
-        {content === null && <p>{senduser}님이 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 들어오고 싶어합니다. 허락하시겠습니까?</p>}
-        {content === 0 && <p>{senduser}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 가입이 거절 되었습니다..</p>}
-        {content === 1 && <p>{senduser}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 가입 되었습니다!</p>}
-        {content === 2 && <p>{senduser}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>을 평가해주세요!</p>}
+        {content === null && <p>{sendname}님이 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 들어오고 싶어합니다. 허락하시겠습니까?</p>}
+        {content === 0 && <p>{sendname}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 가입이 거절 되었습니다..</p>}
+        {content === 1 && <p>{sendname}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>에 가입 되었습니다!</p>}
+        {content === 2 && <p>{sendname}님의 <span style={{color:"brown", fontWeight:"700"}}>{groupname}</span>을 평가해주세요!</p>}
       </Content>
+      <span style={{fontSize: "12px"}}>※보낸사람의 평가 히스토리 보시려면 보낸 사람의 이름을 클릭해주세요.</span>
       <TimeBlock>
         <span style={{fontSize:"10px",fontWeight:"700"}}>{calculateDate(time, true)}</span>
       </TimeBlock>

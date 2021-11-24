@@ -25,7 +25,7 @@ let receive_message = (req, res, next) => {
             req.point=info.point;
             req.member;    
             req.exit;
-            req.sendname=info.id
+            req.sendname=info.name
             // if(req.notsend==1){
             //     return;
             // }
