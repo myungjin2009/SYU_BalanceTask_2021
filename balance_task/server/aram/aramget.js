@@ -11,7 +11,7 @@ let receive_message = (req, res, next) => {
     let array=[];
     let array2=[];
     let member;
-    const sql2="SELECT * FROM aram where receiveuser=? ";
+    const sql2="SELECT * FROM aram a, user u where a.senduser=u.id and a.receiveuser=? ";
     sql.pool.query(sql2,paramId,(err,rows,fields)=>{
 
             rows.forEach((info,index,newarray) => {
@@ -25,6 +25,7 @@ let receive_message = (req, res, next) => {
             req.point=info.point;
             req.member;    
             req.exit;
+            req.sendname=info.id
             // if(req.notsend==1){
             //     return;
             // }
@@ -70,7 +71,8 @@ let receive_message = (req, res, next) => {
                 content:req.content,
                 time:req.time,
                 notsend:req.notsend,
-                point:req.point
+                point:req.point,
+                sendname:req.sendname
             });
             
             req.aramArray=array;

@@ -32,6 +32,7 @@ let mypage = (req, res, next) => {
                         })
                     }else{
                         req.score=rows[0]['avg(point)'];
+                        console.log("=====================================avg(point):"+req.score);
                         var scoredata2={evaluation_score:Number(rows[0]['avg(point)'])};
                         const sql101= "update user set ? where user.jwt='"+token+"';" ;
                         sql.pool.query(sql101,scoredata2, (err, rows, fields) => {

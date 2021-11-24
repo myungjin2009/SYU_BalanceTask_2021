@@ -8,9 +8,10 @@ const upload = multer({dest: './upload'});
 const moment=require("moment");
 
 
-let mytest = (req, res, next) => {
+let usertotal = (req, res, next) => {
   console.log(req.body.id);
-  console.log("=================================자기평가보기===========================================");
+  console.log(req.body.userid);
+  console.log("=================================유저평가보기===========================================");
   //const sql2="select max(member_no) from member_app where evaluated_user=?";
     // sql.pool.query(sql2,(err,rows,fields)=>{
     //  var maxno=rows[0]['max(member_no)']
@@ -33,7 +34,7 @@ let mytest = (req, res, next) => {
     var sql1 = "SELECT * FROM member_app m where m.evaluated_user=? ORDER BY member_no DESC;";
 
     console.log(sql1);
-    sql.pool.query(sql1,req.body.id,(err, rows, fields) => {
+    sql.pool.query(sql1,req.body.userid,(err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
@@ -73,4 +74,4 @@ let mytest = (req, res, next) => {
 };
 
 
-module.exports= {mytest};
+module.exports= {usertotal};
