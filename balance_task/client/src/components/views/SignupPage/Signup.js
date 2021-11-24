@@ -66,7 +66,6 @@ const handleAuthorize = (
         return;
       }
       console.log(response.payload.success);
-      console.log(response.payload.okNumber);
       setOkNumber(response.payload.okNumber);
     });
   }
