@@ -47,7 +47,7 @@ const cookie = require("cookie");
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
   cors: {
-    origins: "*",
+    origins: "*:*",
     methods: ["GET", "POST"],
   },
 });
