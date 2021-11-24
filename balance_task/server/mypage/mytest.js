@@ -30,7 +30,7 @@ let mytest = (req, res, next) => {
     // let highnumber= maxno-paramlastnumber-1;
     // console.log('제일 큰 번호',highnumber);
 
-    var sql1 = "SELECT * FROM member_app m, user u where m.evaluated_user=u.id and m.evaluated_user=? ORDER BY member_no DESC;";
+    var sql1 = "SELECT * FROM member_app m where m.evaluated_user=? ORDER BY member_no DESC;";
 
     console.log(sql1);
     sql.pool.query(sql1,req.body.id,(err, rows, fields) => {
@@ -38,23 +38,29 @@ let mytest = (req, res, next) => {
         console.log(err);
       } else {
         var array=[];
+        if(rows==undefined){
+          next();
+        }
         rows.forEach((info) => {
-          req.member_name = info.rater;
+          req.rater = info.rater;
           req.id =info.member_no;
           req.evaluate_user=info.evaluated_user;
           req.point =info.point ;
           req.group_name =info.group_name;
           req.content =info.evaluation;
+          req.ratername=info.rater_name;
+          req.myname=info.name;
           //req.rater=info.rater;
           
             array.push({
               id:req.id,
-              membername:req.member_name,
+              myname:req.myname,
               group_name:req.group_name,
               point:req.point,
-              rater:req.rater,
               content:req.content,
-              myname: req.req.evaluate_user
+              myid:req.evaluate_user,
+              ratername: req.ratername,
+              raterid:req.rater
               });
             
             req.array=array;           

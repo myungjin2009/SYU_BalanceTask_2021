@@ -26,6 +26,9 @@ let group_search = (req, res, next) => {
     //lownumber째 부터 highnumber째까지 데이터를 보내준다.
     let lownumber= maxno-paramlastnumber-10;                      
     console.log('제일 작은 번호', lownumber);
+    if(lownumber<0){
+      lownumber=0;
+    }
     let highnumber= maxno-paramlastnumber-1;
     console.log('제일 큰 번호',highnumber);
 

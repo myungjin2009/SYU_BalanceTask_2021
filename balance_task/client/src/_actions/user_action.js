@@ -16,7 +16,8 @@ import {
   LOADING_WORKERLIST_DATA,
   ADD_WORKER_IN_GROUP,
   DELETE_WORKER,
-  SET_PROJECT_LIST
+  SET_PROJECT_LIST,
+  GET_EVALUATION
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -196,6 +197,17 @@ export function addWorker(dataToSubmit){
 export function setProjectList(request){
   return {
     type: SET_PROJECT_LIST,
+    payload: request
+  }
+}
+//해당 유저의 평가된 기록보기 함수
+export function getEvaluation(dataToSubmit){
+  const request = axios.post('/api/user/user_evalueation', dataToSubmit)
+  .then(response => response.data)
+  .catch((err) => console.log(err));
+
+  return {
+    type: GET_EVALUATION,
     payload: request
   }
 }

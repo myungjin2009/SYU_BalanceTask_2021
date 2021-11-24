@@ -35,6 +35,7 @@ const searchTimeline = (input, setSearch) =>{
     return;
   }
   const {current:{value}} = input;
+  console.log(value);
   setSearch(value);
 }
 
@@ -82,7 +83,6 @@ const GroupHeader = (props) =>{
       const body = {
         group, id:userData.id
       }
-      console.log(body);
       dispatch(receiveMember(body)).then((response)=>{
         if(response.payload.success){
           // setMemberList(response.payload.groupMembers);
