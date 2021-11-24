@@ -31,8 +31,8 @@ let boardupdate= (req, res, next) => {
     console.log(req.body.historyData);
     //console.log("req.files:"+req.files);
     
-    let urlgroup=req.body.group;
-    let paramId=req.body.id;
+    let urlgroup=req.body.group_name;
+    let paramId=req.body.board_id;
     let paramcategory=req.body.category;
     let paramtitle="게시판";
     let paramimages=[];
@@ -51,7 +51,7 @@ let boardupdate= (req, res, next) => {
     
     //var sql1="update `groups` set (group_name,category,startdate,deadline,highlight,host,manager,content,group_images)=('"+paramgroup_name+"','"+paramcategory+"',"+paramstartdate+","+paramdeadline+",'"+paramhighlight+"','"+paramhost+"','"+parammanger+"','"+paramcontent+"','"+paramgroup_images+"') where group_name='"+paramgroup_name+"');"
     if(paramcategory=='타임라인'){
-    var sql1="update groupboard set title'"+paramtitle+"',category='"+paramcategory+"',text='"+paramcontent+"',image='"+paramimages+"',date='"+paramdate+"' where board_number='"+req.body.board_number+"' and info_groupname='"+urlgroup+"';"
+    var sql1="update groupboard set title='"+paramtitle+"', text='"+paramcontent+"' where board_number="+paramId+" and info_groupname='"+urlgroup+"';"
       sql.pool.query(sql1,(err,rows,fields)=>{
           if (err) {
               console.log(err);
@@ -63,7 +63,7 @@ let boardupdate= (req, res, next) => {
   }
 
   if(paramcategory=='공지사항'){
-    var sql1="update groupnotice set title'"+paramtitle+"',category='"+paramcategory+"',text='"+paramcontent+"',image='"+paramimages+"',date='"+paramdate+"' where board_number='"+req.body.board_number+"' and info_groupname='"+urlgroup+"';"
+    var sql1="update groupnotice set title='"+paramtitle+"', text='"+paramcontent+"' where board_number="+paramId+" and info_groupname='"+urlgroup+"';"
       sql.pool.query(sql1,(err,rows,fields)=>{
           if (err) {
               console.log(err);

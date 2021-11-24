@@ -8,8 +8,9 @@ let receive_message = (req, res, next) => {
     console.log("알림 호출됨");
     //console.log(req.body);
     let paramId=req.id //req.body.id;
-    var array=[];
-    var array2=[];
+    let array=[];
+    let array2=[];
+    let member;
     const sql2="SELECT * FROM aram where receiveuser=? ";
     sql.pool.query(sql2,paramId,(err,rows,fields)=>{
 
@@ -23,30 +24,44 @@ let receive_message = (req, res, next) => {
             req.notsend=info.notsend;
             req.point=info.point;
             req.member;    
+            req.exit;
             // if(req.notsend==1){
             //     return;
             // }
-           
-            var sql2="select g.user as id, u.name , g.group_name  from groupusers g, user u, aram a where u.id=g.user and g.group_name=a.group_name and a.content=2 and g.group_name='"+req.groupname+"';"
+
+            var sql22="select * from aram where content=2 and receiveuser=? and group_name='"+req.groupname+"';"
+            sql.pool.query(sql22,paramId,(err,rows,fields)=>{
+                if(rows==undefined){
+                    req.exit=false;
+                }else{
+                    req.exit=true;
+                }
+            });
+            
+           if(req.exit=true){
+            var sql2="select g.user as id, u.name , g.group_name  from groupusers g, user u  where u.id=g.user and  g.group_name='"+req.groupname+"';"
              //console.log(sql2);
              sql.pool.query(sql2,(err,rows,fields)=>{
-                console.log(rows);
-                console.log("makemembers");
-                if(rows===undefined){
-                    return;
-                }else{
-                    rows.forEach((info,index,newarray) => {  
-                        array2.push(info);
-                    })
-                   
-                } 
-                
-            })
-            req.member=array2;
-            //console.log(req.member);
-            //console.log('그룹 가입하려는 자',req.senduser);
+                    //console.log(rows);
+                    //console.log("makemembers");
+                    if(rows===undefined){
+                        return;
+                    }else{
+                        rows.forEach((info,index,newarray) => {  
+                            array2.push(info);
+                        }) 
+                        //console.log("array2"+array2);
+                        req.member=array2;
+                        //console.log( "member"+member);
+                    } 
+                })
+                //console.log( "member2"+member);
+                req.member=member
+            }
+               
             
-                
+            console.log("req.member"+array2);
+            req.member=array2;
             array.push({
                 no:req.aram_no,
                 senduser: req.senduser,
@@ -61,8 +76,10 @@ let receive_message = (req, res, next) => {
             req.aramArray=array;
             //next()
 
-            });
+            
 
+            
+            })
             next()
         });//sql
 };
