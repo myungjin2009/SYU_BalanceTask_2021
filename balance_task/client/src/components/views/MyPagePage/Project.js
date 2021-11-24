@@ -20,10 +20,13 @@ const calculatePersentage = (type, startDate, deadineDate) =>{
         const remain_date_data = (deadine - today) / 86400000;
         const remain_time_data = (remain_date_data < 1) ? remain_date_data * 24 : 24;
         if(remain_date_data > 1) {
-            const print_date = remain_date_data.toFixed(0) + "일";
+            const print_date = remain_date_data.toFixed(0) + "일 남음";
             return print_date;
+        } else if(remain_date_data < 0){
+            const print_time = remain_time_data.toFixed(0) + "시간 남음";
+            return print_time;
         } else {
-            const print_time = remain_time_data.toFixed(0) + "시간";
+            const print_time = "기간 만료됨";
             return print_time;
         }
     }
@@ -58,7 +61,7 @@ const Project = (props) => {
                 </div>
                 <div className="Contribution_Container">
                     <div className="Contribution"></div>
-                    <div className="remain_Text">{remain} 남음</div>
+                    <div className="remain_Text">{remain}</div>
                 </div>
             </div>
 

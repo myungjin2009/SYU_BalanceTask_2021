@@ -44,7 +44,7 @@ const ProfileDetail = (props) => {
                             <i className="fas fa-times" onClick={()=>closeWindow()}></i>
                         </div>
                         <div className="profile_name">{props.data.ProfileName}</div>
-                        <div className="profile_message">{props.data.ProfileMessage}</div>
+                        <div className="profile_message">{(props.data.ProfileMessage == "undefined") ? "" : props.data.ProfileMessage}</div>
                         <div className="profile_button">
                             <button onClick={deleteWorkerHandler}>워커 삭제</button>
                         </div>
