@@ -23,6 +23,7 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, se
     dispatch(receiveGroupCard(body)).then(res=>{
       // setTimeout(()=>{
       // }, 2000);
+      console.log(groups_list, res.payload.array);
       setEntireList([...groups_list,...res.payload.array]);
       setNumber(number+10);
       //console.log(entireNotice,res.payload.array)

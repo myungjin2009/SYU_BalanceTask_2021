@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
@@ -9,22 +9,26 @@ import { getEvaluation } from '../../../_actions/user_action';
 const Score = (props) => {
   const userData = useSelector(state => state.user.userData);
   const dispatch = useDispatch();
-
+  const [list, setList] = useState([]);
+  const [user, setUser] = useState('');
   // if(userData===undefined){
   //   props.history.push('/my_page');
   //   return <React.Fragment></React.Fragment>
   // }
   
   useEffect(()=>{
+    // if(){
+
+    // }
     const body = {
       id: userData.id
     }
     dispatch(getEvaluation(body)).then(res=>{
-      
+      if(res.payload.success){
+        setList(res.payload.array);
+      }
     });
   },[]);
-
-  const {list} = props;
 
   const header_obj = {
     title: `${userData.name}님의 평가 히스토리`,

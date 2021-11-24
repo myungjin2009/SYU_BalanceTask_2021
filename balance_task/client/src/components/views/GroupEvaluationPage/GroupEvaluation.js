@@ -43,7 +43,7 @@ const ProjectEnd = (props) => {
   const members = useSelector(state => state.user.members);
 
   const group_members = members.filter(el => el.group_name === group).filter(el => el.id!==userData.id);
-  
+  console.log(group_members);
   //그룹 맴버 필터링이 필요하긴함
   // const group_members = [
   //   {

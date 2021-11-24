@@ -2,17 +2,17 @@ import React from 'react'
 import styled from 'styled-components';
 
 function ScoreBlock({el}) {
-  const {name, point, content, group} = el;
+  const { point, content, group_name, ratername} = el;
   return (
     <Container>
       <BlockContainer>
         <NameBlock>
           <span>이름: &nbsp;</span>
-          <span>{name}</span>
+          <span>{ratername}</span>
         </NameBlock>
         <ContentBlock>
           <span>그룹: &nbsp;</span>
-          <span>{group}</span>
+          <span>{group_name}</span>
         </ContentBlock>
         <ContentBlock>
           <span >내용: &nbsp;</span>
