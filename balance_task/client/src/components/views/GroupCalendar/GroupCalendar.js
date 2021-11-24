@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import timeGridPlugin from '@fullcalendar/timegrid';
 import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { receiveDate } from '../../../_actions/group_calendar_action';
 import ModalWindow from './ModalWindow';
@@ -12,6 +12,7 @@ import BottomBar from './BottomBar';
 import Header from '../Header/Header';
 import ModalDate from './ModalDate';
 const GroupCalendar = (props) => {
+  // const entireCalendar = useSelector(state => state.group_calendar);
   const [calendarData, setCalendarData] = useState([]);
   const [modalData, setModalData] = useState('');
   const [isClick, setIsClick] = useState({modal_window: false, modal_date: false});
@@ -36,7 +37,7 @@ const GroupCalendar = (props) => {
       setCalendarData(response.payload.calendarList);
     });
     
-  }, [isClick, group, dispatch]);
+  }, [isClick, group, dispatch, ]);
 
   const handleDateClick = (arg) =>{
     setDateInfo(arg);
