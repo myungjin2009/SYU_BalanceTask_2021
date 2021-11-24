@@ -101,7 +101,7 @@ const Container = styled.div`
   max-height: 350px;
   
   margin: 7px;
-  border: 1px solid #aaa;
+  border: 2px solid #aaa;
   border-radius: 10px;
   background: #eee;
 `;

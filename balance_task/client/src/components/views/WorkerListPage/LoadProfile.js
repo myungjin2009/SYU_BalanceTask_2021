@@ -62,19 +62,22 @@ const LoadProfile = (props) => {
     if(props.profile === "MyProfile") {
         if(myData.profile.ProfileName == ``) {
             return(
-                <Profile type="myProfile" color="rgb(230,247,230)">
-                    <div className = "ProfileName">Loading</div>
+                // <Profile type="myProfile" color="rgb(230,247,230)">
+                <Profile type="myProfile" type="myProfile">
+                    <div className = "ProfileName">불러오는 중..</div>
                 </Profile>
             );
         }else {
             return(
-                <Profile type="myProfile" color="rgb(230,247,230)">
+                // <Profile type="myProfile" color="rgb(230,247,230)">
+                <Profile type="myProfile">
                 <div className = "ProfileImg">
                 <img className ="ProfileimgSource" src={myData.profile.ProfileImage} />
                 </div>
                 <div className = "ProfileName">{myData.profile.ProfileName}</div>
                 <div className = "ProfileScore">{myData.profile.Score}</div>
-                <div className = "ProfileMessage">{myData.profile.ProfileMessage}</div>
+                {(myData.profile.ProfileMessage == "undefined") ? null :                 
+                <div className = "ProfileMessage">{myData.profile.ProfileMessage}</div>}
                 </Profile>
             );
         }
@@ -117,9 +120,9 @@ const LoadProfile = (props) => {
                             <img className ="ProfileimgSource" src={val.ProfileImage} />
                         </div>
                         <div className = "ProfileName">{val.ProfileName}</div>
-                        <div className = "ProfileMessage">{val.ProfileMessage}</div>
                         <div className = "ProfileScore">{val.Score}</div>
-                        
+                        {(val.ProfileMessage == "undefined") ? null :                 
+                        <div className = "ProfileMessage">{val.ProfileMessage}</div>}
                     </Profile>
                 ))}
                 </div>
@@ -130,7 +133,8 @@ const LoadProfile = (props) => {
 
 const Profile = styled.div`
     height: 9vh;
-    border-bottom: 2px solid rgb(200,200,200);
+    border-bottom:${props => ((props.type == "myProfile") ? "none" : "2px solid rgb(200,200,200)")};
+    margin: 0 2vw;
     background-color: ${props => props.color};
     & > .ProfileImg {
         width: 15%;
@@ -138,7 +142,6 @@ const Profile = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 1.5vh;
         float: left;
         & > .ProfileimgSource {
             border: 1.5px solid black;
@@ -157,25 +160,24 @@ const Profile = styled.div`
     }
     & > .ProfileMessage {
         border-radius: 13px;
-        transform: translate(-8%, 27%);         //메시지박스 가운데 정렬하기 위한 코드
+        transform: translate(-8%, 35%);         //메시지박스 가운데 정렬하기 위한 코드
         padding: 4px 8px 4px 8px;
         background-color: rgb(170,231,253);
         width: 38%;
-        height: 65%;
+        height: 60%;
         float: right;
         font-size: 1.65vh;
         overflow:hidden;
     }
     & > .ProfileScore {
         border-radius: 13px;
-        transform: translate(-8%, 27%);         //메시지박스 가운데 정렬하기 위한 코드
+        transform: translate(-8%, 35%);         //메시지박스 가운데 정렬하기 위한 코드
         text-align: center;
-        line-height: 5.5vh;
+        line-height: 5vh;
         background-color: rgb(153,204,153);
         width: 10%;
-        height: 65%;
+        height: 60%;
         float: right;
-        margin-right: 1.5vh;
         font-size: 2.0vh;
     }
 `;

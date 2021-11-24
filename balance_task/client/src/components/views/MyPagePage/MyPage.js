@@ -120,7 +120,7 @@ const MyPage = (props) => {
               <SettingsIcon className="icon" onClick={()=>{props.history.push('/settings')}}/>
             </div>
             <div className="ProfileContent">
-              <div className = "profileMessage" >{ProfileMessage}</div>
+              <div className = "profileMessage" >{(ProfileMessage == "undefined") ? "'나'를 한 줄로 소개해보세요!" : ProfileMessage}</div>
               <div className = "editIcon">
                 <EditIcon onClick={() => {history.push(`/EditProfileMessage/${ProfileMessage}`)}}/>
               </div>

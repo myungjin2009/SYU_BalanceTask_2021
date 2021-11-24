@@ -28,7 +28,7 @@ const ApplyButton = (dispatch, text, props) => {
 const EditProfileMessage = (props) => {
     const dispatch = useDispatch();
     const[count, setCount] = React.useState(0);                  //프로필수정-글자수 세기
-    const[text, setText] = React.useState(props.match.params.message);
+    const[text, setText] = React.useState((props.match.params.message == "undefined") ? "" : props.match.params.message);
     React.useEffect(()=>{
          setCount(text.length);
     },[]);
