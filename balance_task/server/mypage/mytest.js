@@ -30,7 +30,7 @@ let mytest = (req, res, next) => {
     // let highnumber= maxno-paramlastnumber-1;
     // console.log('제일 큰 번호',highnumber);
 
-    var sql1 = "SELECT * FROM member_app m, user u where m.rater=u.id and m.evaluated_user=? ORDER BY member_no DESC;";
+    var sql1 = "SELECT * FROM member_app m where m.evaluated_user=? ORDER BY member_no DESC;";
 
     console.log(sql1);
     sql.pool.query(sql1,req.body.id,(err, rows, fields) => {
