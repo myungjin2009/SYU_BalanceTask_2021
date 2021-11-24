@@ -25,7 +25,7 @@ const path = require("path");
 
 	var storage = multer.diskStorage({ 
 		destination: function (req, file, cb) { cb(null, './upload')  },
-		filename: function (req, file, cb) { cb(null, file.originalname.split(' '))} 
+		filename: function (req, file, cb) { cb(null, file.originalname)} 
 	})
 	  
 	  
@@ -48,7 +48,7 @@ router.route('/api/group/create_group').post(upload.array("image",12),function(r
 	var paramjwt=req.cookies.user; 
 	
 	for(i=0;i<req.files.length;i++){
-		paramgroup_images.push(`/image/${req.files[i].filename.split(' ')}`);
+		paramgroup_images.push(`/image/${req.files[i].filename}`);
 	  }
 	//console.log(paramjwt);
 	
