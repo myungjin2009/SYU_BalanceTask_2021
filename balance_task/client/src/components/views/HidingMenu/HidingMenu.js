@@ -30,6 +30,7 @@ const sendAramHandler = (dispatch, group, group_members, userData) =>{
   }
   dispatch(sendAlertMessage(bodyForAlert)).then(res=>{
     if(res.payload.success){
+      alert("팀원들에게 상호평가 알림 보내기 성공!");
       console.log('팀원들에게 알림 보내기 성공');
     }
   });

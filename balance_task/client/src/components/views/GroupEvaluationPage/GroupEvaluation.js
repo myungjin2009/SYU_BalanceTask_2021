@@ -42,8 +42,8 @@ const ProjectEnd = (props) => {
   // 완성하면 주석풀기
   const members = useSelector(state => state.user.members);
 
-  const group_members = members.filter(el => el.group_name === group);
-
+  const group_members = members.filter(el => el.group_name === group).filter(el => el.id!==userData.id);
+  
   //그룹 맴버 필터링이 필요하긴함
   // const group_members = [
   //   {
@@ -65,6 +65,13 @@ const ProjectEnd = (props) => {
   const [appEvaluation, setAppEvaluation] = useState('');
   const [membersEvaluation, setMembersEvaluation] = useState(new Array(group_members.length).fill(''));
 
+  useEffect(()=>{
+    if(group_members.length===0){
+      props.history.goBack();
+      return;
+    }
+  },[]);
+
   const sendEvaluationData = () => {
     const members_evaluation = group_members;
     members_evaluation.forEach((el, i)=>{
@@ -84,7 +91,8 @@ const ProjectEnd = (props) => {
     }
     dispatch(sendEvaluation(body)).then((res)=>{
       if(res.payload.success){
-        props.history.push('/my_page');
+        alert('평가 성공!');
+        window.location.replace('/my_page');
       }else{
         alert('오류가 발생했네요');
       }
@@ -99,12 +107,7 @@ const ProjectEnd = (props) => {
     onClickHandler: sendEvaluationData
   }
 
-  useEffect(() => {
-    //완성하면 주석풀기
-    // if(group_members=== null || group_members === undefined){
-    //   props.history.goBack();
-    // }
-  }, []);
+  
 
   return (
     <>

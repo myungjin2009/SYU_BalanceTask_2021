@@ -137,7 +137,7 @@
 
 ## < WOKER INVITATION >
 
-## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨 - 작성자 박건형
+## 페이지는 따로 없고, project_timeline 이나 project_notice 페이지에서 실행됨 - 작성자: 박건형
   /api/group/member => method: post ------>처리
   #### 요청 페이로드: {group, id}
   #### 응답 페이로드: {success, group_members, isLeader}
@@ -156,8 +156,8 @@
 
 ## < PROJECT END(PROJECT EVALUATION) >
   
-## 그룹 평가 페이지 - 작성자 박건형
-  /api/group/evaluation => method: post------>??
+## 그룹 평가 페이지 - 작성자: 박건형
+  /api/group/evaluation => method: post------>처리
   #### 요청 페이로드: {app_evaluation, members_evaluation, group}
   #### app_evaluation = {evaluation, point} 이 api를 보낸 유저가 이 웹앱을 평가한 데이터
   #### members_evaluation = [{evaluation, point, id, name},{evaluation, point, id, name}] 이 api를 보낸 유저가 다른 유저를 평가한 데이터
@@ -173,3 +173,8 @@
   #### 응답 페이로드: {success}
   #### group_members=[{id, name}], send_user_id 보낸 이의 아이디, group은 그룹이름
   #### 위치: [ProjectEnd](/balance_task/client/src/components/views/ProjectEvaluationPage/ProjectEvaluation.js)
+
+## 유저 평가 조회 페이지 - 작성자: 박건형
+  /api/user/my_evalueation => method: post
+  #### 요청 페이로드: {}
+  #### 응답 페이로드: {}

@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
-import { addWorker } from '../../../_actions/user_action';
+import { addWorker, dataLoad } from '../../../_actions/user_action';
 const closeModal = (setIsModal) =>{
   setIsModal(false);
 }
@@ -34,7 +34,8 @@ const AddWorker = (props) => {
     }
     dispatch(addWorker(body)).then(res =>{
       if(res.payload.success){
-        console.log('워커추가 성공');
+        alert('워커추가 성공!');
+        dispatch(dataLoad(true));
         setIsModal(false);
       }
     });

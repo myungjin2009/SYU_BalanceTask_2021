@@ -7,9 +7,8 @@ import calculateDate from './DateCalculator';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
-const handleVote = (dispatch, votes, board_no, userData, e, kind, setVote, path, group, index) => {
+const handleVote = (button_text, dispatch, votes, board_no, userData, e, kind, setVote, path, group, index) => {
   if(votes === null) return;
-  const button_text = e.target.textContent;
   if(button_text==="찬성") {
     const current_vote = votes.map((el)=>{
       if(el.user_name===userData.name && el.vote === '반대'){
@@ -121,12 +120,12 @@ const PostBlock = (props) =>{
       (
         <VotingSpace>
           <ButtonContainer>
-            <button className="ThumbUpIcon" style={{fontSize:'0'}} onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>
-              <ThumbUpIcon/>찬성
+            <button style={{fontSize:'0'}} onClick={(e)=>handleVote('찬성', dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>
+              <ThumbUpIcon/>
             </button>
             
-            <button style={{fontSize:'0'}} onClick={(e)=>handleVote(dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>
-              <ThumbDownIcon/>반대
+            <button style={{fontSize:'0'}} onClick={(e)=>handleVote('반대', dispatch, votes_list, board_no, userData, e, kind, setVote, path, group, index)}>
+              <ThumbDownIcon/>
             </button>  
           </ButtonContainer>
           <Bar>

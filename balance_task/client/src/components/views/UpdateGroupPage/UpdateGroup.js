@@ -64,6 +64,9 @@ const changeContent = (e, setContent) => {
 
 function UpdateGroup(props) {
   console.log(props);
+  if(props.location.state===undefined){
+    window.location.replace('/my_page');
+  }
   const {cardData, start_date, deadline} = props.location.state;
   const {id, title, kind, date, makehost, writer, image, postimage} = cardData;
   console.log(cardData);

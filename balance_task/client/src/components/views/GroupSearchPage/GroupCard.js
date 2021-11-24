@@ -28,8 +28,6 @@ const GroupCard = ({props, cardData}) =>{
       handleUpdate();
     }else if(number===2){ 
       handleDelete();
-    }else{
-
     }
     setAnchorEl(null);
   };
@@ -83,7 +81,6 @@ const GroupCard = ({props, cardData}) =>{
             >
               <MenuItem onClick={()=>handleClose(1)}>수정</MenuItem>
               <MenuItem onClick={()=>handleClose(2)}>삭제</MenuItem>
-              <MenuItem onClick={()=>handleClose(3)}>공유</MenuItem>
             </Menu>
           </ETC>
         )

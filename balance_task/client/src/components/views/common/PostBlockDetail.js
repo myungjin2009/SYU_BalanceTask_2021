@@ -9,6 +9,9 @@ import {useDispatch} from 'react-redux';
 import { deletePost } from '../../../_actions/group_action';
 
 function PostBlockDetail(props) {
+  if(props.location.state===undefined){
+    window.location.replace('/my_page');
+  }
   const {photo_name, content, user_name, date, votes_list, kind, profileImage} = props.location.state.user_post;
   const {match: {params: {group}}} = props;
   //console.log(props.location.state.user_post);
@@ -20,19 +23,6 @@ function PostBlockDetail(props) {
   const history = useHistory();
   const addressPath = props.match.path;
   const addressUrl = props.match.url;
-
-  const shareURL = ()=> {
-    var url = '';
-    var textarea = document.createElement("textarea");
-    document.body.appendChild(textarea);
-    url = window.document.location.href;
-    textarea.value = url;
-    textarea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textarea);
-    window.alert("URL이 복사되었습니다. 그룹에 속한 워커들만 열람이 가능합니다.");
-  }
-
 
   const confirmDelete = () => {
     if(window.confirm("게시글을 삭제하시겠습니까?")) {
@@ -71,7 +61,6 @@ function PostBlockDetail(props) {
           {userEdit && <div className="editWindow">
             <div className="list" onClick={()=>editPost()}>수 정</div>
             <div className="list" onClick={()=>confirmDelete()}>삭 제</div>
-            <div className="list" onClick={()=>shareURL()}>공 유</div>
           </div>}
         </UserEdit>}
       </UserBlock>

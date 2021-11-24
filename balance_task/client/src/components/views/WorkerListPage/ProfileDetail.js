@@ -18,7 +18,7 @@ const ProfileDetail = (props) => {
             friend_id: id, my_id: userData.id
         }
         dispatch(deleteWorker(body)).then(res => {
-            if(res.payload.success){
+            if(res.payload.server_data.success){
                 alert('워커 삭제 성공!');
             }
         });
