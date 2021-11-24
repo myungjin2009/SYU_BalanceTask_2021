@@ -6,17 +6,18 @@ import GroupCard from './GroupCard';
 import Navigation from '../Navigation/Navigation';
 import { receiveGroupCard , chooseLoadingGroup} from '../../../_actions/group_action';
 import {useDispatch, useSelector} from 'react-redux'; 
+import { setNumber } from '../../../_actions/user_action';
 
 //스크롤 내릴 때마다 새로운 정보 받기
-const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, setNumber, number)=>{
-  if(isLoading)return;
+const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, setNumber, number, selectIndex)=>{
+  if(isLoading||selectIndex!==0)return;
   const body = {
     last_number: number,
     date: new Date() 
   };
   const {target: {scrollTop, clientHeight, scrollHeight}} = e;
   // console.log(scrollTop+clientHeight);
-  // console.log(scrollHeight);
+  // console.log(scrollTop + clientHeight);
   if(Math.ceil(scrollTop + clientHeight) === scrollHeight){
     //바로 로딩 true로 설정
     console.log('됐다');
@@ -25,7 +26,7 @@ const handleScrollEvent = (e, dispatch, groups_list, isLoading,setEntireList, se
       // }, 2000);
       console.log(groups_list, res.payload.array);
       setEntireList([...groups_list,...res.payload.array]);
-      setNumber(number+10);
+      dispatch(setNumber(number));
       //console.log(entireNotice,res.payload.array)
       
     });
@@ -38,16 +39,17 @@ const GroupSearch = (props) => {
   //entireList는 data를 조작하기 위한 useState의 변수이다.
   const groups_list = useSelector(state => state.group.groups_list);
   const isLoading = useSelector(state => state.group.isLoading.group_search);
+  const number = useSelector(state => state.user.number);
   const [entireList, setEntireList] = useState(groups_list);
   const [search, setSearch] = useState('');
-  const [number, setNumber] = useState(-1);
+  // const [number, setNumber] = useState(-1);
   const [selectIndex, setSelectIndex] = useState(0);
   const dispatch = useDispatch();
   //0. 먼저 리덕스로부터 데이터를 받는다. 하지만 처음엔 없다.
   //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
   //6. 또 다시 리덕스로부터 데이터를 받는다. 이번에도 데이터가 있다.
 
-
+  
 
   useEffect(()=>{
     let mounted = true;
@@ -64,7 +66,8 @@ const GroupSearch = (props) => {
         if(response.payload.success && mounted){ // 오류 있으면 지우자
           //   // 2.로딩 해제하고 다시 리렌더링 된다.
           console.log(response);
-          setNumber(number+10);
+          // setNumber(number+10);
+        dispatch(setNumber(number));
         dispatch(chooseLoadingGroup({group_search: false}));
       }
       });
@@ -103,16 +106,24 @@ const GroupSearch = (props) => {
       console.log("현재" + selectIndex);
       const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
+      console.log("0");
+      console.log(newArray);
     }else if(kind==='학교 조별 과제'){
       setSelectIndex(1);
       console.log("현재" + selectIndex);
       const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
+      console.log("1");
+      console.log(newArray);
+
     }else if(kind==='팀 프로젝트'){
       setSelectIndex(2);
       console.log("현재" + selectIndex);
       const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
+      console.log("2");
+      console.log(newArray);
+
     }else{
       setSelectIndex(0);
       console.log("현재" + selectIndex);
@@ -137,7 +148,7 @@ const GroupSearch = (props) => {
             <LoadingBlock></LoadingBlock>
           </Main>
           :
-          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading,setEntireList, setNumber, number)}>
+          <Main onScroll={(e)=>handleScrollEvent(e, dispatch, groups_list, isLoading,setEntireList, setNumber, number, selectIndex)}>
             {
               entireList.length !== 0 ?
               entireList.map((el, index)=><GroupCard props={props} cardData={el} key={index}/>)

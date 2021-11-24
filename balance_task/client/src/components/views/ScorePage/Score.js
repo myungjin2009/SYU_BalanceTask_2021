@@ -10,16 +10,11 @@ const Score = (props) => {
   const userData = useSelector(state => state.user.userData);
   const dispatch = useDispatch();
   const [list, setList] = useState([]);
-  const [user, setUser] = useState('');
-  // if(userData===undefined){
-  //   props.history.push('/my_page');
-  //   return <React.Fragment></React.Fragment>
-  // }
   
   useEffect(()=>{
-    // if(){
-
-    // }
+    if(userData===undefined){
+      return;
+    }
     const body = {
       id: userData.id
     }
@@ -28,8 +23,12 @@ const Score = (props) => {
         setList(res.payload.array);
       }
     });
-  },[]);
-
+  },[userData]);
+  
+  if(userData===undefined){
+    props.history.push('/my_page');
+    return <React.Fragment></React.Fragment>
+  }
   const header_obj = {
     title: `${userData.name}님의 평가 히스토리`,
   }

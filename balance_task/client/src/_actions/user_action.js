@@ -17,7 +17,8 @@ import {
   ADD_WORKER_IN_GROUP,
   DELETE_WORKER,
   SET_PROJECT_LIST,
-  GET_EVALUATION
+  GET_EVALUATION,
+  SET_NUMBER
 } from "./types";
 //로그인 할 때
 export function loginUser(dataToSubmit) {
@@ -208,6 +209,13 @@ export function getEvaluation(dataToSubmit){
 
   return {
     type: GET_EVALUATION,
+    payload: request
+  }
+}
+
+export function setNumber(request){
+  return {
+    type: SET_NUMBER,
     payload: request
   }
 }

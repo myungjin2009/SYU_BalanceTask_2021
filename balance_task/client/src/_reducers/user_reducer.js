@@ -16,7 +16,8 @@ import {
   ADD_WORKER_IN_GROUP,
   DELETE_WORKER,
   SET_PROJECT_LIST,
-  GET_EVALUATION
+  GET_EVALUATION,
+  SET_NUMBER
 } from "../_actions/types";
 import Default_Profile from "../images/profile_sample.jpg";   //기본 프사
 // import hanium_logo from '../images/hanium_logo.jpg';
@@ -52,7 +53,8 @@ const initialState = {
   isLoading: true,
   isDataLoading : true,
   workerNum: -1,
-  members:[]
+  members:[],
+  number: -1
 }
 
 export default function reducer(state = initialState, action) {
@@ -149,6 +151,9 @@ export default function reducer(state = initialState, action) {
     case GET_EVALUATION: {
       return state;
       // id, membername, group_name, point, content, myname   
+    }
+    case SET_NUMBER: {
+      return {...state, number:action.payload+10}
     }
     default:
       return state;
