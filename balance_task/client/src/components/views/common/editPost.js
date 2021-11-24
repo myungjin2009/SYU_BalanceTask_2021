@@ -11,13 +11,10 @@ import {useSelector} from 'react-redux';
 function EditPost(props) {
   const userData = useSelector(state => state.user.userData);
   const location = useLocation();
-  //console.log(location.state.data); //전 페이지 게시글 데이터 가져오기
   const {match: {params: {group}}} = props;
-  const [images, setImages] = useState(location.state.data.image);
   const [category, setcategory] = useState((location.state.data.kind == "timeLine") ? "타임라인" : "공지사항");
   const [content, setContent] = useState(location.state.data.content);
-  const [detailImageFile, setDetailImageFile] = useState([]);
-  console.log(location.state.data);
+  //console.log(location.state.data);
   useEffect(()=>{
   },[userData]);
 
@@ -26,25 +23,13 @@ function EditPost(props) {
   };
   
   const onClickHandler = async() =>{
-    if(category == "no selected") {
-      return alert('게시판을 선택하세요');
-    }
-    else if(images.length === 0){
-      return alert('사진을 필수적으로 올려주세요');
-    }
-    
+
     const formData = new FormData();
-    //사진을 여러 개로 보낼 때는 같은 이름으로 for문 써서 보내기
-    //서버에서는 multer를 이용해서 .array()함수를 써야 req.files로 받을 수 있다.
-    for(let i = 0; i<detailImageFile.length; i++){
-      console.log(detailImageFile[i]);
-      formData.append('image', detailImageFile[i]);
-    }
     formData.append('category', category);
     formData.append('content', content);
-    formData.append('id', userData.id);
-    formData.append('group', group);
-    formData.append('historyData',location.state.data);
+    formData.append('board_id', location.state.data.id);
+    formData.append('user_id', userData.id);
+    formData.append('group_name', group);
     const config = {
       'content-type': 'multipart/form-data'
     }
@@ -82,14 +67,9 @@ function EditPost(props) {
           value={category}
           onChange={(e) => changeCategory(e, setcategory)}
         >
-          <MenuItem value="no selected" disabled selected>게시판을 선택하세요</MenuItem>
-          <MenuItem value="타임라인">타임라인</MenuItem>
-          <MenuItem value="공지사항">공지사항</MenuItem>
+          <MenuItem value={category} disabled>{category}</MenuItem>
         </Select>
       </Category>
-    
-    <DropZone margin="5vh 0 0 0" images={images} detailImageFile={detailImageFile} setDetailImageFile={setDetailImageFile} setImages={setImages}/>
-    
     <Content>
       <textarea
         value={content}
@@ -98,8 +78,6 @@ function EditPost(props) {
         onChange={(e) => changeContent(e, setContent)}
       ></textarea>
     </Content>
-
-      
     </>
   );
 }
