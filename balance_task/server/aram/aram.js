@@ -14,8 +14,9 @@ let arams= (req, res, next) => {
     var parampoint=rows[0]['evaluation_score']
     console.log(req.body);
     var paramgroup_name = req.body.group;
+    var parammsg=req.body.message;         //msg
     console.log(req.body.group);
-      const sql4="select * from `groups` where group_name='"+paramgroup_name+"'"
+      const sql4="select * from `groups` where group_name='"+paramgroup_name+"'"   
       console.log(sql4);
       sql.pool.query(sql4,(err,rows,fields)=>{
         console.log(rows);
@@ -25,7 +26,7 @@ let arams= (req, res, next) => {
         var no=rows[0]['max(aram_no)']+1;    
         var time=moment().format('YYYY-MM-DD HH:mm:ss');
 
-        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group_name:paramgroup_name, sendtime:time, notsend:0, point:parampoint };
+        var data = {aram_no:no, senduser:senduser, receiveuser:receiveuser, group_name:paramgroup_name, sendtime:time, notsend:0, point:parampoint, msg:parammsg  };
 
         const sql1 = "insert into aram set ?; ";
         //const sql2 = "SELECT * FROM vote; ";

@@ -301,6 +301,7 @@ app.post("/api/group/search_card", upload.array('image'),group_search, (req, res
   if(req.array===undefined){
     res.status(200).json({
       success: true,
+      array:[]
     });
     return ;
   }
@@ -337,7 +338,7 @@ app.delete("/api/group/search_card", groupdelete,(req, res) => {
   });
 });
 
-app.post("/api/group/create_group", group_add,(req,res)=>{
+app.post("/api/group/create_group",group_add,(req,res)=>{
   console.log("그룹 추가");
   res.status(200).json({
     success: true,
