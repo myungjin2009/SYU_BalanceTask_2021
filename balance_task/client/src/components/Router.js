@@ -81,7 +81,7 @@ const Router = (props) => {
         <Route exact path="/my_page/notice" component={Auth(NoticePage, true)} />
         <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
         <Route exact path="/editProfileImage" component={Auth(EditProfileImage, true)} />
-        <Route exact path="/Score" component={Auth(ScorePage, true)} />
+        <Route exact path="/score" component={Auth(ScorePage, true)} />
         <Route
           exact
           path="/group_search"

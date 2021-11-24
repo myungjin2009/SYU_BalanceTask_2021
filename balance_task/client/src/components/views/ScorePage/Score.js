@@ -1,23 +1,44 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import ScoreBlock from './ScoreBlock';
+import { getEvaluation } from '../../../_actions/user_action';
 
 const Score = (props) => {
+  const userData = useSelector(state => state.user.userData);
+  const dispatch = useDispatch();
+
+  // if(userData===undefined){
+  //   props.history.push('/my_page');
+  //   return <React.Fragment></React.Fragment>
+  // }
+  
+  useEffect(()=>{
+    const body = {
+      id: userData.id
+    }
+    dispatch(getEvaluation(body)).then(res=>{
+      
+    });
+  },[]);
 
   const {list} = props;
 
   const header_obj = {
-    title: "박건형의 평가 히스토리",
+    title: `${userData.name}님의 평가 히스토리`,
   }
   
   return(
-    <Container>
+    <>
       <Header {...header_obj}/>
-      <ShowBlock>
-        {list && list.map((el, i) => <ScoreBlock key={i} el={el} />)}
-      </ShowBlock>
-    </Container>
+      <Container>
+        <ShowBlock>
+          {list && list.map((el, i) => <ScoreBlock key={i} el={el} />)}
+        </ShowBlock>
+      </Container>
+    </>
   );
 }
 
@@ -51,6 +72,7 @@ Score.defaultProps = {
 }
 
 const Container = styled.div`
+  margin: 0 6px;
   height: 100vh;
 `;
 
@@ -59,4 +81,4 @@ const ShowBlock = styled.div`
   width: 100%;
 `;
 
-export default Score;
+export default withRouter(Score);
