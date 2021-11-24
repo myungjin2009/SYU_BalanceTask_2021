@@ -27,7 +27,7 @@ let receive_message = (req, res, next) => {
             //     return;
             // }
            
-            var sql2="select a.receiveuser as id, u.name , a.group_name  from aram a, user u where u.id=a.receiveuser and a.content=2 and a.group_name='"+req.groupname+"';"
+            var sql2="select g.user as id, u.name , g.group_name  from groupusers g, user u, aram a where u.id=g.user and g.group_name=a.group_name and a.content=2 and g.group_name='"+req.groupname+"';"
              //console.log(sql2);
              sql.pool.query(sql2,(err,rows,fields)=>{
                 console.log(rows);

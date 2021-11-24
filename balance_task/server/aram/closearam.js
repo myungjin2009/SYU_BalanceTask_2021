@@ -18,6 +18,7 @@ const moment=require("moment");
     
     console.log(req.body);
     let no=0;
+    let data3;
     paramgroup_member.forEach((info,index,newarray) => {  
         req.id=info.id;
 
@@ -29,10 +30,23 @@ const moment=require("moment");
         let Stime=time.toString();
         
         var data2 = ("('"+Sparamleader +"','"+ SId +"','"+ time +"','" +Sgrouop +"',2,1)");
+        data3 = ("('"+Sparamleader +"','"+ Sparamleader +"','"+ time +"','" +Sgrouop +"',2,1)");
         no++;
     
         array.push(data2);
     })
+
+            // const sql19 = "INSERT INTO aram(senduser, receiveuser, sendtime, group_name, content, notsend) VALUES "+data3+";"
+            // console.log(str);
+            // sql.pool.query(sql19, (err, rows, fields) => {
+            //     if (err) {
+            //     console.log(err);
+            //     console.log("오류");
+            //     } else { 
+            //     console.log("자신에거 문자 발신");
+            
+            //     }
+            // });
     
         //const sql2 = "SELECT * FROM vote; ";
         var replaced = array.toString().replace(/\[.*\]/g,'');
@@ -48,6 +62,8 @@ const moment=require("moment");
             next();
             }
         });
+
+    
 
     // for(i=0;i<paramgroup_member.length;i++){
     //   console.log(paramgroup_member[i].id);
