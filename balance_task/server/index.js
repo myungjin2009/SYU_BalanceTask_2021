@@ -44,7 +44,7 @@ require("dotenv").config();
 const cookie = require("cookie");
 
 //건형이 채팅
-const httpServer = require("https").createServer();
+const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
   cors: {
     origins: "*:*",
