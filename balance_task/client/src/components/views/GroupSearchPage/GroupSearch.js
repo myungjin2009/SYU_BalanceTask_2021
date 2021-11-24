@@ -68,13 +68,14 @@ const GroupSearch = (props) => {
       });
 
     }else{
-      const newArray = entireList.filter((el)=>el.title===search);
+      const newArray = groups_list.filter((el)=> el.title===search);
       if(newArray.length===0){
         if(search===''){
           //4. 현재 isLoading은 false이기에 서버로부터 데이터를 더는 안가져온다. 
           // entireList에는 데이터가 없는 상태이므로 리덕스 안에 있는 데이터를 entireList에 넣는다.
           setEntireList(groups_list);
         }else{
+          console.log(newArray);
           setEntireList(newArray);
         }
         return;
