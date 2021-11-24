@@ -40,6 +40,7 @@ const GroupSearch = (props) => {
   const [entireList, setEntireList] = useState(groups_list);
   const [search, setSearch] = useState('');
   const [number, setNumber] = useState(-1);
+  const [selectIndex, setSelectIndex] = useState(0);
   const dispatch = useDispatch();
   //0. 먼저 리덕스로부터 데이터를 받는다. 하지만 처음엔 없다.
   //3. 또 다시 리덕스로부터 데이터를 받는다. 이번엔 데이터가 있다.
@@ -97,15 +98,23 @@ const GroupSearch = (props) => {
 
   const onClickHandler = (kind) =>{
     if(kind==='스터디'){
+      setSelectIndex(3);
+      console.log("현재" + selectIndex);
       const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
     }else if(kind==='학교 조별 과제'){
+      setSelectIndex(1);
+      console.log("현재" + selectIndex);
       const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
     }else if(kind==='팀 프로젝트'){
+      setSelectIndex(2);
+      console.log("현재" + selectIndex);
       const newArray = groups_list.filter(el => el.kind===kind);
       setEntireList(newArray);
     }else{
+      setSelectIndex(0);
+      console.log("현재" + selectIndex);
       setEntireList(groups_list);
     }
   }
@@ -114,10 +123,10 @@ const GroupSearch = (props) => {
     <Container>
       <GroupSearchHeader search={search} setSearch = {setSearch} />
       <Category>
-        <Block onClick={() => onClickHandler('')}>전체</Block>
-        <Block onClick={() => onClickHandler('학교 조별 과제')}>학교 조별 과제</Block>
-        <Block onClick={() => onClickHandler('팀 프로젝트')}>팀 프로젝트</Block>
-        <Block onClick={() => onClickHandler('스터디')}>스터디</Block>
+        <Block index={0} selectIndex={selectIndex} onClick={() => onClickHandler('')}>전체</Block>
+        <Block index={1} selectIndex={selectIndex} onClick={() => onClickHandler('학교 조별 과제')}>학교 조별 과제</Block>
+        <Block index={2} selectIndex={selectIndex} onClick={() => onClickHandler('팀 프로젝트')}>팀 프로젝트</Block>
+        <Block index={3} selectIndex={selectIndex} onClick={() => onClickHandler('스터디')}>스터디</Block>
       </Category>
         {
           isLoading ? 
@@ -161,21 +170,20 @@ const Container = styled.div`
 
 const Category = styled.div`
   width: 100%;
-  height: 5.5vh;
+  height: 4.5vh;
   display: flex;
-  justify-content: space-around;
+  
+  border-radius: 1.5vh;
+  overflow: hidden;
 `;
 
 const Block = styled.div`
-  display: inline-block;
-  width: 80px;;
-  height: 4.5vh;
-  text-align: center;
+  width: 25%;
   background: #eee;
-  border-radius: 30px;
+  text-align: center;
+  line-height: 4.25vh;
   font-size: 1.5vh;
-  line-height: 300%; 
-  color: #333;
+  background-color: ${({index, selectIndex}) => (index == selectIndex) ? 'rgb(95,208,241)' : 'rgb(157,226,247)'};
 `
 
 const Main = styled.main`

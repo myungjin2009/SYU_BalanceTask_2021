@@ -55,7 +55,7 @@ const GroupCard = ({props, cardData}) =>{
   }
 
   return(
-    <Container >
+    <Container>
       <Main onClick={()=>{
         props.history.push('/group_search/'+title, {
           ...cardData ,start_date, deadline
@@ -97,9 +97,9 @@ const Container = styled.div`
   position:relative;
   display: flex;
   flex-direction: column;
-  width: 95%;
+  width: 100%;
   max-height: 300px;
-  padding: 10px;
+  
   margin: 5px;
   border: 1px solid #aaa;
   border-radius: 10px;

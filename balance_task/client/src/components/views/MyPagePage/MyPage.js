@@ -8,6 +8,9 @@ import Project from "./Project";
 import { useSelector, useDispatch } from "react-redux";
 import { chooseLoading, receiveProjectMypage } from "../../../_actions/user_action";
 import Notice from "../common/Notice";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import SettingsIcon from '@material-ui/icons/Settings';
+import EditIcon from '@material-ui/icons/Edit';
 
 const receiveMyPageData = (dispatch, setMyPageData, setIsNotice, mounted) =>{
   dispatch(receiveProjectMypage()).then(res => {
@@ -89,10 +92,7 @@ const MyPage = (props) => {
               state: {image: ProfileImage}
             })} >
               {detailImageUrl ? <UserProfile url = {detailImageUrl}></UserProfile>:<img className="Profile" alt="Image" src={ProfileImage} />}
-              <div className="EditProfile">
-                <i className="fas fa-user-circle"></i>
-                <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} />
-              </div>
+              {/* <input type="file" ref={ImgBtn} id="input_file" style={{display:"none"}} accept='image/*' name='file' onChange={profileImgChange} /> */}
             </div>
     
             
@@ -110,29 +110,27 @@ const MyPage = (props) => {
                 </div>
               </div>
             </div>
-    
-            <div className="icon_container">
-              <div className="icons">
-                <i className="fas fa-bell" onClick={()=>{props.history.push('/my_page/notice')}}></i>
-                <i className="fas fa-cog" onClick={()=>{props.history.push('/settings')}}></i>
-              </div>
-            </div>
-            
           
           </Header>
+
           <Introduce>
-            <div className="profileIntroduce">프로필 소개</div>
-            <div className = "profileMessage" >{ProfileMessage}</div>
-            <div className = "editIcon" onClick={() => {
-              history.push(`/EditProfileMessage/${ProfileMessage}`)
-              }}>
-              <i className="far fa-edit"></i>
+            <div className="ProfileHeader">
+              <NotificationsIcon className="icon" onClick={()=>{props.history.push('/my_page/notice')}}/>
+              <div className="profileIntroduce">프로필</div>
+              <SettingsIcon className="icon" onClick={()=>{props.history.push('/settings')}}/>
+            </div>
+            <div className="ProfileContent">
+              <div className = "profileMessage" >{ProfileMessage}</div>
+              <div className = "editIcon">
+                <EditIcon onClick={() => {history.push(`/EditProfileMessage/${ProfileMessage}`)}}/>
+              </div>
             </div>
           </Introduce>
-          {isNotice && <Notice handleOnClick={() => {props.history.push('/my_page/notice')}}/>}
-          <Working>참여한 프로젝트</Working>
+
+          {isNotice && <Notice handleOnClick={() => {props.history.push('/my_page/notice')}}></Notice>}
+          
+          <Working>참여중인 프로젝트</Working>
           {(test1.length != 0) ? test1 : 
-            <div>
               <NoGroup>
                   <div className="NoWorkerIcon">
                       <i className="fas fa-business-time"></i>    
@@ -143,7 +141,6 @@ const MyPage = (props) => {
                     <i className="fas fa-sort-down"></i>
                   </div>
               </NoGroup>
-          </div>
           }
           <Navigation />
         </>)
@@ -167,11 +164,12 @@ const Container = styled.div`
 `;
 const UserProfile = styled.div`
   background-image: url('${(props) => props.url}');
-  width: 12vh;
-  height: 12vh;
+  width: 10vh;
+  height: 10vh;
   border-radius: 50%;
   background-size: cover;
   border: 2px solid white;
+  left: 6px;
 `;
 const WorkingBlock = styled.div`
   margin-top: 3vh;
@@ -197,19 +195,10 @@ const Header = styled.div`
     & > .Profile {
       border: 2px solid white;
       overflow: hidden;
-      width: 12vh;
-      height: 12vh;
+      width: 10vh;
+      height: 10vh;
       border-radius: 50%;
-    }
-    & > .EditProfile {
-      position: absolute;
-      font-size: 4vh;
-      top: 85%;
-      left: 24%;
-      transform:translate(-24%, -85%);
-    }
-    & > .EditProfile:active{
-      color: white;
+      left: 6px;
     }
   }
   & > .profile_DETAIL {
@@ -217,19 +206,19 @@ const Header = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 36%;
+    width: 40%;
     height: 100%;
     float: left;
     & > .name {
-      font-size: 4vh;
+      font-size: 3.5vh;
     }
     & > .info {
-      font-size: 2vh;
+      font-size: 1.7vh;
     }
   }
   & > .profile_REPUTATION {
     position: relative;
-    width: 26%;
+    width: 30%;
     height: 100%;
     float: left;
     font-size: 4vh;
@@ -237,21 +226,21 @@ const Header = styled.div`
       border: 2px solid black;
       position: absolute;
       text-align: center;
-      width: 12vh;
-      height: 12vh;
+      width: 10vh;
+      height: 10vh;
       top: 50%;
       left: 50%;
       transform:translate(-50%, -50%);
       background-color: white;
       border-radius: 50%;
       font-size: 2vh;
-      line-height: 8vh;
+      line-height: 6vh;
       overflow:hidden;
       & > .Score_display {
         position: absolute;
         left:50%;
         top: 0%;
-        transform:translate(-50%, 40%);
+        transform:translate(-50%, 50%);
         font-size: 3vh;
       }
       & > .Score_color {
@@ -288,42 +277,51 @@ const Header = styled.div`
 const Introduce = styled.form`
   border-radius: 15px;
   height: 13vh;
-  margin-top: 2vh;
+  margin: 2vh 6px 0 6px;
   background-color: rgb(214,214,214);
   position: relative;
   overflow: hidden;
   animation: ${blinkEffect} 0.8s ease-in-out infinite;
   ${({isLoading})=> !isLoading && "animation: none"};
   
-  & > .profileIntroduce {
-    background-color: rgb(185,185,185);
-    position: relative;
-    text-align: center;
-    line-height: 5vh;
-    font-size: 3vh;
-    height: 40%;
-  }
-  & > .profileMessage {
-    position: absolute;
-    width: 80%;
-    height: 60%;
-    left: 2%;
+  & > .ProfileHeader{
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(185,185,185);
+    height: 40%;
+    & > .profileIntroduce {
+      font-size: 2.5vh;
+    }
+    & > .icon {
+      font-size: 4vh;
+      margin: 0 1vh 0 1vh;
+      & : active{
+        color: white;
+      }
+    }
+  }
+  & > .ProfileContent {
+    display: flex;
+    width: 100%;
+    height: 60%;
     align-items: center;
     justify-content: center;
-    font-family: 'Gamja Flower', cursive;
-    font-size: 3vh;
-    text-align: center;
-  }
-  & > .editIcon {
-    position: absolute;
-    top: 44%;
-    left: 87%;
-    background-color: transparent;
-    font-size: 4vh;
-  }
-  & > .editIcon:active{
-    color: white;
+    & > .profileMessage {
+      margin: 0 1vh 0 1vh;
+      font-family: 'Gamja Flower', cursive;
+      font-size: 2.5vh;
+      text-align: center;
+    }
+    & > .editIcon {
+      margin: 0 1vh 0 1vh;
+      background-color: transparent;
+      font-size: 4vh;
+    }
+    & > .editIcon:active{
+      color: white;
+    }
   }
 `;
 
@@ -363,13 +361,13 @@ const NoGroup = styled.div`
 `;
 
 const Working = styled.div`
-  margin-top: 2vh;
+  margin: 2vh 6px 0 6px;
   height: 5.5vh;
   background-color: rgba(199,229,251);
   text-align: center;
-  font-size: 3vh;
+  font-size: 2.5vh;
   border-radius: 15px 15px 0 0;
-  border-bottom: 2px solid gray;
+  border-bottom: 2px solid rgb(210,210,210);
   line-height: 5.5vh;
 `;
 
