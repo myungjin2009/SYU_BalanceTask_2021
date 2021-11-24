@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import {useDispatch} from 'react-redux';
-
+import UpdateIcon from '@material-ui/icons/Update';
 import HidingMenu from '../HidingMenu/HidingMenu';
 import { receiveMember } from '../../../_actions/group_action';
 
@@ -110,6 +110,9 @@ const GroupHeader = (props) =>{
         <div ref={timeline} className="blueBtn" onClick={()=>handleTimeline(props,group)}><i className="far fa-clock"></i>타임라인</div>
         <div ref={notice} className="grayBtn" onClick={()=>handleNotice(props,group)}><i className="fas fa-exclamation-triangle"></i>공지사항</div>
       </Content>
+      <UpdateButton onClick={()=>window.location.reload()}>
+        <UpdateIcon />
+      </UpdateButton>
     </Container>
   )
 }
@@ -216,4 +219,11 @@ const Input = styled.div`
     }
   }
 `
+const UpdateButton = styled.span`
+  position: fixed;
+  top: 3vh;
+  left: 2vw;
+  display: inline-block;
+  cursor: pointer;
+`;
 export default withRouter(GroupHeader);

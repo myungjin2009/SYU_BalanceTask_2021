@@ -79,7 +79,7 @@ const WorkerList = (props) => {
 const Container = styled.div`
   width: 100vw;
   height: 92vh;
-  min-width: 375px;
+  min-width: 320px;
 `;
 
 const Header = styled.div`

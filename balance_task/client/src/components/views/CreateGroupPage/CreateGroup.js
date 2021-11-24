@@ -190,7 +190,7 @@ function CreateGroup(props) {
         />
       </Deadline>
       <Input>
-        <label>하이라이트: </label>
+        <label>한줄소개: </label>
         <input
           type="text"
           value={highlight}
