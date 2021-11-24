@@ -63,7 +63,7 @@ const GroupCard = ({props, cardData}) =>{
       }}>
         <Img image={image}></Img>
         <Content>
-          <Title>팀: <span>{title}</span></Title>
+          <Title><span>{title}</span></Title>
           <P>{highlight}</P>
         </Content>
       </Main>
@@ -86,8 +86,8 @@ const GroupCard = ({props, cardData}) =>{
         )
       }
       <Default>
-        <DefaultContent><span>작성자</span>: {writer} &nbsp;</DefaultContent>
-        <DefaultContent><span>기간</span>: {start_date} ~ {deadline} </DefaultContent>
+        <DefaultContent><span className="left">{writer} </span></DefaultContent>
+        <DefaultContent><span className="right">{start_date} ~ {deadline} </span></DefaultContent>
       </Default>
     </Container>
   );
@@ -98,9 +98,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 300px;
+  max-height: 350px;
   
-  margin: 5px;
+  margin: 7px;
   border: 1px solid #aaa;
   border-radius: 10px;
   background: #eee;
@@ -121,6 +121,7 @@ const Img = styled.div`
   background-position: center;
   background-size: cover;
   border-radius: 35px;
+  margin: 2vh 0 0 1.5vh;
   border: 2px solid #cfd8dc;
 `;
 
@@ -129,15 +130,16 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
-  padding: 10px;
+  width: 63%;
+  
   &>div{
-    margin:10px 0;
+    margin:15px 0 10px 5px;
   }
 `;
 
 const ETC = styled.div`
   position: absolute;
+  top: 10%;
   right: 2%;
   height: 30px;
   width: 30px;
@@ -150,11 +152,9 @@ const ETC = styled.div`
 
 const Title = styled.div`
   width: 100%;
-  padding: 3px;
+  padding-top: 1vh;
   &>span{
-    background: white;
-    padding: 0 10px;
-    border-radius: 5px;
+    
   }
 `;
 
@@ -166,7 +166,8 @@ const P =styled.p`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     background: white;
-    padding: 8px 10px;
+    padding: 4px 10px;
+    margin-bottom: 1.5vh;
     border-radius: 5px;
 `
 
@@ -178,10 +179,18 @@ const Default = styled.div`
 const DefaultContent = styled.span`
   padding: 3px;
   color: #263238;
-  &>span{
-    font-weight: 700;
-    font-size: 11px;
-    color: #555;
+  font-weight: bold;
+  font-size: 11px;
+  color: #555;
+  &> .left{
+    float: left;
+    margin-left: 2vh;
+    margin-bottom: 1vh;
+  }
+  &> .right{
+    float: right;
+    margin-right: 2vh;
+    margin-bottom: 1vh;
   }
 `;
 
