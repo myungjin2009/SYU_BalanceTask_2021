@@ -47,18 +47,20 @@ const cookie = require("cookie");
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
   cors: {
-    origins: "*:*",
+    origin: "*",
     methods: ["GET", "POST"],
+    // allowedHeaders: ["my-custom-header"],
+    credentials: true
   },
-  handlePreflightRequest: (req, res) => {
-    const headers = {
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-        "Access-Control-Allow-Credentials": true
-    };
-    res.writeHead(200, headers);
-    res.end();
-}
+//   handlePreflightRequest: (req, res) => {
+//     const headers = {
+//         "Access-Control-Allow-Headers": "Content-Type, Authorization",
+//         "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+//         "Access-Control-Allow-Credentials": true
+//     };
+//     res.writeHead(200, headers);
+//     res.end();
+// }
 });
 
 // const httpServer = require("http").createServer();
