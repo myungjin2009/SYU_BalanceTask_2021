@@ -62,7 +62,6 @@ const io = require("socket.io")(httpServer, {
 //     res.end();
 // }
 });
-
 // const httpServer = require("http").createServer();
 // const io = require("socket.io")(httpServer, {
   
@@ -127,7 +126,7 @@ io.on("connection", function(socket){
   
 });
 
-httpServer.listen(80);
+httpServer.listen(49152);
 //=========================================================chat============================================================
 
 //로그인 , 유저 관련 모듈
