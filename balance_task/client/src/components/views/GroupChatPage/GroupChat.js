@@ -11,7 +11,7 @@ import ChatBlock from "./ChatBlock";
 
 
 const GroupChat = (props) => {
-  const socket = io.connect("54.180.156.255:80",{
+  const socket = io.connect("54.180.156.255:3000",{
     cors:{
       origin:"*"
     }
