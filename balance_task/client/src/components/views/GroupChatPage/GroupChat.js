@@ -11,7 +11,11 @@ import ChatBlock from "./ChatBlock";
 
 
 const GroupChat = (props) => {
-  const socket = io.connect("http://www.syumj.shop:80");
+  const socket = io.connect("http://localhost:80",{
+    cors:{
+      origin:"*"
+    }
+  });
   const {match:{params:{group}}} = props;
 
   const container_ref = useRef(null);
