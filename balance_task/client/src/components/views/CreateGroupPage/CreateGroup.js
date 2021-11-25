@@ -305,12 +305,12 @@ const Category = styled.div`
 const Deadline = styled.div`
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 25px;
   & > label {
     margin-right: 3vw;
     font-size: 20px;
     flex-grow: 1;
-    width: 30%;
+    width: 25%;
   }
 `;
 const PhotoInput = styled.div`
