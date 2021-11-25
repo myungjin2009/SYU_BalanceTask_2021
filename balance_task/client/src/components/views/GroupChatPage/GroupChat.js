@@ -15,7 +15,6 @@ const GroupChat = (props) => {
     cors:{
       origin:"*"
     },
-    secure:true
   });
   const {match:{params:{group}}} = props;
 

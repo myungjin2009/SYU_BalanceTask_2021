@@ -63,6 +63,11 @@ const io = require("socket.io")(httpServer, {
 // }
 });
 
+const corsOptions={
+  origin:'54.180.156.255'
+};
+
+app.use(cors(corsOptions));
 // const httpServer = require("http").createServer();
 // const io = require("socket.io")(httpServer, {
   
