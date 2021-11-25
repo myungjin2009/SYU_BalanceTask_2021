@@ -344,11 +344,11 @@ const NoGroup = styled.div`
       color: rgb(255,179,128);
     }
     & > .NoWorkerMessage {
-      font-size: 3vh;
+      font-size: 2vh;
       font-weight: bold;
     }
     & > .RecommendMessage {
-      font-size: 2.5vh;
+      font-size: 1.5vh;
       margin-top: 1.5vh;
     }
     & > .RecommendArrow{
