@@ -14,7 +14,8 @@ const GroupChat = (props) => {
   const socket = io.connect("54.180.156.255:49152",{
     cors:{
       origin:"*"
-    }
+    },
+    secure:true
   });
   const {match:{params:{group}}} = props;
 
