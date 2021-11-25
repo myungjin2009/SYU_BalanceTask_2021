@@ -344,18 +344,18 @@ const NoGroup = styled.div`
       color: rgb(255,179,128);
     }
     & > .NoWorkerMessage {
-      font-size: 2vh;
+      font-size: 2.3vh;
       font-weight: bold;
     }
     & > .RecommendMessage {
-      font-size: 1.5vh;
+      font-size: 1.8vh;
       margin-top: 1.5vh;
     }
     & > .RecommendArrow{
       opacity: 0.5;
       font-size: 5vh;
       color: rgba(74,171,242);
-      margin-top: 5vh;
+      margin-top: 6.5vh;
       animation: ${ArrowMove} 0.5s 1s 10 ease alternate;
     }
 `;
