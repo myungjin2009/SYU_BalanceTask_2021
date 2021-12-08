@@ -29,20 +29,14 @@
 ## 서비스 구성도
 ![서비스_구성도](images/서비스구성도.png)
 
-# RestAPI
-로그인페이지 - /api/user => method: post, /api/kakao_user => method: post 
-회원가입페이지 - /api/user_email => method: post, /api/signup => method: post
-아이디 찾기페이지 - /api/user_email => method: post, /api/finding_password => method: post, /api/password_changing => method: post
-마이페이지 - /api/user/receive_mypage => method: post, /api/user/update_mypage/message => method: post, /api/user/update_mypage/photo => method: post
-워커리스트 - /api/user/load_worker => method: post
 
 # 진행 상황
 - [ x ]자체 인증처리
-- [ ]채팅(개인, 그룹)
+- [ x ]채팅(그룹)
 - []로그인api
-- []aws ec2(호스팅 및 데이터베이스 세팅)
-- []https 적용하기
-- []도메인 사기
+- [ x ]aws ec2(호스팅 및 데이터베이스 세팅)
+- [ x ]https 적용하기
+- [ x ]도메인 사기
 - []FCM 적용하기
-- []PWA 적용하기
+- [ x ]PWA 적용하기
 
