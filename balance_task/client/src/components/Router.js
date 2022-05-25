@@ -60,10 +60,6 @@ import GroupCalendar from "./views/GroupCalendar/GroupCalendar";
 //그룹챗 페이지
 import GroupChat from './views/GroupChatPage/GroupChat';
 
-//프론트엔드 개발 공간
-import Prac from "./practice";
-import MJPractice from './MJpractice';
-
 //NotFound 페이지
 import NotFound from "./views/NotFoundPage/NotFound";
 import Image from "./views/common/Image";
@@ -75,8 +71,6 @@ const Router = (props) => {
         <Route exact path="/" component={Auth(Login, false)} />
         <Route path="/signup" component={Auth(Signup, false)} />
         <Route path="/finding_password" component={Auth(FindingPW, false)}/>
-        <Route path="/practice" component={Prac}/>
-        <Route exact path = "/MJPractice" component = {Auth(MJPractice, true)} />
         <Route exact path="/my_page" component={Auth(MyPage, true)} />
         <Route exact path="/my_page/notice" component={Auth(NoticePage, true)} />
         <Route exact path="/editProfileMessage/:message" component={Auth(EditProfileMessage, true)} />
